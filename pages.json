@@ -1,0 +1,100 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "登录授权"
+			}
+		}
+	    ,
+		// {
+  //           "path" : "pages/shouye/shouye",
+  //           "style" :                                                                                    
+  //           {
+  //               "navigationBarTitleText": "首页",
+  //               "enablePullDownRefresh": false
+  //           }
+            
+  //       },
+		{
+            "path" : "pages/wenxuexi/wenxuexi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问学习",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/wenxiaokao/wenxiaokao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问校考",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/wenluqu/wenluqu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问录取",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/gerenzhongxin/gerenzhongxin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+"tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+  //     {
+  //       "pagePath": "pages/shouye/shouye",
+		// "selectedIconPath":"./static/logo.png",
+		// "iconPath":"./static/logo.png",
+		// "text":"首页"
+  //     },
+	  {
+	    "pagePath": "pages/wenxuexi/wenxuexi",
+	  		"selectedIconPath":"./static/logo.png",
+	  		"iconPath":"./static/logo.png",
+	  		"text":"问学习"
+	  },
+      {
+        "pagePath": "pages/wenxiaokao/wenxiaokao",
+		"selectedIconPath":"./static/logo.png",
+		"iconPath":"./static/logo.png",
+		"text":"问校考"
+      },
+      {
+        "pagePath": "pages/wenluqu/wenluqu",
+		"selectedIconPath":"./static/logo.png",
+		"iconPath":"./static/logo.png",
+		"text":"问录取"
+      },
+      {
+        "pagePath": "pages/gerenzhongxin/gerenzhongxin",
+		"selectedIconPath":"./static/logo.png",
+		"iconPath":"./static/logo.png",
+		"text":"个人中心"
+      }
+    ]
+  },
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

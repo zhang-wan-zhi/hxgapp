@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/wenxuexi/wenxuexi",
+    "pages/wenxiaokao/wenxiaokao",
+    "pages/wenluqu/wenluqu",
+    "pages/gerenzhongxin/gerenzhongxin"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/wenxuexi/wenxuexi",
+        "selectedIconPath": "./static/logo.png",
+        "iconPath": "./static/logo.png",
+        "text": "问学习"
+      },
+      {
+        "pagePath": "pages/wenxiaokao/wenxiaokao",
+        "selectedIconPath": "./static/logo.png",
+        "iconPath": "./static/logo.png",
+        "text": "问校考"
+      },
+      {
+        "pagePath": "pages/wenluqu/wenluqu",
+        "selectedIconPath": "./static/logo.png",
+        "iconPath": "./static/logo.png",
+        "text": "问录取"
+      },
+      {
+        "pagePath": "pages/gerenzhongxin/gerenzhongxin",
+        "selectedIconPath": "./static/logo.png",
+        "iconPath": "./static/logo.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "uniStatistics": {
+    "enable": false
+  },
+  "usingComponents": {}
+}

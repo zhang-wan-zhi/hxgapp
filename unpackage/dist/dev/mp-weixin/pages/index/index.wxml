@@ -1,0 +1,1 @@
+<view class="content"><image class="logo" src="/static/logo.png"></image><view class="text-area"><text class="title">{{title}}</text></view><button open-type="getUserInfo" lang="zh_CN" data-event-opts="{{[['getuserinfo',[['onGotUserInfo',['$event']]]]]}}" bindgetuserinfo="__e">获取用户信息</button></view>

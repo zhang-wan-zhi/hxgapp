@@ -1,0 +1,1 @@
+<view><view><view>用户头像</view><view>用户昵称</view><view data-event-opts="{{[['tap',[['xiugai',['$event']]]]]}}" style="width:150rpx;height:50rpx;line-height:50rpx;text-align:center;border-radius:5rpx;background-color:#007AFF;" bindtap="__e">修改</view><image src="{{imgArr[0]}}"></image></view></view>
