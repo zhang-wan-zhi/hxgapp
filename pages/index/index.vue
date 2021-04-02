@@ -20,7 +20,12 @@
 		},
 		onLoad() {
            this.getInfo();
+		   //定义在app启动首次为横屏,锁定
+		   // //#ifdef APP-PLUS
+		   // plus.screen.lockOrientation('landscape-primary')
+		   // //#endif
 		},
+		
 		methods: {
            getInfo(){
                uni.request({
@@ -72,7 +77,7 @@
 								//跳转到首页
 								//使用uni.switchTab进行tab切换，解决授权，无法跳转到首页的bug
 								uni.switchTab({
-									url:'../wenxuexi/wenxuexi'
+									url:'../shouye/shouye'
 								});
 		   				// 		uni.request({
 		   				// 			url: `${this.$serverUrl}api/TestDenglu`,//仅为示例，并非真实接口地址。)

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/shouye/shouye",
     "pages/wenxuexi/wenxuexi",
     "pages/wenxiaokao/wenxiaokao",
     "pages/wenluqu/wenluqu",
@@ -19,6 +20,12 @@
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
+      {
+        "pagePath": "pages/shouye/shouye",
+        "selectedIconPath": "./static/logo.png",
+        "iconPath": "./static/logo.png",
+        "text": "首页"
+      },
       {
         "pagePath": "pages/wenxuexi/wenxuexi",
         "selectedIconPath": "./static/logo.png",

@@ -1,5 +1,6 @@
 <template>
 	<view>
+
 		<view class="history">
 			<view class="search" :class="{active:true}">
 				<input type="text" @input="getInput">

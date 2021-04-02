@@ -7870,9 +7870,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!*****************************************!*\
-  !*** D:/HbuilderX/test/test/pages.json ***!
-  \*****************************************/
+/*!********************************************!*\
+  !*** D:/HbuilderX/hexiangu_web/pages.json ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8019,9 +8019,9 @@ function normalizeComponent (
 /* 15 */,
 /* 16 */,
 /* 17 */
-/*!******************************************!*\
-  !*** D:/HbuilderX/test/test/api/http.js ***!
-  \******************************************/
+/*!*********************************************!*\
+  !*** D:/HbuilderX/hexiangu_web/api/http.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
