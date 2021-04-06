@@ -16,38 +16,38 @@
   },
   "tabBar": {
     "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "selectedColor": "#F37372",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/shouye/shouye",
-        "selectedIconPath": "./static/logo.png",
-        "iconPath": "./static/logo.png",
+        "selectedIconPath": "./static/icon/shouye_icon_active.png",
+        "iconPath": "./static/icon/shouye_icon.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/wenxuexi/wenxuexi",
-        "selectedIconPath": "./static/logo.png",
-        "iconPath": "./static/logo.png",
+        "selectedIconPath": "./static/icon/wenxuexi_icon_active.png",
+        "iconPath": "./static/icon/wenxuexi_icon.png",
         "text": "问学习"
       },
       {
         "pagePath": "pages/wenxiaokao/wenxiaokao",
-        "selectedIconPath": "./static/logo.png",
-        "iconPath": "./static/logo.png",
+        "selectedIconPath": "./static/icon/wenxiaokao_icon_active.png",
+        "iconPath": "./static/icon/wenxiaokao_icon.png",
         "text": "问校考"
       },
       {
         "pagePath": "pages/wenluqu/wenluqu",
-        "selectedIconPath": "./static/logo.png",
-        "iconPath": "./static/logo.png",
+        "selectedIconPath": "./static/icon/wenluqu_icon_active.png",
+        "iconPath": "./static/icon/wenluqu_icon.png",
         "text": "问录取"
       },
       {
         "pagePath": "pages/gerenzhongxin/gerenzhongxin",
-        "selectedIconPath": "./static/logo.png",
-        "iconPath": "./static/logo.png",
+        "selectedIconPath": "./static/icon/gerenzhongxin_icon_active.png",
+        "iconPath": "./static/icon/gerenzhongxin_icon.png",
         "text": "个人中心"
       }
     ]
@@ -55,6 +55,5 @@
   "uniStatistics": {
     "enable": false
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap90.json"
+  "usingComponents": {}
 }

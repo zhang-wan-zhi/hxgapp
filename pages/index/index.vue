@@ -4,8 +4,11 @@
 			<view class="getUser_top">
 				<view class="getUser_top_title">确认授权登录</view>
 			</view>
+			<view class="getShouquan_title">
+				<view class="getShouquan_title_title">该小程序将获取你的信息</view>
+			</view>
 			<view class="shouquan_button">
-				<button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">获取用户信息</button>
+				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="onGotUserInfo" hover-class="none">获取用户信息</button>
 			</view>
 			
 		</view>
@@ -59,7 +62,7 @@
 		   
 		   //登录授权
 		   	onGotUserInfo: function(e) {
-		   			// console.log('aaaaa', e);
+		   			console.log('aaaaa', e);
 		   			let rawData = e.detail.rawData;
 					// console.log(typeof e.detail.rawData);
 		   			if (e.detail.iv) {
@@ -67,7 +70,7 @@
 		   				uni.login({
 		   					provider: 'weixin',
 		   					success: function(loginRes) {
-		   						// console.log(loginRes);
+		   						console.log(loginRes);
 		   						// console.log(rawData);
 								//同步存储用户信息的数据
 								uni.setStorageSync('login_info',rawData);
@@ -105,7 +108,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	// @font-face{
 	// 	font-family:'SourceHanSansSC-bold';
 	// 	src:url('~@/static/fonts/SOURCEHANSANSSC-BOLD.OTF');
@@ -118,33 +121,55 @@
 		.getUser{
 			width:70%;
 			height:350rpx;
-			border:1rpx solid #F7A3A2;
+			border:1rpx solid #ccc;
 			border-radius: 25rpx;
 			position:absolute;
 			top:50%;
 			left:50%;
 			margin-top:-175rpx;
 			margin-left:-35%;
+			text-shadow: 2rpx 2rpx 2rpx #ccc;
 			.getUser_top{
 				width:100%;
 				height:80rpx;
-				border:1rpx solid red;
+				// border:1rpx solid red;
 				text-align: center;
 				.getUser_top_title{
 					width:230rpx;
 					height:80rpx;
-					border:1rpx solid blue;
+					// border:1rpx solid blue;
 					float:left;
 					line-height: 80rpx;
-					color:#F7A3A2;
-					margin-left:180rpx;
+					color:#101010;
+					margin-left:150rpx;
+					font-weight: bold;
 					// font-family: SourceHanSansSC-bold;
 				}
 			}
+			.getShouquan_title{
+				width:100%;
+				height:80rpx;
+				// border:1rpx solid red;
+				line-height:80rpx;
+				text-align: center;
+				font-size:30rpx;
+				// .getShouquan_title_title{}
+			}
 			.shouquan_button{
 				width:100%;
-				height:100rpx;
-				border:1px solid red;
+				height:80rpx;
+				// border:1px solid red;
+				button::after{
+			      border:none;
+				}
+				.buttons{
+					width:40%;
+					height:80rpx;
+					line-height: 80rpx;
+					background-color: #28B942;
+					font-size: 25rpx;
+					color:#fff;
+				}
 			}
 		}
 	}

@@ -24,35 +24,68 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.history .search.data-v-189aefe6 {
-  box-sizing: border-box;
-  padding: 20rpx 16rpx;
-  position: relative;
+@font-face {
+  font-family: 'iconfont';  /* project id 2467420 */
+  src: url('https://at.alicdn.com/t/font_2467420_icyr4s4cfii.eot');
+  src: url('https://at.alicdn.com/t/font_2467420_icyr4s4cfii.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_2467420_icyr4s4cfii.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_2467420_icyr4s4cfii.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_2467420_icyr4s4cfii.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_2467420_icyr4s4cfii.svg#iconfont') format('svg');
 }
-.history .search input.data-v-189aefe6 {
-  height: 60rpx;
-  background-color: #fff;
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.history .active.data-v-189aefe6 {
+.icon-sousuo:before {
+  content: "\e612";
+}
+.Search_content {
+  width: 100%;
+  height: 100rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  background-color: #f4f4f4;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
 }
-.history .active input.data-v-189aefe6 {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-          flex: 1;
-  margin-right: 50rpx;
+.Search_content input {
+  width: 580rpx;
+  height: 80rpx;
+  border-radius: 32rpx;
+  background-color: #F37372;
 }
-.history .active .cancle.data-v-189aefe6 {
-  width: 120rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  font-size: 30rpx;
-  text-align: center;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  box-sizing: border-box;
+.home {
+  width: 100%;
+  height: 320rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.home swiper {
+  width: 90%;
+  height: 320rpx;
+}
+.home image {
+  width: 100%;
+  height: 100%;
+}
+.Shouye_content {
+  width: 100%;
+  height: 320rpx;
+  border: 1px solid red;
 }
 
