@@ -1,11 +1,14 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+		<view class="getUser">
+			<view class="getUser_top">
+				<view class="getUser_top_title">确认授权登录</view>
+			</view>
+			<view class="shouquan_button">
+				<button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">获取用户信息</button>
+			</view>
+			
 		</view>
-		<!-- <view class='denglu' @click="getShouquan()">授权登录</view> -->
-		<button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">获取用户信息</button>
 	</view>
 </template>
 
@@ -14,7 +17,6 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello',
 				userInfo:[]
 			}
 		},
@@ -54,11 +56,6 @@
 				  //  this.title=res.data.data[0].username;
 			   // })
            },
-		   
-		   //获取用户授权信息
-		   // getShouquan(){
-			  //  console.log(111);
-		   // },
 		   
 		   //登录授权
 		   	onGotUserInfo: function(e) {
@@ -108,40 +105,47 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	// @font-face{
+	// 	font-family:'SourceHanSansSC-bold';
+	// 	src:url('~@/static/fonts/SOURCEHANSANSSC-BOLD.OTF');
+	// }
 	.content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-	
-	.denglu{
-		width:150rpx;
-		height:50rpx;
-		/* border:1px solid blue; */
-		background-color: green;
-		border-radius: 5rpx;
-		text-align: center;
-		line-height: 50rpx;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		.getUser{
+			width:70%;
+			height:350rpx;
+			border:1rpx solid #F7A3A2;
+			border-radius: 25rpx;
+			position:absolute;
+			top:50%;
+			left:50%;
+			margin-top:-175rpx;
+			margin-left:-35%;
+			.getUser_top{
+				width:100%;
+				height:80rpx;
+				border:1rpx solid red;
+				text-align: center;
+				.getUser_top_title{
+					width:230rpx;
+					height:80rpx;
+					border:1rpx solid blue;
+					float:left;
+					line-height: 80rpx;
+					color:#F7A3A2;
+					margin-left:180rpx;
+					// font-family: SourceHanSansSC-bold;
+				}
+			}
+			.shouquan_button{
+				width:100%;
+				height:100rpx;
+				border:1px solid red;
+			}
+		}
 	}
 </style>
