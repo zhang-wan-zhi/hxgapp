@@ -168,6 +168,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -186,10 +257,9 @@ var _default =
   },
   onLoad: function onLoad() {
     //模拟ajax获取数据，uni.request({...});注意回调的this指向
-    this.swipers = ['https://app-file.beitaichufang.com/img/H5/web/banner/banner20.jpg',
-    "https://app-file.beitaichufang.com/img/H5/web/banner/banner21.jpg",
-    "https://app-file.beitaichufang.com/img/H5/web/banner/banner22.jpg",
-    "https://app-file.beitaichufang.com/img/H5/web/banner/banner23.jpg"];
+    this.swipers = ['../../static/img/lunbo1.jpg',
+    "../../static/img/lunbo2.jpg",
+    "../../static/img/lunbo3.jpg"];
 
   },
   methods: {
@@ -200,6 +270,7 @@ var _default =
     },
     getInput2: function getInput2(e) {
       console.log(e.target.value);
+      this.inputs_text = e.target.value;
       //解决点击搜索时键盘不收回
       // uni.hideKeyboard();
     },
@@ -217,10 +288,11 @@ var _default =
     //点击确定电脑回车，或者手机回车时触发
     getSubmit: function getSubmit() {
       console.log(111);
+      this.Searchs();
     },
     // 取消搜索
     Searchs: function Searchs() {
-      console.log(this.input_value);
+      console.log(this.inputs_text);
       uni.request({
         url: "".concat(this.$serverUrl, "api/TestSearchPost"),
 
@@ -229,7 +301,7 @@ var _default =
         method: "POST",
         contentType: 'application/json;charset=UTF-8',
         data: {
-          content: this.input_value } }).
+          content: this.inputs_text } }).
 
       then(function (res) {
         console.log(res);

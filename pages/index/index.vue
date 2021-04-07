@@ -8,7 +8,7 @@
 				<view class="getShouquan_title_title">该小程序将获取你的信息</view>
 			</view>
 			<view class="shouquan_button">
-				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="onGotUserInfo" hover-class="none">获取用户信息</button>
+				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="onGotUserInfo" hover-class="none">获取授权</button>
 			</view>
 			
 		</view>
@@ -120,7 +120,7 @@
 		justify-content: center;
 		.getUser{
 			width:70%;
-			height:350rpx;
+			height:300rpx;
 			border:1rpx solid #ccc;
 			border-radius: 25rpx;
 			position:absolute;
@@ -169,6 +169,7 @@
 					background-color: #28B942;
 					font-size: 25rpx;
 					color:#fff;
+					margin-top:15rpx;
 				}
 			}
 		}

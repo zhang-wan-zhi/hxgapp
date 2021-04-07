@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="all_content">
 
 	<!-- 	<view class="history">
 			<view class="search" :class="{active:true}">
@@ -28,8 +28,79 @@
 		
 		<view class="Shouye_content">
 			<view class="content_title">
-				<view class="shouye_title_left"></view>
+				  <view class="content_title_title">
+					<view class="shouye_title_left"></view>
+					<view class="shouye_title_right">艺考动态</view>
+				  </view>
 			</view>
+			<view class="content_content">
+				<view class="content_content1">
+					<view class="content_content1_left">
+						<view class="content_content1_left_top">重磅 | 央美公布复试成绩及合格线！快
+看你过线没？！</view>
+						<view class="content_content1_left_bottom">
+							<view class="content_content1_left_bottom1">清华大学</view>
+							<view class="content_content1_left_bottom2">2021.04.02</view>
+						</view>
+					</view>
+					<view class="content_content1_right">
+						<image src="../../static/img/yikaodongtai_img1.png"></image>
+					</view>
+				</view>
+			</view>
+			
+			<view class="content_content">
+				<view class="content_content1">
+					<view class="content_content1_left">
+						<view class="content_content1_left_top">速看！新高考方案公布！时间延长、分
+值改变、投档志愿均要改革！</view>
+						<view class="content_content1_left_bottom">
+							<view class="content_content1_left_bottom1">北京大学</view>
+							<view class="content_content1_left_bottom2">2021.04.02</view>
+						</view>
+					</view>
+					<view class="content_content1_right">
+						<image src="../../static/img/yikaodongtai_img2.png"></image>
+					</view>
+				</view>
+			</view>
+			
+			<view class="content_content">
+				<view class="content_content1">
+					<view class="content_content1_left">
+						<view class="content_content1_left_top">艺术类院校专业实力分析，你适合考哪
+所学校！</view>
+						<view class="content_content1_left_bottom">
+							<view class="content_content1_left_bottom1">复旦大学</view>
+							<view class="content_content1_left_bottom2">2021.04.02</view>
+						</view>
+					</view>
+					<view class="content_content1_right">
+						<image src="../../static/img/yikaodongtai_img3.png"></image>
+					</view>
+				</view>
+			</view>
+			
+			<view class="content_content">
+				<view class="content_content1">
+					<view class="content_content1_left">
+						<view class="content_content1_left_top">多省公布2021年联考合格线，赶紧看看
+过线没！附各省成绩查询时间和地址！</view>
+						<view class="content_content1_left_bottom">
+							<view class="content_content1_left_bottom1">浙江传媒学院</view>
+							<view class="content_content1_left_bottom2">2021.04.02</view>
+						</view>
+					</view>
+					<view class="content_content1_right">
+						<image src="../../static/img/yikaodongtai_img4.png"></image>
+					</view>
+				</view>
+			</view>
+			
+		</view>
+		
+		<view class="see_more">
+			<view class="see_more_title">查看更多</view>
 		</view>
 
 	</view>
@@ -54,10 +125,9 @@
 		},
 		onLoad(){
 			//模拟ajax获取数据，uni.request({...});注意回调的this指向
-			this.swipers=['https://app-file.beitaichufang.com/img/H5/web/banner/banner20.jpg',
-			"https://app-file.beitaichufang.com/img/H5/web/banner/banner21.jpg",
-			"https://app-file.beitaichufang.com/img/H5/web/banner/banner22.jpg",
-			"https://app-file.beitaichufang.com/img/H5/web/banner/banner23.jpg"
+			this.swipers=['../../static/img/lunbo1.jpg',
+			"../../static/img/lunbo2.jpg",
+			"../../static/img/lunbo3.jpg"
 			];
 		},
 		methods: {
@@ -68,6 +138,7 @@
 			},
 			getInput2(e){
 				console.log(e.target.value);
+				this.inputs_text=e.target.value;
 				//解决点击搜索时键盘不收回
 				// uni.hideKeyboard();
 			},
@@ -80,15 +151,16 @@
 			//点击输入框，失去焦点时
 			getBlur(){
 				this.placeholders='搜索快讯';
-				this.placeholders_styles='iconfont icon-sousuo'
+				this.placeholders_styles='iconfont icon-sousuo';
 			},
 			//点击确定电脑回车，或者手机回车时触发
 			getSubmit(){
 				console.log(111);
+				this.Searchs();
 			},
 			// 取消搜索
 			Searchs(){
-				console.log(this.input_value);
+				console.log(this.inputs_text);
 				uni.request({
 					url: `${this.$serverUrl}api/TestSearchPost`,
 					//#ifdef H5
@@ -97,7 +169,7 @@
 					method: "POST",
 					contentType: 'application/json;charset=UTF-8',
 					data: {
-						content: this.input_value
+						content: this.inputs_text
 					}
 				}).then((res)=>{
 					console.log(res);
@@ -142,43 +214,171 @@
 
 // }
 
-.Search_content{
+.all_content{
 	width:100%;
-	height:100rpx;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	input{
-		width:580rpx;
-		height:80rpx;
-		// border:1px solid blue;
-		border-radius: 32rpx;
-		background-color: #F37372;
+	height:100%;
+	// background-color: #ccc;
+	.Search_content{
+		width:100%;
+		height:100rpx;
+		// border:1px solid red;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		input{
+			width:580rpx;
+			height:80rpx;
+			// border:1px solid blue;
+			border-radius: 32rpx;
+			background-color: #F37372;
+		}
 	}
-}
-
-.home{
-	width:100%;
-	height:320rpx;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	swiper{
-		width: 90%;
+	.home{
+		width:100%;
 		height:320rpx;
 		// border:1px solid red;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		swiper{
+			width: 90%;
+			height:320rpx;
+			// border:1px solid red;
+		}
+		image{
+			width: 100%;
+			height: 100%;
+		}
 	}
-	image{
-		width: 100%;
-		height: 100%;
+	.Shouye_content{
+		width:100%;
+		height:auto;
+		// border:1px solid red;
+		margin-top:10rpx;
+		.content_title{
+			width:100%;
+			height:60rpx;
+			// border:1px solid blue;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			.content_title_title{
+				width:90%;
+				height:60rpx;
+				// border:1px solid orange;
+				.shouye_title_left{
+					width:10rpx;
+					height:60rpx;
+					// border:1px solid pink;
+					float:left;
+					background-color: #ED5352;
+					border-radius: 5rpx;
+					font-size: 28rpx;
+				}
+				.shouye_title_right{
+					width:150rpx;
+					height:60rpx;
+					line-height: 60rpx;
+					// border:1px solid pink;
+					float:left;
+					text-align: center;
+					font-weight: bold
+				}
+			}
+			
+		}
+		.content_content{
+			width:100%;
+			height:150rpx;
+			// border:1px solid blue;
+			margin-top:5rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.content_content1{
+				width:90%;
+				height:150rpx;
+				// border:1px solid pink;
+				border-bottom:1px solid #BBBBBB;
+				.content_content1_left{
+					width:70%;
+					height:150rpx;
+					// border:1px solid red;
+					float:left;
+					.content_content1_left_top{
+						width:100%;
+						height:90rpx;
+						// border:1px solid green;
+						font-weight: bold;
+						// white-space: nowrap;
+						// word-break:break-all;
+						
+						overflow: hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 2;
+						-webkit-box-orient: vertical;
+					}
+					.content_content1_left_bottom{
+						width:100%;
+						height:50rpx;
+						// border:1px solid blue;
+						color:#9B9B9B;
+						font-size:20rpx;
+						.content_content1_left_bottom1{
+							width:150rpx;
+							height:50rpx;
+							line-height:50rpx;
+							text-align: left;
+							float:left;
+							// border:1px solid red;
+						}
+						.content_content1_left_bottom2{
+							width:110rpx;
+							height:50rpx;
+							line-height:50rpx;
+							text-align: right;
+							float:right;
+							// border:1px solid red;
+						}
+					}
+				}
+				.content_content1_right{
+					width:25%;
+					height:150rpx;
+					margin-left:10rpx;
+					// border:1px solid green;
+					float:left;
+					image{
+						width:100%;
+						height:90%;
+					}
+				}
+			}
+		}
+	
+	}
+	.see_more{
+		width:100%;
+		height:100rpx;
+		// border:1px solid red;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		.see_more_title{
+			width:150rpx;
+			height:50rpx;
+			// border:1px solid blue;
+			text-align: center;
+			border-radius: 25rpx;
+			background-color: #196AD4;
+			color:#fff;
+		}
 	}
 }
 
-.Shouye_content{
-	width:100%;
-	height:320rpx;
-	border:1px solid red;
-}
+
+
+
+
 </style>
