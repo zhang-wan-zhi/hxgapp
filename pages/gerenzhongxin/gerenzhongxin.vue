@@ -7,7 +7,7 @@
 			<view class="content2_user">
 				<view class="content2_user_content">
 					<view class="content2_user_content_bg">
-						<image src="../../static/img/touxiang_img.png"></image>
+						<image :src="imgArr[0]"></image>
 					</view>
 					<view class="content2_user_title">加油吧少年</view>
 					<view class="content2_user_update">
@@ -68,7 +68,7 @@
 	export default {
 		data() {
 			return {
-				imgArr:[`../../static/logo.png`]
+				imgArr:[`../../static/img/touxiang_img.png`]
 			}
 		},
 		methods: {

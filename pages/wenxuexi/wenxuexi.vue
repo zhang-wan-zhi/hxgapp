@@ -1,7 +1,51 @@
 <template>
 	<view>
 		<view class="fanghui">
-			<view class="fanghui_content">问卷调查</view>
+			<view class="fanghui_content">
+				<view class="mianfeiyuce">
+					<image src="../../static/img/mianfeiyuce.png"></image>
+				</view>
+				<view class="mianfeiyuce_title">免费预测</view>
+				<view class="mianfeiyuce_enter">
+					<view class="mianfeiyuce_enter1">点击进入</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="fanghui">
+			<view class="fanghui_content" style="background: linear-gradient(to right,#FF6063,#FF9766);">
+				<view class="mianfeiyuce">
+					<image src="../../static/img/tiyanyuce_img.png"></image>
+				</view>
+				<view class="mianfeiyuce_title">体验预测</view>
+				<view class="mianfeiyuce_enter">
+					<view class="mianfeiyuce_enter1" style="background-color: #F03A3E;">点击进入</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="fanghui">
+			<view class="fanghui_content" style="background: linear-gradient(to right,#629768,#F3EC76);">
+				<view class="mianfeiyuce">
+					<image src="../../static/img/huiyuanyuce_img.png"></image>
+				</view>
+				<view class="mianfeiyuce_title">会员预测</view>
+				<view class="mianfeiyuce_enter">
+					<view class="mianfeiyuce_enter1" style="background-color: #4B884E;">点击进入</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="fanghui">
+			<view class="fanghui_content" style="background: linear-gradient(to right,#6D88C1,#8FC9CA);">
+				<view class="mianfeiyuce">
+					<image src="../../static/img/zhuangyeyuce_img.png"></image>
+				</view>
+				<view class="mianfeiyuce_title">专业预测</view>
+				<view class="mianfeiyuce_enter">
+					<view class="mianfeiyuce_enter1" style="background-color: #5978B9;">点击进入</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -22,18 +66,56 @@
 <style scoped lang="scss">
   .fanghui{
 	  width:100%;
-	  height:70rpx;
-	  border:1px solid red;
+	  height:220rpx;
+	  // border:1px solid red;
 	  display: flex;
 	  justify-content: center;
 	  align-items: center;
+	   margin-top:30rpx;
 	  .fanghui_content{
-		  width:20%;
-		  height:70rpx;
-		  border:1px solid blue;
+		  width:90%;
+		  height:220rpx;
+		  // border:1px solid blue;
+		  border-radius: 10rpx;
+		  background: linear-gradient(to right,#FDB878,#F9D227);
+		  color:#fff;
 		  text-align: center;
-		  line-height: 70rpx;
-		  border-radius: 5rpx;
+		  .mianfeiyuce{
+			  width:180rpx;
+			  height:180rpx;
+			  // border:1px solid pink;
+			  float:left;
+			  image{
+				  width:100%;
+				  height:100%;
+			  }
+		  }
+		  .mianfeiyuce_title{
+			  width:200rpx;
+			  height:220rpx;
+			  line-height: 220rpx;
+			  // border:1px solid pink;
+			  font-size:50rpx;
+			  float:left;
+			  margin-left:50rpx;
+		  }
+		  .mianfeiyuce_enter{
+			  width:200rpx;
+			  height:200rpx;
+			  // border:1px solid pink;
+			  float:right;
+			  font-size:20rpx;
+			  display: flex;
+			  align-items: center;
+			  justify-content: center;
+			  .mianfeiyuce_enter1{
+				  width:120rpx;
+				  height:50rpx;
+				  line-height:50rpx;
+				  border-radius:20rpx;
+				  background-color: #EA862C;
+			  }
+		  }
 	  }
   }
 </style>

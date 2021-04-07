@@ -380,6 +380,7 @@
 			border-radius: 25rpx;
 			background-color: #196AD4;
 			color:#fff;
+			font-weight: bold;
 		}
 	}
 }

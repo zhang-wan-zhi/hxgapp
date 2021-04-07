@@ -200,7 +200,7 @@ var _default =
 {
   data: function data() {
     return {
-      imgArr: ["../../static/logo.png"] };
+      imgArr: ["../../static/img/touxiang_img.png"] };
 
   },
   methods: {
