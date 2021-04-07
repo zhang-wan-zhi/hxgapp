@@ -33,7 +33,7 @@
 					<view class="shouye_title_right">艺考动态</view>
 				  </view>
 			</view>
-			<view class="content_content">
+			<view class="content_content"  @click="yikaoDongtai">
 				<view class="content_content1">
 					<view class="content_content1_left">
 						<view class="content_content1_left_top">重磅 | 央美公布复试成绩及合格线！快
@@ -131,6 +131,13 @@
 			];
 		},
 		methods: {
+			//点击查看某一篇的艺考动态信息
+			yikaoDongtai(){
+				console.log(111);
+				uni.navigateTo({
+					url:'../yikaoxiangqing/yikaoxiangqing'
+				})
+			},
 		    //获取输入框的数据
 			getInput(e){
 				// console.log(e.target.value);

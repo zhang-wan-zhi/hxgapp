@@ -53,7 +53,18 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/yikaoxiangqing/yikaoxiangqing",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "艺考动态",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+		    }
+		    
+		}
     ],
 "tabBar": {
     "color": "#7A7E83",

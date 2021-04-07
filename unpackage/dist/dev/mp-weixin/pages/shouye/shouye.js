@@ -263,6 +263,13 @@ var _default =
 
   },
   methods: {
+    //点击查看某一篇的艺考动态信息
+    yikaoDongtai: function yikaoDongtai() {
+      console.log(111);
+      uni.navigateTo({
+        url: '../yikaoxiangqing/yikaoxiangqing' });
+
+    },
     //获取输入框的数据
     getInput: function getInput(e) {
       // console.log(e.target.value);
