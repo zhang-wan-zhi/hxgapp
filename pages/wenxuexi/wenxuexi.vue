@@ -6,7 +6,7 @@
 					<image src="../../static/img/mianfeiyuce.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">免费预测</view>
-				<view class="mianfeiyuce_enter">
+				<view class="mianfeiyuce_enter" @click="xinggepinggu">
 					<view class="mianfeiyuce_enter1">点击进入</view>
 				</view>
 			</view>
@@ -58,7 +58,12 @@
 			}
 		},
 		methods: {
-			
+			//点击进入性格评估
+			xinggepinggu(){
+				uni.navigateTo({
+					url:'../xinggepinggu/xinggepinggu'
+				})
+			}
 		}
 	}
 </script>
