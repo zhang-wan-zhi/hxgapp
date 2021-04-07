@@ -41,7 +41,7 @@
 }
 .content .getUser.data-v-57280228 {
   width: 70%;
-  height: 350rpx;
+  height: 300rpx;
   border: 1rpx solid #ccc;
   border-radius: 25rpx;
   position: absolute;
@@ -86,5 +86,6 @@
   background-color: #28B942;
   font-size: 25rpx;
   color: #fff;
+  margin-top: 15rpx;
 }
 
