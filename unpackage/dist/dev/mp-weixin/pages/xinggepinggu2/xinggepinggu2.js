@@ -208,6 +208,12 @@ var _default =
 
   },
   methods: {
+    //提交生成文学习报告
+    wenxuexiBaogaos: function wenxuexiBaogaos() {
+      uni.navigateTo({
+        url: '../wenxuexiBaogao/wenxuexiBaogao' });
+
+    },
     //上一题
     front: function front() {
       uni.navigateTo({

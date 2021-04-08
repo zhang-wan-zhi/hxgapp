@@ -28,7 +28,7 @@
 						<view class="pinggu_content_content1_next1">下一题</view>
 					</view>
 					<view class="pinggu_content_content1_submit">
-						<view class="pinggu_content_content1_submit1">提交</view>
+						<view class="pinggu_content_content1_submit1" @click="wenxuexiBaogaos">提交</view>
 					</view>
 					<view class="pinggu_content_content1_right_bg">
 						<view class="pinggu_content_content1_right_bg1">
@@ -76,6 +76,12 @@
 			}
 		},
 		methods:{
+			//提交生成文学习报告
+			wenxuexiBaogaos(){
+				uni.navigateTo({
+					url:'../wenxuexiBaogao/wenxuexiBaogao'
+				})
+			},
 			//上一题
 			front(){
 				uni.navigateTo({

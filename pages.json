@@ -28,7 +28,18 @@
 				"navigationBarBackgroundColor":"#F7A3A2"
             }
             
-        }
+        },
+		{
+		    "path" : "pages/wenxuexiBaogao/wenxuexiBaogao",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "问学习报告",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+		    }
+		    
+		}
         ,{
             "path" : "pages/wenxiaokao/wenxiaokao",
             "style" :                                                                                    
@@ -58,6 +69,17 @@
             }
             
         },
+		{
+		    "path" : "pages/yijianFangkui/yijianFangkui",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "意见反馈",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+		    }
+		    
+		},
 		{
 		    "path" : "pages/yikaoxiangqing/yikaoxiangqing",
 		    "style" :                                                                                    

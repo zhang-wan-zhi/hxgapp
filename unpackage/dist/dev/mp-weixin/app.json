@@ -3,9 +3,11 @@
     "pages/index/index",
     "pages/shouye/shouye",
     "pages/wenxuexi/wenxuexi",
+    "pages/wenxuexiBaogao/wenxuexiBaogao",
     "pages/wenxiaokao/wenxiaokao",
     "pages/wenluqu/wenluqu",
     "pages/gerenzhongxin/gerenzhongxin",
+    "pages/yijianFangkui/yijianFangkui",
     "pages/yikaoxiangqing/yikaoxiangqing",
     "pages/xinggepinggu/xinggepinggu",
     "pages/xinggepinggu2/xinggepinggu2"
