@@ -41,8 +41,8 @@
 								<image src="../../static/img/yijian_img.png"></image>
 							</view>
 							<view class="content2_content_body1s_fenxiang_title">意见反馈</view>
-							<button class="content2_content_body1s_fenxiang_img">
-								<image src="../../static/svg/xiugai_next.svg"></image>
+							<button class="content2_content_body1s_fenxiang_img" @click="yijianFangkui">
+								<image src="../../static/svg/xiugai_next.svg" ></image>
 							</button>
 						</view>
 					</view>
@@ -76,6 +76,12 @@
 			// fengxiang(){
 			// 	console.log(2222);
 			// },
+			//意见反馈
+			yijianFangkui(){
+				uni.navigateTo({
+					url:'../yijianFangkui/yijianFangkui'
+				})
+			},
 			//点击修改触发
 			xiugai(){
 				//console.log(111);

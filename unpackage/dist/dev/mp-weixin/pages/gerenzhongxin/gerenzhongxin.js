@@ -208,6 +208,12 @@ var _default =
     // fengxiang(){
     // 	console.log(2222);
     // },
+    //意见反馈
+    yijianFangkui: function yijianFangkui() {
+      uni.navigateTo({
+        url: '../yijianFangkui/yijianFangkui' });
+
+    },
     //点击修改触发
     xiugai: function xiugai() {var _this = this;
       //console.log(111);
