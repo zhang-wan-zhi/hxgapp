@@ -26,6 +26,11 @@
 					<view class="pinggu_content_content1_next">
 						<view class="pinggu_content_content1_next1" @click="next">下一题</view>
 					</view>
+					<view class="pinggu_content_content1_right_bg">
+						<view class="pinggu_content_content1_right_bg1">
+							<image src="../../static/img/right_bg.png"></image>
+						</view>
+					</view>
 				</view>
 				
 			</view>
@@ -200,6 +205,26 @@
 						background-color: #196AD4;
 						color:#fff;
 						border-radius: 30rpx;
+						z-index:1;
+					}
+				}
+				.pinggu_content_content1_right_bg{
+					width:100%;
+					height:160rpx;
+					// border:1px solid green;
+					position:relative;
+					left:20rpx;
+					bottom:40rpx;
+					.pinggu_content_content1_right_bg1{
+						width:160rpx;
+						height:160rpx;
+						// border:1px solid red;
+						float:right;
+						image{
+							float:right;
+							width:100%;
+							height:100%;
+						}
 					}
 				}
 			}

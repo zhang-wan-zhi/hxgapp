@@ -162,5 +162,23 @@
   background-color: #196AD4;
   color: #fff;
   border-radius: 30rpx;
+  z-index: 1;
+}
+.pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_right_bg.data-v-eb986df4 {
+  width: 100%;
+  height: 160rpx;
+  position: relative;
+  left: 20rpx;
+  bottom: 40rpx;
+}
+.pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_right_bg .pinggu_content_content1_right_bg1.data-v-eb986df4 {
+  width: 160rpx;
+  height: 160rpx;
+  float: right;
+}
+.pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_right_bg .pinggu_content_content1_right_bg1 image.data-v-eb986df4 {
+  float: right;
+  width: 100%;
+  height: 100%;
 }
 
