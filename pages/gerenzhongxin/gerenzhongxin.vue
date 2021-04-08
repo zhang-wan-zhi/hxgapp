@@ -29,9 +29,9 @@
 								<image src="../../static/img/fenxiang.png"></image>
 							</view>
 							<view class="content2_content_body1s_fenxiang_title">分享好友</view>
-							<view class="content2_content_body1s_fenxiang_img">
+							<button class="content2_content_body1s_fenxiang_img" open-type="share" data-name="share-btn" hover-class="none">
 								<image src="../../static/svg/xiugai_next.svg"></image>
-							</view>
+							</button>
 						</view>
 					</view>
 					
@@ -41,9 +41,9 @@
 								<image src="../../static/img/yijian_img.png"></image>
 							</view>
 							<view class="content2_content_body1s_fenxiang_title">意见反馈</view>
-							<view class="content2_content_body1s_fenxiang_img">
+							<button class="content2_content_body1s_fenxiang_img">
 								<image src="../../static/svg/xiugai_next.svg"></image>
-							</view>
+							</button>
 						</view>
 					</view>
 					
@@ -53,9 +53,9 @@
 								<image src="../../static/img/guanyu_img.png"></image>
 							</view>
 							<view class="content2_content_body1s_fenxiang_title">关于我们</view>
-							<view class="content2_content_body1s_fenxiang_img">
+							<button class="content2_content_body1s_fenxiang_img">
 								<image src="../../static/svg/xiugai_next.svg"></image>
-							</view>
+							</button>
 						</view>
 					</view>
 				</view>
@@ -72,6 +72,10 @@
 			}
 		},
 		methods: {
+			//点击分享图标触发
+			// fengxiang(){
+			// 	console.log(2222);
+			// },
 			//点击修改触发
 			xiugai(){
 				//console.log(111);
@@ -84,6 +88,20 @@
 					    this.imgArr=res.tempFilePaths;
 					}
 				})
+			}
+		},
+		onLoad(){
+			let sting_storage=uni.getStorageSync('login_info');
+			console.log(JSON.parse(sting_storage).avatarUrl);
+		},
+		onShareAppMessage:function(e){
+			let title='掐指艺算';
+			//同步获取图像名称
+			let sting_storage=uni.getStorageSync('login_info')
+			return {
+				title:title,
+				path:'pages/shouye/shouye'
+				// imageUrl:JSON.parse(sting_storage).avatarUrl
 			}
 		}
 	}
@@ -232,14 +250,26 @@
 					}
 					.content2_content_body1s_fenxiang_img{
 						width:80rpx;
-						height:90rpx;
+						height:80rpx;
+						background-color: #fff;
+
 						// border:1px solid pink;
+						margin-top:5rpx;
+						border-radius: 0;
 						float:right;
 						image{
-							width:100%;
-							height:100%;
+							// width:100%;
+							// height:100%;
+							margin-left:-10rpx;
+							width:40rpx;
+							height:80rpx;
 						}
 					}
+					button::after{
+						border: none;
+						background-color: none;
+					}
+
 				}
 			}
 		}

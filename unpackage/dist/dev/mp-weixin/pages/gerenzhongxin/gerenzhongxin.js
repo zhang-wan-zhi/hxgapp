@@ -204,6 +204,10 @@ var _default =
 
   },
   methods: {
+    //点击分享图标触发
+    // fengxiang(){
+    // 	console.log(2222);
+    // },
     //点击修改触发
     xiugai: function xiugai() {var _this = this;
       //console.log(111);
@@ -216,7 +220,22 @@ var _default =
           _this.imgArr = res.tempFilePaths;
         } });
 
-    } } };exports.default = _default;
+    } },
+
+  onLoad: function onLoad() {
+    var sting_storage = uni.getStorageSync('login_info');
+    console.log(JSON.parse(sting_storage).avatarUrl);
+  },
+  onShareAppMessage: function onShareAppMessage(e) {
+    var title = '掐指艺算';
+    //同步获取图像名称
+    var sting_storage = uni.getStorageSync('login_info');
+    return {
+      title: title,
+      path: 'pages/shouye/shouye'
+      // imageUrl:JSON.parse(sting_storage).avatarUrl
+    };
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

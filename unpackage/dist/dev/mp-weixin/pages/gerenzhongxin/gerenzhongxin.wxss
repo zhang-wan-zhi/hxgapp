@@ -181,11 +181,19 @@
 }
 .content2 .content2_content .content2_content_body .content2_content_body1 .content2_content_body1s .content2_content_body1s_fenxiang_img.data-v-499de8f0 {
   width: 80rpx;
-  height: 90rpx;
+  height: 80rpx;
+  background-color: #fff;
+  margin-top: 5rpx;
+  border-radius: 0;
   float: right;
 }
 .content2 .content2_content .content2_content_body .content2_content_body1 .content2_content_body1s .content2_content_body1s_fenxiang_img image.data-v-499de8f0 {
-  width: 100%;
-  height: 100%;
+  margin-left: -10rpx;
+  width: 40rpx;
+  height: 80rpx;
+}
+.content2 .content2_content .content2_content_body .content2_content_body1 .content2_content_body1s button.data-v-499de8f0::after {
+  border: none;
+  background-color: none;
 }
 
