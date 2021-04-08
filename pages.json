@@ -79,6 +79,17 @@
 				"navigationBarBackgroundColor":"#F7A3A2"
 		    }
 		    
+		},
+		{
+		    "path" : "pages/xinggepinggu2/xinggepinggu2",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "性格评估2",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+		    }
+		    
 		}
     ],
 "tabBar": {

@@ -7,10 +7,10 @@
 			<view class="pinggu_content_content">
 				<view class="pinggu_content_content1">
 					<view class="pinggu_content_content1_tihao">
-						<view class="pinggu_content_content1_tihao1">第一题</view>
+						<view class="pinggu_content_content1_tihao1">第二题</view>
 					</view>
 					<view class="pinggu_content_content1_biaoti">
-						<view class="pinggu_content_content1_biaoti1">汉语作文擅长的文体？</view>
+						<view class="pinggu_content_content1_biaoti1">汉语作文擅长的文体2？</view>
 					</view>
 					<view class="pinggu_content_content1_content">
 						<radio-group @change="radioChange">
@@ -24,7 +24,11 @@
 						</radio-group>
 					</view>
 					<view class="pinggu_content_content1_next">
-						<view class="pinggu_content_content1_next1" @click="next">下一题</view>
+						<view class="pinggu_content_content1_next1" style="background-color: #ED5352;" @click="front">上一题</view>
+						<view class="pinggu_content_content1_next1">下一题</view>
+					</view>
+					<view class="pinggu_content_content1_submit">
+						<view class="pinggu_content_content1_submit1">提交</view>
 					</view>
 				</view>
 				
@@ -67,10 +71,10 @@
 			}
 		},
 		methods:{
-			//下一题
-			next(){
+			//上一题
+			front(){
 				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2'
+					url:'../xinggepinggu/xinggepinggu'
 				})
 			},
 			radioChange: function(evt) {
@@ -127,8 +131,8 @@
 				.pinggu_content_content1_tihao{
 					width:100%;
 					height:50rpx;
-					// border:1px solid green;
 					margin-top:10rpx;
+					// border:1px solid green;
 					display: flex;
 					align-items: center;
 					justify-content: center;
@@ -187,10 +191,11 @@
 				.pinggu_content_content1_next{
 					width:100%;
 					height:60rpx;
-					// border:1px solid green;
+					// border:1px solid red;
 					display: flex;
 					align-items: center;
-					justify-content: center;
+					//使得子元素左右相等排列
+					justify-content: space-evenly;
 					.pinggu_content_content1_next1{
 						width:120rpx;
 						height:55rpx;
@@ -198,6 +203,24 @@
 						text-align: center;
 						// border:1px solid green;
 						background-color: #196AD4;
+						color:#fff;
+						border-radius: 30rpx;
+					}
+				}
+				.pinggu_content_content1_submit{
+					width:100%;
+					height:100rpx;
+					// border:1px solid red;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					.pinggu_content_content1_submit1{
+						width:120rpx;
+						height:55rpx;
+						line-height: 55rpx;
+						text-align: center;
+						// border:1px solid green;
+						background-color: #EDA252;
 						color:#fff;
 						border-radius: 30rpx;
 					}

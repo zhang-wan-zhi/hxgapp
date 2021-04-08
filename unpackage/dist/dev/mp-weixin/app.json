@@ -7,7 +7,8 @@
     "pages/wenluqu/wenluqu",
     "pages/gerenzhongxin/gerenzhongxin",
     "pages/yikaoxiangqing/yikaoxiangqing",
-    "pages/xinggepinggu/xinggepinggu"
+    "pages/xinggepinggu/xinggepinggu",
+    "pages/xinggepinggu2/xinggepinggu2"
   ],
   "subPackages": [],
   "window": {
@@ -57,6 +58,5 @@
   "uniStatistics": {
     "enable": false
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap3.json"
+  "usingComponents": {}
 }

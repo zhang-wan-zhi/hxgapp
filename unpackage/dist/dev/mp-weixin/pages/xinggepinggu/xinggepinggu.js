@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -199,6 +199,12 @@ var _default =
 
   },
   methods: {
+    //下一题
+    next: function next() {
+      uni.navigateTo({
+        url: '../xinggepinggu2/xinggepinggu2' });
+
+    },
     radioChange: function radioChange(evt) {
       for (var i = 0; i < this.items.length; i++) {
         if (this.items[i].value === evt.target.value) {
@@ -207,6 +213,7 @@ var _default =
         }
       }
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
