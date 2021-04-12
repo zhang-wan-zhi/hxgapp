@@ -109,7 +109,110 @@
 							
 			</view>
 			
-			<view v-show="yikaoKechengStatus">艺考课程</view>
+			<view class="yikaoKecheng_content" v-show="yikaoKechengStatus">
+				<view class="yikaoKecheng_content_content">
+					<view class="yikaoKecheng_content_content_left">
+						<view class="yikaoKecheng_content_content_left_img">
+							<image src="../../static/img/yikaiKecheng_img1.png"></image>
+						</view>
+					</view>
+					<view class="yikaoKecheng_content_content_right">
+						<view class="yikaoKecheng_content_content_right_top">
+							<view class="yikaoKecheng_content_content_right_top_title">教你12招搞定艺考视频</view>
+						</view>
+						<view class="yikaoKecheng_content_content_right_bottom">
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">内部课程，仅供专业认识和11111111111111111</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title">
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_right">
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+										<image src="../../static/img/huiyuanmianfei.png"></image>
+									</view>
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">¥99.00</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				
+				<view class="yikaoKecheng_content_content">
+					<view class="yikaoKecheng_content_content_left">
+						<view class="yikaoKecheng_content_content_left_img">
+							<image src="../../static/img/yikaiKecheng_img2.png"></image>
+						</view>
+					</view>
+					<view class="yikaoKecheng_content_content_right">
+						<view class="yikaoKecheng_content_content_right_top">
+							<view class="yikaoKecheng_content_content_right_top_title">【回放】高考延期艺考生和家长如何应对？
+点下99999999999999999999</view>
+						</view>
+						<view class="yikaoKecheng_content_content_right_bottom">
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">内部课程，仅供专业认识和11111111111111111</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title">
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_right">
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+										<image src="../../static/img/huiyuanmianfei.png"></image>
+									</view>
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">¥399.00</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				
+				<view class="yikaoKecheng_content_content">
+					<view class="yikaoKecheng_content_content_left">
+						<view class="yikaoKecheng_content_content_left_img">
+							<image src="../../static/img/yikaiKecheng_img3.png"></image>
+						</view>
+					</view>
+					<view class="yikaoKecheng_content_content_right">
+						<view class="yikaoKecheng_content_content_right_top">
+							<view class="yikaoKecheng_content_content_right_top_title">【直播】疫情背景下的传媒艺术创作动向
+评析及99999999999999999999</view>
+						</view>
+						<view class="yikaoKecheng_content_content_right_bottom">
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">内部课程，仅供专业认识和11111111111111111</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title">
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_right">
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_img" v-show="false">
+										<image src="../../static/img/huiyuanmianfei.png"></image>
+									</view>
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				
+				<view class="yikaoKecheng_content_content">
+									<view class="yikaoKecheng_content_content_left">
+										<view class="yikaoKecheng_content_content_left_img">
+											<image src="../../static/img/yikaiKecheng_img4.png"></image>
+										</view>
+									</view>
+									<view class="yikaoKecheng_content_content_right">
+										<view class="yikaoKecheng_content_content_right_top">
+											<view class="yikaoKecheng_content_content_right_top_title">原来《艺考开讲》的课程是这样直播的</view>
+										</view>
+										<view class="yikaoKecheng_content_content_right_bottom">
+											<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">《艺考开讲》国庆特别课程...</view>
+											<view class="yikaoKecheng_content_content_right_bottom_title">
+												<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+												<view class="yikaoKecheng_content_content_right_bottom_title_right">
+													<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+														<image src="../../static/img/huiyuanmianfei.png"></image>
+													</view>
+													<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">¥19.98</view>
+												</view>
+											</view>
+										</view>
+									</view>
+								</view>
+				
+			</view>
 			
 			<view v-show="yikaoTikuStatus">艺考题库</view>
 		
@@ -341,7 +444,7 @@
 	.Shouye_content{
 		width:100%;
 		height:auto;
-		border:1px solid red;
+		// border:1px solid red;
 		margin-top:10rpx;
 		.content_title{
 			width:100%;
@@ -383,7 +486,7 @@
 		.content_contents{
 			width:100%;
 			height:auto;
-			border:1px solid green;
+			// border:1px solid green;
 			.content_content{
 				width:100%;
 				height:150rpx;
@@ -472,6 +575,127 @@
 				}
 			}
 			
+		}
+		.yikaoKecheng_content{
+			width:100%;
+			height:auto;
+			// border:1px solid green;
+			.yikaoKecheng_content_content{
+				width:100%;
+				height:160rpx;
+				// border:1px solid blue;
+				border-bottom:1px solid #E7E7E7;
+				margin-top:5rpx;
+				.yikaoKecheng_content_content_left{
+					width:30%;
+					height:100%;
+					// border:1px solid pink;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					float:left;
+					.yikaoKecheng_content_content_left_img{
+						width:200rpx;
+						height:130rpx;
+						// border:1px solid red;
+						image{
+							width:100%;
+							height:100%;
+						}
+					}
+				}
+				.yikaoKecheng_content_content_right{
+					width:68%;
+					height:100%;
+					// border:1px solid yellow;
+					float:left;
+					.yikaoKecheng_content_content_right_top{
+						width:100%;
+						height:50%;
+						// border:1px solid red;
+						.yikaoKecheng_content_content_right_top_title{
+							width:100%;
+							height:85rpx;
+							// border:1px solid green;
+							color:#333337;
+							font-weight: bold;
+							
+							overflow: hidden;
+							text-overflow: ellipsis;
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+						}
+					}
+					.yikaoKecheng_content_content_right_bottom{
+						width:100%;
+						height:50%;
+						// border:1px solid blue;
+						.yikaoKecheng_content_content_right_bottom_title_jianjie{
+							width:300rpx;
+							height:40rpx;
+							line-height: 40rpx;
+							// border:1px solid red;
+							color:#8D8886;
+							font-size: 24rpx;
+							// margin-top:5rpx;
+							// display: -webkit-box;
+							overflow: hidden;/*超出部分隐藏*/
+							white-space: nowrap;/*不换行*/
+							text-overflow:ellipsis;/*超出部分文字以...显示*/
+						}
+						.yikaoKecheng_content_content_right_bottom_title{
+							width:100%;
+							height:35rpx;
+							// border:1px solid blue;
+							line-height: 35rpx;
+							// margin-top:20rpx;
+							
+							.yikaoKecheng_content_content_right_bottom_title_left{
+								width:150rpx;
+								height:60rpx;
+								// border:1px solid red;
+								float:left;
+								font-size:24rpx;
+								color:#8D8886;
+								
+								// overflow: hidden;
+								// text-overflow: ellipsis;
+								// display: -webkit-box;
+								// -webkit-line-clamp: 2;
+								// -webkit-box-orient: vertical;
+							}
+							.yikaoKecheng_content_content_right_bottom_title_right{
+								width:250rpx;
+								height:60rpx;
+								// border:1px solid red;
+								float:right;
+								font-size: 30rpx;
+								color:#C6A078;
+								font-weight: bold;
+								.yikaoKecheng_content_content_right_bottom_title_right_img{
+									width:100rpx;
+									height:35rpx;
+									// border:1px solid green;
+									border:1px solid #C6A078;
+									float:left;
+									image{
+										width:100%;
+										height:100%;
+									};
+								}
+								.yikaoKecheng_content_content_right_bottom_title_right_rmb{
+									width:100rpx;
+									height:60rpx;
+									// border:1px solid blue;
+									margin-right:15rpx;
+									float:right;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		
 	}
