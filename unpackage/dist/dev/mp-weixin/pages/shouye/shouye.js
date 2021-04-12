@@ -239,6 +239,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -252,17 +266,35 @@ var _default =
       //输入框默认的样式
       placeholders_styles: 'iconfont icon-sousuo',
       //轮播图图的数组地址
-      swipers: [] };
+      swipers: [],
+      //艺考动态标题栏的切换
+      isactive: true,
+      //适配手机高度
+      phoneHeight: 0 };
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {var _this = this;
     //模拟ajax获取数据，uni.request({...});注意回调的this指向
     this.swipers = ['../../static/img/lunbo1.jpg',
     "../../static/img/lunbo2.jpg",
     "../../static/img/lunbo3.jpg"];
 
+    uni.getSystemInfo({
+      success: function success(res) {
+        // console.log(res);
+        console.log("手机可用高度:" + res.windowHeight * 2 + "rpx");
+        _this.phoneHeight = res.windowHeight;
+        // console.log(res.windowHeight);
+        console.log(_this.phoneHeight);
+        // this.$store.commit('set_window_height',res.windowHeight*2);
+      } });
+
   },
   methods: {
+    //点击艺考课程触发
+    yikaoKecheng: function yikaoKecheng() {
+      console.log(1111);
+    },
     //点击查看某一篇的艺考动态信息
     yikaoDongtai: function yikaoDongtai() {
       console.log(111);
