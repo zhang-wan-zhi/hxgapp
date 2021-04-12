@@ -188,33 +188,86 @@
 				</view>
 				
 				<view class="yikaoKecheng_content_content">
-									<view class="yikaoKecheng_content_content_left">
-										<view class="yikaoKecheng_content_content_left_img">
-											<image src="../../static/img/yikaiKecheng_img4.png"></image>
-										</view>
+					<view class="yikaoKecheng_content_content_left">
+						<view class="yikaoKecheng_content_content_left_img">
+							<image src="../../static/img/yikaiKecheng_img4.png"></image>
+						</view>
+					</view>
+					<view class="yikaoKecheng_content_content_right">
+						<view class="yikaoKecheng_content_content_right_top">
+							<view class="yikaoKecheng_content_content_right_top_title">原来《艺考开讲》的课程是这样直播的</view>
+						</view>
+						<view class="yikaoKecheng_content_content_right_bottom">
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">《艺考开讲》国庆特别课程...</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title">
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_right">
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+										<image src="../../static/img/huiyuanmianfei.png"></image>
 									</view>
-									<view class="yikaoKecheng_content_content_right">
-										<view class="yikaoKecheng_content_content_right_top">
-											<view class="yikaoKecheng_content_content_right_top_title">原来《艺考开讲》的课程是这样直播的</view>
-										</view>
-										<view class="yikaoKecheng_content_content_right_bottom">
-											<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">《艺考开讲》国庆特别课程...</view>
-											<view class="yikaoKecheng_content_content_right_bottom_title">
-												<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
-												<view class="yikaoKecheng_content_content_right_bottom_title_right">
-													<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-														<image src="../../static/img/huiyuanmianfei.png"></image>
-													</view>
-													<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">¥19.98</view>
-												</view>
-											</view>
-										</view>
-									</view>
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">¥19.98</view>
 								</view>
+							</view>
+						</view>
+					</view>
+				</view>
 				
 			</view>
 			
-			<view v-show="yikaoTikuStatus">艺考题库</view>
+			<view v-show="yikaoTikuStatus" class="yikaoTiku_content">
+				<view class="yikaoTiku_content_content">
+					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电影摄影与制作专业校考真题1111</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>
+				
+				<view class="yikaoTiku_content_content">
+					<view class="yikaoTiku_content_content_left">浙江传媒学院2021年影视摄影与制作（电视摄影）线上
+初试真题</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>
+				
+				<view class="yikaoTiku_content_content">
+					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院播音主持专业校考复试真题（杭州
+考点）</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>
+				
+				<view class="yikaoTiku_content_content">
+					<view class="yikaoTiku_content_content_left">2021年中央戏剧学院戏剧影视导演（电影导演）专业考试
+真题</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>
+				
+				<view class="yikaoTiku_content_content">
+					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电视节目制作专业考试题目</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>
+								
+				<view class="yikaoTiku_content_content">
+					<view class="yikaoTiku_content_content_left">2020年浙江传媒学院播音与主持专业面试真题（复试）</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>	
+						
+				<view class="yikaoTiku_content_content">
+					<view class="yikaoTiku_content_content_left">2020年中央戏剧学院舞蹈表演专业考试内容</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>
+				
+			</view>
 		
 			
 		   <!-- <yikaoDongtai></yikaoDongtai> -->
@@ -659,11 +712,7 @@
 								font-size:24rpx;
 								color:#8D8886;
 								
-								// overflow: hidden;
-								// text-overflow: ellipsis;
-								// display: -webkit-box;
-								// -webkit-line-clamp: 2;
-								// -webkit-box-orient: vertical;
+								
 							}
 							.yikaoKecheng_content_content_right_bottom_title_right{
 								width:250rpx;
@@ -693,6 +742,39 @@
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+		.yikaoTiku_content{
+			width:100%;
+			height:auto;
+			.yikaoTiku_content_content{
+				width:100%;
+				height:80rpx;
+				// border:1px solid blue;
+				border-bottom:1px solid #E7E7E7;
+				margin-top:5rpx;
+				.yikaoTiku_content_content_left{
+					width:90%;
+					height:75rpx;
+					line-height: 75rpx;
+					// border:1px solid blue;
+					float:left;
+					font-size:30rpx;
+					color:#101010;
+					overflow: hidden;
+                    white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+				.yikaoTiku_content_content_right{
+					width:8%;
+					height:75rpx;
+					// border:1px solid blue;
+					float:left;
+					image{
+						width:100%;
+						height: 100%;
 					}
 				}
 			}
