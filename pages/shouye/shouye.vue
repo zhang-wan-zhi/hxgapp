@@ -26,18 +26,19 @@
 			</swiper>
 		</view>
 		
+		<!-- :class="{'width':$store.state.set_window_height*0.3+'rpx'}" -->
+		
 		<view class="Shouye_content">
-			<!-- :class="{'width':$store.state.set_window_height*0.3+'rpx'}" -->
 			<view class="content_title" :style="{height:phoneHeight*0.05+'px;'}">
 				  <view class="content_title_title">
 					<view class="shouye_title_left"></view>
-					<view class="shouye_title_right" :class="isactive?'isActive':''">艺考动态</view>
-					<view class="shouye_title_right" @click="yikaoKecheng">艺考课程</view>
-					<view class="shouye_title_right">艺考题库</view>
+					<view class="shouye_title_right" @click="yikaoDongtai2" :class="isactive?'isActive':''">艺考动态</view>
+					<view class="shouye_title_right" @click="yikaoKecheng" :class="isactive1?'isActive':''">艺考课程</view>
+					<view class="shouye_title_right" @click="yikaiTiku" :class="isactive2?'isActive':''">艺考题库</view>
 				  </view>
 			</view>
 			
-			<view class="content_contents" :style="{height:phoneHeight*0.62+'px;'}">
+			<view class="content_contents" :style="{height:phoneHeight*0.62+'px;'}" v-show="yikaoDongtaiStatus">
 				<view class="content_content"  @click="yikaoDongtai" :style="{height:phoneHeight*0.15+'px;'}">
 					<view class="content_content1">
 						<view class="content_content1_left">
@@ -101,28 +102,40 @@
 						</view>
 					</view>
 				</view>
+				
+				<view class="see_more">
+					<view class="see_more_title">查看更多</view>
+				</view>
 							
 			</view>
 			
+			<view v-show="yikaoKechengStatus">艺考课程</view>
 			
+			<view v-show="yikaoTikuStatus">艺考题库</view>
+		
 			
-			
-			
-
-			
+		   <!-- <yikaoDongtai></yikaoDongtai> -->
 			
 		</view>
 		
-		<view class="see_more">
-			<view class="see_more_title">查看更多</view>
-		</view>
+		
+	
+		
+		
+		<!-- <yikaoKecheng></yikaoKecheng> -->
 
 	</view>
 	
 </template>
 
 <script>
+	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue'
+	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue'
 	export default {
+		components:{
+			yikaoDongtai,
+			yikaoKecheng
+		},
 		data() {
 			return {
 				// 输入框的数据
@@ -137,8 +150,18 @@
 				swipers:[],
 				//艺考动态标题栏的切换
 				isactive:true,
+				//艺考课程标题栏的切换
+				isactive1:false,
+				//艺考题库标题栏的切换
+				isactive2:false,
 				//适配手机高度
-				phoneHeight:0
+				phoneHeight:0,
+				//艺考动态显示隐藏的状态
+				yikaoDongtaiStatus:true,
+				//艺考课程显示隐藏的状态
+				yikaoKechengStatus:false,
+				//艺考题库显示隐藏的状态
+				yikaoTikuStatus:false
 			}
 		},
 		onLoad(){
@@ -150,18 +173,44 @@
 			uni.getSystemInfo({
 				success:(res)=>{
 					// console.log(res);
-					console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+					// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
 					this.phoneHeight=res.windowHeight;
 					// console.log(res.windowHeight);
-					console.log(this.phoneHeight);
+					// console.log(this.phoneHeight);
 					// this.$store.commit('set_window_height',res.windowHeight*2);
 				}
 			})
 		},
 		methods: {
+			//点击艺考题库触发
+			yikaiTiku(){
+				this.isactive=false;
+				this.isactive1=false;
+				this.isactive2=true;
+				this.yikaoDongtaiStatus=false;
+				this.yikaoKechengStatus=false;
+				this.yikaoTikuStatus=true;
+			},
 			//点击艺考课程触发
 			yikaoKecheng(){
-				console.log(1111);
+				// console.log(1111);
+				this.isactive=false;
+				this.isactive1=true;
+				this.isactive2=false;
+				
+				this.yikaoDongtaiStatus=false;
+				this.yikaoKechengStatus=true;
+				this.yikaoTikuStatus=false;
+			},
+			//点击艺考动态触发
+			yikaoDongtai2(){
+				this.isactive=true;
+				this.isactive1=false;
+				this.isactive2=false;
+				
+				this.yikaoDongtaiStatus=true;
+				this.yikaoKechengStatus=false;
+				this.yikaoTikuStatus=false;
 			},
 			//点击查看某一篇的艺考动态信息
 			yikaoDongtai(){
@@ -292,7 +341,7 @@
 	.Shouye_content{
 		width:100%;
 		height:auto;
-		// border:1px solid red;
+		border:1px solid red;
 		margin-top:10rpx;
 		.content_title{
 			width:100%;
@@ -333,8 +382,8 @@
 		}
 		.content_contents{
 			width:100%;
-			height:610rpx;
-			// border:1px solid green;
+			height:auto;
+			border:1px solid green;
 			.content_content{
 				width:100%;
 				height:150rpx;
@@ -404,28 +453,29 @@
 					}
 				}
 			}
+			.see_more{
+				width:100%;
+				height:100rpx;
+				border:1px solid pink;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				.see_more_title{
+					width:150rpx;
+					height:50rpx;
+					// border:1px solid blue;
+					text-align: center;
+					border-radius: 25rpx;
+					background-color: #196AD4;
+					color:#fff;
+					font-weight: bold;
+				}
+			}
+			
 		}
 		
+	}
 	
-	}
-	.see_more{
-		width:100%;
-		height:100rpx;
-		// border:1px solid red;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		.see_more_title{
-			width:150rpx;
-			height:50rpx;
-			// border:1px solid blue;
-			text-align: center;
-			border-radius: 25rpx;
-			background-color: #196AD4;
-			color:#fff;
-			font-weight: bold;
-		}
-	}
 }
 
 

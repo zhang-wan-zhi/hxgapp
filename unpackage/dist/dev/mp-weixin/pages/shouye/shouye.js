@@ -130,131 +130,144 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 108));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 103));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    yikaoDongtai: yikaoDongtai,
+    yikaoKecheng: yikaoKecheng },
+
   data: function data() {
     return {
       // 输入框的数据
@@ -269,8 +282,18 @@ var _default =
       swipers: [],
       //艺考动态标题栏的切换
       isactive: true,
+      //艺考课程标题栏的切换
+      isactive1: false,
+      //艺考题库标题栏的切换
+      isactive2: false,
       //适配手机高度
-      phoneHeight: 0 };
+      phoneHeight: 0,
+      //艺考动态显示隐藏的状态
+      yikaoDongtaiStatus: true,
+      //艺考课程显示隐藏的状态
+      yikaoKechengStatus: false,
+      //艺考题库显示隐藏的状态
+      yikaoTikuStatus: false };
 
   },
   onLoad: function onLoad() {var _this = this;
@@ -282,18 +305,44 @@ var _default =
     uni.getSystemInfo({
       success: function success(res) {
         // console.log(res);
-        console.log("手机可用高度:" + res.windowHeight * 2 + "rpx");
+        // console.log("手机可用高度:"+res.windowHeight*2+"rpx");
         _this.phoneHeight = res.windowHeight;
         // console.log(res.windowHeight);
-        console.log(_this.phoneHeight);
+        // console.log(this.phoneHeight);
         // this.$store.commit('set_window_height',res.windowHeight*2);
       } });
 
   },
   methods: {
+    //点击艺考题库触发
+    yikaiTiku: function yikaiTiku() {
+      this.isactive = false;
+      this.isactive1 = false;
+      this.isactive2 = true;
+      this.yikaoDongtaiStatus = false;
+      this.yikaoKechengStatus = false;
+      this.yikaoTikuStatus = true;
+    },
     //点击艺考课程触发
     yikaoKecheng: function yikaoKecheng() {
-      console.log(1111);
+      // console.log(1111);
+      this.isactive = false;
+      this.isactive1 = true;
+      this.isactive2 = false;
+
+      this.yikaoDongtaiStatus = false;
+      this.yikaoKechengStatus = true;
+      this.yikaoTikuStatus = false;
+    },
+    //点击艺考动态触发
+    yikaoDongtai2: function yikaoDongtai2() {
+      this.isactive = true;
+      this.isactive1 = false;
+      this.isactive2 = false;
+
+      this.yikaoDongtaiStatus = true;
+      this.yikaoKechengStatus = false;
+      this.yikaoTikuStatus = false;
     },
     //点击查看某一篇的艺考动态信息
     yikaoDongtai: function yikaoDongtai() {
