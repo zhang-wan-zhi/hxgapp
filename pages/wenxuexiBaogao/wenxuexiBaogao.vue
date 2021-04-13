@@ -17,11 +17,11 @@
 			<view class="wenxuexi_baogao_bottom_content_body">
 				<view class="wenxuexi_baogao_bottom_content">
 								<view class="wenxuexi_baogao_bottom_content_left ">学习建议</view>
-								<view class="wenxuexi_baogao_bottom_content_right">比较合适</view>
+								<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">比较合适</view>
 							</view>
 							<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content1">
 								<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left1">学习时机</view>
-								<view class="wenxuexi_baogao_bottom_content_right">国庆节起</view>
+								<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">国庆节起</view>
 							</view>
 							<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
 								<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left2">整体印象</view>

@@ -619,7 +619,7 @@
 			.see_more{
 				width:100%;
 				height:100rpx;
-				border:1px solid pink;
+				// border:1px solid pink;
 				display: flex;
 				align-items: center;
 				justify-content: center;

@@ -182,6 +182,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -190,6 +202,13 @@ var _default =
 
   },
   methods: {
+    //点击进入收费页面
+    xinggepinggu_shoufei: function xinggepinggu_shoufei() {
+      console.log(1111);
+      uni.navigateTo({
+        url: '../chongzhizhongxin/chongzhizhongxin' });
+
+    },
     //点击进入性格评估
     xinggepinggu: function xinggepinggu() {
       uni.navigateTo({

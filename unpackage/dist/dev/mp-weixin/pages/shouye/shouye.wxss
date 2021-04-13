@@ -201,7 +201,6 @@
 .all_content .Shouye_content .content_contents .see_more {
   width: 100%;
   height: 100rpx;
-  border: 1px solid pink;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

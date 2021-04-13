@@ -1,26 +1,32 @@
 <template>
 	<view>
 		<view class="fanghui">
-			<view class="fanghui_content">
+			<view class="fanghui_content" @click="xinggepinggu">
 				<view class="mianfeiyuce">
-					<image src="../../static/img/mianfeiyuce.png"></image>
+					<image src="../../static/img/mianfeiyuce_free_img2.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">免费预测</view>
-				<view class="mianfeiyuce_enter" @click="xinggepinggu">
-					<view class="mianfeiyuce_enter1">点击进入</view>
+				<view class="mianfeiyuce_free_img">
+					<image src="../../static/img/mianfei_img.png"></image>
 				</view>
+				<!-- <view class="mianfeiyuce_enter" >
+					<view class="mianfeiyuce_enter1">点击进入</view>
+				</view> -->
 			</view>
 		</view>
 		
 		<view class="fanghui">
-			<view class="fanghui_content" style="background: linear-gradient(to right,#FF6063,#FF9766);">
+			<view class="fanghui_content" style="background: linear-gradient(to right,#FF6063,#FF9766);" @click="xinggepinggu_shoufei">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/tiyanyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">体验预测</view>
-				<view class="mianfeiyuce_enter">
-					<view class="mianfeiyuce_enter1" style="background-color: #F03A3E;">点击进入</view>
+				<view class="mianfeiyuce_free_img2">
+					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
 				</view>
+				<!-- <view class="mianfeiyuce_enter">
+					<view class="mianfeiyuce_enter1" style="background-color: #F03A3E;">点击进入</view>
+				</view> -->
 			</view>
 		</view>
 		
@@ -30,9 +36,12 @@
 					<image src="../../static/img/huiyuanyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">会员预测</view>
-				<view class="mianfeiyuce_enter">
-					<view class="mianfeiyuce_enter1" style="background-color: #4B884E;">点击进入</view>
+				<view class="mianfeiyuce_free_img2">
+					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
 				</view>
+				<!-- <view class="mianfeiyuce_enter">
+					<view class="mianfeiyuce_enter1" style="background-color: #4B884E;">点击进入</view>
+				</view> -->
 			</view>
 		</view>
 		
@@ -42,9 +51,12 @@
 					<image src="../../static/img/zhuangyeyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">专业预测</view>
-				<view class="mianfeiyuce_enter">
-					<view class="mianfeiyuce_enter1" style="background-color: #5978B9;">点击进入</view>
+				<view class="mianfeiyuce_free_img2">
+					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
 				</view>
+				<!-- <view class="mianfeiyuce_enter">
+					<view class="mianfeiyuce_enter1" style="background-color: #5978B9;">点击进入</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
@@ -58,6 +70,13 @@
 			}
 		},
 		methods: {
+			//点击进入收费页面
+			xinggepinggu_shoufei(){
+				console.log(1111);
+				uni.navigateTo({
+					url:'../chongzhizhongxin/chongzhizhongxin'
+				})
+			},
 			//点击进入性格评估
 			xinggepinggu(){
 				uni.navigateTo({
@@ -103,6 +122,28 @@
 			  font-size:50rpx;
 			  float:left;
 			  margin-left:50rpx;
+		  }
+		  .mianfeiyuce_free_img{
+			  width:170rpx;
+			  height:170rpx;
+			  // border:1px solid red;
+			  float:right;
+			  image{
+				  width:100%;
+				  height:100%;
+			  }
+		  }
+		  .mianfeiyuce_free_img2{
+			  width:110rpx;
+			  height:85rpx;
+			  // border:1px solid red;
+			  float:right;
+			  margin-top:-20rpx;
+			  margin-right:-20rpx;
+			  image{
+				  width:100%;
+				  height:100%;
+			  }
 		  }
 		  .mianfeiyuce_enter{
 			  width:200rpx;
