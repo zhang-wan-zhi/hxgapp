@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -151,6 +151,11 @@ var _default =
 
   },
   methods: {
+    submits: function submits() {
+      uni.navigateTo({
+        url: '../yijianFangkuiSuccess/yijianFangkuiSuccess' });
+
+    },
     //点击输入框，获得焦点时
     getFocus: function getFocus() {
       // console.log(2222);
@@ -160,6 +165,7 @@ var _default =
     getBlur: function getBlur() {
       this.placeholders = '请输入您想反馈的问题....';
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

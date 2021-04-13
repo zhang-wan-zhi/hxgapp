@@ -6,7 +6,7 @@
 			</view>
 		</view>
 		<view class="yijianFangkui_submit">
-			<view class="yijianFangkui_submit_button">提交</view>
+			<view class="yijianFangkui_submit_button" @click="submits">提交</view>
 		</view>
 	</view>
 </template>
@@ -19,6 +19,11 @@
 			}
 		},
 		methods:{
+			submits(){
+				uni.navigateTo({
+					url:'../yijianFangkuiSuccess/yijianFangkuiSuccess'
+				})
+			},
 			//点击输入框，获得焦点时
 			getFocus(){
 				// console.log(2222);
