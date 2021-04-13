@@ -208,6 +208,12 @@ var _default =
     // fengxiang(){
     // 	console.log(2222);
     // },
+    //关于我们
+    guanyuwomeng: function guanyuwomeng() {
+      uni.navigateTo({
+        url: '../guanyuwomeng/guanyuwomeng' });
+
+    },
     //意见反馈
     yijianFangkui: function yijianFangkui() {
       uni.navigateTo({

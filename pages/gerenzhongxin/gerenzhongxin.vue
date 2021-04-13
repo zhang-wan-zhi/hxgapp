@@ -53,7 +53,7 @@
 								<image src="../../static/img/guanyu_img.png"></image>
 							</view>
 							<view class="content2_content_body1s_fenxiang_title">关于我们</view>
-							<button class="content2_content_body1s_fenxiang_img">
+							<button class="content2_content_body1s_fenxiang_img" @click="guanyuwomeng">
 								<image src="../../static/svg/xiugai_next.svg"></image>
 							</button>
 						</view>
@@ -76,6 +76,12 @@
 			// fengxiang(){
 			// 	console.log(2222);
 			// },
+			//关于我们
+			guanyuwomeng(){
+				uni.navigateTo({
+					url:'../guanyuwomeng/guanyuwomeng'
+				})
+			},
 			//意见反馈
 			yijianFangkui(){
 				uni.navigateTo({
