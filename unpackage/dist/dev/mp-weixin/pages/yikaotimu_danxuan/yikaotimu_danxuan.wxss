@@ -138,4 +138,42 @@
   float: left;
   margin-left: 20rpx;
 }
+.yikaotimu_danxuan_content_content .yikaotimu_danxuan_content_content1 .radio_select.data-v-baca04e8 {
+  width: 100%;
+  height: 50rpx;
+  margin-top: 10rpx;
+}
+.yikaotimu_danxuan_content_content .yikaotimu_danxuan_content_content1 .radio_select .radio_select1.data-v-baca04e8 {
+  float: left;
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 20rpx;
+}
+.yikaotimu_danxuan_content_content .yikaotimu_danxuan_content_content1 .radio_select .radio_select2.data-v-baca04e8 {
+  float: left;
+  width: 300rpx;
+  height: 50rpx;
+  margin-left: 20rpx;
+}
+.yikaotimu_danxuan_next.data-v-baca04e8 {
+  width: 100%;
+  height: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.yikaotimu_danxuan_next .yikaotimu_danxuan_next_button.data-v-baca04e8 {
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  background-color: #4CB5F6;
+  color: #FFFFFF;
+}
 
