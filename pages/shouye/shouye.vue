@@ -217,7 +217,7 @@
 			<view v-show="yikaoTikuStatus" class="yikaoTiku_content">
 				<view class="yikaoTiku_content_content">
 					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电影摄影与制作专业校考真题1111</view>
-					<view class="yikaoTiku_content_content_right">
+					<view class="yikaoTiku_content_content_right" @click="zhenti_next">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
 				</view>
@@ -338,6 +338,13 @@
 			})
 		},
 		methods: {
+			//点击向右箭头触发，打开题库
+			zhenti_next(){
+				// console.log(111);
+				uni.navigateTo({
+					url:'../yikaotimu_danxuan/yikaotimu_danxuan'
+				})
+			},
 			//点击艺考题库触发
 			yikaiTiku(){
 				this.isactive=false;

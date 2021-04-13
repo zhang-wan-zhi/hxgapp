@@ -470,6 +470,13 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   methods: {
+    //点击向右箭头触发，打开题库
+    zhenti_next: function zhenti_next() {
+      // console.log(111);
+      uni.navigateTo({
+        url: '../yikaotimu_danxuan/yikaotimu_danxuan' });
+
+    },
     //点击艺考题库触发
     yikaiTiku: function yikaiTiku() {
       this.isactive = false;

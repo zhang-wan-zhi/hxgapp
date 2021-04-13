@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/shouye/shouye",
+    "pages/yikaotimu_danxuan/yikaotimu_danxuan",
     "pages/wenxuexi/wenxuexi",
     "pages/wenxuexiBaogao/wenxuexiBaogao",
     "pages/wenxiaokao/wenxiaokao",
@@ -60,6 +61,5 @@
   "uniStatistics": {
     "enable": false
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap34.json"
+  "usingComponents": {}
 }

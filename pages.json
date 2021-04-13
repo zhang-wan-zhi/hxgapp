@@ -19,6 +19,17 @@
             }
         },
 		{
+		    "path" : "pages/yikaotimu_danxuan/yikaotimu_danxuan",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "艺考题目",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+				// "navigationStyle":"custom"
+		    }
+		},
+		{
             "path" : "pages/wenxuexi/wenxuexi",
             "style" :                                                                                    
             {
