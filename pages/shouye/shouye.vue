@@ -109,7 +109,7 @@
 							
 			</view>
 			
-			<view class="yikaoKecheng_content" v-show="yikaoKechengStatus">
+			<view class="yikaoKecheng_content" v-show="yikaoKechengStatus" @click="yikaokecheng_click">
 				<view class="yikaoKecheng_content_content">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
@@ -338,6 +338,12 @@
 			})
 		},
 		methods: {
+			//艺考课程
+			yikaokecheng_click(){
+				uni.navigateTo({
+					url:"../yikaokecheng_item/yikaokecheng_item"
+				})
+			},
 			//点击向右箭头触发，打开题库
 			zhenti_next(){
 				// console.log(111);

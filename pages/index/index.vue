@@ -38,7 +38,18 @@
 		methods: {
 			//获取正式的艺考动态
 			getProdInfo(){
-				console.log(111);
+				// console.log(111);
+				uni.request({
+					//本地
+					// url:'http://localhost:8080/hxg',
+					//线上
+					url:'http://orangezoom.cn:8080/hxg',
+					method:'GET',
+					contentType:'application/json;charset=UTF-8'
+				}).then((res)=>{
+					console.log(res);
+				})
+				
 			},
 			
            getInfo(){

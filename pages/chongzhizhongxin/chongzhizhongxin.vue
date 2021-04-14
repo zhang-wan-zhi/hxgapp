@@ -2,15 +2,15 @@
 	<view>
 		<view class="chongzhizhongxin_top1">
 			<view class="chongzhizhongxin_top">
-				<view class="chongzhizhongxin_top_child">
+				<view class="chongzhizhongxin_top_child" @click='tiyan_click' :class="isActive1?'chongzhizhongxin_top_child2':''">
 					<view class="chongzhizhongxin_top_child_top">体验版</view>
 					<view class="chongzhizhongxin_top_child_bottom">￥9.9</view>
 				</view>
-				<view class="chongzhizhongxin_top_child">
+				<view class="chongzhizhongxin_top_child" @click="huiyuan_click" :class="isActive2?'chongzhizhongxin_top_child2':''">
 					<view class="chongzhizhongxin_top_child_top">会员版</view>
 					<view class="chongzhizhongxin_top_child_bottom">￥99</view>
 				</view>
-				<view class="chongzhizhongxin_top_child">
+				<view class="chongzhizhongxin_top_child" @click="zhuanye_click" :class="isActive3?'chongzhizhongxin_top_child2':''">
 					<view class="chongzhizhongxin_top_child_top">专业版</view>
 					<view class="chongzhizhongxin_top_child_bottom">￥999</view>
 				</view>
@@ -50,6 +50,35 @@
 </template>
 
 <script>
+	export default{
+		data(){
+			return{
+				isActive1:false,
+				isActive2:false,
+				isActive3:false
+			}
+		},
+		methods:{
+			//点击体验版触发
+			tiyan_click(){
+				this.isActive1=true;
+				this.isActive2=false;
+				this.isActive3=false
+			},
+			//点击会员版触发
+			huiyuan_click(){
+				this.isActive1=false;
+				this.isActive2=true;
+				this.isActive3=false
+			},
+			//点击专业版触发
+			zhuanye_click(){
+				this.isActive1=false;
+				this.isActive2=false;
+				this.isActive3=true
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -72,7 +101,8 @@
 			.chongzhizhongxin_top_child{
 				width:29%;
 				height:210rpx;
-				border:1px solid #E8D095;
+				border:1px solid #F2F2F2;
+				box-shadow: 0 0 1px 1px #F2F2F2;
 				border-top-left-radius:10px;
 				border-bottom-right-radius:10px;
 				.chongzhizhongxin_top_child_top{
@@ -97,6 +127,11 @@
 					font-size:40rpx;
 					font-weight:bold;
 				}
+			}
+			.chongzhizhongxin_top_child2{
+				border:1px solid #E8D095;
+				box-shadow: 0 0 1px 1px #E8D095;
+				background-color: #FFFBF9;
 			}
 		}
 	}

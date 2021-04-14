@@ -470,6 +470,12 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   methods: {
+    //艺考课程
+    yikaokecheng_click: function yikaokecheng_click() {
+      uni.navigateTo({
+        url: "../yikaokecheng_item/yikaokecheng_item" });
+
+    },
     //点击向右箭头触发，打开题库
     zhenti_next: function zhenti_next() {
       // console.log(111);

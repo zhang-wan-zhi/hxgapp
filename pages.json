@@ -30,6 +30,18 @@
 		    }
 		},
 		{
+		    "path" : "pages/yikaokecheng_item/yikaokecheng_item",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "艺考课程",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+				// "navigationStyle":"custom"
+		    }
+		},
+		
+		{
             "path" : "pages/wenxuexi/wenxuexi",
             "style" :                                                                                    
             {

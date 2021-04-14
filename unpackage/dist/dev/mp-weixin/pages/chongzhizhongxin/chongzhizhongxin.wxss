@@ -53,7 +53,9 @@
 .chongzhizhongxin_top1 .chongzhizhongxin_top .chongzhizhongxin_top_child.data-v-2ed0ba34 {
   width: 29%;
   height: 210rpx;
-  border: 1px solid #E8D095;
+  border: 1px solid #F2F2F2;
+  -webkit-box-shadow: 0 0 1px 1px #F2F2F2;
+          box-shadow: 0 0 1px 1px #F2F2F2;
   -webkit-border-top-left-radius: 10px;
           border-top-left-radius: 10px;
   -webkit-border-bottom-right-radius: 10px;
@@ -76,6 +78,12 @@
   color: #E7A328;
   font-size: 40rpx;
   font-weight: bold;
+}
+.chongzhizhongxin_top1 .chongzhizhongxin_top .chongzhizhongxin_top_child2.data-v-2ed0ba34 {
+  border: 1px solid #E8D095;
+  -webkit-box-shadow: 0 0 1px 1px #E8D095;
+          box-shadow: 0 0 1px 1px #E8D095;
+  background-color: #FFFBF9;
 }
 .lijichongzhi.data-v-2ed0ba34 {
   width: 100%;
