@@ -95,15 +95,7 @@
 					url:'../gerenzhongxin_update/gerenzhongxin_update'
 				})
 				//console.log(111);
-				// uni.chooseImage({
-				// 	count:1,  //最多可以选择的张数
-				// 	sizeType:['original','compressed'],  //original为原图，compressed为压缩图
-				// 	sourceType:['album','camera'],  //album从相册选择，camera使用相机
-				// 	success:(res)=>{
-				// 		console.log(JSON.stringify(res.tempFilePaths));
-				// 	    this.imgArr=res.tempFilePaths;
-				// 	}
-				// })
+				
 			}
 		},
 		onLoad(){
