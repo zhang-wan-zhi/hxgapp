@@ -51,7 +51,8 @@
   background-color: rgba(0, 0, 0, 0.01);
 }
 .content2 .content2_user .content2_user_content.data-v-499de8f0 {
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
   width: 60%;
   height: 280rpx;
   border: 1px solid #ccc;
@@ -74,7 +75,8 @@
 .content2 .content2_user .content2_user_content .content2_user_content_bg image.data-v-499de8f0 {
   width: 120rpx;
   height: 120rpx;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
 }
 .content2 .content2_user .content2_user_content .content2_user_title.data-v-499de8f0 {
   width: 100%;
@@ -100,14 +102,16 @@
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  border-radius: 5rpx;
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
 }
 .content2 .content2_user .content2_user_content .content2_user_update .content2_user_update_content .content2_user_img.data-v-499de8f0 {
   width: 75rpx;
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  border-radius: 5rpx;
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
   float: left;
   margin-left: 20rpx;
 }
@@ -116,7 +120,8 @@
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  border-radius: 5rpx;
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
   float: left;
 }
 .content2 .content2_user .content2_user_content .content2_user_update .content2_user_update_content .content2_user_update_img image.data-v-499de8f0 {
@@ -140,7 +145,8 @@
   width: 90%;
   height: 300rpx;
   border: 1px solid #ccc;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 .content2 .content2_content .content2_content_body .content2_content_body1.data-v-499de8f0 {
   width: 100%;
@@ -184,7 +190,8 @@
   height: 80rpx;
   background-color: #fff;
   margin-top: 5rpx;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+          border-radius: 0;
   float: right;
 }
 .content2 .content2_content .content2_content_body .content2_content_body1 .content2_content_body1s .content2_content_body1s_fenxiang_img image.data-v-499de8f0 {

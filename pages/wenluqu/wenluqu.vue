@@ -1,6 +1,8 @@
 <template>
 	<view>
-		问录取
+		<view>
+			<view></view>
+		</view>
 	</view>
 </template>
 

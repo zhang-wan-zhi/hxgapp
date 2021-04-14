@@ -41,7 +41,9 @@
 .fanghui .fanghui_content.data-v-c4d1bab4 {
   width: 90%;
   height: 220rpx;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  background: -webkit-gradient(linear, left top, right top, from(#FDB878), to(#F9D227));
   background: -webkit-linear-gradient(left, #FDB878, #F9D227);
   background: linear-gradient(to right, #FDB878, #F9D227);
   color: #fff;
@@ -103,7 +105,8 @@
   width: 120rpx;
   height: 50rpx;
   line-height: 50rpx;
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
   background-color: #EA862C;
 }
 

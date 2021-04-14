@@ -93,6 +93,18 @@
             
         },
 		{
+		    "path" : "pages/gerenzhongxin_update/gerenzhongxin_update",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "个人中心修改",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+		    }
+		    
+		},
+		
+		{
 		    "path" : "pages/yijianFangkui/yijianFangkui",
 		    "style" :                                                                                    
 		    {

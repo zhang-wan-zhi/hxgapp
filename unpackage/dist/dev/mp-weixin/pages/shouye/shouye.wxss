@@ -63,7 +63,8 @@
 .all_content .Search_content input {
   width: 580rpx;
   height: 80rpx;
-  border-radius: 32rpx;
+  -webkit-border-radius: 32rpx;
+          border-radius: 32rpx;
   background-color: #F37372;
 }
 .all_content .home {
@@ -114,7 +115,8 @@
   height: 60rpx;
   float: left;
   background-color: #ED5352;
-  border-radius: 5rpx;
+  -webkit-border-radius: 5rpx;
+          border-radius: 5rpx;
   font-size: 28rpx;
 }
 .all_content .Shouye_content .content_title .content_title_title .shouye_title_right {
@@ -215,7 +217,8 @@
   width: 150rpx;
   height: 50rpx;
   text-align: center;
-  border-radius: 25rpx;
+  -webkit-border-radius: 25rpx;
+          border-radius: 25rpx;
   background-color: #196AD4;
   color: #fff;
   font-weight: bold;

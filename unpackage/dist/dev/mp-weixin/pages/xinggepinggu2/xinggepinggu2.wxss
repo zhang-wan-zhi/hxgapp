@@ -60,7 +60,8 @@
 .pinggu_content .pinggu_content_content.data-v-62ad275c {
   width: 80%;
   height: 755rpx;
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -161,7 +162,8 @@
   text-align: center;
   background-color: #196AD4;
   color: #fff;
-  border-radius: 30rpx;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
   z-index: 1;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_submit.data-v-62ad275c {
@@ -184,7 +186,8 @@
   text-align: center;
   background-color: #EDA252;
   color: #fff;
-  border-radius: 30rpx;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
   z-index: 1;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_right_bg.data-v-62ad275c {

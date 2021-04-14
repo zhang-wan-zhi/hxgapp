@@ -170,21 +170,26 @@ var _http = __webpack_require__(/*! ../../api/http.js */ 17); //
 //
 //
 //
-var _default = { data: function data() {return { userInfo: [] };}, onLoad: function onLoad() {this.getInfo(); //定义在app启动首次为横屏,锁定
+var _default = { data: function data() {return { userInfo: [] };}, onLoad: function onLoad() {//获取测试接口用户名
+    // this.getInfo();
+    //定义在app启动首次为横屏,锁定
     //
-  }, methods: { getInfo: function getInfo() {var _this = this;uni.request({ url: "".concat(this.$serverUrl, "api/TestGet"), //这里的lid,page,pagesize只能是数字或字母
+    //获取正式的艺考动态数据
+    this.getProdInfo();}, methods: { //获取正式的艺考动态
+    getProdInfo: function getProdInfo() {console.log(111);},
+
+    getInfo: function getInfo() {var _this = this;
+      uni.request({
+        url: "".concat(this.$serverUrl, "api/TestGet"), //这里的lid,page,pagesize只能是数字或字母
+
 
 
 
 
 
         method: 'POST',
-        contentType: 'application/json;charset=UTF-8'
-        //                success: (res)=>{
-        //  console.log(res.data.data);
-        // },
-        //                fail: (err)=>{}
-      }).then(function (res) {
+        contentType: 'application/json;charset=UTF-8' }).
+      then(function (res) {
         console.log(res);
         console.log(res[1].data.data[0].username);
         _this.title = res[1].data.data[0].username;
@@ -198,47 +203,126 @@ var _default = { data: function data() {return { userInfo: [] };}, onLoad: funct
     },
 
     //登录授权
-    onGotUserInfo: function onGotUserInfo(e) {
-      console.log('aaaaa', e);
-      var rawData = e.detail.rawData;
-      // console.log(typeof e.detail.rawData);
-      if (e.detail.iv) {
-        this.userInfo = e.detail.userInfo;
-        uni.login({
-          provider: 'weixin',
-          success: function success(loginRes) {
-            console.log(loginRes);
-            // console.log(rawData);
-            //同步存储用户信息的数据
-            uni.setStorageSync('login_info', rawData);
-            //跳转到首页
-            //使用uni.switchTab进行tab切换，解决授权，无法跳转到首页的bug
-            uni.switchTab({
-              url: '../shouye/shouye' });
+    //   	onGotUserInfo: function(e) {
+    // 	// console.log('aaaaa', e);
+    // 	let rawData = e.detail.rawData;
+    // 	console.log(e.detail.rawData);
+    // 	if (e.detail.iv) {
+    // 		this.userInfo = e.detail.userInfo;
+    // 		uni.login({
+    // 			provider: 'weixin',
+    // 			success: function(loginRes) {
+    // 				console.log(loginRes);
+    // 				// console.log(rawData);
+    // 				//同步存储用户信息的数据
+    // 				uni.setStorageSync('login_info',rawData);
+    // 				//跳转到首页
+    // 				//使用uni.switchTab进行tab切换，解决授权，无法跳转到首页的bug
+    // 				uni.switchTab({
+    // 					url:'../shouye/shouye'
+    // 				});
+    // 		// 		uni.request({
+    // 		// 			url: `${this.$serverUrl}api/TestDenglu`,//仅为示例，并非真实接口地址。)
+    // 					//
 
-            // 		uni.request({
-            // 			url: `${this.$serverUrl}api/TestDenglu`,//仅为示例，并非真实接口地址。)
-            //
 
+    // 					// method: 'POST',
+    // 					// contentType: 'application/json;charset=UTF-8',
+    // 		// 			data: {
+    // 		// 				rawData: rawData,
+    // 		// 				code: loginRes.code
+    // 		// 			},
+    // 		// 			success: res => {
+    // 		// 				console.log(res);
+    // 		// 			}
+    // 		// 		});
+    // 			},
+    // 		});
+    // 	} else {
+    // 		uni.showToast({
+    // 			title: '用户拒绝授权',
+    // 			icon: 'none'
+    // 		});
+    // 	}
+    // },
+    //登录授权
+    wechatLogin: function wechatLogin() {
+      var that = this;
+      // 获取用户名  获取性别 获取头像 获取js_code去换取后台返回的openID
+      uni.login({
+        provider: 'weixin',
+        success: function success(loginRes) {
+          console.log(loginRes);
+          var js_code = loginRes.code; //js_code可以给后台获取unionID或openID作为用户标识
+          // 获取用户信息
+          uni.getUserInfo({
+            provider: 'weixin',
+            success: function success(infoRes) {
+              console.log(infoRes);
+              uni.switchTab({
+                url: '../shouye/shouye' });
 
-            // method: 'POST',
-            // contentType: 'application/json;charset=UTF-8',
-            // 			data: {
-            // 				rawData: rawData,
-            // 				code: loginRes.code
-            // 			},
-            // 			success: res => {
-            // 				console.log(res);
-            // 			}
-            // 		});
-          } });
+              //infoRes里面有用户信息需要的话可以取一下
+              var username = infoRes.userInfo.nickName; //用户名
+              var gender = infoRes.userInfo.gender; //用户性别
+              var avatarUrl = infoRes.userInfo.avatarUrl; //头像
+              //判断是否授权
+              //  uni.getSetting({
+              //   success(res) {
+              // console.log("授权：",res);
+              //  if (!res.authSetting['scope.userInfo']) {
+              // 	//这里调用授权
+              // 	console.log("当前未授权");
+              //  } else {
+              // 	//用户已经授权过了
+              // 	console.log("当前已授权");
+              // 	// 弹出正在登录的弹框
+              // 	uni.showLoading({
+              // 		mask:true,
+              // 		title: '正在登录···',
+              // 		complete:()=>{
+              // 			uni.switchTab({
+              // 				url:'../shouye/shouye'
+              // 			})
+              // 		}
+              // 	});
+              // 	// 判断已授权调取接口并获取openId
+              // 	// that.$apiReq.req({ // 创建对象
+              // 	// 	url: '/ui/wxutil/loginByWx', // 示例请求路径
+              // 	// 	method:"post",
+              // 	// 	data : {
+              // 	// 		'code':js_code,
+              // 	// 	},
+              // 	// 	success: (res) => {
+              // 	// 	 //需要openId 可以在这里打印出来
+              // 	// 		if(res.data.code==202){
+              // 	// 			// 登录成功后判断是否是第一次注册  如果是弹出选择身份页面
+              // 	// 			 uni.navigateTo({
+              // 	// 				url: './registeredIdentity/registeredIdentity'
+              // 	// 				success: res => {},
+              // 	// 				fail: () => {},
+              // 	// 				complete: () => {}
+              // 	// 				});
+              // 	// 			}else if(res.data.code==201){
+              // 	// 				 uni.switchTab({
+              // 	// 						url: '../homePage/homePage',
+              // 	// 						success: res => {},
+              // 	// 						fail: () => {},
+              // 	// 						complete: () => {}
+              // 	// 				 });
+              // 	// 		}
+              // 	// 	},
+              // 	//  })
 
-      } else {
-        uni.showToast({
-          title: '用户拒绝授权',
-          icon: 'none' });
+              //  }
+              //   }
+              //  })
+            },
+            fail: function fail(res) {} });
 
-      }
+        },
+        fail: function fail(res) {} });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

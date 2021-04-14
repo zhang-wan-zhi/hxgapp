@@ -42,11 +42,13 @@
   width: 80%;
   height: 360rpx;
   border: 1px solid #ccc;
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
 }
 .yijianFangkui .yijianFangkui_input .yijianFangkui_input1.data-v-60af3fe6 {
   height: 360rpx;
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
 }
 .yijianFangkui_submit.data-v-60af3fe6 {
   width: 100%;
@@ -67,7 +69,8 @@
   line-height: 60rpx;
   text-align: center;
   border: 1px solid #ccc;
-  border-radius: 30rpx;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
   background-color: #196AD4;
   color: #fff;
 }

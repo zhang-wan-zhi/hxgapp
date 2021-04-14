@@ -90,21 +90,25 @@
 			},
 			//点击修改触发
 			xiugai(){
-				//console.log(111);
-				uni.chooseImage({
-					count:1,  //最多可以选择的张数
-					sizeType:['original','compressed'],  //original为原图，compressed为压缩图
-					sourceType:['album','camera'],  //album从相册选择，camera使用相机
-					success:(res)=>{
-						console.log(JSON.stringify(res.tempFilePaths));
-					    this.imgArr=res.tempFilePaths;
-					}
+				//跳转到个人信息修改页面
+				uni.navigateTo({
+					url:'../gerenzhongxin_update/gerenzhongxin_update'
 				})
+				//console.log(111);
+				// uni.chooseImage({
+				// 	count:1,  //最多可以选择的张数
+				// 	sizeType:['original','compressed'],  //original为原图，compressed为压缩图
+				// 	sourceType:['album','camera'],  //album从相册选择，camera使用相机
+				// 	success:(res)=>{
+				// 		console.log(JSON.stringify(res.tempFilePaths));
+				// 	    this.imgArr=res.tempFilePaths;
+				// 	}
+				// })
 			}
 		},
 		onLoad(){
-			let sting_storage=uni.getStorageSync('login_info');
-			console.log(JSON.parse(sting_storage).avatarUrl);
+			// let sting_storage=uni.getStorageSync('login_info');
+			// console.log(JSON.parse(sting_storage).avatarUrl);
 		},
 		onShareAppMessage:function(e){
 			let title='掐指艺算';

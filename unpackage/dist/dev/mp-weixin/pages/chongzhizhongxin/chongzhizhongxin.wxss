@@ -54,8 +54,10 @@
   width: 29%;
   height: 210rpx;
   border: 1px solid #E8D095;
-  border-top-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  -webkit-border-top-left-radius: 10px;
+          border-top-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+          border-bottom-right-radius: 10px;
 }
 .chongzhizhongxin_top1 .chongzhizhongxin_top .chongzhizhongxin_top_child .chongzhizhongxin_top_child_top.data-v-2ed0ba34 {
   width: 100%;
@@ -93,7 +95,8 @@
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  border-radius: 30rpx;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
   background-color: #38BFEF;
   color: #fff;
   font-size: 35rpx;
@@ -115,7 +118,8 @@
   width: 85%;
   height: auto;
   margin-top: 20rpx;
-  box-shadow: 0px 0px  2px 1px #BBBBBB;
+  -webkit-box-shadow: 0px 0px  2px 1px #BBBBBB;
+          box-shadow: 0px 0px  2px 1px #BBBBBB;
 }
 .chongzhishuoming .chongzhishuoming_content .chongzhishuoming_content_title.data-v-2ed0ba34 {
   width: 100%;
