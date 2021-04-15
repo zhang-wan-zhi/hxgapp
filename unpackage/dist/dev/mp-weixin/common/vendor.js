@@ -1965,7 +1965,7 @@ function getTest() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getLunboList = getLunboList; // 后台地址
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList; // 后台地址
 var urls = "http://localhost:8080";
 
 //GET
@@ -1974,6 +1974,23 @@ function getLunboList() {
   return new Promise(function (resolve, reject) {
     uni.request({
       url: urls + '/hxg',
+      method: 'GET',
+      contentType: 'application/json;charset=UTF-8',
+      success: function success(res) {
+        resolve(res);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+//获取艺考动态列表数据
+function getyikaoDongtaiList() {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: urls + '/hxg/getIndexArtexamdynamic',
       method: 'GET',
       contentType: 'application/json;charset=UTF-8',
       success: function success(res) {

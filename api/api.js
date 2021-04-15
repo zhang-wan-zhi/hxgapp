@@ -18,3 +18,20 @@ export function getLunboList(){
 		})
 	})
 }
+
+//获取艺考动态列表数据
+export function getyikaoDongtaiList(){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getIndexArtexamdynamic',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}

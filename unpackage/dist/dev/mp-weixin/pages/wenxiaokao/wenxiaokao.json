@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "问校考",
   "enablePullDownRefresh": false,
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#F7A3A2",
   "usingComponents": {}
 }

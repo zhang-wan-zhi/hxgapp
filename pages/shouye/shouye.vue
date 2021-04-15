@@ -38,73 +38,27 @@
 				  </view>
 			</view>
 			
-			<view class="content_contents" :style="{height:phoneHeight*0.62+'px;'}" v-show="yikaoDongtaiStatus">
-				<view class="content_content"  @click="yikaoDongtai" :style="{height:phoneHeight*0.15+'px;'}">
-					<view class="content_content1">
-						<view class="content_content1_left">
-							<view class="content_content1_left_top">重磅 | 央美公布复试成绩及合格线！快
-	看你过线没？！</view>
-							<view class="content_content1_left_bottom">
-								<view class="content_content1_left_bottom1">清华大学</view>
-								<view class="content_content1_left_bottom2">2021.04.02</view>
-							</view>
-						</view>
-						<view class="content_content1_right">
-							<image src="../../static/img/yikaodongtai_img1.png"></image>
-						</view>
-					</view>
-				</view>
+			<view class="content_contents" :style="{height:phoneHeight*0.62+'px;'}" v-show="yikaoDongtaiStatus" >
 				
-				<view class="content_content" :style="{height:phoneHeight*0.15+'px;'}">
-					<view class="content_content1">
-						<view class="content_content1_left">
-							<view class="content_content1_left_top">速看！新高考方案公布！时间延长、分
-	值改变、投档志愿均要改革！</view>
-							<view class="content_content1_left_bottom">
-								<view class="content_content1_left_bottom1">北京大学</view>
-								<view class="content_content1_left_bottom2">2021.04.02</view>
+				<view v-for="(item,index) in yikaiDongtaiList" :key="index">
+					<view class="content_content"  @click="yikaoDongtai" :style="{height:phoneHeight*0.15+'px;'}">
+						<view class="content_content1">
+							<view class="content_content1_left">
+								<view class="content_content1_left_top">{{item.aedTitle}}</view>
+								<view class="content_content1_left_bottom">
+									<view class="content_content1_left_bottom1">{{item.aedPublisheder}}</view>
+									<view class="content_content1_left_bottom2">{{item.aedCreatetime}}</view>
+								</view>
 							</view>
-						</view>
-						<view class="content_content1_right">
-							<image src="../../static/img/yikaodongtai_img2.png"></image>
-						</view>
-					</view>
-				</view>
-				
-				<view class="content_content" :style="{height:phoneHeight*0.15+'px;'}">
-					<view class="content_content1">
-						<view class="content_content1_left">
-							<view class="content_content1_left_top">艺术类院校专业实力分析，你适合考哪
-	所学校！</view>
-							<view class="content_content1_left_bottom">
-								<view class="content_content1_left_bottom1">复旦大学</view>
-								<view class="content_content1_left_bottom2">2021.04.02</view>
+							<view class="content_content1_right">
+								<image :src="item.aedMinimg"></image>
 							</view>
-						</view>
-						<view class="content_content1_right">
-							<image src="../../static/img/yikaodongtai_img3.png"></image>
-						</view>
-					</view>
-				</view>
-				
-				<view class="content_content" :style="{height:phoneHeight*0.15+'px;'}">
-					<view class="content_content1">
-						<view class="content_content1_left">
-							<view class="content_content1_left_top">多省公布2021年联考合格线，赶紧看看
-	过线没！附各省成绩查询时间和地址！</view>
-							<view class="content_content1_left_bottom">
-								<view class="content_content1_left_bottom1">浙江传媒学院</view>
-								<view class="content_content1_left_bottom2">2021.04.02</view>
-							</view>
-						</view>
-						<view class="content_content1_right">
-							<image src="../../static/img/yikaodongtai_img4.png"></image>
 						</view>
 					</view>
 				</view>
 				
 				<view class="see_more">
-					<view class="see_more_title">查看更多</view>
+					<view class="see_more_title" @click="mores">查看更多</view>
 				</view>
 							
 			</view>
@@ -287,7 +241,7 @@
 <script>
 	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue';
 	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue';
-	import {getLunboList} from '../../api/api.js';
+	import {getLunboList,getyikaoDongtaiList} from '../../api/api.js';
 	export default {
 		components:{
 			yikaoDongtai,
@@ -318,7 +272,9 @@
 				//艺考课程显示隐藏的状态
 				yikaoKechengStatus:false,
 				//艺考题库显示隐藏的状态
-				yikaoTikuStatus:false
+				yikaoTikuStatus:false,
+				//艺考动态列表数据
+				yikaiDongtaiList:[]
 			}
 		},
 		onLoad(){
@@ -331,13 +287,26 @@
 			this.getWindowHeight();
 			//获取轮播图数据
 			this.getLunboLists();
+			//获取艺考动态列表数据
+			this.getyikaoDongtaiLists();
 		},
 		methods: {
+			//查看更多
+			mores(){
+				console.log(111);
+			},
+			//获取艺考动态列表数据
+			getyikaoDongtaiLists(){
+				getyikaoDongtaiList().then((res)=>{
+					console.log(res.data.artexamdynamicList);
+					this.yikaiDongtaiList=res.data.artexamdynamicList;
+				})
+			},
 			//获取轮播图数据
 			getLunboLists(){
 				// console.log(111);
 				getLunboList().then((res)=>{
-					console.log(res.data.banners);
+					// console.log(res.data.banners);
 					this.swipers=res.data.banners;
 				})
 				
@@ -617,7 +586,7 @@
 								// border:1px solid red;
 							}
 							.content_content1_left_bottom2{
-								width:110rpx;
+								width:140rpx;
 								height:50rpx;
 								line-height:50rpx;
 								text-align: right;

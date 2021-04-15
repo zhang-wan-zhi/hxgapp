@@ -373,52 +373,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _api = __webpack_require__(/*! ../../api/api.js */ 182);var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 128));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 135));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
@@ -450,7 +404,9 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 182);var yikaoDongtai = f
       //艺考课程显示隐藏的状态
       yikaoKechengStatus: false,
       //艺考题库显示隐藏的状态
-      yikaoTikuStatus: false };
+      yikaoTikuStatus: false,
+      //艺考动态列表数据
+      yikaiDongtaiList: [] };
 
   },
   onLoad: function onLoad() {
@@ -463,24 +419,37 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 182);var yikaoDongtai = f
     this.getWindowHeight();
     //获取轮播图数据
     this.getLunboLists();
+    //获取艺考动态列表数据
+    this.getyikaoDongtaiLists();
   },
   methods: {
+    //查看更多
+    mores: function mores() {
+      console.log(111);
+    },
+    //获取艺考动态列表数据
+    getyikaoDongtaiLists: function getyikaoDongtaiLists() {var _this = this;
+      (0, _api.getyikaoDongtaiList)().then(function (res) {
+        console.log(res.data.artexamdynamicList);
+        _this.yikaiDongtaiList = res.data.artexamdynamicList;
+      });
+    },
     //获取轮播图数据
-    getLunboLists: function getLunboLists() {var _this = this;
+    getLunboLists: function getLunboLists() {var _this2 = this;
       // console.log(111);
       (0, _api.getLunboList)().then(function (res) {
-        console.log(res.data.banners);
-        _this.swipers = res.data.banners;
+        // console.log(res.data.banners);
+        _this2.swipers = res.data.banners;
       });
 
     },
     //获取窗口高度，适配手机
-    getWindowHeight: function getWindowHeight() {var _this2 = this;
+    getWindowHeight: function getWindowHeight() {var _this3 = this;
       uni.getSystemInfo({
         success: function success(res) {
           // console.log(res);
           // console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-          _this2.phoneHeight = res.windowHeight;
+          _this3.phoneHeight = res.windowHeight;
           // console.log(res.windowHeight);
           // console.log(this.phoneHeight);
           // this.$store.commit('set_window_height',res.windowHeight*2);

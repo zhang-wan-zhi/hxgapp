@@ -184,7 +184,7 @@
   float: left;
 }
 .all_content .Shouye_content .content_contents .content_content .content_content1 .content_content1_left .content_content1_left_bottom .content_content1_left_bottom2 {
-  width: 110rpx;
+  width: 140rpx;
   height: 50rpx;
   line-height: 50rpx;
   text-align: right;
