@@ -1965,7 +1965,7 @@ function getTest() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList; // 后台地址
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one; // 后台地址
 var urls = "http://localhost:8080";
 
 //GET
@@ -1993,6 +1993,47 @@ function getyikaoDongtaiList() {
       url: urls + '/hxg/getIndexArtexamdynamic',
       method: 'GET',
       contentType: 'application/json;charset=UTF-8',
+      success: function success(res) {
+        resolve(res);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+//艺考动态列表查看更多
+function getmoreList(currentPage, pageSize) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: urls + '/hxg/getArtexamdynamicList',
+      method: 'POST',
+      contentType: 'application/json;charset=UTF-8',
+      data: {
+        "currentPage": currentPage,
+        "pageSize": pageSize },
+
+      success: function success(res) {
+        resolve(res);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+//艺考动态列表,点击艺考动态列表的某一项
+function getyikaoDongtaiList_one(id) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: urls + '/hxg/getArtexamdynamic',
+      method: 'POST',
+      contentType: 'application/json;charset=UTF-8',
+      data: {
+        "id": id },
+
       success: function success(res) {
         resolve(res);
       },

@@ -406,7 +406,9 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 182);var yikaoDongtai = f
       //艺考题库显示隐藏的状态
       yikaoTikuStatus: false,
       //艺考动态列表数据
-      yikaiDongtaiList: [] };
+      yikaiDongtaiList: [],
+      //艺考动态目前的页码
+      currentPage: 1 };
 
   },
   onLoad: function onLoad() {
@@ -424,32 +426,48 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 182);var yikaoDongtai = f
   },
   methods: {
     //查看更多
-    mores: function mores() {
-      console.log(111);
+    mores: function mores() {var _this = this;
+      // console.log(111);
+      var currentPage = this.currentPage;
+      var pageSize = 4;
+      currentPage = currentPage + 1;
+      (0, _api.getmoreList)(currentPage, pageSize).then(function (res) {
+        console.log(res.data.artexamdynamicList);
+        _this.yikaiDongtaiList = _this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
+        _this.currentPage = currentPage;
+        uni.setStorage({
+          key: 'yikaoDongtaiList',
+          data: _this.yikaiDongtaiList });
+
+      });
     },
     //获取艺考动态列表数据
-    getyikaoDongtaiLists: function getyikaoDongtaiLists() {var _this = this;
+    getyikaoDongtaiLists: function getyikaoDongtaiLists() {var _this2 = this;
       (0, _api.getyikaoDongtaiList)().then(function (res) {
         console.log(res.data.artexamdynamicList);
-        _this.yikaiDongtaiList = res.data.artexamdynamicList;
+        _this2.yikaiDongtaiList = res.data.artexamdynamicList;
+        uni.setStorage({
+          key: 'yikaoDongtaiList',
+          data: _this2.yikaiDongtaiList });
+
       });
     },
     //获取轮播图数据
-    getLunboLists: function getLunboLists() {var _this2 = this;
+    getLunboLists: function getLunboLists() {var _this3 = this;
       // console.log(111);
       (0, _api.getLunboList)().then(function (res) {
         // console.log(res.data.banners);
-        _this2.swipers = res.data.banners;
+        _this3.swipers = res.data.banners;
       });
 
     },
     //获取窗口高度，适配手机
-    getWindowHeight: function getWindowHeight() {var _this3 = this;
+    getWindowHeight: function getWindowHeight() {var _this4 = this;
       uni.getSystemInfo({
         success: function success(res) {
           // console.log(res);
           // console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-          _this3.phoneHeight = res.windowHeight;
+          _this4.phoneHeight = res.windowHeight;
           // console.log(res.windowHeight);
           // console.log(this.phoneHeight);
           // this.$store.commit('set_window_height',res.windowHeight*2);
@@ -500,10 +518,15 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 182);var yikaoDongtai = f
       this.yikaoTikuStatus = false;
     },
     //点击查看某一篇的艺考动态信息
-    yikaoDongtai: function yikaoDongtai() {
-      console.log(111);
+    yikaoDongtai: function yikaoDongtai(ids) {
+      console.log(ids);
+      // let id=1;
+      // getyikaoDongtaiList_one(id).then((res)=>{
+      // 	console.log(res);
+      // });
+      // let yikaiDongtaiList=this.yikaiDongtaiList;
       uni.navigateTo({
-        url: '../yikaoxiangqing/yikaoxiangqing' });
+        url: '../yikaoxiangqing/yikaoxiangqing?id=' + ids });
 
     },
     //获取输入框的数据

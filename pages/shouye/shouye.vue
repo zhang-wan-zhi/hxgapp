@@ -41,7 +41,7 @@
 			<view class="content_contents" :style="{height:phoneHeight*0.62+'px;'}" v-show="yikaoDongtaiStatus" >
 				
 				<view v-for="(item,index) in yikaiDongtaiList" :key="index">
-					<view class="content_content"  @click="yikaoDongtai" :style="{height:phoneHeight*0.15+'px;'}">
+					<view class="content_content"  @click="yikaoDongtai(item.id)" :style="{height:phoneHeight*0.15+'px;'}">
 						<view class="content_content1">
 							<view class="content_content1_left">
 								<view class="content_content1_left_top">{{item.aedTitle}}</view>
@@ -241,7 +241,7 @@
 <script>
 	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue';
 	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue';
-	import {getLunboList,getyikaoDongtaiList} from '../../api/api.js';
+	import {getLunboList,getyikaoDongtaiList,getmoreList,getyikaoDongtaiList_one} from '../../api/api.js';
 	export default {
 		components:{
 			yikaoDongtai,
@@ -274,7 +274,9 @@
 				//艺考题库显示隐藏的状态
 				yikaoTikuStatus:false,
 				//艺考动态列表数据
-				yikaiDongtaiList:[]
+				yikaiDongtaiList:[],
+				//艺考动态目前的页码
+				currentPage:1
 			}
 		},
 		onLoad(){
@@ -293,13 +295,29 @@
 		methods: {
 			//查看更多
 			mores(){
-				console.log(111);
+				// console.log(111);
+				let currentPage=this.currentPage;
+				let pageSize=4;
+				currentPage=currentPage+1;
+				getmoreList(currentPage,pageSize).then((res)=>{
+					console.log(res.data.artexamdynamicList);
+					this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
+					this.currentPage=currentPage;
+					uni.setStorage({
+						key:'yikaoDongtaiList',
+						data:this.yikaiDongtaiList
+					});
+				})
 			},
 			//获取艺考动态列表数据
 			getyikaoDongtaiLists(){
 				getyikaoDongtaiList().then((res)=>{
 					console.log(res.data.artexamdynamicList);
 					this.yikaiDongtaiList=res.data.artexamdynamicList;
+					uni.setStorage({
+						key:'yikaoDongtaiList',
+						data:this.yikaiDongtaiList
+					});
 				})
 			},
 			//获取轮播图数据
@@ -368,10 +386,15 @@
 				this.yikaoTikuStatus=false;
 			},
 			//点击查看某一篇的艺考动态信息
-			yikaoDongtai(){
-				console.log(111);
+			yikaoDongtai(ids){
+				console.log(ids);
+				// let id=1;
+				// getyikaoDongtaiList_one(id).then((res)=>{
+				// 	console.log(res);
+				// });
+				// let yikaiDongtaiList=this.yikaiDongtaiList;
 				uni.navigateTo({
-					url:'../yikaoxiangqing/yikaoxiangqing'
+					url:'../yikaoxiangqing/yikaoxiangqing?id='+ids
 				})
 			},
 		    //获取输入框的数据

@@ -1,22 +1,50 @@
 <template>
 	<view class="content1">
 		<view class="content1_title">
-			<view class="content1_title_title">清华大学2021年艺术类专业（美术学院）本科招
-生简章</view>
+			<view class="content1_title_title">{{yikaoDongtaiList_obj.aedTitle}}</view>
 		</view>
 		<view class="content1_user">
-			<view class="content1_user_user">清华大学</view>
-			<view class="content1_user_time">2021-04-02  16：14：22</view>
+			<view class="content1_user_user">{{yikaoDongtaiList_obj.aedPublisheder}}</view>
+			<view class="content1_user_time">{{yikaoDongtaiList_obj.aedCreatetime}}</view>
 		</view>
-		<view class="content1_content">为全面贯彻全国教育大会精神，深入落实《国务院关于深化考试招生制度改革的实
-施意见》，根据《教育部办公厅关于做好2021年普通高校部分特殊类型招生工作通知》
-（教学厅【2020】13号）精神，清华大学结合美术学院人才选拔和培养需要，在新冠病
-毒疫情防控常态化背景下，制定并公布2021年艺术类（美术学院）本科招生简章，具体
-如下：</view>
+		<view class="content1_content">{{yikaoDongtaiList_obj.aedContent}}</view>
 	</view>
 </template>
 
 <script>
+	import {getyikaoDongtaiList_one} from '../../api/api.js';
+	export default{
+		data(){
+			return{
+				yikaoDongtaiList:[],
+				yikaoDongtaiList_obj:{}
+			}
+		},
+		onLoad(res) {
+			console.log(res.id);
+			this.getList(res.id);
+		},
+		methods:{
+			getList(ids){
+				let yikaoDongtaiLists=uni.getStorageSync('yikaoDongtaiList');
+				let newLists=[];
+				// console.log(ids);
+				// for(let i=0;i<yikaoDongtaiLists.length;i++){
+				// 	console.log(yikaoDongtaiLists[i].id);
+				// 	if(yikaoDongtaiLists[i].id==ids){
+				// 	  	newLists.push(yikaoDongtaiLists[i])
+				// 	}
+				// }
+				getyikaoDongtaiList_one(ids).then((res)=>{
+					console.log(res.data.artexamdynamic);
+					this.yikaoDongtaiList_obj=res.data.artexamdynamic;
+				});
+				// console.log(newLists);
+				// this.yikaoDongtaiList=newLists;
+				console.log(this.yikaoDongtaiList);
+			}
+		}
+	}
 </script>
 
 <style lang="scss">
