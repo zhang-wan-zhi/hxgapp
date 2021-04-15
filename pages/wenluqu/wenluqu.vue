@@ -27,7 +27,7 @@
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+								<image src="../../static/img/gaokaofen_img.png"></image>
 							</view>
 							<view class="wenluqu_center_child_child2_content2">高考分:</view>
 							<view class="wenluqu_center_child_child2_content3">
@@ -39,7 +39,7 @@
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+								<image src="../../static/img/tongkaochengji_img.png"></image>
 							</view>
 							<view class="wenluqu_center_child_child2_content2">统考成绩:</view>
 							<view class="wenluqu_center_child_child2_content3">
@@ -51,7 +51,7 @@
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+								<image src="../../static/img/baokaozhuaunye_img.png"></image>
 							</view>
 							<view class="wenluqu_center_child_child2_content2">报考专业:</view>
 							<view class="wenluqu_center_child_child2_content3">
@@ -63,7 +63,7 @@
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+								<image src="../../static/img/dankechengji_img.png"></image>
 							</view>
 							<view class="wenluqu_center_child_child2_content2">单科成绩:</view>
 							<view class="wenluqu_center_child_child2_content3">
@@ -75,7 +75,7 @@
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+								<image src="../../static/img/shili_img.png"></image>
 							</view>
 							<view class="wenluqu_center_child_child2_content2">视力:</view>
 							<view class="wenluqu_center_child_child2_content3">
@@ -87,7 +87,7 @@
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+								<image src="../../static/img/shengao_img.png"></image>
 							</view>
 							<view class="wenluqu_center_child_child2_content2">身高:</view>
 							<view class="wenluqu_center_child_child2_content3">
@@ -99,7 +99,7 @@
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+								<image src="../../static/img/tizhong_img.png"></image>
 							</view>
 							<view class="wenluqu_center_child_child2_content2">体重:</view>
 							<view class="wenluqu_center_child_child2_content3">
@@ -113,7 +113,7 @@
 		</view>
 		
 		<view class="wenluqu_bottom">
-			<view class="wenluqu_bottom_content">开始预测</view>
+			<view class="wenluqu_bottom_content" @click="wenluqu_yuce">开始预测</view>
 		</view>
 	</view>
 </template>
@@ -126,7 +126,11 @@
 			}
 		},
 		methods: {
-			
+			wenluqu_yuce(){
+				uni.navigateTo({
+					url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+				})
+			}
 		}
 	}
 </script>
@@ -233,7 +237,7 @@
 	align-items: center;
 	justify-content: center;
 	.wenluqu_bottom_content{
-		width:150rpx;
+		width:180rpx;
 		height:70rpx;
 		line-height: 70rpx;
 		text-align: center;
@@ -241,7 +245,9 @@
 		color:#fff;
 		font-size:35rpx;
 		font-weight: bold;
-		background-color: #FF6E2F;
+		// background-color: #FF6E2F;
+		background-image: url('../../static/img/kaishiyuce_img.png');
+		background-size: 100% 100%;;
 		border-radius: 10rpx;
 	}
 }
