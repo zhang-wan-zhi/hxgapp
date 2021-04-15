@@ -17,7 +17,7 @@
 			</view>
 		</view>
 		<view class="lijichongzhi">
-			<view class="lijichongzhi_title">立即充值</view>
+			<view class="lijichongzhi_title" @click="lijichongzhi_img">立即充值</view>
 		</view>
 		<view class="chongzhishuoming">
 			<view class="chongzhishuoming_content">
@@ -59,6 +59,12 @@
 			}
 		},
 		methods:{
+			//点击立即充值触发
+			lijichongzhi_img(){
+				uni.navigateTo({
+					url:'../zhifudingdan/zhifudingdan'
+				})
+			},
 			//点击体验版触发
 			tiyan_click(){
 				this.isActive1=true;

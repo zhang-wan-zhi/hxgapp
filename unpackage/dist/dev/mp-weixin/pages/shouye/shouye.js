@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 128));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 135));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -419,6 +419,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _api = __webpack_require__(/*! ../../api/api.js */ 182);var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 128));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 135));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
     yikaoDongtai: yikaoDongtai,
@@ -452,24 +453,40 @@ __webpack_require__.r(__webpack_exports__);
       yikaoTikuStatus: false };
 
   },
-  onLoad: function onLoad() {var _this = this;
+  onLoad: function onLoad() {
     //模拟ajax获取数据，uni.request({...});注意回调的this指向
-    this.swipers = ['../../static/img/lunbo1.jpg',
-    "../../static/img/lunbo2.jpg",
-    "../../static/img/lunbo3.jpg"];
-
-    uni.getSystemInfo({
-      success: function success(res) {
-        // console.log(res);
-        // console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-        _this.phoneHeight = res.windowHeight;
-        // console.log(res.windowHeight);
-        // console.log(this.phoneHeight);
-        // this.$store.commit('set_window_height',res.windowHeight*2);
-      } });
-
+    // this.swipers=['../../static/img/lunbo1.jpg',
+    // "../../static/img/lunbo2.jpg",
+    // "../../static/img/lunbo3.jpg"
+    // ];
+    //获取窗口高度，适配手机
+    this.getWindowHeight();
+    //获取轮播图数据
+    this.getLunboLists();
   },
   methods: {
+    //获取轮播图数据
+    getLunboLists: function getLunboLists() {var _this = this;
+      // console.log(111);
+      (0, _api.getLunboList)().then(function (res) {
+        console.log(res.data.banners);
+        _this.swipers = res.data.banners;
+      });
+
+    },
+    //获取窗口高度，适配手机
+    getWindowHeight: function getWindowHeight() {var _this2 = this;
+      uni.getSystemInfo({
+        success: function success(res) {
+          // console.log(res);
+          // console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+          _this2.phoneHeight = res.windowHeight;
+          // console.log(res.windowHeight);
+          // console.log(this.phoneHeight);
+          // this.$store.commit('set_window_height',res.windowHeight*2);
+        } });
+
+    },
     //艺考课程
     yikaokecheng_click: function yikaokecheng_click() {
       uni.navigateTo({

@@ -21,7 +21,7 @@
 			interval=3000
 			>
 				<swiper-item v-for="(item,index) in swipers" :key="index">
-					<image :src="item"></image>
+					<image :src="item.banUrl"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -285,8 +285,9 @@
 </template>
 
 <script>
-	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue'
-	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue'
+	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue';
+	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue';
+	import {getLunboList} from '../../api/api.js';
 	export default {
 		components:{
 			yikaoDongtai,
@@ -322,22 +323,38 @@
 		},
 		onLoad(){
 			//模拟ajax获取数据，uni.request({...});注意回调的this指向
-			this.swipers=['../../static/img/lunbo1.jpg',
-			"../../static/img/lunbo2.jpg",
-			"../../static/img/lunbo3.jpg"
-			];
-			uni.getSystemInfo({
-				success:(res)=>{
-					// console.log(res);
-					// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-					this.phoneHeight=res.windowHeight;
-					// console.log(res.windowHeight);
-					// console.log(this.phoneHeight);
-					// this.$store.commit('set_window_height',res.windowHeight*2);
-				}
-			})
+			// this.swipers=['../../static/img/lunbo1.jpg',
+			// "../../static/img/lunbo2.jpg",
+			// "../../static/img/lunbo3.jpg"
+			// ];
+			//获取窗口高度，适配手机
+			this.getWindowHeight();
+			//获取轮播图数据
+			this.getLunboLists();
 		},
 		methods: {
+			//获取轮播图数据
+			getLunboLists(){
+				// console.log(111);
+				getLunboList().then((res)=>{
+					console.log(res.data.banners);
+					this.swipers=res.data.banners;
+				})
+				
+			},
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
 			//艺考课程
 			yikaokecheng_click(){
 				uni.navigateTo({
