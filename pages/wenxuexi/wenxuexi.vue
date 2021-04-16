@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="fanghui">
+		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" @click="xinggepinggu">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/mianfeiyuce_free_img2.png"></image>
@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		
-		<view class="fanghui">
+		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" style="background: linear-gradient(to right,#FF6063,#FF9766);" @click="xinggepinggu_shoufei">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/tiyanyuce_img.png"></image>
@@ -30,7 +30,7 @@
 			</view>
 		</view>
 		
-		<view class="fanghui">
+		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" style="background: linear-gradient(to right,#629768,#F3EC76);">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/huiyuanyuce_img.png"></image>
@@ -45,7 +45,7 @@
 			</view>
 		</view>
 		
-		<view class="fanghui">
+		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" style="background: linear-gradient(to right,#6D88C1,#8FC9CA);">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/zhuangyeyuce_img.png"></image>
@@ -66,10 +66,28 @@
 	export default {
 		data() {
 			return {
-				
+				//适配手机高度
+				phoneHeight:0,
 			}
 		},
+		onLoad() {
+			//获取窗口高度，适配手机
+			this.getWindowHeight();
+		},
 		methods: {
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
 			//点击进入收费页面
 			xinggepinggu_shoufei(){
 				console.log(1111);

@@ -41,7 +41,7 @@
 				});
 				// console.log(newLists);
 				// this.yikaoDongtaiList=newLists;
-				console.log(this.yikaoDongtaiList);
+				// console.log(this.yikaoDongtaiList);
 			}
 		}
 	}

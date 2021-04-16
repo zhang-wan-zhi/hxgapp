@@ -1,5 +1,9 @@
 // 后台地址
+//本地地址
 let urls="http://localhost:8080";
+
+//线上地址
+// let urls="http://orangezoom.cn";
 
 //GET
 //获取轮播图接口数据

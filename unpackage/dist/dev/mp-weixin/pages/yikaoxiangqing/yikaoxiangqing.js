@@ -173,7 +173,7 @@ var _default = { data: function data() {return { yikaoDongtaiList: [], yikaoDong
       });
       // console.log(newLists);
       // this.yikaoDongtaiList=newLists;
-      console.log(this.yikaoDongtaiList);
+      // console.log(this.yikaoDongtaiList);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

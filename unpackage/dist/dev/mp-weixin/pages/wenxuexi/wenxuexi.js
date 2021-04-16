@@ -197,11 +197,29 @@ __webpack_require__.r(__webpack_exports__);
 var _default =
 {
   data: function data() {
-    return {};
-
+    return {
+      //适配手机高度
+      phoneHeight: 0 };
 
   },
+  onLoad: function onLoad() {
+    //获取窗口高度，适配手机
+    this.getWindowHeight();
+  },
   methods: {
+    //获取窗口高度，适配手机
+    getWindowHeight: function getWindowHeight() {var _this = this;
+      uni.getSystemInfo({
+        success: function success(res) {
+          // console.log(res);
+          // console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+          _this.phoneHeight = res.windowHeight;
+          // console.log(res.windowHeight);
+          // console.log(this.phoneHeight);
+          // this.$store.commit('set_window_height',res.windowHeight*2);
+        } });
+
+    },
     //点击进入收费页面
     xinggepinggu_shoufei: function xinggepinggu_shoufei() {
       console.log(1111);

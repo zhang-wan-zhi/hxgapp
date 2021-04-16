@@ -64,7 +64,7 @@
 			</view>
 			
 			<view class="yikaoKecheng_content" v-show="yikaoKechengStatus" @click="yikaokecheng_click">
-				<view class="yikaoKecheng_content_content">
+				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
 							<image src="../../static/img/yikaiKecheng_img1.png"></image>
@@ -89,7 +89,7 @@
 					</view>
 				</view>
 				
-				<view class="yikaoKecheng_content_content">
+				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
 							<image src="../../static/img/yikaiKecheng_img2.png"></image>
@@ -115,7 +115,7 @@
 					</view>
 				</view>
 				
-				<view class="yikaoKecheng_content_content">
+				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
 							<image src="../../static/img/yikaiKecheng_img3.png"></image>
@@ -141,7 +141,7 @@
 					</view>
 				</view>
 				
-				<view class="yikaoKecheng_content_content">
+				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
 							<image src="../../static/img/yikaiKecheng_img4.png"></image>
@@ -169,14 +169,14 @@
 			</view>
 			
 			<view v-show="yikaoTikuStatus" class="yikaoTiku_content">
-				<view class="yikaoTiku_content_content">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电影摄影与制作专业校考真题1111</view>
 					<view class="yikaoTiku_content_content_right" @click="zhenti_next">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
 				</view>
 				
-				<view class="yikaoTiku_content_content">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">浙江传媒学院2021年影视摄影与制作（电视摄影）线上
 初试真题</view>
 					<view class="yikaoTiku_content_content_right">
@@ -184,7 +184,7 @@
 					</view>
 				</view>
 				
-				<view class="yikaoTiku_content_content">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院播音主持专业校考复试真题（杭州
 考点）</view>
 					<view class="yikaoTiku_content_content_right">
@@ -192,7 +192,7 @@
 					</view>
 				</view>
 				
-				<view class="yikaoTiku_content_content">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2021年中央戏剧学院戏剧影视导演（电影导演）专业考试
 真题</view>
 					<view class="yikaoTiku_content_content_right">
@@ -200,21 +200,21 @@
 					</view>
 				</view>
 				
-				<view class="yikaoTiku_content_content">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电视节目制作专业考试题目</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
 				</view>
 								
-				<view class="yikaoTiku_content_content">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2020年浙江传媒学院播音与主持专业面试真题（复试）</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
 				</view>	
 						
-				<view class="yikaoTiku_content_content">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2020年中央戏剧学院舞蹈表演专业考试内容</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>

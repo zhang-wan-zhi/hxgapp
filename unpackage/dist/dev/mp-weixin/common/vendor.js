@@ -1966,7 +1966,11 @@ function getTest() {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one; // 后台地址
+//本地地址
 var urls = "http://localhost:8080";
+
+//线上地址
+// let urls="http://orangezoom.cn";
 
 //GET
 //获取轮播图接口数据
