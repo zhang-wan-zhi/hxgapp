@@ -17,6 +17,7 @@
 
 <script>
 	import {getTest} from '../../api/http.js'
+	import {getWxcode} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -107,74 +108,27 @@
 				uni.login({
 				  provider: 'weixin',
 				  success: function (loginRes) {
-					 console.log(loginRes);
+					console.log(loginRes);
+					console.log("wxcode",loginRes.code);
+					getWxcode(loginRes.code).then((res)=>{
+						console.log(res);
+						uni.switchTab({
+							url:'../shouye/shouye'
+						})
+					})
 					let js_code=loginRes.code;//js_code可以给后台获取unionID或openID作为用户标识
 					// 获取用户信息
-					uni.getUserInfo({
-					  provider: 'weixin',
-					  success: function (infoRes) {
-						  console.log(infoRes);
-						  uni.switchTab({
-						  	url:'../shouye/shouye'
-						  })
-						//infoRes里面有用户信息需要的话可以取一下
-						let username=infoRes.userInfo.nickName;//用户名
-						let gender=infoRes.userInfo.gender;//用户性别
-						let avatarUrl=infoRes.userInfo.avatarUrl;//头像
-					 //判断是否授权
-					 //  uni.getSetting({
-					 //   success(res) {
-						// console.log("授权：",res);
-						//  if (!res.authSetting['scope.userInfo']) {
-						// 	//这里调用授权
-						// 	console.log("当前未授权");
-						//  } else {
-						// 	//用户已经授权过了
-						// 	console.log("当前已授权");
-						// 	// 弹出正在登录的弹框
-						// 	uni.showLoading({
-						// 		mask:true,
-						// 		title: '正在登录···',
-						// 		complete:()=>{
-						// 			uni.switchTab({
-						// 				url:'../shouye/shouye'
-						// 			})
-						// 		}
-						// 	});
-						// 	// 判断已授权调取接口并获取openId
-						// 	// that.$apiReq.req({ // 创建对象
-						// 	// 	url: '/ui/wxutil/loginByWx', // 示例请求路径
-						// 	// 	method:"post",
-						// 	// 	data : {
-						// 	// 		'code':js_code,
-						// 	// 	},
-						// 	// 	success: (res) => {
-						// 	// 	 //需要openId 可以在这里打印出来
-						// 	// 		if(res.data.code==202){
-						// 	// 			// 登录成功后判断是否是第一次注册  如果是弹出选择身份页面
-						// 	// 			 uni.navigateTo({
-						// 	// 				url: './registeredIdentity/registeredIdentity'
-						// 	// 				success: res => {},
-						// 	// 				fail: () => {},
-						// 	// 				complete: () => {}
-						// 	// 				});
-						// 	// 			}else if(res.data.code==201){
-						// 	// 				 uni.switchTab({
-						// 	// 						url: '../homePage/homePage',
-						// 	// 						success: res => {},
-						// 	// 						fail: () => {},
-						// 	// 						complete: () => {}
-						// 	// 				 });
-						// 	// 		}
-						// 	// 	},
-						// 	//  })
-						
-						//  }
-					 //   }
-					 //  })
-					  },
-					  fail:function(res){}
-					})
+					// uni.getUserInfo({
+					//   provider: 'weixin',
+					//   success: function (infoRes) {
+					// 	  console.log(infoRes);
+					// 	  uni.switchTab({
+					// 	  	url:'../shouye/shouye'
+					// 	  })
+					//   },
+					//   fail:function(res){}
+					// })
+					
 				  },
 				  fail:function(res){}
 				})

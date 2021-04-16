@@ -1965,13 +1965,32 @@ function getTest() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one; // 后台地址
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getWxcode = getWxcode;exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one; // 后台地址
 //本地地址
 var urls = "http://localhost:8080";
 
 //线上地址
-// let urls="http://orangezoom.cn";
+// let urls="http://orangezoom.cn:8091";
 
+//授权，获取wxcode
+function getWxcode(wxcode) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: urls + '/hxg/grant',
+      method: 'GET',
+      contentType: 'application/json;charset=UTF-8',
+      data: {
+        "WxCode": wxcode },
+
+      success: function success(res) {
+        resolve(res);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
 //GET
 //获取轮播图接口数据
 function getLunboList() {

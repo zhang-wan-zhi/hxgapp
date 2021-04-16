@@ -171,6 +171,10 @@
 			</view> -->
 			
 		</view>
+		
+		<view class="yikaoKecheng_content_bottom" :style="{bottom:0}">
+			<view class="yikaoKecheng_content_bottom1">购买￥99</view>
+		</view>
 	</view>
 </template>
 
@@ -185,6 +189,9 @@
 			
 		},
 		onLoad(){
+			
+		},
+		onShow(){
 			
 		}
 	}
@@ -409,6 +416,24 @@
 					}
 				}
 			}
+		}
+	}
+	.yikaoKecheng_content_bottom{
+		width:100%;
+		height:75rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #F74F52;
+		position: fixed;
+		bottom:0;
+		.yikaoKecheng_content_bottom1{
+			width:100%;
+			height:60rpx;
+			color:#fff;
+			line-height: 60rpx;
+			text-align: center;
+			
 		}
 	}
 </style>

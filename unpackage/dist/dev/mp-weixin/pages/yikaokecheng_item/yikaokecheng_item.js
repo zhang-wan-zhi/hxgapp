@@ -306,6 +306,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -317,6 +321,9 @@ var _default =
 
 
   onLoad: function onLoad() {
+
+  },
+  onShow: function onShow() {
 
   } };exports.default = _default;
 

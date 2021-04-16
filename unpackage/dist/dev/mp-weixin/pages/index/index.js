@@ -153,7 +153,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _http = __webpack_require__(/*! ../../api/http.js */ 17); //
+var _http = __webpack_require__(/*! ../../api/http.js */ 17);
+var _api = __webpack_require__(/*! ../../api/api.js */ 182); //
 //
 //
 //
@@ -245,72 +246,25 @@ var _default = { data: function data() {return { userInfo: [] };}, onLoad: funct
         provider: 'weixin',
         success: function success(loginRes) {
           console.log(loginRes);
+          console.log("wxcode", loginRes.code);
+          (0, _api.getWxcode)(loginRes.code).then(function (res) {
+            console.log(res);
+            uni.switchTab({
+              url: '../shouye/shouye' });
+
+          });
           var js_code = loginRes.code; //js_code可以给后台获取unionID或openID作为用户标识
           // 获取用户信息
-          uni.getUserInfo({
-            provider: 'weixin',
-            success: function success(infoRes) {
-              console.log(infoRes);
-              uni.switchTab({
-                url: '../shouye/shouye' });
-
-              //infoRes里面有用户信息需要的话可以取一下
-              var username = infoRes.userInfo.nickName; //用户名
-              var gender = infoRes.userInfo.gender; //用户性别
-              var avatarUrl = infoRes.userInfo.avatarUrl; //头像
-              //判断是否授权
-              //  uni.getSetting({
-              //   success(res) {
-              // console.log("授权：",res);
-              //  if (!res.authSetting['scope.userInfo']) {
-              // 	//这里调用授权
-              // 	console.log("当前未授权");
-              //  } else {
-              // 	//用户已经授权过了
-              // 	console.log("当前已授权");
-              // 	// 弹出正在登录的弹框
-              // 	uni.showLoading({
-              // 		mask:true,
-              // 		title: '正在登录···',
-              // 		complete:()=>{
-              // 			uni.switchTab({
-              // 				url:'../shouye/shouye'
-              // 			})
-              // 		}
-              // 	});
-              // 	// 判断已授权调取接口并获取openId
-              // 	// that.$apiReq.req({ // 创建对象
-              // 	// 	url: '/ui/wxutil/loginByWx', // 示例请求路径
-              // 	// 	method:"post",
-              // 	// 	data : {
-              // 	// 		'code':js_code,
-              // 	// 	},
-              // 	// 	success: (res) => {
-              // 	// 	 //需要openId 可以在这里打印出来
-              // 	// 		if(res.data.code==202){
-              // 	// 			// 登录成功后判断是否是第一次注册  如果是弹出选择身份页面
-              // 	// 			 uni.navigateTo({
-              // 	// 				url: './registeredIdentity/registeredIdentity'
-              // 	// 				success: res => {},
-              // 	// 				fail: () => {},
-              // 	// 				complete: () => {}
-              // 	// 				});
-              // 	// 			}else if(res.data.code==201){
-              // 	// 				 uni.switchTab({
-              // 	// 						url: '../homePage/homePage',
-              // 	// 						success: res => {},
-              // 	// 						fail: () => {},
-              // 	// 						complete: () => {}
-              // 	// 				 });
-              // 	// 		}
-              // 	// 	},
-              // 	//  })
-
-              //  }
-              //   }
-              //  })
-            },
-            fail: function fail(res) {} });
+          // uni.getUserInfo({
+          //   provider: 'weixin',
+          //   success: function (infoRes) {
+          // 	  console.log(infoRes);
+          // 	  uni.switchTab({
+          // 	  	url:'../shouye/shouye'
+          // 	  })
+          //   },
+          //   fail:function(res){}
+          // })
 
         },
         fail: function fail(res) {} });

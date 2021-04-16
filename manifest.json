@@ -60,7 +60,12 @@
         "usingComponents" : true,
         "uniStatistics" : {
             "enable" : false
-        }
+        },
+		"permission" : {
+			"scope.userLocation": {
+				"desc": "你的位置信息将用于小程序位置接口的效果展示"
+			}
+		}
     },
     //解决h5页面跨域问题
     "h5" : {

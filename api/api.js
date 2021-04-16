@@ -3,8 +3,27 @@
 let urls="http://localhost:8080";
 
 //线上地址
-// let urls="http://orangezoom.cn";
+// let urls="http://orangezoom.cn:8091";
 
+//授权，获取wxcode
+export function getWxcode(wxcode){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/grant',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				"WxCode": wxcode,
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
 //GET
 //获取轮播图接口数据
 export function getLunboList(){
