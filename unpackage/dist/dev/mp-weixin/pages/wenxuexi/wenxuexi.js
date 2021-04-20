@@ -130,109 +130,152 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {
-      //适配手机高度
-      phoneHeight: 0 };
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-  },
-  onLoad: function onLoad() {
-    //获取窗口高度，适配手机
-    this.getWindowHeight();
-  },
-  methods: {
-    //获取窗口高度，适配手机
-    getWindowHeight: function getWindowHeight() {var _this = this;
-      uni.getSystemInfo({
-        success: function success(res) {
-          // console.log(res);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _api = __webpack_require__(/*! ../../api/api.js */ 18); //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { //适配手机高度
+      phoneHeight: 0 };}, onLoad: function onLoad() {//获取窗口高度，适配手机
+    this.getWindowHeight();}, methods: { //获取窗口高度，适配手机
+    getWindowHeight: function getWindowHeight() {var _this = this;uni.getSystemInfo({ success: function success(res) {// console.log(res);
           // console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-          _this.phoneHeight = res.windowHeight;
-          // console.log(res.windowHeight);
+          _this.phoneHeight = res.windowHeight; // console.log(res.windowHeight);
           // console.log(this.phoneHeight);
           // this.$store.commit('set_window_height',res.windowHeight*2);
-        } });
-
-    },
-    //点击进入收费页面
-    xinggepinggu_shoufei: function xinggepinggu_shoufei() {
-      console.log(1111);
-      uni.navigateTo({
-        url: '../chongzhizhongxin/chongzhizhongxin' });
-
-    },
-    //点击进入性格评估
-    xinggepinggu: function xinggepinggu() {
-      uni.navigateTo({
-        url: '../xinggepinggu/xinggepinggu' });
-
-    } } };exports.default = _default;
+        } });}, //点击进入收费页面
+    xinggepinggu_shoufei: function xinggepinggu_shoufei() {console.log(1111);uni.navigateTo({ url: '../chongzhizhongxin/chongzhizhongxin' });}, //点击进入性格评估
+    xinggepinggu: function xinggepinggu() {var _this2 = this;var ids = 0;(0, _api.wenXuexiTest_free)(ids).then(function (res) {// console.log(res.data.data);
+        var Arr = res.data.data;var newArr = [];for (var i = 0; i < Arr.length; i++) {if (Arr[i].optionsList.length > 1) {newArr.push(Arr[i]);}}_this2.TestListArr = newArr;uni.setStorage({ key: 'lists', data: newArr }); // console.log(newArr);
+        // console.log(this.TestListArr[this.indenxs]);
+        // this.items=this.TestListArr[this.indenxs].optionsList;
+        // console.log(this.items);
+      }); // console.log(222);
+      uni.navigateTo({ url: '../xinggepinggu2/xinggepinggu2?id=' + ids });} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

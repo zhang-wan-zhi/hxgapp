@@ -130,86 +130,108 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {
-      items: [{
-        value: 'USA',
-        name: '都不擅长' },
-
-      {
-        value: 'CHN',
-        name: '记叙文较好',
-        checked: 'true' },
-
-      {
-        value: 'BRA',
-        name: '议论文较好' },
-
-      {
-        value: 'BRA2',
-        name: '说明文较好' }],
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
-      current: 0 };
 
-  },
-  methods: {
-    //下一题
-    next: function next() {
-      uni.navigateTo({
-        url: '../xinggepinggu2/xinggepinggu2' });
 
-    },
-    radioChange: function radioChange(evt) {
-      for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i].value === evt.target.value) {
-          this.current = i;
-          break;
-        }
-      }
-    } } };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _api = __webpack_require__(/*! ../../api/api.js */ 18); //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { items: [], //单选题的所有选项
+      current: 0, //单选题选择项的index
+      TestListArr: [], //题目数组
+      indenxs: 0, //题目的index
+      id: 0, //题目的id
+      selected: '' //单选题选中的值
+    };}, onLoad: function onLoad(ids) {var _this = this; // console.log(ids);
+    //没有上一题，久执行
+    (0, _api.wenXuexiTest_free)(ids.id).then(function (res) {console.log(res.data.data);var Arr = res.data.data;var newArr = [];for (var i = 0; i < Arr.length; i++) {if (Arr[i].optionsList.length > 1) {newArr.push(Arr[i]);}}_this.TestListArr = newArr;uni.setStorage({ key: 'lists', data: newArr }); // console.log(newArr);
+      // console.log(this.TestListArr[this.indenxs]);
+      _this.items = _this.TestListArr[_this.indenxs].optionsList; // console.log(this.items);
+    });}, methods: { //下一题
+    next: function next(indenxs) {var index = indenxs + 1;uni.navigateTo({ url: '../xinggepinggu2/xinggepinggu2?id=' + index });}, radioChange: function radioChange(evt) {console.log(evt.target.value);for (var i = 0; i < this.items.length; i++) {if (this.items[i].content === evt.target.value) {this.current = i;this.selected = evt.target.value;break;}}} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

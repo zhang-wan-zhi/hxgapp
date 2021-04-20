@@ -8060,12 +8060,12 @@ function getTest() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getWxcode = getWxcode;exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one; // 后台地址
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getWxcode = getWxcode;exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one;exports.wenXuexiTest_free = wenXuexiTest_free; // 后台地址
 //本地地址
-var urls = "http://localhost:8091";
+// let urls="http://localhost:8091";
 
 //线上地址
-// let urls="http://orangezoom.cn:8091";
+var urls = "http://orangezoom.cn:8091";
 
 //授权，获取wxcode
 function getWxcode(wxcode) {
@@ -8152,6 +8152,26 @@ function getyikaoDongtaiList_one(id) {
       data: {
         "id": id },
 
+      success: function success(res) {
+        resolve(res);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+//问学习测试选择题
+function wenXuexiTest_free(id) {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: urls + '/hxg/qlearn/' + id,
+      method: 'GET',
+      contentType: 'application/json;charset=UTF-8',
+      // data:{
+      // 	"testSheetId": id,
+      // },
       success: function success(res) {
         resolve(res);
       },
