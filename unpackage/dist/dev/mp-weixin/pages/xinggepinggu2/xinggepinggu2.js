@@ -179,17 +179,32 @@ var _default =
   data: function data() {
     return {
       items: [],
-      current: 0,
+      //解决开始进入，选择被选中的问题
+      current: null,
       indexs: 0,
       content: '',
       //是否显示上一题
       isshow_front: false,
       //是否显示下一题
-      isshow_next: true };
+      isshow_next: true,
+      //选择的题目数组
+      selectedArr: [],
+      selectedArr1: [],
+      selected1: '',
+      //选中的序号
+      active: null };
 
   },
   onLoad: function onLoad(ids) {
-    // console.log(ids.id);
+    console.log(ids);
+    console.log(ids.id);
+    console.log(ids.valueArr);
+    var NewArr = this.selectedArr1.push(ids.valueArr);
+    console.log(uni.getStorageSync('valueArr'));
+    uni.setStorage({
+      key: 'valueArr',
+      data: NewArr });
+
     this.indexs = parseInt(ids.id);
     //对上一题进行校验
     if (this.indexs != 0) {
@@ -199,21 +214,24 @@ var _default =
     }
     var currentArr = uni.getStorageSync('lists1');
     //对下一题进行校验
-    if (this.indexs = currentArr.length - 1) {
-      this.isshow_next = false;
-    } else {
-      this.isshow_next = true;
-    }
-    this.content = currentArr[ids.id].content;
-    this.items = currentArr[ids.id].optionsList;
+    // if(this.indexs!=(currentArr.length-1)){
+    // 	this.isshow_next=true;
+    // }else{
+    // 	this.isshow_next=false;
+    // };
+    var lists = currentArr[this.indexs];
+    this.content = lists.content;
+    this.items = lists.optionsList;
     // console.log(this.content);
   },
   methods: {
     //提交生成文学习报告
     wenxuexiBaogaos: function wenxuexiBaogaos() {
-      uni.navigateTo({
-        url: '../wenxuexiBaogao/wenxuexiBaogao' });
-
+      var submit_value_Arr = uni.getStorageSync('submit_value');
+      console.log(submit_value_Arr);
+      // uni.navigateTo({
+      // 	url:'../wenxuexiBaogao/wenxuexiBaogao'
+      // })
     },
     //上一题
     front: function front() {
@@ -225,17 +243,35 @@ var _default =
     //下一题
     next: function next() {
       var ids = this.indexs + 1;
+      var valueArr = [this.selected1];
+      console.log(valueArr);
       uni.navigateTo({
-        url: '../xinggepinggu2/xinggepinggu2?id=' + ids });
+        url: '../xinggepinggu2/xinggepinggu2?id=' + ids + '&valueArr=' + valueArr });
 
     },
     radioChange: function radioChange(evt) {
+      var arr = [];
+
       for (var i = 0; i < this.items.length; i++) {
         if (this.items[i].content === evt.target.value) {
           this.current = i;
+          // console.log(evt.target.value);
+          this.selected1 = evt.target.value;
+          // arr.push(evt.target.value);
           break;
         }
       }
+      var newArr = arr.push(evt.target.value);
+      // console.log(arr);
+      this.selectedArr = newArr;
+
+      uni.setStorage({
+        key: 'submit_value',
+        data: arr });
+
+      // console.log(arr);
+      console.log(uni.getStorageSync('submit_value'));
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

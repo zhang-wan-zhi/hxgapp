@@ -47,41 +47,59 @@
 		data(){
 			return{
 				items: [],
-				current: 0,
+				//解决开始进入，选择被选中的问题
+				current: null,
 				indexs:0,
 				content:'',
 				//是否显示上一题
 				isshow_front:false,
 				//是否显示下一题
-				isshow_next:true
+				isshow_next:true,
+				//选择的题目数组
+				selectedArr:[],
+				selectedArr1:[],
+				selected1:'',
+				//选中的序号
+				active:null,
 			}
 		},
 		onLoad(ids) {
-			// console.log(ids.id);
+			console.log(ids);
+			console.log(ids.id);
+			console.log(ids.valueArr);
+			let NewArr=this.selectedArr1.push(ids.valueArr);
+			console.log(uni.getStorageSync('valueArr'));
+			uni.setStorage({
+				key:'valueArr',
+				data:NewArr
+			})
 			this.indexs=parseInt(ids.id);
 			//对上一题进行校验
 			if(this.indexs!=0){
-				this.isshow_front=true
+				this.isshow_front=true;
 			}else{
 				this.isshow_front=false;
 			}
 			let currentArr=uni.getStorageSync('lists1');
 			//对下一题进行校验
-			if(this.indexs=currentArr.length-1){
-				this.isshow_next=false
-			}else{
-				this.isshow_next=true;
-			}
-			this.content=currentArr[ids.id].content;
-			this.items=currentArr[ids.id].optionsList
+			// if(this.indexs!=(currentArr.length-1)){
+			// 	this.isshow_next=true;
+			// }else{
+			// 	this.isshow_next=false;
+			// };
+			let lists=currentArr[this.indexs];
+			this.content=lists.content;
+			this.items=lists.optionsList;
 			// console.log(this.content);
 		},
 		methods:{
 			//提交生成文学习报告
 			wenxuexiBaogaos(){
-				uni.navigateTo({
-					url:'../wenxuexiBaogao/wenxuexiBaogao'
-				})
+				let submit_value_Arr=uni.getStorageSync('submit_value');
+				console.log(submit_value_Arr);
+				// uni.navigateTo({
+				// 	url:'../wenxuexiBaogao/wenxuexiBaogao'
+				// })
 			},
 			//上一题
 			front(){
@@ -93,17 +111,35 @@
 			//下一题
 			next(){
 				let ids=this.indexs+1;
+				let valueArr=[this.selected1];
+				console.log(valueArr);
 				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2?id='+ids
+					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+valueArr
 				})
 			},
 			radioChange: function(evt) {
+				let arr=[];
+				
 				for (let i = 0; i < this.items.length; i++) {
 					if (this.items[i].content === evt.target.value) {
 						this.current = i;
+						// console.log(evt.target.value);
+						this.selected1=evt.target.value;
+						// arr.push(evt.target.value);
 						break;
 					}
 				}
+				let newArr=arr.push(evt.target.value);
+				// console.log(arr);
+				this.selectedArr=newArr;
+				
+				uni.setStorage({
+					key:'submit_value',
+					data:arr
+				})
+				// console.log(arr);
+				console.log(uni.getStorageSync('submit_value'));
+	
 			}
 		}
 	}
@@ -187,6 +223,7 @@
 					width:100%;
 					height:400rpx;
 					// border:1px solid blue;
+					overflow-y:auto;
 					.radio_select{
 						width:100%;
 						height:50rpx;

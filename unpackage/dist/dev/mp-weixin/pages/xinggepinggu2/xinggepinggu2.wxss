@@ -124,6 +124,7 @@
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_content.data-v-62ad275c {
   width: 100%;
   height: 400rpx;
+  overflow-y: auto;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_content .radio_select.data-v-62ad275c {
   width: 100%;

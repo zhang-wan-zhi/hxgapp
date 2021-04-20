@@ -245,34 +245,34 @@ var _default = { data: function data() {return { userInfo: [] };}, onLoad: funct
         url: '../shouye/shouye' });
 
       // 获取用户名  获取性别 获取头像 获取js_code去换取后台返回的openID
-      // uni.login({
-      //   provider: 'weixin',
-      //   success: function (loginRes) {
-      // 	console.log(loginRes);
-      // 	console.log("wxcode",loginRes.code);
-      // 	// getWxcode(loginRes.code).then((res)=>{
-      // 	// 	console.log(res);
-      // 	// 	uni.switchTab({
-      // 	// 		url:'../shouye/shouye'
-      // 	// 	})
-      // 	// })
-      // 	let js_code=loginRes.code;//js_code可以给后台获取unionID或openID作为用户标识
-      // 	// 获取用户信息，getUserInfo换了getUserProfile
-      // 	wx.getUserInfo({
-      // 	  provider: 'weixin',
-      // 	  // desc: '用于完善会员资料',
-      // 	  success: function (infoRes) {
-      // 		  console.log(infoRes);
-      // 		  uni.switchTab({
-      // 		  	url:'../shouye/shouye'
-      // 		  })
-      // 	  },
-      // 	  fail:function(res){}
-      // 	})
+      uni.login({
+        provider: 'weixin',
+        success: function success(loginRes) {
+          console.log(loginRes);
+          console.log("wxcode", loginRes.code);
+          // getWxcode(loginRes.code).then((res)=>{
+          // 	console.log(res);
+          // 	uni.switchTab({
+          // 		url:'../shouye/shouye'
+          // 	})
+          // })
+          var js_code = loginRes.code; //js_code可以给后台获取unionID或openID作为用户标识
+          // 获取用户信息，getUserInfo换了getUserProfile
+          uni.getUserInfo({
+            provider: 'weixin',
+            // desc: '用于完善会员资料',
+            success: function success(infoRes) {
+              console.log(infoRes);
+              uni.switchTab({
+                url: '../shouye/shouye' });
 
-      //   },
-      //   fail:function(res){}
-      // })
+            },
+            fail: function fail(res) {} });
+
+
+        },
+        fail: function fail(res) {} });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
