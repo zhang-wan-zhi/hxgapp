@@ -300,13 +300,18 @@
 				let pageSize=4;
 				currentPage=currentPage+1;
 				getmoreList(currentPage,pageSize).then((res)=>{
-					console.log(res.data.artexamdynamicList);
-					this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
-					this.currentPage=currentPage;
-					uni.setStorage({
-						key:'yikaoDongtaiList',
-						data:this.yikaiDongtaiList
-					});
+					console.log(res.data.artexamdynamicList);	
+					// console.log(res.data.msg);
+					if(res.data.msg=='页码超出了哦!'){
+						return res.data.msg;
+					}else{
+						this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
+						this.currentPage=currentPage;
+						uni.setStorage({
+							key:'yikaoDongtaiList',
+							data:this.yikaiDongtaiList
+						});
+					}
 				})
 			},
 			//获取艺考动态列表数据
@@ -324,7 +329,7 @@
 			getLunboLists(){
 				// console.log(111);
 				getLunboList().then((res)=>{
-					// console.log(res.data.banners);
+					console.log(res.data.banners);
 					this.swipers=res.data.banners;
 				})
 				

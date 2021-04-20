@@ -433,12 +433,17 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 18);var yikaoDongtai = fu
       currentPage = currentPage + 1;
       (0, _api.getmoreList)(currentPage, pageSize).then(function (res) {
         console.log(res.data.artexamdynamicList);
-        _this.yikaiDongtaiList = _this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
-        _this.currentPage = currentPage;
-        uni.setStorage({
-          key: 'yikaoDongtaiList',
-          data: _this.yikaiDongtaiList });
+        // console.log(res.data.msg);
+        if (res.data.msg == '页码超出了哦!') {
+          return res.data.msg;
+        } else {
+          _this.yikaiDongtaiList = _this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
+          _this.currentPage = currentPage;
+          uni.setStorage({
+            key: 'yikaoDongtaiList',
+            data: _this.yikaiDongtaiList });
 
+        }
       });
     },
     //获取艺考动态列表数据
@@ -456,7 +461,7 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 18);var yikaoDongtai = fu
     getLunboLists: function getLunboLists() {var _this3 = this;
       // console.log(111);
       (0, _api.getLunboList)().then(function (res) {
-        // console.log(res.data.banners);
+        console.log(res.data.banners);
         _this3.swipers = res.data.banners;
       });
 
