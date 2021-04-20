@@ -99,3 +99,23 @@ export function getyikaoDongtaiList_one(id){
 		})
 	})
 }
+
+//获取问学习，测试题
+export function getWenxuexiTestList(id){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/qlearn/'+id,
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:{
+			// 	"id": id,
+			// },
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}

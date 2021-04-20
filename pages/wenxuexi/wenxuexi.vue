@@ -63,6 +63,7 @@
 </template>
 
 <script>
+	import {getWenxuexiTestList} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -97,8 +98,16 @@
 			},
 			//点击进入性格评估
 			xinggepinggu(){
+				let id=0;
+				getWenxuexiTestList(id).then((res)=>{
+					console.log(res.data.data);
+					uni.setStorage({
+						key:'lists',
+						data:res.data.data,
+					})
+				})
 				uni.navigateTo({
-					url:'../xinggepinggu/xinggepinggu'
+					url:'../xinggepinggu/xinggepinggu?id='+id;
 				})
 			}
 		}
