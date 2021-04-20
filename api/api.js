@@ -99,3 +99,20 @@ export function getyikaoDongtaiList_one(id){
 		})
 	})
 }
+
+//艺考动态列表,点击艺考动态列表的某一项
+export function getWenxuexiList(id){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/qlearn/'+id,
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}

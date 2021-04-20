@@ -7,17 +7,17 @@
 			<view class="pinggu_content_content">
 				<view class="pinggu_content_content1">
 					<view class="pinggu_content_content1_tihao">
-						<view class="pinggu_content_content1_tihao1">第二题</view>
+						<view class="pinggu_content_content1_tihao1">第{{indexs+1}}题</view>
 					</view>
 					<view class="pinggu_content_content1_biaoti">
-						<view class="pinggu_content_content1_biaoti1">汉语作文擅长的文体2？</view>
+						<view class="pinggu_content_content1_biaoti1">{{content}}</view>
 					</view>
 					<view class="pinggu_content_content1_content">
 						<radio-group @change="radioChange">
-							<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+							<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.id">
 								<view class="radio_select">
-									<radio class="radio_select1" :value="item.value" :checked="index === current" />
-									<view class="radio_select2">{{item.name}}</view>
+									<radio class="radio_select1" :value="item.content" :checked="index === current" />
+									<view class="radio_select2">{{item.content}}</view>
 								</view>
 								
 							</label>
@@ -25,7 +25,7 @@
 					</view>
 					<view class="pinggu_content_content1_next">
 						<view class="pinggu_content_content1_next1" style="background-color: #ED5352;" @click="front">上一题</view>
-						<view class="pinggu_content_content1_next1">下一题</view>
+						<view class="pinggu_content_content1_next1" @click="next">下一题</view>
 					</view>
 					<view class="pinggu_content_content1_submit">
 						<view class="pinggu_content_content1_submit1" @click="wenxuexiBaogaos">提交</view>
@@ -46,26 +46,19 @@
 	export default{
 		data(){
 			return{
-				items: [{
-							value: 'USA',
-							name: '都不擅长'
-						},
-						{
-							value: 'CHN',
-							name: '记叙文较好',
-							checked: 'true'
-						},
-						{
-							value: 'BRA',
-							name: '议论文较好'
-						},
-						{
-							value: 'BRA2',
-							name: '说明文较好'
-						}
-					],
-					current: 0
+				items: [],
+				current: 0,
+				indexs:0,
+				content:''
 			}
+		},
+		onLoad(ids) {
+			// console.log(ids.id);
+			this.indexs=parseInt(ids.id);
+			let currentArr=uni.getStorageSync('lists1');
+			this.content=currentArr[ids.id].content;
+			this.items=currentArr[ids.id].optionsList
+			// console.log(this.content);
 		},
 		methods:{
 			//提交生成文学习报告
@@ -76,13 +69,21 @@
 			},
 			//上一题
 			front(){
+				let ids=this.indexs-1;
 				uni.navigateTo({
-					url:'../xinggepinggu/xinggepinggu'
+					url:'../xinggepinggu2/xinggepinggu2?id='+ids
+				})
+			},
+			//下一题
+			next(){
+				let ids=this.indexs+1;
+				uni.navigateTo({
+					url:'../xinggepinggu2/xinggepinggu2?id='+ids
 				})
 			},
 			radioChange: function(evt) {
 				for (let i = 0; i < this.items.length; i++) {
-					if (this.items[i].value === evt.target.value) {
+					if (this.items[i].content === evt.target.value) {
 						this.current = i;
 						break;
 					}

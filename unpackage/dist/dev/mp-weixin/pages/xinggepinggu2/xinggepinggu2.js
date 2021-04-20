@@ -178,26 +178,19 @@ var _default =
 {
   data: function data() {
     return {
-      items: [{
-        value: 'USA',
-        name: '都不擅长' },
+      items: [],
+      current: 0,
+      indexs: 0,
+      content: '' };
 
-      {
-        value: 'CHN',
-        name: '记叙文较好',
-        checked: 'true' },
-
-      {
-        value: 'BRA',
-        name: '议论文较好' },
-
-      {
-        value: 'BRA2',
-        name: '说明文较好' }],
-
-
-      current: 0 };
-
+  },
+  onLoad: function onLoad(ids) {
+    // console.log(ids.id);
+    this.indexs = parseInt(ids.id);
+    var currentArr = uni.getStorageSync('lists1');
+    this.content = currentArr[ids.id].content;
+    this.items = currentArr[ids.id].optionsList;
+    // console.log(this.content);
   },
   methods: {
     //提交生成文学习报告
@@ -208,13 +201,21 @@ var _default =
     },
     //上一题
     front: function front() {
+      var ids = this.indexs - 1;
       uni.navigateTo({
-        url: '../xinggepinggu/xinggepinggu' });
+        url: '../xinggepinggu2/xinggepinggu2?id=' + ids });
+
+    },
+    //下一题
+    next: function next() {
+      var ids = this.indexs + 1;
+      uni.navigateTo({
+        url: '../xinggepinggu2/xinggepinggu2?id=' + ids });
 
     },
     radioChange: function radioChange(evt) {
       for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i].value === evt.target.value) {
+        if (this.items[i].content === evt.target.value) {
           this.current = i;
           break;
         }
