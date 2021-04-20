@@ -8060,7 +8060,7 @@ function getTest() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getWxcode = getWxcode;exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one;exports.getWenxuexiList = getWenxuexiList; // 后台地址
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.getWxcode = getWxcode;exports.getLunboList = getLunboList;exports.getyikaoDongtaiList = getyikaoDongtaiList;exports.getmoreList = getmoreList;exports.getyikaoDongtaiList_one = getyikaoDongtaiList_one;exports.getWenxuexiTestList = getWenxuexiTestList; // 后台地址
 //本地地址
 var urls = "http://localhost:8091";
 
@@ -8162,8 +8162,9 @@ function getyikaoDongtaiList_one(id) {
   });
 }
 
-//艺考动态列表,点击艺考动态列表的某一项
-function getWenxuexiList(id) {
+//获取问学习，测试题
+function getWenxuexiTestList(id) {
+
   return new Promise(function (resolve, reject) {
     uni.request({
       url: urls + '/hxg/qlearn/' + id,

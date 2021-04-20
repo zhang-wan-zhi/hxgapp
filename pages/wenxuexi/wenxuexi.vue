@@ -63,7 +63,7 @@
 </template>
 
 <script>
-	import {getWenxuexiList} from '../../api/api.js';
+	import {getWenxuexiTestList} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -99,7 +99,7 @@
 			//点击进入性格评估
 			xinggepinggu(){
 				let ids=0;
-				getWenxuexiList(ids).then((res)=>{
+				getWenxuexiTestList(ids).then((res)=>{
 					// console.log(res.data.data);
 					let arr=res.data.data;
 					let newArr=[];

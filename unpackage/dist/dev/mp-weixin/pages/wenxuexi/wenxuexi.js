@@ -269,7 +269,7 @@ var _default = { data: function data() {return { //适配手机高度
           // this.$store.commit('set_window_height',res.windowHeight*2);
         } });}, //点击进入收费页面
     xinggepinggu_shoufei: function xinggepinggu_shoufei() {console.log(1111);uni.navigateTo({ url: '../chongzhizhongxin/chongzhizhongxin' });}, //点击进入性格评估
-    xinggepinggu: function xinggepinggu() {var ids = 0;(0, _api.getWenxuexiList)(ids).then(function (res) {// console.log(res.data.data);
+    xinggepinggu: function xinggepinggu() {var ids = 0;(0, _api.getWenxuexiTestList)(ids).then(function (res) {// console.log(res.data.data);
         var arr = res.data.data;var newArr = []; //去除没有达到一项的数据
         for (var i = 0; i < arr.length; i++) {// console.log(arr[i]);
           if (arr[i].optionsList.length > 1) {newArr.push(arr[i]);}}uni.setStorage({ key: 'lists1', data: newArr });});uni.navigateTo({ url: '../xinggepinggu2/xinggepinggu2?id=' + ids });} } };exports.default = _default;

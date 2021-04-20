@@ -100,8 +100,9 @@ export function getyikaoDongtaiList_one(id){
 	})
 }
 
-//艺考动态列表,点击艺考动态列表的某一项
-export function getWenxuexiList(id){
+//获取问学习，测试题
+export function getWenxuexiTestList(id){
+
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:urls+'/hxg/qlearn/'+id,
