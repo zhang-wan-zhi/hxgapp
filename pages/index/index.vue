@@ -110,24 +110,25 @@
 				  success: function (loginRes) {
 					console.log(loginRes);
 					console.log("wxcode",loginRes.code);
-					getWxcode(loginRes.code).then((res)=>{
-						console.log(res);
-						uni.switchTab({
-							url:'../shouye/shouye'
-						})
-					})
-					let js_code=loginRes.code;//js_code可以给后台获取unionID或openID作为用户标识
-					// 获取用户信息
-					// uni.getUserInfo({
-					//   provider: 'weixin',
-					//   success: function (infoRes) {
-					// 	  console.log(infoRes);
-					// 	  uni.switchTab({
-					// 	  	url:'../shouye/shouye'
-					// 	  })
-					//   },
-					//   fail:function(res){}
+					// getWxcode(loginRes.code).then((res)=>{
+					// 	console.log(res);
+					// 	uni.switchTab({
+					// 		url:'../shouye/shouye'
+					// 	})
 					// })
+					let js_code=loginRes.code;//js_code可以给后台获取unionID或openID作为用户标识
+					// 获取用户信息，getUserInfo换了getUserProfile
+					wx.getUserInfo({
+					  provider: 'weixin',
+					  // desc: '用于完善会员资料',
+					  success: function (infoRes) {
+						  console.log(infoRes);
+						  uni.switchTab({
+						  	url:'../shouye/shouye'
+						  })
+					  },
+					  fail:function(res){}
+					})
 					
 				  },
 				  fail:function(res){}

@@ -425,6 +425,7 @@
 		justify-content: center;
 		align-items: center;
 		background-color: #F74F52;
+		//解决下滑，一直在屏幕底部的问题
 		position: fixed;
 		bottom:0;
 		.yikaoKecheng_content_bottom1{

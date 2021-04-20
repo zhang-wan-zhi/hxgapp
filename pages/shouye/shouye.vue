@@ -366,7 +366,7 @@
 			},
 			//点击艺考课程触发
 			yikaoKecheng(){
-				// console.log(1111);
+				console.log(1111);
 				this.isactive=false;
 				this.isactive1=true;
 				this.isactive2=false;

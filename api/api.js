@@ -1,6 +1,6 @@
 // 后台地址
 //本地地址
-let urls="http://localhost:8080";
+let urls="http://localhost:8091";
 
 //线上地址
 // let urls="http://orangezoom.cn:8091";
@@ -29,7 +29,7 @@ export function getWxcode(wxcode){
 export function getLunboList(){
 	return new Promise((resolve,reject)=>{
 		uni.request({
-			url:urls+'/hxg',
+			url:urls+'/hxg/getIndexBanner',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			success: res=>{

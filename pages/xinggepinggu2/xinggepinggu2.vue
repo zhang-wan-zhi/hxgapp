@@ -62,14 +62,6 @@
 						{
 							value: 'BRA2',
 							name: '说明文较好'
-						},
-						{
-							value: 'BRA3',
-							name: '散文写作较好'
-						},
-						{
-							value: 'BRA4',
-							name: '相对不错'
 						}
 					],
 					current: 0

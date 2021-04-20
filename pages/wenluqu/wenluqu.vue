@@ -8,8 +8,18 @@
 			<view class="wenluqu_center_child">
 				<view class="wenluqu_center_child_child">
 					<view class="wenluqu_center_child_child1">
-						<view class="wenluqu_center_child_child1_content">省份</view>
-						<view class="wenluqu_center_child_child1_content">文理分科</view>
+						<view class="wenluqu_center_child_child1_content">
+						  <picker @change="bindPickerChange" :range="array">
+							<label>省份：</label>
+							<label class="">{{jg}}</label>	
+						  </picker>
+						</view>
+						<view class="wenluqu_center_child_child1_content">
+							<picker @change="bindPickerChange2" :range="array2">
+								<label>分科：</label>
+								<label class="">{{jg2}}</label>	
+							</picker>
+						</view>
 					</view>
 					
 					<view class="wenluqu_center_child_child2">
@@ -122,10 +132,31 @@
 	export default {
 		data() {
 			return {
-				
+				array:['请选择','浙江','湖北'],
+				index:0,
+				jg:'请选择',
+				array2:['请选择','文科','理科'],
+				index2:0,
+				jg2:'请选择'
 			}
 		},
 		methods: {
+			//下拉框
+			bindPickerChange: function(e) {		//改变的事件名
+			    console.log(e.target.value);
+				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
+				this.index = e.target.value			//将数组改变索引赋给定义的index变量
+				this.jg=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
+			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
+			},
+			bindPickerChange2: function(e) {		//改变的事件名
+			    console.log(e.target.value);
+				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
+				this.index2 = e.target.value;			//将数组改变索引赋给定义的index变量
+				this.jg2=this.array2[this.index2]		//将array【改变索引】的值赋给定义的jg变量
+			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
+			},
+            //问录取输入结果
 			wenluqu_yuce(){
 				uni.navigateTo({
 					url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
