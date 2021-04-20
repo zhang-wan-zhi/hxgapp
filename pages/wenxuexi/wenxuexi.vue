@@ -63,7 +63,6 @@
 </template>
 
 <script>
-	import {wenXuexiTest_free} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -98,30 +97,8 @@
 			},
 			//点击进入性格评估
 			xinggepinggu(){
-				let ids=0;
-				wenXuexiTest_free(ids).then((res)=>{
-					// console.log(res.data.data);
-					let Arr=res.data.data;
-					let newArr=[];
-					for(let i=0;i<Arr.length;i++){
-						if(Arr[i].optionsList.length>1){
-							newArr.push(Arr[i]);
-						}
-					}
-					this.TestListArr=newArr;
-					uni.setStorage({
-						key:'lists',
-						data:newArr
-					});
-					// console.log(newArr);
-					// console.log(this.TestListArr[this.indenxs]);
-					// this.items=this.TestListArr[this.indenxs].optionsList;
-					// console.log(this.items);
-				})
-				// console.log(222);
-				
 				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2?id='+ids
+					url:'../xinggepinggu/xinggepinggu'
 				})
 			}
 		}

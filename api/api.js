@@ -1,9 +1,9 @@
 // 后台地址
 //本地地址
-// let urls="http://localhost:8091";
+let urls="http://localhost:8091";
 
 //线上地址
-let urls="http://orangezoom.cn:8091";
+// let urls="http://orangezoom.cn:8091";
 
 //授权，获取wxcode
 export function getWxcode(wxcode){
@@ -90,26 +90,6 @@ export function getyikaoDongtaiList_one(id){
 			data:{
 				"id": id,
 			},
-			success: res=>{
-				resolve(res)
-			},
-			fail: err=>{
-				reject(err)
-			},
-		})
-	})
-}
-
-//问学习测试选择题
-export function wenXuexiTest_free(id){
-	return new Promise((resolve,reject)=>{
-		uni.request({
-			url:urls+'/hxg/qlearn/'+id,
-			method: 'GET',
-			contentType: 'application/json;charset=UTF-8',
-			// data:{
-			// 	"testSheetId": id,
-			// },
 			success: res=>{
 				resolve(res)
 			},

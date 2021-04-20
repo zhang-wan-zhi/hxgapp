@@ -174,46 +174,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-// import {wenXuexiTest_free} from '../../api/api.js'
-var _default = {
+var _default =
+{
   data: function data() {
     return {
-      items: [], //单选题的所有选项
-      current: 0, //单选题选择项的index
-      TestListArr: [], //题目数组
-      indenxs: 0, //题目的index
-      selected: '' //单选题选中的值
-    };
-  },
-  onLoad: function onLoad(index) {
-    // wenXuexiTest_free(ids.id).then((res)=>{
-    // 	console.log(res.data.data);
-    // 	let Arr=res.data.data;
-    // 	let newArr=[];
-    // 	for(let i=0;i<Arr.length;i++){
-    // 		if(Arr[i].optionsList.length>1){
-    // 			newArr.push(Arr[i]);
-    // 		}
-    // 	}
-    // 	this.TestListArr=newArr;
-    // 	uni.setStorage({
-    // 		key:'lists',
-    // 		data:newArr
-    // 	});
-    // 	// console.log(newArr);
-    // 	// console.log(this.TestListArr[this.indenxs]);
-    // 	this.items=this.TestListArr[this.indenxs].optionsList;
-    // 	// console.log(this.items);
-    // })
-    // console.log(index.id);
-    this.TestListArr = uni.getStorageSync('lists');
-    // console.log(uni.getStorageSync('lists'));
-    this.indenxs = parseInt(index.id);
-    // console.log(index.id);
-    var item0 = this.TestListArr[this.indenxs];
-    this.items = item0.optionsList;
-    // console.log(this.TestListArr[this.indenxs]);
+      items: [{
+        value: 'USA',
+        name: '都不擅长' },
+
+      {
+        value: 'CHN',
+        name: '记叙文较好',
+        checked: 'true' },
+
+      {
+        value: 'BRA',
+        name: '议论文较好' },
+
+      {
+        value: 'BRA2',
+        name: '说明文较好' }],
+
+
+      current: 0 };
+
   },
   methods: {
     //提交生成文学习报告
@@ -224,24 +208,14 @@ var _default = {
     },
     //上一题
     front: function front() {
-      var before_index = this.indenxs - 1;
       uni.navigateTo({
-        url: '../xinggepinggu2/xinggepinggu2?id=' + before_index });
-
-    },
-    //下一题
-    next: function next(indenxs) {
-      // console.log(indenxs);
-      var index = indenxs + 1;
-      uni.navigateTo({
-        url: '../xinggepinggu2/xinggepinggu2?id=' + index });
+        url: '../xinggepinggu/xinggepinggu' });
 
     },
     radioChange: function radioChange(evt) {
       for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i].content === evt.target.value) {
+        if (this.items[i].value === evt.target.value) {
           this.current = i;
-          this.selected = evt.target.value;
           break;
         }
       }

@@ -7,17 +7,17 @@
 			<view class="pinggu_content_content">
 				<view class="pinggu_content_content1">
 					<view class="pinggu_content_content1_tihao">
-						<view class="pinggu_content_content1_tihao1">第{{indenxs+1}}题</view>
+						<view class="pinggu_content_content1_tihao1">第二题</view>
 					</view>
 					<view class="pinggu_content_content1_biaoti">
-						<view class="pinggu_content_content1_biaoti1">{{TestListArr[indenxs].content}}</view>
+						<view class="pinggu_content_content1_biaoti1">汉语作文擅长的文体2？</view>
 					</view>
 					<view class="pinggu_content_content1_content">
 						<radio-group @change="radioChange">
 							<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
 								<view class="radio_select">
-									<radio class="radio_select1" :value="item.content" :checked="index === indenxs" />
-									<view class="radio_select2">{{item.content}}</view>
+									<radio class="radio_select1" :value="item.value" :checked="index === current" />
+									<view class="radio_select2">{{item.name}}</view>
 								</view>
 								
 							</label>
@@ -25,7 +25,7 @@
 					</view>
 					<view class="pinggu_content_content1_next">
 						<view class="pinggu_content_content1_next1" style="background-color: #ED5352;" @click="front">上一题</view>
-						<view class="pinggu_content_content1_next1" @click="next(indenxs)">下一题</view>
+						<view class="pinggu_content_content1_next1">下一题</view>
 					</view>
 					<view class="pinggu_content_content1_submit">
 						<view class="pinggu_content_content1_submit1" @click="wenxuexiBaogaos">提交</view>
@@ -43,45 +43,29 @@
 </template>
 
 <script>
-	// import {wenXuexiTest_free} from '../../api/api.js'
 	export default{
 		data(){
 			return{
-				items: [],  //单选题的所有选项
-				current: 0,  //单选题选择项的index
-				TestListArr:[],  //题目数组
-				indenxs:0  ,//题目的index
-				selected:''  //单选题选中的值
+				items: [{
+							value: 'USA',
+							name: '都不擅长'
+						},
+						{
+							value: 'CHN',
+							name: '记叙文较好',
+							checked: 'true'
+						},
+						{
+							value: 'BRA',
+							name: '议论文较好'
+						},
+						{
+							value: 'BRA2',
+							name: '说明文较好'
+						}
+					],
+					current: 0
 			}
-		},
-		onLoad(index) {
-			// wenXuexiTest_free(ids.id).then((res)=>{
-			// 	console.log(res.data.data);
-			// 	let Arr=res.data.data;
-			// 	let newArr=[];
-			// 	for(let i=0;i<Arr.length;i++){
-			// 		if(Arr[i].optionsList.length>1){
-			// 			newArr.push(Arr[i]);
-			// 		}
-			// 	}
-			// 	this.TestListArr=newArr;
-			// 	uni.setStorage({
-			// 		key:'lists',
-			// 		data:newArr
-			// 	});
-			// 	// console.log(newArr);
-			// 	// console.log(this.TestListArr[this.indenxs]);
-			// 	this.items=this.TestListArr[this.indenxs].optionsList;
-			// 	// console.log(this.items);
-			// })
-			// console.log(index.id);
-			this.TestListArr=uni.getStorageSync('lists');
-			// console.log(uni.getStorageSync('lists'));
-			this.indenxs=parseInt(index.id);
-			// console.log(index.id);
-			let item0=this.TestListArr[this.indenxs]
-			this.items=item0.optionsList;
-			// console.log(this.TestListArr[this.indenxs]);
 		},
 		methods:{
 			//提交生成文学习报告
@@ -92,24 +76,14 @@
 			},
 			//上一题
 			front(){
-				let before_index=this.indenxs-1;
 				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2?id='+before_index
-				})
-			},
-			//下一题
-			next(indenxs){
-				// console.log(indenxs);
-				let index=indenxs+1;
-				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2?id='+index
+					url:'../xinggepinggu/xinggepinggu'
 				})
 			},
 			radioChange: function(evt) {
 				for (let i = 0; i < this.items.length; i++) {
-					if (this.items[i].content === evt.target.value) {
+					if (this.items[i].value === evt.target.value) {
 						this.current = i;
-						this.selected=evt.target.value;
 						break;
 					}
 				}
