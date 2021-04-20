@@ -181,13 +181,29 @@ var _default =
       items: [],
       current: 0,
       indexs: 0,
-      content: '' };
+      content: '',
+      //是否显示上一题
+      isshow_front: false,
+      //是否显示下一题
+      isshow_next: true };
 
   },
   onLoad: function onLoad(ids) {
     // console.log(ids.id);
     this.indexs = parseInt(ids.id);
+    //对上一题进行校验
+    if (this.indexs != 0) {
+      this.isshow_front = true;
+    } else {
+      this.isshow_front = false;
+    }
     var currentArr = uni.getStorageSync('lists1');
+    //对下一题进行校验
+    if (this.indexs = currentArr.length - 1) {
+      this.isshow_next = false;
+    } else {
+      this.isshow_next = true;
+    }
     this.content = currentArr[ids.id].content;
     this.items = currentArr[ids.id].optionsList;
     // console.log(this.content);

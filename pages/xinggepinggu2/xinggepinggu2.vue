@@ -24,8 +24,8 @@
 						</radio-group>
 					</view>
 					<view class="pinggu_content_content1_next">
-						<view class="pinggu_content_content1_next1" style="background-color: #ED5352;" @click="front">上一题</view>
-						<view class="pinggu_content_content1_next1" @click="next">下一题</view>
+						<view class="pinggu_content_content1_next1" style="background-color: #ED5352;" @click="front" :class="isshow_front?'show_front':''">上一题</view>
+						<view class="pinggu_content_content1_next2" @click="next" :class="isshow_next?'show_next':''">下一题</view>
 					</view>
 					<view class="pinggu_content_content1_submit">
 						<view class="pinggu_content_content1_submit1" @click="wenxuexiBaogaos">提交</view>
@@ -49,13 +49,29 @@
 				items: [],
 				current: 0,
 				indexs:0,
-				content:''
+				content:'',
+				//是否显示上一题
+				isshow_front:false,
+				//是否显示下一题
+				isshow_next:true
 			}
 		},
 		onLoad(ids) {
 			// console.log(ids.id);
 			this.indexs=parseInt(ids.id);
+			//对上一题进行校验
+			if(this.indexs!=0){
+				this.isshow_front=true
+			}else{
+				this.isshow_front=false;
+			}
 			let currentArr=uni.getStorageSync('lists1');
+			//对下一题进行校验
+			if(this.indexs=currentArr.length-1){
+				this.isshow_next=false
+			}else{
+				this.isshow_next=true;
+			}
 			this.content=currentArr[ids.id].content;
 			this.items=currentArr[ids.id].optionsList
 			// console.log(this.content);
@@ -210,6 +226,22 @@
 						color:#fff;
 						border-radius: 30rpx;
 						z-index:1;
+						display:none;
+					}
+					.pinggu_content_content1_next2{
+						width:120rpx;
+						height:55rpx;
+						line-height: 55rpx;
+						text-align: center;
+						// border:1px solid green;
+						background-color: #196AD4;
+						color:#fff;
+						border-radius: 30rpx;
+						z-index:1;
+						display:block;
+					}
+					.show_front{
+						display:block;
 					}
 				}
 				.pinggu_content_content1_submit{

@@ -165,6 +165,22 @@
   -webkit-border-radius: 30rpx;
           border-radius: 30rpx;
   z-index: 1;
+  display: none;
+}
+.pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_next .pinggu_content_content1_next2.data-v-62ad275c {
+  width: 120rpx;
+  height: 55rpx;
+  line-height: 55rpx;
+  text-align: center;
+  background-color: #196AD4;
+  color: #fff;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
+  z-index: 1;
+  display: block;
+}
+.pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_next .show_front.data-v-62ad275c {
+  display: block;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_submit.data-v-62ad275c {
   width: 100%;
