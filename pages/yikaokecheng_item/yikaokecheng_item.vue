@@ -66,10 +66,10 @@
 						<view class="yikaoKecheng_content_content_right_bottom_title">
 							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+								<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 									<image src="../../static/img/huiyuanmianfei.png"></image>
-								</view>
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">¥99.00</view>
+								</view> -->
+								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
 							</view>
 						</view>
 					</view>
@@ -92,10 +92,10 @@
 						<view class="yikaoKecheng_content_content_right_bottom_title">
 							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+								<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 									<image src="../../static/img/huiyuanmianfei.png"></image>
-								</view>
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">¥399.00</view>
+								</view> -->
+								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
 							</view>
 						</view>
 					</view>
@@ -143,10 +143,10 @@
 						<view class="yikaoKecheng_content_content_right_bottom_title">
 							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+								<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 									<image src="../../static/img/huiyuanmianfei.png"></image>
-								</view>
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">¥19.98</view>
+								</view> -->
+								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
 							</view>
 						</view>
 					</view>
@@ -172,9 +172,9 @@
 			
 		</view>
 		
-		<view class="yikaoKecheng_content_bottom" :style="{bottom:0}">
+		<!-- <view class="yikaoKecheng_content_bottom" :style="{bottom:0}">
 			<view class="yikaoKecheng_content_bottom1">购买￥99</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 

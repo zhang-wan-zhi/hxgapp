@@ -79,10 +79,10 @@
 							<view class="yikaoKecheng_content_content_right_bottom_title">
 								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 								<view class="yikaoKecheng_content_content_right_bottom_title_right">
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+									<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 										<image src="../../static/img/huiyuanmianfei.png"></image>
-									</view>
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">¥99.00</view>
+									</view> -->
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
 								</view>
 							</view>
 						</view>
@@ -105,10 +105,10 @@
 							<view class="yikaoKecheng_content_content_right_bottom_title">
 								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 								<view class="yikaoKecheng_content_content_right_bottom_title_right">
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+									<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 										<image src="../../static/img/huiyuanmianfei.png"></image>
-									</view>
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">¥399.00</view>
+									</view> -->
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
 								</view>
 							</view>
 						</view>
@@ -156,10 +156,10 @@
 							<view class="yikaoKecheng_content_content_right_bottom_title">
 								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 								<view class="yikaoKecheng_content_content_right_bottom_title_right">
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+									<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 										<image src="../../static/img/huiyuanmianfei.png"></image>
-									</view>
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">¥19.98</view>
+									</view> -->
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
 								</view>
 							</view>
 						</view>
@@ -241,7 +241,7 @@
 <script>
 	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue';
 	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue';
-	import {getLunboList,getyikaoDongtaiList,getmoreList,getyikaoDongtaiList_one} from '../../api/api.js';
+	import {getLunboList,getyikaoDongtaiList,getmoreList,getmoreList1,getyikaoDongtaiList_one} from '../../api/api.js';
 	export default {
 		components:{
 			yikaoDongtai,
@@ -418,7 +418,7 @@
 					this.isSearch=true;
 					this.getyikaoDongtaiLists();
 				}else{
-					getmoreList(aedTitle,currentPage,pageSize).then((res)=>{
+					getmoreList1(aedTitle,currentPage,pageSize).then((res)=>{
 						this.isSearch=false;
 						console.log(res.data.artexamdynamicList);
 						this.yikaiDongtaiList=res.data.artexamdynamicList;

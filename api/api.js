@@ -1,9 +1,9 @@
 // 后台地址
 //本地地址
-let urls="http://localhost:8091";
+// let urls="http://localhost:8091";
 
 //线上地址
-// let urls="http://orangezoom.cn:8091";
+let urls="https://orangezoom.cn:8091";
 
 //授权，获取wxcode
 export function getWxcode(wxcode){
@@ -60,7 +60,28 @@ export function getyikaoDongtaiList(){
 }
 
 //艺考动态列表查看更多
-export function getmoreList(aedTitle,currentPage,pageSize){
+export function getmoreList(currentPage,pageSize){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getArtexamdynamicList',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				"currentPage": currentPage,
+				"pageSize": pageSize,
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//艺考动态列表查看更多
+export function getmoreList1(aedTitle,currentPage,pageSize){
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:urls+'/hxg/getArtexamdynamicList',

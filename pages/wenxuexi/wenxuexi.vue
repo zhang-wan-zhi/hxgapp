@@ -21,9 +21,9 @@
 					<image src="../../static/img/tiyanyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">体验预测</view>
-				<view class="mianfeiyuce_free_img2">
+				<!-- <view class="mianfeiyuce_free_img2">
 					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
-				</view>
+				</view> -->
 				<!-- <view class="mianfeiyuce_enter">
 					<view class="mianfeiyuce_enter1" style="background-color: #F03A3E;">点击进入</view>
 				</view> -->
@@ -36,9 +36,9 @@
 					<image src="../../static/img/huiyuanyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">会员预测</view>
-				<view class="mianfeiyuce_free_img2">
+				<!-- <view class="mianfeiyuce_free_img2">
 					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
-				</view>
+				</view> -->
 				<!-- <view class="mianfeiyuce_enter">
 					<view class="mianfeiyuce_enter1" style="background-color: #4B884E;">点击进入</view>
 				</view> -->
@@ -51,9 +51,9 @@
 					<image src="../../static/img/zhuangyeyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">专业预测</view>
-				<view class="mianfeiyuce_free_img2">
+				<!-- <view class="mianfeiyuce_free_img2">
 					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
-				</view>
+				</view> -->
 				<!-- <view class="mianfeiyuce_enter">
 					<view class="mianfeiyuce_enter1" style="background-color: #5978B9;">点击进入</view>
 				</view> -->
@@ -92,9 +92,27 @@
 			//点击进入收费页面
 			xinggepinggu_shoufei(){
 				console.log(1111);
-				uni.navigateTo({
-					url:'../chongzhizhongxin/chongzhizhongxin'
+				uni.getSystemInfo({
+					 success(res) {
+						 //获取手机系统型号
+						 let systems=res.system.slice(0,3);
+						 console.log(systems);
+					 	 if(systems=="iOS"){
+							 console.log("由于相关规范，iOS暂不可用！");
+							 uni.showToast({
+							 	title: '由于相关规范，iOS暂不可用！',
+							 	icon:'none',
+							 	duration: 2000
+							 });
+
+						 }else{
+							 uni.navigateTo({
+							 	url:'../chongzhizhongxin/chongzhizhongxin'
+							 })
+						 }
+					 }
 				})
+				
 			},
 			//点击进入性格评估
 			xinggepinggu(){

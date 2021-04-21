@@ -31,6 +31,7 @@
 		   // //#ifdef APP-PLUS
 		   // plus.screen.lockOrientation('landscape-primary')
 		   // //#endif
+		   
 		},
 		
 		methods: {
@@ -121,7 +122,7 @@
 					// })
 					let js_code=loginRes.code;//js_code可以给后台获取unionID或openID作为用户标识
 					// 获取用户信息，getUserInfo换了getUserProfile
-					uni.getUserInfo({
+					uni.getUserProfile({
 					  provider: 'weixin',
 					  // desc: '用于完善会员资料',
 					  success: function (infoRes) {
