@@ -66,7 +66,7 @@
 		onLoad(ids) {
 			console.log(ids);
 			console.log(ids.id);
-			console.log(ids.front_value);
+			// console.log(ids.front_value);
 			
 			console.log(ids.valueArr);
 			let NewArr=[ids.valueArr];
@@ -80,7 +80,7 @@
 			this.indexs=parseInt(ids.id);
 			
 			let currentArr=uni.getStorageSync('lists1');
-			
+			console.log(currentArr);
 			let lists=currentArr[parseInt(ids.id)];
 			console.log(lists);
 			this.content=lists.content;
@@ -113,13 +113,7 @@
 			}else{
 				this.isshow_next=true;
 			}
-			
-			
-			// if(this.indexs!=(currentArr.length-1)){
-			// 	this.isshow_next=true;
-			// }else{
-			// 	this.isshow_next=false;
-			// };
+		
 			
 		},
 		methods:{
@@ -127,9 +121,9 @@
 			wenxuexiBaogaos(){
 				let submit_value_Arr=uni.getStorageSync('submit_value');
 				console.log(submit_value_Arr);
-				// uni.navigateTo({
-				// 	url:'../wenxuexiBaogao/wenxuexiBaogao'
-				// })
+				uni.navigateTo({
+					url:'../wenxuexiBaogao/wenxuexiBaogao'
+				})
 			},
 			//上一题
 			front(){
