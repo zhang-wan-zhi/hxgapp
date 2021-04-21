@@ -60,13 +60,14 @@ export function getyikaoDongtaiList(){
 }
 
 //艺考动态列表查看更多
-export function getmoreList(currentPage,pageSize){
+export function getmoreList(aedTitle,currentPage,pageSize){
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:urls+'/hxg/getArtexamdynamicList',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data:{
+				"aedTitle": aedTitle,
 				"currentPage": currentPage,
 				"pageSize": pageSize
 			},

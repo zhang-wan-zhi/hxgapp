@@ -23,7 +23,7 @@
     "compileHotReLoad": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
-    "useApiHostProcess": true,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -41,8 +41,8 @@
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "wxd9d7c98fd9a59868",
-  "projectname": "test",
+  "appid": "wxe6ad944de085a8c6",
+  "projectname": "掐指艺算测试版",
   "condition": {
     "search": {
       "list": []

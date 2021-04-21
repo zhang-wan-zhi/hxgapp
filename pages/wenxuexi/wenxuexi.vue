@@ -117,8 +117,9 @@
 					});
 					
 				})
+				let valueArr=[];
 				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2?id='+ids
+					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+valueArr
 				})
 			}
 		}

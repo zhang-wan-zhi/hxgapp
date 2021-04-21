@@ -272,7 +272,7 @@ var _default = { data: function data() {return { //适配手机高度
     xinggepinggu: function xinggepinggu() {var ids = 0;(0, _api.getWenxuexiTestList)(ids).then(function (res) {// console.log(res.data.data);
         var arr = res.data.data;var newArr = []; //去除没有达到一项的数据
         for (var i = 0; i < arr.length; i++) {// console.log(arr[i]);
-          if (arr[i].optionsList.length > 1) {newArr.push(arr[i]);}}uni.setStorage({ key: 'lists1', data: newArr });});uni.navigateTo({ url: '../xinggepinggu2/xinggepinggu2?id=' + ids });} } };exports.default = _default;
+          if (arr[i].optionsList.length > 1) {newArr.push(arr[i]);}}uni.setStorage({ key: 'lists1', data: newArr });});var valueArr = [];uni.navigateTo({ url: '../xinggepinggu2/xinggepinggu2?id=' + ids + '&valueArr=' + valueArr });} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

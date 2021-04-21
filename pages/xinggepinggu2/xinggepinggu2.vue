@@ -57,7 +57,7 @@
 				isshow_next:true,
 				//选择的题目数组
 				selectedArr:[],
-				selectedArr1:[],
+				// selectedArr1:[],
 				selected1:'',
 				//选中的序号
 				active:null,
@@ -67,12 +67,14 @@
 			console.log(ids);
 			console.log(ids.id);
 			console.log(ids.valueArr);
-			let NewArr=this.selectedArr1.push(ids.valueArr);
-			console.log(uni.getStorageSync('valueArr'));
+			let NewArr=[ids.valueArr];
+			console.log(NewArr);
+			
 			uni.setStorage({
-				key:'valueArr',
-				data:NewArr
+				key:'valueArr1',
+				data:[uni.getStorageSync('valueArr1')].concat(NewArr)
 			})
+			console.log(uni.getStorageSync('valueArr1'));
 			this.indexs=parseInt(ids.id);
 			//对上一题进行校验
 			if(this.indexs!=0){
@@ -87,10 +89,12 @@
 			// }else{
 			// 	this.isshow_next=false;
 			// };
-			let lists=currentArr[this.indexs];
+			// console.log(currentArr);
+			let lists=currentArr[parseInt(ids.id)];
+			
 			this.content=lists.content;
 			this.items=lists.optionsList;
-			// console.log(this.content);
+			
 		},
 		methods:{
 			//提交生成文学习报告
@@ -111,10 +115,12 @@
 			//下一题
 			next(){
 				let ids=this.indexs+1;
-				let valueArr=[this.selected1];
-				console.log(valueArr);
+				// let valueArr=[this.selected1];
+				// console.log(valueArr);
+				console.log(this.selectedArr);
 				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+valueArr
+					
+					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+this.selectedArr
 				})
 			},
 			radioChange: function(evt) {
@@ -130,9 +136,9 @@
 					}
 				}
 				let newArr=arr.push(evt.target.value);
-				// console.log(arr);
-				this.selectedArr=newArr;
 				
+				this.selectedArr=arr;
+				// console.log(arr);
 				uni.setStorage({
 					key:'submit_value',
 					data:arr

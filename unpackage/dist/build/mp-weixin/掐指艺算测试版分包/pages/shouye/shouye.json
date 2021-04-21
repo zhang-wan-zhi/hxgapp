@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "首页",
+  "enablePullDownRefresh": false,
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#F7A3A2",
+  "usingComponents": {
+    "yikao-dongtai": "..\\..\\components\\index\\yikaoDongtai",
+    "yikao-kecheng": "..\\..\\components\\index\\yikaoKecheng"
+  }
+}

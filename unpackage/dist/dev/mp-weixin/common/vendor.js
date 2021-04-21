@@ -8122,13 +8122,14 @@ function getyikaoDongtaiList() {
 }
 
 //艺考动态列表查看更多
-function getmoreList(currentPage, pageSize) {
+function getmoreList(aedTitle, currentPage, pageSize) {
   return new Promise(function (resolve, reject) {
     uni.request({
       url: urls + '/hxg/getArtexamdynamicList',
       method: 'POST',
       contentType: 'application/json;charset=UTF-8',
       data: {
+        "aedTitle": aedTitle,
         "currentPage": currentPage,
         "pageSize": pageSize },
 

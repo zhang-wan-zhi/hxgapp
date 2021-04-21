@@ -408,7 +408,8 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 18);var yikaoDongtai = fu
       //艺考动态列表数据
       yikaiDongtaiList: [],
       //艺考动态目前的页码
-      currentPage: 1 };
+      currentPage: 1,
+      isSearch: true };
 
   },
   onLoad: function onLoad() {
@@ -449,7 +450,7 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 18);var yikaoDongtai = fu
     //获取艺考动态列表数据
     getyikaoDongtaiLists: function getyikaoDongtaiLists() {var _this2 = this;
       (0, _api.getyikaoDongtaiList)().then(function (res) {
-        console.log(res.data.artexamdynamicList);
+        // console.log(res.data.artexamdynamicList);
         _this2.yikaiDongtaiList = res.data.artexamdynamicList;
         uni.setStorage({
           key: 'yikaoDongtaiList',
@@ -539,9 +540,24 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 18);var yikaoDongtai = fu
       // console.log(e.target.value);
       this.input_value = e.target.value;
     },
-    getInput2: function getInput2(e) {
+    getInput2: function getInput2(e) {var _this5 = this;
       console.log(e.target.value);
       this.inputs_text = e.target.value;
+      var aedTitle = e.target.value;
+      var currentPage = 0;
+      var pageSize = 10;
+      if (e.target.value == '') {
+        this.isSearch = true;
+        this.getyikaoDongtaiLists();
+      } else {
+        (0, _api.getmoreList)(aedTitle, currentPage, pageSize).then(function (res) {
+          _this5.isSearch = false;
+          console.log(res.data.artexamdynamicList);
+          _this5.yikaiDongtaiList = res.data.artexamdynamicList;
+        });
+      }
+
+
       //解决点击搜索时键盘不收回
       // uni.hideKeyboard();
     },

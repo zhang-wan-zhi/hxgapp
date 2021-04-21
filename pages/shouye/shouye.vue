@@ -13,7 +13,7 @@
 		</view>
 		
 		<!-- 轮播图 -->
-		<view class='home'>
+		<view class='home' v-if="isSearch">
 			<swiper
 			indicator-dots 	
 			circular
@@ -29,7 +29,7 @@
 		<!-- :class="{'width':$store.state.set_window_height*0.3+'rpx'}" -->
 		
 		<view class="Shouye_content">
-			<view class="content_title" :style="{height:phoneHeight*0.05+'px;'}">
+			<view class="content_title" :style="{height:phoneHeight*0.05+'px;'}" v-if="isSearch">
 				  <view class="content_title_title">
 					<view class="shouye_title_left"></view>
 					<view class="shouye_title_right" @click="yikaoDongtai2" :class="isactive?'isActive':''">艺考动态</view>
@@ -276,7 +276,8 @@
 				//艺考动态列表数据
 				yikaiDongtaiList:[],
 				//艺考动态目前的页码
-				currentPage:1
+				currentPage:1,
+				isSearch:true
 			}
 		},
 		onLoad(){
@@ -317,7 +318,7 @@
 			//获取艺考动态列表数据
 			getyikaoDongtaiLists(){
 				getyikaoDongtaiList().then((res)=>{
-					console.log(res.data.artexamdynamicList);
+					// console.log(res.data.artexamdynamicList);
 					this.yikaiDongtaiList=res.data.artexamdynamicList;
 					uni.setStorage({
 						key:'yikaoDongtaiList',
@@ -410,6 +411,21 @@
 			getInput2(e){
 				console.log(e.target.value);
 				this.inputs_text=e.target.value;
+				let aedTitle=e.target.value;
+				let currentPage=0;
+				let pageSize=10;
+				if(e.target.value==''){
+					this.isSearch=true;
+					this.getyikaoDongtaiLists();
+				}else{
+					getmoreList(aedTitle,currentPage,pageSize).then((res)=>{
+						this.isSearch=false;
+						console.log(res.data.artexamdynamicList);
+						this.yikaiDongtaiList=res.data.artexamdynamicList;
+					})
+				}
+				
+				
 				//解决点击搜索时键盘不收回
 				// uni.hideKeyboard();
 			},
