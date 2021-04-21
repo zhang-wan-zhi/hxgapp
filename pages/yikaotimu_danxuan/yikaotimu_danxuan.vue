@@ -53,12 +53,12 @@
 					</view>
 				</checkbox-group> -->
 				
-				<checkbox-group class="block" @change="changeCheckbox">
+				<!-- <checkbox-group class="block" @change="changeCheckbox">
 					<view v-for="item in checkboxData" :key="item.value">                
 						<checkbox color="#5FB8A2" :value="String(item.value)" :checked="checkedArr.includes(String(item.value))" :class="{'checked':checkedArr.includes(String(item.value))}"></checkbox>
 						<text>{{item.label}}</text>
 					</view>
-				</checkbox-group>
+				</checkbox-group> -->
 			</view>
 		</view>
 		<view class="yikaotimu_danxuan_next">

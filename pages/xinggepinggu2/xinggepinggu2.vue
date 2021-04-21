@@ -66,6 +66,8 @@
 		onLoad(ids) {
 			console.log(ids);
 			console.log(ids.id);
+			console.log(ids.front_value);
+			
 			console.log(ids.valueArr);
 			let NewArr=[ids.valueArr];
 			console.log(NewArr);
@@ -74,26 +76,50 @@
 				key:'valueArr1',
 				data:[uni.getStorageSync('valueArr1')].concat(NewArr)
 			})
-			console.log(uni.getStorageSync('valueArr1'));
+			// console.log(uni.getStorageSync('valueArr1'));
 			this.indexs=parseInt(ids.id);
-			//对上一题进行校验
-			if(this.indexs!=0){
-				this.isshow_front=true;
-			}else{
-				this.isshow_front=false;
-			}
+			
 			let currentArr=uni.getStorageSync('lists1');
+			
+			let lists=currentArr[parseInt(ids.id)];
+			console.log(lists);
+			this.content=lists.content;
+			this.items=lists.optionsList;
+			
+			//对上一题进行校验
+			// if(this.indexs==currentArr.length-1){
+			// 	this.isshow_front=true;
+			// }else{
+			// 	this.isshow_front=false;
+			// }
+			
+			// 对上一题进行校验
+			//没有值，就让上一页不显示
+			//如果点击上一页有front_value
+			if(ids.id=="0"){
+				//不显示上一页
+				this.isshow_front=false;
+			}else{
+				this.isshow_front=true;
+			}
+			
+		
+			
 			//对下一题进行校验
+			//如果id为8的时候，不显示下一页
+			if(ids.id=="8"){
+				//不显示上一页
+				this.isshow_next=false;
+			}else{
+				this.isshow_next=true;
+			}
+			
+			
 			// if(this.indexs!=(currentArr.length-1)){
 			// 	this.isshow_next=true;
 			// }else{
 			// 	this.isshow_next=false;
 			// };
-			// console.log(currentArr);
-			let lists=currentArr[parseInt(ids.id)];
-			
-			this.content=lists.content;
-			this.items=lists.optionsList;
 			
 		},
 		methods:{
@@ -107,7 +133,9 @@
 			},
 			//上一题
 			front(){
+				
 				let ids=this.indexs-1;
+				// console.log(ids);
 				uni.navigateTo({
 					url:'../xinggepinggu2/xinggepinggu2?id='+ids
 				})
@@ -281,9 +309,12 @@
 						color:#fff;
 						border-radius: 30rpx;
 						z-index:1;
-						display:block;
+						display:none;
 					}
 					.show_front{
+						display:block;
+					}
+					.show_next{
 						display:block;
 					}
 				}
