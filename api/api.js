@@ -1,6 +1,6 @@
 // 后台地址
 //本地地址
-// let urls="http://localhost:8091";
+// let urls="https://localhost:8091";
 
 //线上地址
 let urls="https://orangezoom.cn:8091";
