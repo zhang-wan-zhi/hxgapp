@@ -91,7 +91,7 @@
 			},
 			//点击进入收费页面
 			xinggepinggu_shoufei(){
-				console.log(1111);
+				// console.log(1111);
 				uni.getSystemInfo({
 					 success(res) {
 						 //获取手机系统型号

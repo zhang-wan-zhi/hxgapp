@@ -35,6 +35,7 @@
 		},
 		
 		methods: {
+			
            getInfo(){
                uni.request({
                     url:`${this.$serverUrl}api/TestGet`,  //这里的lid,page,pagesize只能是数字或字母
@@ -105,38 +106,29 @@
 			//登录授权
 			wechatLogin(){
 				var that=this
-				uni.switchTab({
-					url:'../shouye/shouye'
-				})
+				
 				// 获取用户名  获取性别 获取头像 获取js_code去换取后台返回的openID
-				uni.login({
-				  provider: 'weixin',
-				  success: function (loginRes) {
-					console.log(loginRes);
-					console.log("wxcode",loginRes.code);
-					// getWxcode(loginRes.code).then((res)=>{
-					// 	console.log(res);
-					// 	uni.switchTab({
-					// 		url:'../shouye/shouye'
-					// 	})
-					// })
-					let js_code=loginRes.code;//js_code可以给后台获取unionID或openID作为用户标识
-					// 获取用户信息，getUserInfo换了getUserProfile
-					uni.getUserProfile({
-					  provider: 'weixin',
-					  // desc: '用于完善会员资料',
+				// uni.login({
+				//   provider: 'weixin',
+				//   success: function (loginRes) {
+				// 	console.log("wxcode",loginRes.code);
+
+				// 	// 获取用户信息，getUserInfo换了getUserProfile
+					uni.getUserInfo({
+					  // provider: 'weixin',
 					  success: function (infoRes) {
-						  console.log(infoRes);
 						  uni.switchTab({
 						  	url:'../shouye/shouye'
 						  })
 					  },
 					  fail:function(res){}
-					})
+					})	
 					
-				  },
-				  fail:function(res){}
-				})
+					
+				//   },
+				//   fail:function(res){}
+				// })
+				
 			},
 
 		   
