@@ -2,16 +2,16 @@
 	<view class="body_content">
 		<view class="yikaiKecheng_item">
 			<view class="yikaiKecheng_item_img">
-				<image src="../../static/img/yikaokecheng_item_img.png"></image>
+				<image :src="yikaoKechengList_one.aeImgurl"></image>
 			</view>
 		</view>
 		
 		<view class="yikaiKecheng_item_title">
 			<view class="yikaiKecheng_item_titles">
-				<view class="yikaiKecheng_item_title1">教你12招搞定艺考视频</view>
+				<view class="yikaiKecheng_item_title1">{{yikaoKechengList_one.aeTitle}}</view>
 				<view class="yikaiKecheng_item_title2">
-					<view class="yikaiKecheng_item_title2_left">3151人正在观看</view>
-					<view class="yikaiKecheng_item_title2_right">2021年4月3日发布</view>
+					<view class="yikaiKecheng_item_title2_left">{{yikaoKechengList_one.aePrep1}}人正在观看</view>
+					<view class="yikaiKecheng_item_title2_right">{{yikaoKechengList_one.aeCreatetime}}发布</view>
 				</view>
 			</view>
 		</view>
@@ -179,17 +179,25 @@
 </template>
 
 <script>
+	import {getyikaoKechengList_one} from '../../api/api.js'
 	export default{
 		data(){
 			return{
-				
+				yikaoKechengList_one:[]
 			}
 		},
 		methods:{
 			
 		},
-		onLoad(){
-			
+		onLoad(id){
+			console.log(id.ids);
+			getyikaoKechengList_one(id.ids).then((res)=>{
+				// console.log(res.data.hxgArtexam);
+				let oldStr=res.data.hxgArtexam.aeCreatetime;
+				// console.log(oldStr.split("-").join("/"));
+				this.yikaoKechengList_one=res.data.hxgArtexam;
+				this.yikaoKechengList_one.aeCreatetime=oldStr.split("-").join("/");
+			})
 		},
 		onShow(){
 			

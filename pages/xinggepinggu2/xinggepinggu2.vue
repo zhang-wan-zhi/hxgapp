@@ -32,7 +32,7 @@
 						<view class="pinggu_content_content1_next2" @click="next" :class="isshow_next?'show_next':''">下一题</view>
 					</view>
 					<view class="pinggu_content_content1_submit">
-						<view class="pinggu_content_content1_submit1" @click="wenxuexiBaogaos">提交</view>
+						<view class="pinggu_content_content1_submit1" @click="wenxuexiBaogaos" :class="isshow_submit?'show_submit':''">提交</view>
 					</view>
 					<view class="pinggu_content_content1_right_bg">
 						<view class="pinggu_content_content1_right_bg1">
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+	import {getWenxuexiResuleList} from '../../api/api.js';
 	export default{
 		data(){
 			return{
@@ -59,34 +60,56 @@
 				isshow_front:false,
 				//是否显示下一题
 				isshow_next:true,
+				//是否显示提交
+				isshow_submit:false,
+				//选项的分数
+				scores:0,
+				//选择的数据的数据,
+				valueArr:[],
+				//提交的前八项数组
+				submitArr:[],
 				//选择的题目数组
 				selectedArr:[],
 				// selectedArr1:[],
 				selected1:'',
 				//选中的序号
 				active:null,
+				//多个合成一个数组
+				one_Arr:[]
 			}
 		},
 		onLoad(ids) {
-			console.log(ids);
-			console.log(ids.id);
-			// console.log(ids.front_value);
+			console.log(ids.scores);
+			// console.log(ids.id);
 			
-			console.log(ids.valueArr);
+			// console.log(ids.valueArr);
+			this.valueArr=[ids.valueArr];
 			let NewArr=[ids.valueArr];
+			let scoresArr=[parseInt(ids.scores)];
 			console.log(NewArr);
+			if(NewArr[0]!=""&& ids.id!=0){
+				// uni.setStorage({
+				// 	key:'valueArr1',
+				// 	data:[uni.getStorageSync('valueArr1')].concat(NewArr)
+				// })
+				uni.setStorage({
+					key:'scores1',
+					data:[uni.getStorageSync('scores1')].concat(scoresArr)
+				})
+			}
+			console.log(uni.getStorageSync('scores1'));
+			// let arrs=uni.getStorageSync('valueArr1');
+			let arrs=uni.getStorageSync('scores1');
 			
-			uni.setStorage({
-				key:'valueArr1',
-				data:[uni.getStorageSync('valueArr1')].concat(NewArr)
-			})
-			// console.log(uni.getStorageSync('valueArr1'));
+			this.submitArr=this.arrMoretoOne(arrs);
+			console.log(this.submitArr);
+			
 			this.indexs=parseInt(ids.id);
 			
 			let currentArr=uni.getStorageSync('lists1');
-			console.log(currentArr);
+			// console.log(currentArr);
 			let lists=currentArr[parseInt(ids.id)];
-			console.log(lists);
+			// console.log(lists);
 			this.content=lists.content;
 			this.items=lists.optionsList;
 			
@@ -114,20 +137,59 @@
 			if(ids.id=="8"){
 				//不显示上一页
 				this.isshow_next=false;
+				this.isshow_submit=true;
 			}else{
+				this.isshow_submit=false;
 				this.isshow_next=true;
 			}
 		
 			
 		},
 		methods:{
+			//将多层嵌套数组转为一层数组
+			// let one_Arr=[];
+			arrMoretoOne(arr){
+				for(let key of arr){
+					if(Array.isArray(key)){
+						this.arrMoretoOne(key)
+					}else{
+						this.one_Arr.push(key)
+					}
+				}
+				return this.one_Arr
+			},
+			//数组数据求和
+			sum(arr) {
+			    return arr.reduce(function(prev, curr, idx, arr){
+			        return prev + curr;
+			    });
+			},
 			//提交生成文学习报告
 			wenxuexiBaogaos(){
-				let submit_value_Arr=uni.getStorageSync('submit_value');
-				console.log(submit_value_Arr);
-				uni.navigateTo({
-					url:'../wenxuexiBaogao/wenxuexiBaogao'
+				// let submit_value_Arr=uni.getStorageSync('submit_value');
+				// let arr=this.submitArr.concat(this.valueArr);
+				let arr=this.submitArr.concat(this.scores);
+				//去除数组中的空字符串
+				for(let i=0;i<arr.length;i++){
+					if(arr[i]==""){
+						arr.splice(i,1)
+					}
+				}
+				console.log(arr);
+				let result=this.sum(arr);
+				console.log(result);
+				getWenxuexiResuleList().then((res)=>{
+					console.log(res.data.data);
+					let objs=res.data.data;
+					uni.setStorage({
+						key:'wenluqulists',
+						data:objs
+					});
+					uni.navigateTo({
+						url:'../wenxuexiBaogao/wenxuexiBaogao'
+					})
 				})
+				
 			},
 			//上一题
 			front(){
@@ -145,7 +207,7 @@
 				// console.log(valueArr);
 				console.log(this.selectedArr);
 				uni.reLaunch({
-					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+this.selectedArr
+					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+this.selectedArr+'&scores='+this.scores
 				})
 			},
 			radioChange: function(evt) {
@@ -153,9 +215,11 @@
 				
 				for (let i = 0; i < this.items.length; i++) {
 					if (this.items[i].content === evt.target.value) {
+						
 						this.current = i;
 						// console.log(evt.target.value);
 						this.selected1=evt.target.value;
+						this.scores=this.items[i].score
 						// arr.push(evt.target.value);
 						break;
 					}
@@ -332,6 +396,10 @@
 						color:#fff;
 						border-radius: 30rpx;
 						z-index:1;
+						display: none;
+					}
+					.show_submit{
+						display:block;
 					}
 				}
 				.pinggu_content_content1_right_bg{

@@ -59,6 +59,78 @@ export function getyikaoDongtaiList(){
 	})
 }
 
+//获取艺考课程列表数据
+export function getyikaoKechengList(){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getArtExams',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//获取艺考课程列表数据
+export function getyikaoKechengList_one(id){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getArtExamDetail',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				id:id
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//获取艺考题库列表数据
+export function getyikaoTikuList(){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/exam/list',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//获取艺考课程列表数据
+// export function getyikaoKechengList(){
+// 	return new Promise((resolve,reject)=>{
+// 		uni.request({
+// 			url:urls+'/hxg/getArtExams',
+// 			method: 'GET',
+// 			contentType: 'application/json;charset=UTF-8',
+// 			success: res=>{
+// 				resolve(res)
+// 			},
+// 			fail: err=>{
+// 				reject(err)
+// 			},
+// 		})
+// 	})
+// }
+
+
 //艺考动态列表查看更多
 export function getmoreList(currentPage,pageSize){
 	return new Promise((resolve,reject)=>{
@@ -80,7 +152,7 @@ export function getmoreList(currentPage,pageSize){
 	})
 }
 
-//艺考动态列表查看更多
+//艺考动态列表搜索
 export function getmoreList1(aedTitle,currentPage,pageSize){
 	return new Promise((resolve,reject)=>{
 		uni.request({
@@ -130,6 +202,61 @@ export function getWenxuexiTestList(id){
 			url:urls+'/hxg/qlearn/'+id,
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//获取问学习，获取测试结果
+export function getWenxuexiResuleList(){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/qlearn/getResult',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				"optionsList": [
+					{
+						"score": 10, 
+						"testType": 1
+					}, 
+					{
+						"score": 10, 
+						"testType": 2
+					}, 
+					{
+						"score": 10, 
+						"testType": 3
+					}, 
+					{
+						"score": 10, 
+						"testType": 4
+					}
+				]
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//问录取，输入出概率结果
+export function getWenluquList(datas){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getProbability',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:datas,
 			success: res=>{
 				resolve(res)
 			},

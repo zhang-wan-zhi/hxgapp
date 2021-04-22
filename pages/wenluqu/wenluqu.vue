@@ -11,13 +11,13 @@
 						<view class="wenluqu_center_child_child1_content">
 						  <picker @change="bindPickerChange" :range="array">
 							<label>省份：</label>
-							<label class="">{{jg}}</label>	
+							<label class="">{{province}}</label>	
 						  </picker>
 						</view>
 						<view class="wenluqu_center_child_child1_content">
 							<picker @change="bindPickerChange2" :range="array2">
 								<label>分科：</label>
-								<label class="">{{jg2}}</label>	
+								<label class="">{{artAndSciences}}</label>	
 							</picker>
 						</view>
 					</view>
@@ -29,7 +29,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">报考院校:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你报考的学校">
+								<input type="text" placeholder="请输入你报考的学校" @input="getUniversity">
 							</view>
 						</view>
 					</view>
@@ -41,7 +41,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">高考分:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的高考成绩">
+								<input type="text" placeholder="请输入你的高考成绩" @input="getcollegeExamScore">
 							</view>
 						</view>
 					</view>
@@ -53,7 +53,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">统考成绩:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的统考成绩">
+								<input type="text" placeholder="请输入你的统考成绩" @input="getgeneralExamination">
 							</view>
 						</view>
 					</view>
@@ -65,7 +65,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">报考专业:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的报考专业">
+								<input type="text" placeholder="请输入你的报考专业" @input="getmajor">
 							</view>
 						</view>
 					</view>
@@ -77,7 +77,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">单科成绩:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的单科成绩">
+								<input type="text" placeholder="请输入你的单科成绩" @input="getchineseScore">
 							</view>
 						</view>
 					</view>
@@ -89,7 +89,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">视力:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的视力">
+								<input type="text" placeholder="请输入你的视力" @input="getvision">
 							</view>
 						</view>
 					</view>
@@ -101,7 +101,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">身高:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的身高">
+								<input type="text" placeholder="请输入你的身高" @input="getheight">
 							</view>
 						</view>
 					</view>
@@ -113,7 +113,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">体重:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的体重">
+								<input type="text" placeholder="请输入你的体重" @input="getweight">
 							</view>
 						</view>
 					</view>
@@ -129,38 +129,155 @@
 </template>
 
 <script>
+	import {getWenluquList} from '../../api/api.js'
 	export default {
 		data() {
 			return {
-				array:['请选择','浙江','湖北'],
+				array:['请选择','浙江','山东'],
 				index:0,
-				jg:'请选择',
-				array2:['请选择','文科','理科'],
+				//省份
+				province:'请选择',
+				array2:['请选择','文科','理科','文理不限'],
 				index2:0,
-				jg2:'请选择'
+				//文理分科
+				artAndSciences:'请选择',
+				//喜欢的大学,报考院校
+				"likeUniversity": "",
+				//高考分数
+				collegeExamScore:'',
+				//统考成绩
+				generalExamination:'',
+				//报考专业
+				major:'',
+				//单科成绩,以语文成绩为例
+				chineseScore:'',
+				//视力
+				vision:'',
+				//身高
+				height:'',
+				//体重
+				weight:''
 			}
 		},
 		methods: {
+			//获取大学名称
+			getUniversity(e){
+				// console.log(e.detail.value);
+				this.likeUniversity=e.detail.value;
+			},
+			//获取高考成绩
+			getcollegeExamScore(e){
+				this.collegeExamScore=e.detail.value;
+			},
+			//获取统考成绩
+			getgeneralExamination(e){
+				this.generalExamination=e.detail.value;
+			},
+			//获取报考专业
+			getmajor(e){
+				this.major=e.detail.value;
+			},
+			//获取单科语文成绩
+			getchineseScore(e){
+				this.chineseScore=e.detail.value;
+			},
+			//获取视力
+			getvision(e){
+				this.vision=e.detail.value;
+			},
+			//获取身高
+			getheight(e){
+				this.height=e.detail.value;
+			},
+			//获取体重
+			getweight(e){
+				this.weight=e.detail.value;
+			},
 			//下拉框
 			bindPickerChange: function(e) {		//改变的事件名
 			    console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
 				this.index = e.target.value			//将数组改变索引赋给定义的index变量
-				this.jg=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
+				this.province=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
 			},
 			bindPickerChange2: function(e) {		//改变的事件名
 			    console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
 				this.index2 = e.target.value;			//将数组改变索引赋给定义的index变量
-				this.jg2=this.array2[this.index2]		//将array【改变索引】的值赋给定义的jg变量
+				this.artAndSciences=this.array2[this.index2]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
 			},
             //问录取输入结果
 			wenluqu_yuce(){
-				uni.navigateTo({
-					url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+				let obj={
+					//文理分科
+					"artAndSciences": this.artAndSciences,
+					//语文成绩
+					"chineseScore": this.chineseScore,
+					//高考成绩
+					"collegeExamScore": this.collegeExamScore,
+					//文化成绩
+					"culturalScore": "",
+					//外语成绩
+					"foreignScore": "",
+					//统考成绩
+					"generalExamination": this.generalExamination,
+					//身高
+					"height": this.height,
+					//喜欢的大学
+					"likeUniversity": this.likeUniversity,
+					//报考专业
+					"major": this.major,
+					//数学成绩
+					"mathScore": "",
+					//省份
+					"province": this.province,
+					//用户openid
+					"userOpenId": "",
+					//视力
+					"vision": this.vision,
+					//体重
+					"weight": this.weight,
+					
+					"userOpenId":"dhsjfsdkfjgjifjdgkdjkgfdkl"
+					// "likeUniversity":"浙江传媒学院",
+					// "artAndSciences":"文科",
+					// "province":"山东",
+					// "major":"戏剧影视文学（桐乡）",
+					// "collegeExamScore":440
+				};
+				console.log(this.province);
+				console.log(this.artAndSciences);
+				//喜欢的大学
+				console.log(this.likeUniversity);
+				//高考分数
+				console.log(this.collegeExamScore);
+				//统考成绩
+				console.log(this.generalExamination);
+				//报考专业
+				console.log(this.major);
+				//单科成绩,以语文成绩为例
+				console.log(this.chineseScore);
+				//视力
+				console.log(this.vision);
+				//身高
+				console.log(this.height);
+				//体重
+				console.log(this.weight);
+				
+				getWenluquList(obj).then((res)=>{
+					// console.log(res.data.data.academies[0]);
+					let resArr=res.data.data.academies;
+					uni.setStorage({
+						key:'wenluqu_lists',
+						data:resArr
+					})
+					uni.navigateTo({
+						url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+					})
 				})
+				
 			}
 		}
 	}
@@ -243,6 +360,7 @@
 						width:150rpx;
 						height:50rpx;
 						line-height: 50rpx;
+						font-size:24rpx;
 						// border:1px solid red;
 						float:left;
 						text-align: center;

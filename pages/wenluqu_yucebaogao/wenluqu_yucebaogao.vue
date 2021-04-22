@@ -4,28 +4,28 @@
 			<view class="wenluqu_content1_content">你的录取概率为：</view>
 		</view>
 		<view class="wenluqu_content2">
-			<view class="wenluqu_content2_content">75%</view>
+			<view class="wenluqu_content2_content">{{Objs.stableProp}}%</view>
 		</view>
 		<view class="wenluqu_content3">
-			<view class="wenluqu_content3_content">院校代码：88665544225</view>
+			<view class="wenluqu_content3_content">院校代码：{{Objs.acCode}}</view>
 		</view>
 		<view class="wenluqu_content3">
-			<view class="wenluqu_content3_content">院校名称：浙江传媒学院</view>
+			<view class="wenluqu_content3_content">院校名称：{{Objs.acName}}</view>
 		</view>
 		<view class="wenluqu_content3">
-			<view class="wenluqu_content3_content">录取批次：第一批</view>
+			<view class="wenluqu_content3_content">录取批次：第{{Objs.acExamrounds}}批</view>
 		</view>
 		<view class="wenluqu_content3">
-			<view class="wenluqu_content3_content">专业名称：播音主持</view>
+			<view class="wenluqu_content3_content">专业名称：{{Objs.acMajor}}</view>
 		</view>
 		<view class="wenluqu_content3">
-			<view class="wenluqu_content3_content">招生数量：1000</view>
+			<view class="wenluqu_content3_content">招生数量：{{Objs.acRecruitnum}}</view>
 		</view>
 		<view class="wenluqu_content3">
-			<view class="wenluqu_content3_content">录取原则：成绩达标</view>
+			<view class="wenluqu_content3_content">录取原则：{{Objs.acAdprinandprop}}</view>
 		</view>
 		<view class="wenluqu_content3">
-			<view class="wenluqu_content3_content">考试类型：笔试加面试</view>
+			<view class="wenluqu_content3_content">考试类型：{{Objs.acExamtype}}</view>
 		</view>
 	</view>
 </template>
@@ -36,9 +36,15 @@
 			return{
 				//适配手机高度
 				phoneHeight:0,
+				//测试的结果对象
+				Objs:{}
 			}
 		},
-		onLoad() {
+		onLoad(objs) {
+			let arrs=uni.getStorageSync('wenluqu_lists');
+			// console.log(arrs);
+			this.Objs=arrs[0];
+			// console.log(this.Objs.acCode);
 			this.getWindowHeight();
 		},
 		methods:{

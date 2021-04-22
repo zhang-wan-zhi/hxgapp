@@ -16,30 +16,42 @@
 		<view class="wenxuexi_baogao_bottom">
 			<view class="wenxuexi_baogao_bottom_content_body">
 				<view class="wenxuexi_baogao_bottom_content">
-								<view class="wenxuexi_baogao_bottom_content_left ">学习建议</view>
-								<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">比较合适</view>
-							</view>
-							<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content1">
-								<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left1">学习时机</view>
-								<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">国庆节起</view>
-							</view>
-							<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
-								<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left2">整体印象</view>
-								<view class="wenxuexi_baogao_bottom_content_right">
-									1、有潜力，缺少状态
-									2、专业选择比较定向   
-									3、玩心大
-									<!-- <view class="wenxuexi_baogao_bottom_content_right_content">
-										
-									</view> -->
-								</view>
-							</view>
+						<view class="wenxuexi_baogao_bottom_content_left ">学习建议</view>
+						<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">比较合适</view>
+					</view>
+					<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content1">
+						<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left1">学习时机</view>
+						<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">国庆节起</view>
+					</view>
+					<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
+						<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left2">整体印象</view>
+						<view class="wenxuexi_baogao_bottom_content_right">
+							1、有潜力，缺少状态
+							2、专业选择比较定向   
+							3、玩心大
+							<!-- <view class="wenxuexi_baogao_bottom_content_right_content">
+								
+							</view> -->
+						</view>
+					</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default {
+		data(){
+			return{
+				objs:{}
+			}
+		},
+		onLoad(){
+			let arrs=uni.getStorageSync('wenluqulists');
+			this.objs=arrs
+			console.log(arrs);
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
