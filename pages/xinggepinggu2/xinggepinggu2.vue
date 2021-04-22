@@ -1,5 +1,9 @@
 <template>
 	<view>
+		<!-- 自定义顶部导航 -->
+		<!-- <u-navbar class="self-nav" :is-back="false" title-color="white" :background="{background:'#39c4f6'}" title="数据">
+			<text v-show="current===0" @click="popShowHandle" class="iconfont icon-shaixuan1">111</text>
+		</u-navbar> -->
 		<view class="pinggu_title">
 			<view class="pinggu_title_title">性格评估</view>
 		</view>
@@ -130,7 +134,7 @@
 				
 				let ids=this.indexs-1;
 				// console.log(ids);
-				uni.navigateTo({
+				uni.reLaunch({
 					url:'../xinggepinggu2/xinggepinggu2?id='+ids
 				})
 			},
@@ -140,8 +144,7 @@
 				// let valueArr=[this.selected1];
 				// console.log(valueArr);
 				console.log(this.selectedArr);
-				uni.navigateTo({
-					
+				uni.reLaunch({
 					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+this.selectedArr
 				})
 			},
