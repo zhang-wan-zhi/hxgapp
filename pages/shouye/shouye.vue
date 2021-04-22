@@ -63,33 +63,33 @@
 							
 			</view>
 			
-			<view class="yikaoKecheng_content" v-show="yikaoKechengStatus" @click="yikaokecheng_click">
-				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
+			<view class="yikaoKecheng_content" v-show="yikaoKechengStatus"  v-for="(item,index) in yikaoKechengList" :key="index">
+				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}" @click="yikaokecheng_click(item.aeId)">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
-							<image src="../../static/img/yikaiKecheng_img1.png"></image>
+							<image :src="item.aeImgurl"></image>
 						</view>
 					</view>
 					<view class="yikaoKecheng_content_content_right">
 						<view class="yikaoKecheng_content_content_right_top">
-							<view class="yikaoKecheng_content_content_right_top_title">教你12招搞定艺考视频</view>
+							<view class="yikaoKecheng_content_content_right_top_title">{{item.aeTitle}}</view>
 						</view>
 						<view class="yikaoKecheng_content_content_right_bottom">
-							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">内部课程，仅供专业认识和11111111111111111</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">{{item.aeIntro}}</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title">
-								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.aePrep1}}人观看</view>
 								<view class="yikaoKecheng_content_content_right_bottom_title_right">
 									<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 										<image src="../../static/img/huiyuanmianfei.png"></image>
 									</view> -->
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">{{item.aeOriginalprice}}</view>
 								</view>
 							</view>
 						</view>
 					</view>
 				</view>
 				
-				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
+				<!-- <view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
 							<image src="../../static/img/yikaiKecheng_img2.png"></image>
@@ -105,17 +105,19 @@
 							<view class="yikaoKecheng_content_content_right_bottom_title">
 								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 								<view class="yikaoKecheng_content_content_right_bottom_title_right">
-									<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-										<image src="../../static/img/huiyuanmianfei.png"></image>
-									</view> -->
+								
 									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
 								</view>
 							</view>
 						</view>
 					</view>
-				</view>
+				</view> -->
 				
-				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
+				<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+					<image src="../../static/img/huiyuanmianfei.png"></image>
+				</view> -->
+				
+			<!-- 	<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
 					<view class="yikaoKecheng_content_content_left">
 						<view class="yikaoKecheng_content_content_left_img">
 							<image src="../../static/img/yikaiKecheng_img3.png"></image>
@@ -139,87 +141,62 @@
 							</view>
 						</view>
 					</view>
-				</view>
-				
-				<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
-					<view class="yikaoKecheng_content_content_left">
-						<view class="yikaoKecheng_content_content_left_img">
-							<image src="../../static/img/yikaiKecheng_img4.png"></image>
-						</view>
-					</view>
-					<view class="yikaoKecheng_content_content_right">
-						<view class="yikaoKecheng_content_content_right_top">
-							<view class="yikaoKecheng_content_content_right_top_title">原来《艺考开讲》的课程是这样直播的</view>
-						</view>
-						<view class="yikaoKecheng_content_content_right_bottom">
-							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">《艺考开讲》国庆特别课程...</view>
-							<view class="yikaoKecheng_content_content_right_bottom_title">
-								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
-								<view class="yikaoKecheng_content_content_right_bottom_title_right">
-									<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-										<image src="../../static/img/huiyuanmianfei.png"></image>
-									</view> -->
-									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
+				</view> -->
 				
 			</view>
 			
-			<view v-show="yikaoTikuStatus" class="yikaoTiku_content">
+			<view v-show="yikaoTikuStatus" class="yikaoTiku_content" v-for="(item,index) in yikaoTikuList" :key="index">
 				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
-					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电影摄影与制作专业校考真题1111</view>
-					<view class="yikaoTiku_content_content_right" @click="zhenti_next">
+					<view class="yikaoTiku_content_content_left">{{item.title}}</view>
+					<view class="yikaoTiku_content_content_right" @click="zhenti_next(item.id)">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
 				</view>
 				
-				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+			<!-- 	<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">浙江传媒学院2021年影视摄影与制作（电视摄影）线上
 初试真题</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
-				</view>
+				</view> -->
 				
-				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院播音主持专业校考复试真题（杭州
 考点）</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
-				</view>
+				</view> -->
 				
-				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2021年中央戏剧学院戏剧影视导演（电影导演）专业考试
 真题</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
-				</view>
+				</view> -->
 				
-				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电视节目制作专业考试题目</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
-				</view>
+				</view> -->
 								
-				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2020年浙江传媒学院播音与主持专业面试真题（复试）</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
-				</view>	
+				</view>	 -->
 						
-				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+			<!-- 	<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
 					<view class="yikaoTiku_content_content_left">2020年中央戏剧学院舞蹈表演专业考试内容</view>
 					<view class="yikaoTiku_content_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
-				</view>
+				</view> -->
 				
 			</view>
 		
@@ -241,7 +218,7 @@
 <script>
 	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue';
 	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue';
-	import {getLunboList,getyikaoDongtaiList,getmoreList,getmoreList1,getyikaoDongtaiList_one} from '../../api/api.js';
+	import {getLunboList,getyikaoDongtaiList,getmoreList,getmoreList1,getyikaoDongtaiList_one,getyikaoKechengList,getyikaoTikuList} from '../../api/api.js';
 	export default {
 		components:{
 			yikaoDongtai,
@@ -275,6 +252,10 @@
 				yikaoTikuStatus:false,
 				//艺考动态列表数据
 				yikaiDongtaiList:[],
+				//艺考课程列表数据
+				yikaoKechengList:[],
+				//艺考题库列表数据
+				yikaoTikuList:[],
 				//艺考动态目前的页码
 				currentPage:1,
 				isSearch:true
@@ -349,9 +330,10 @@
 				})
 			},
 			//艺考课程
-			yikaokecheng_click(){
+			yikaokecheng_click(id){
+				// console.log(id);
 				uni.navigateTo({
-					url:"../yikaokecheng_item/yikaokecheng_item"
+					url:"../yikaokecheng_item/yikaokecheng_item?ids="+id
 				})
 			},
 			//点击向右箭头触发，打开题库
@@ -369,6 +351,10 @@
 				this.yikaoDongtaiStatus=false;
 				this.yikaoKechengStatus=false;
 				this.yikaoTikuStatus=true;
+				getyikaoTikuList().then((res)=>{
+					console.log(res.data.rows);
+					this.yikaoTikuList=res.data.rows;
+				})
 			},
 			//点击艺考课程触发
 			yikaoKecheng(){
@@ -380,6 +366,10 @@
 				this.yikaoDongtaiStatus=false;
 				this.yikaoKechengStatus=true;
 				this.yikaoTikuStatus=false;
+				getyikaoKechengList().then((res)=>{
+					console.log(res.data.artexams);
+					this.yikaoKechengList=res.data.artexams;
+				})
 			},
 			//点击艺考动态触发
 			yikaoDongtai2(){
