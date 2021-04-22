@@ -113,6 +113,48 @@ export function getyikaoTikuList(){
 	})
 }
 
+//获取艺考题库列表数据,创建考试试卷
+export function getyikaoTikuList_one(id){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/exam/create',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				paperId:id,
+				userId:1
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//获取艺考题库列表数据,创建考试试卷,获取下一题
+export function getyikaoTikuList_one_one(quId){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/qu/'+quId,
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:{
+			// 	paperId:id,
+			// 	userId:1
+			// },
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
 //获取艺考课程列表数据
 // export function getyikaoKechengList(){
 // 	return new Promise((resolve,reject)=>{

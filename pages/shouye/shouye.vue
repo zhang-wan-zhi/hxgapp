@@ -218,7 +218,7 @@
 <script>
 	import {yikaoDongtai} from '../../components/index/yikaoDongtai.vue';
 	import {yikaoKecheng} from '../../components/index/yikaoKecheng.vue';
-	import {getLunboList,getyikaoDongtaiList,getmoreList,getmoreList1,getyikaoDongtaiList_one,getyikaoKechengList,getyikaoTikuList} from '../../api/api.js';
+	import {getLunboList,getyikaoDongtaiList,getmoreList,getmoreList1,getyikaoDongtaiList_one,getyikaoKechengList,getyikaoTikuList,getyikaoTikuList_one} from '../../api/api.js';
 	export default {
 		components:{
 			yikaoDongtai,
@@ -336,11 +336,19 @@
 					url:"../yikaokecheng_item/yikaokecheng_item?ids="+id
 				})
 			},
-			//点击向右箭头触发，打开题库
-			zhenti_next(){
+			//点击向右箭头触发，打开题库,打开为id的试卷
+			zhenti_next(id){
 				// console.log(111);
+				getyikaoTikuList_one(id).then((res)=>{
+					// console.log(res.data.data.quIdList);
+					let newArr=res.data.data.quIdList;
+					uni.setStorage({
+						key:'yikaoTikuList_one1',
+						data:newArr
+					});	
+				})
 				uni.navigateTo({
-					url:'../yikaotimu_danxuan/yikaotimu_danxuan'
+					url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids='+id
 				})
 			},
 			//点击艺考题库触发
@@ -351,6 +359,7 @@
 				this.yikaoDongtaiStatus=false;
 				this.yikaoKechengStatus=false;
 				this.yikaoTikuStatus=true;
+				//获取艺考题库列表
 				getyikaoTikuList().then((res)=>{
 					console.log(res.data.rows);
 					this.yikaoTikuList=res.data.rows;
