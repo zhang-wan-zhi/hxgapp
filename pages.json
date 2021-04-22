@@ -193,7 +193,7 @@
 		    "path" : "pages/xinggepinggu/xinggepinggu",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "性格评估",
+		        "navigationBarTitleText": "性格评估1",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
 				"navigationBarBackgroundColor":"#F7A3A2"
@@ -204,10 +204,11 @@
 		    "path" : "pages/xinggepinggu2/xinggepinggu2",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "性格评估2",
+		        "navigationBarTitleText": "性格评估",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
 				"navigationBarBackgroundColor":"#F7A3A2"
+				// "navigationStyle":"custom"
 		    }
 		    
 		}
