@@ -14,7 +14,7 @@
 				
 				<view class="gerenzhongxin_updates_content">
 					<view class="gerenzhongxin_updates_content_left">用户名</view>
-					<view class="gerenzhongxin_updates_content_center2">加油吧，少年</view>
+					<view class="gerenzhongxin_updates_content_center2">{{userData.nickName}}</view>
 					<view class="gerenzhongxin_updates_content_right">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
@@ -76,8 +76,14 @@
 		},
 		onLoad() {
 			let sting_storage=uni.getStorageSync('userData');
-			let userData=JSON.parse(sting_storage.rawData);
+			let userData=sting_storage.userInfo;
+			console.log(userData);
 			this.userData=userData;
+			if(userData.gender==1){
+				this.userData.gender="男"
+			}else{
+				this.userData.gender="女"
+			}
 		},
 		methods:{
 			//修改头像图片

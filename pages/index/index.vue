@@ -9,7 +9,7 @@
 			</view>
 			<view class="shouquan_button">
 <!-- 				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="wechatLogin" hover-class="none">获取授权</button> -->
-				<button class="buttons" @click="wechatLogin" >获取授权</button>
+				<button class="buttons" @click="wechatLogin" lang="zh_CN">获取授权</button>
 			</view>
 			
 		</view>
