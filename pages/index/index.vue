@@ -111,6 +111,10 @@
 				  desc:'登录',
 				  success: function (infoRes) {
 					  console.log(infoRes);
+					  uni.setStorage({
+					  	key:'userData',
+						data:infoRes
+					  })
 					  uni.switchTab({
 					  	url:'../shouye/shouye'
 					  })

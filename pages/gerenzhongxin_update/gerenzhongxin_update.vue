@@ -5,7 +5,7 @@
 				<view class="gerenzhongxin_updates_content">
 					<view class="gerenzhongxin_updates_content_left">头像</view>
 					<view class="gerenzhongxin_updates_content_center">
-						<image :src="imgArr[0]"></image>
+						<image :src="userData.avatarUrl"></image>
 					</view>
 					<view class="gerenzhongxin_updates_content_right" @click="xiugaitouxiang">
 						<image src="../../static/svg/xiugai_next.svg"></image>
@@ -53,7 +53,7 @@
 				</view>
 				<view class="tanchukuang_content_content">
 					<view class="tanchukuang_content_content1" @click="xiugaitouxiang_img">
-						<image src="../../static/img/touxiang_img.png"></image>
+						<image :src="userData.avatarUrl"></image>
 					</view>
 				</view>
 				<view class="tanchukuang_content_submit">
@@ -70,8 +70,14 @@
 			return{
 				imgArr:[`../../static/img/touxiang_img.png`],
 				// 弹出层的显示与隐藏
-				isShow:false
+				isShow:false,
+				userData:{}
 			}
+		},
+		onLoad() {
+			let sting_storage=uni.getStorageSync('userData');
+			let userData=JSON.parse(sting_storage.rawData);
+			this.userData=userData;
 		},
 		methods:{
 			//修改头像图片
@@ -82,7 +88,22 @@
 					sourceType:['album','camera'],  //album从相册选择，camera使用相机
 					success:(res)=>{
 						console.log(JSON.stringify(res.tempFilePaths));
-					    this.imgArr=res.tempFilePaths;
+					    this.userData.avatarUrl=res.tempFilePaths[0];
+						uni.setStorage({
+							key:'userData',
+							data:{
+								userInfo:{
+									"nickName":"クライス",
+									"gender":1,
+									"language":"zh_CN",
+									"city":"Xiaogan",
+									"province":"Hubei",
+									"country":"China",
+									"avatarUrl":res.tempFilePaths[0],
+								}								
+							}
+				
+						})
 					}
 				})
 			},
