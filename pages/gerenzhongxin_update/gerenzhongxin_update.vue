@@ -15,25 +15,30 @@
 				<view class="gerenzhongxin_updates_content">
 					<view class="gerenzhongxin_updates_content_left">用户名</view>
 					<view class="gerenzhongxin_updates_content_center2">{{userData.nickName}}</view>
-					<view class="gerenzhongxin_updates_content_right">
+					<view class="gerenzhongxin_updates_content_right" @click="xiugaiuser">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
 				</view>
 				
 				<view class="gerenzhongxin_updates_content">
 					<view class="gerenzhongxin_updates_content_left">性别</view>
-					<view class="gerenzhongxin_updates_content_center2">男</view>
-					<view class="gerenzhongxin_updates_content_right">
-						<image src="../../static/svg/xiugai_next.svg"></image>
-					</view>
+					<view class="gerenzhongxin_updates_content_center2">{{userData.gender}}</view>
+					<picker @change="bindPickerChange2" :range="array2">
+						<view class="gerenzhongxin_updates_content_right">
+							<image src="../../static/svg/xiugai_next.svg"></image>
+						</view>	
+					</picker>
+					
 				</view>
 				
 				<view class="gerenzhongxin_updates_content">
 					<view class="gerenzhongxin_updates_content_left">省份</view>
-					<view class="gerenzhongxin_updates_content_center2">浙江省</view>
-					<view class="gerenzhongxin_updates_content_right">
-						<image src="../../static/svg/xiugai_next.svg"></image>
-					</view>
+					<view class="gerenzhongxin_updates_content_center2">{{userData.province}}省</view>
+					<picker @change="bindPickerChange3" :range="array3">
+						<view class="gerenzhongxin_updates_content_right">
+							<image src="../../static/svg/xiugai_next.svg"></image>
+						</view>
+					</picker>
 				</view>
 			</view>
 		</view>
@@ -61,6 +66,26 @@
 				</view>
 			</view>
 		</view>
+		
+		<view class="tanchukuang" v-if="isShow2">
+			<view class="tanchukuang_content">
+				<view class="tanchukuang_content_icon">
+					<view class="tanchukuang_content_icon_img" @click="quxiao2">
+						<image src='../../static/svg/x.svg'></image>
+					</view>
+				</view>
+				<view class="tanchukuang_content_title">
+					<view class="tanchukuang_content_title1">用户名修改</view>
+				</view>
+				<view class="tanchukuang_content_content2">
+					<input type="text">
+				</view>
+				<view class="tanchukuang_content_submit">
+					<view class="tanchukuang_content_submit1" @click="quereng2">确认</view>
+				</view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -71,7 +96,12 @@
 				imgArr:[`../../static/img/touxiang_img.png`],
 				// 弹出层的显示与隐藏
 				isShow:false,
-				userData:{}
+				isShow2:false,
+				userData:{},
+				array2:['请选择','男','女'],
+				index2:0,
+				array3:['请选择','山东','湖北'],
+				index3:0,
 			}
 		},
 		onLoad() {
@@ -86,6 +116,15 @@
 			}
 		},
 		methods:{
+			bindPickerChange2: function(e) {		
+			    // console.log(e.target.value);
+				this.index2 = e.target.value;	
+				this.userData.gender=this.array2[this.index2];
+			},
+			bindPickerChange3: function(e) {
+				this.index3 = e.target.value;	
+				this.userData.province=this.array3[this.index3];
+			},
 			//修改头像图片
 			xiugaitouxiang_img(){
 				uni.chooseImage({
@@ -117,15 +156,23 @@
 			quereng(){
 				this.isShow=false;
 			},
+			quereng2(){
+				this.isShow2=false;
+			},
 			//右上角取消图标
 			quxiao(){
 				this.isShow=false;
 			},
+			quxiao2(){
+				this.isShow2=false;
+			},
 			xiugaitouxiang(){
 				//显示弹出框
-				console.log(1111);
+				// console.log(1111);
 				this.isShow=true;
-				
+			},
+			xiugaiuser(){
+				this.isShow2=true;
 			}
 		}
 	}
@@ -282,6 +329,19 @@
 						width:100%;
 						height:100%;
 					}
+				}
+			}
+			.tanchukuang_content_content2{
+				width:100%;
+				height:160rpx;
+				// border:1px solid #ccc;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				input{
+					width:80%;
+					height:55rpx;
+					border:1px solid #ccc;
 				}
 			}
 			.tanchukuang_content_submit{
