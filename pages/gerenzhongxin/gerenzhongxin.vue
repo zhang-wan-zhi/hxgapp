@@ -7,9 +7,9 @@
 			<view class="content2_user">
 				<view class="content2_user_content">
 					<view class="content2_user_content_bg">
-						<image :src="imgArr[0]"></image>
+						<image :src="userData.avatarUrl"></image>
 					</view>
-					<view class="content2_user_title">加油吧少年</view>
+					<view class="content2_user_title">{{userData.nickName}}</view>
 					<view class="content2_user_update">
 						<view class="content2_user_update_content" @click="xiugai">
 							<view  class="content2_user_img">修改</view>
@@ -68,7 +68,8 @@
 	export default {
 		data() {
 			return {
-				imgArr:[`../../static/img/touxiang_img.png`]
+				imgArr:[`../../static/img/touxiang_img.png`],
+				userData:{}
 			}
 		},
 		methods: {
@@ -99,7 +100,14 @@
 			}
 		},
 		onLoad(){
-			// let sting_storage=uni.getStorageSync('login_info');
+			let sting_storage=uni.getStorageSync('userData');
+			let userData=sting_storage.userInfo;
+			this.userData=userData;
+			// this.userData.avatarUrl=userData.avatarUrl;
+			//用户名
+			// let userName=userData.nickName;
+			// let userAvate=userData.avatarUrl;
+			// console.log(JSON.parse(sting_storage.rawData));
 			// console.log(JSON.parse(sting_storage).avatarUrl);
 		},
 		onShareAppMessage:function(e){

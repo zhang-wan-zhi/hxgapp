@@ -16,8 +16,8 @@
 			</view>
 		</view>
 		
-		<view class="yikaiKecheng_item_icon">
-			<view class="yikaiKecheng_item_icons">
+		<view class="yikaiKecheng_item_icon" :class="isIcon?'isShow':'isNotShow'">
+			<view class="yikaiKecheng_item_icons" >
 				<view class="yikaiKecheng_item_icon1">
 					<view class="yikaiKecheng_item_icon1_img">
 						<image src="../../static/img/fenxiang_icon.png"></image>
@@ -32,7 +32,7 @@
 					<view class="yikaiKecheng_item_icon1_title">收藏</view>
 				</view>
 				
-				<view class="yikaiKecheng_item_icon1">
+				<view class="yikaiKecheng_item_icon1" @click="click_pinlun">
 					<view class="yikaiKecheng_item_icon1_img">
 						<image src="../../static/img/pinlun_icon.png"></image>
 					</view>
@@ -49,34 +49,35 @@
 			
 		</view>
 		
-		<view class="yikaiKecheng_item_content">
+		<view class="yikaiKecheng_item_content"  v-for="(item,index) in yikaoKechengList" :key="index" v-show="isKecheng">
 			
 			<view class="yikaoKecheng_content_content">
 				<view class="yikaoKecheng_content_content_left">
 					<view class="yikaoKecheng_content_content_left_img">
-						<image src="../../static/img/yikaiKecheng_img1.png"></image>
+						<image :src="item.aeImgurl"></image>
 					</view>
 				</view>
 				<view class="yikaoKecheng_content_content_right">
 					<view class="yikaoKecheng_content_content_right_top">
-						<view class="yikaoKecheng_content_content_right_top_title">教你12招搞定艺考视频</view>
+						<view class="yikaoKecheng_content_content_right_top_title">{{item.aeTitle}}</view>
 					</view>
 					<view class="yikaoKecheng_content_content_right_bottom">
-						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">内部课程，仅供专业认识和11111111111111111</view>
+						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">{{item.aeIntro}}</view>
 						<view class="yikaoKecheng_content_content_right_bottom_title">
-							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.aePrep1}}人观看</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-									<image src="../../static/img/huiyuanmianfei.png"></image>
-								</view> -->
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">{{item.aeOriginalprice}}</view>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 			
-			<view class="yikaoKecheng_content_content">
+			<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+				<image src="../../static/img/huiyuanmianfei.png"></image>
+			</view> -->
+			
+	<!-- 		<view class="yikaoKecheng_content_content">
 				<view class="yikaoKecheng_content_content_left">
 					<view class="yikaoKecheng_content_content_left_img">
 						<image src="../../static/img/yikaiKecheng_img2.png"></image>
@@ -92,17 +93,19 @@
 						<view class="yikaoKecheng_content_content_right_bottom_title">
 							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-									<image src="../../static/img/huiyuanmianfei.png"></image>
-								</view> -->
+								
 								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			
-			<view class="yikaoKecheng_content_content">
+			<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+				<image src="../../static/img/huiyuanmianfei.png"></image>
+			</view> -->
+			
+		<!-- 	<view class="yikaoKecheng_content_content">
 				<view class="yikaoKecheng_content_content_left">
 					<view class="yikaoKecheng_content_content_left_img">
 						<image src="../../static/img/yikaiKecheng_img3.png"></image>
@@ -126,9 +129,9 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			
-			<view class="yikaoKecheng_content_content">
+		<!-- 	<view class="yikaoKecheng_content_content">
 				<view class="yikaoKecheng_content_content_left">
 					<view class="yikaoKecheng_content_content_left_img">
 						<image src="../../static/img/yikaiKecheng_img4.png"></image>
@@ -143,15 +146,12 @@
 						<view class="yikaoKecheng_content_content_right_bottom_title">
 							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-									<image src="../../static/img/huiyuanmianfei.png"></image>
-								</view> -->
 								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			
 			<!-- <view class="yikaiKecheng_item_content_item">
 				<view class='yikaiKecheng_item_content_item_left'>
@@ -175,19 +175,94 @@
 		<!-- <view class="yikaoKecheng_content_bottom" :style="{bottom:0}">
 			<view class="yikaoKecheng_content_bottom1">购买￥99</view>
 		</view> -->
+		
+		<!-- 评论弹出框 -->
+		<view class="pinglun_tanchu" v-show="isPinlun">
+			<view class="pinglun_tanchu1">
+				<view class="pinglun_tanchu1s">
+					<view class="pinglun_tanchu1_title">全部评论</view>
+					<view class="pinglun_tanchu1_exit" @click="exitIcon">
+						<image src='../../static/svg/x.svg'></image>
+					</view>
+				</view>
+			</view>
+			
+			<view class="pinglun_tanchu2">
+				<view class="pinglun_tanchu2_content">
+					<view class="pinglun_tanchu2_content_left">
+						<view class="pinglun_tanchu2_content_left_top">
+							<image src="../../static/img/touxiang_img.png"></image>
+						</view>
+					</view>
+					<view class="pinglun_tanchu2_content_right">
+						<view class="pinglun_tanchu2_content_right_top">
+							<view class="pinglun_tanchu2_content_right_top1">长歌</view>
+						</view>
+						<view class="pinglun_tanchu2_content_right_center">看大家都说今天出成绩，想问一下谁知道今天几点出呢？</view>
+						<view class="pinglun_tanchu2_content_right_bottom">
+							<view class="pinglun_tanchu2_content_right_bottom1">1小时前</view>
+							<view class="pinglun_tanchu2_content_right_bottom2">10回复</view>
+							<view class="pinglun_tanchu2_content_right_bottom3">回复</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+			<view class="pinglun_tanchu2">
+				<view class="pinglun_tanchu2_content">
+					<view class="pinglun_tanchu2_content_left">
+						<view class="pinglun_tanchu2_content_left_top">
+							<image src="../../static/img/touxiang_img.png"></image>
+						</view>
+					</view>
+					<view class="pinglun_tanchu2_content_right">
+						<view class="pinglun_tanchu2_content_right_top">
+							<view class="pinglun_tanchu2_content_right_top1">长歌</view>
+						</view>
+						<view class="pinglun_tanchu2_content_right_center">看大家都说今天出成绩，想问一下谁知道今天几点出呢？</view>
+						<view class="pinglun_tanchu2_content_right_bottom">
+							<view class="pinglun_tanchu2_content_right_bottom1">1小时前</view>
+							<view class="pinglun_tanchu2_content_right_bottom2">10回复</view>
+							<view class="pinglun_tanchu2_content_right_bottom3">回复</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+		</view>
 	</view>
 </template>
 
 <script>
-	import {getyikaoKechengList_one} from '../../api/api.js'
+	import {getyikaoKechengList_one,getyikaoKechengList} from '../../api/api.js'
 	export default{
 		data(){
 			return{
-				yikaoKechengList_one:[]
+				yikaoKechengList_one:[],
+				//艺考课程列表数据
+				yikaoKechengList:[],
+				//是否显示icon图标
+				isIcon:true,
+				//是否显示课程
+				isKecheng:true,
+				//是否显示评论
+				isPinlun:false
 			}
 		},
 		methods:{
-			
+			//点击右上角退出图标触发
+			exitIcon(){
+				this.isIcon=true;
+				this.isKecheng=true;
+				this.isPinlun=false;
+			},
+			//点击评论图标触发
+			click_pinlun(){
+				this.isIcon=false;
+				this.isKecheng=false;
+				this.isPinlun=true;
+				// console.log(1111);
+			}
 		},
 		onLoad(id){
 			console.log(id.ids);
@@ -197,6 +272,10 @@
 				// console.log(oldStr.split("-").join("/"));
 				this.yikaoKechengList_one=res.data.hxgArtexam;
 				this.yikaoKechengList_one.aeCreatetime=oldStr.split("-").join("/");
+			})
+			getyikaoKechengList().then((res)=>{
+				// console.log(res.data.artexams);
+				this.yikaoKechengList=res.data.artexams;
 			})
 		},
 		onShow(){
@@ -307,6 +386,12 @@
 			}
 		}
 		
+	}
+	.isShow{
+		display: flex;
+	}
+	.isNotShow{
+		display: none;
 	}
 	.yikaiKecheng_item_content{
 		width:100%;
@@ -443,6 +528,147 @@
 			line-height: 60rpx;
 			text-align: center;
 			
+		}
+	}
+	.pinglun_tanchu{
+		width:100%;
+		height:auto;
+		
+		// border:1px solid red;
+		// background-color: #FFFFFF;
+		.pinglun_tanchu1{
+			width:100%;
+			height:100rpx;
+			// border:1px solid green;
+			border-top: 1px solid #D5CFCF;
+			border-bottom: 1px solid #D5CFCF;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #FFFFFF;
+			.pinglun_tanchu1s{
+				width:90%;
+				height:95rpx;
+				// border:1px solid green;
+				.pinglun_tanchu1_title{
+					width:610rpx;
+					height:80rpx;
+					line-height: 80rpx;
+					text-align: center;
+					// border:1px solid pink;
+					float:left;
+					color:#101010;
+					font-size: 24rpx;
+					font-weight: bold;
+				}
+				.pinglun_tanchu1_exit{
+					width:50rpx;
+					height:50rpx;
+					// border:1px solid pink;
+					float:right;
+					image{
+						width:100%;
+						height:100%;
+					}
+				}
+			}
+		}
+		.pinglun_tanchu2{
+			width:100%;
+			height:220rpx;
+			// border:1px solid green;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #FFFFFF;
+			border-bottom:1px solid #D5CFCF;
+			.pinglun_tanchu2_content{
+				width:95%;
+				height:200rpx;
+				// border:1px solid green;
+				.pinglun_tanchu2_content_left{
+					width:19%;
+					height:200rpx;
+					// border:1px solid pink;
+					float:left;
+					.pinglun_tanchu2_content_left_top{
+						width:100rpx;
+						height:100rpx;
+						
+						// border:1px solid yellow;
+						image{
+							width:100%;
+							height:100%;
+						}
+					}
+				}
+				.pinglun_tanchu2_content_right{
+					width:79%;
+					height:200rpx;
+					// border:1px solid pink;
+					float:left;
+					.pinglun_tanchu2_content_right_top{
+						width:100%;
+						height:60rpx;
+						// border:1px solid yellow;
+						font-size: 28rpx;
+						font-weight: bold;
+						color:#191919;
+						.pinglun_tanchu2_content_right_top1{
+							width:100rpx;
+							height:34rpx;
+							// border:1px solid red;
+						}
+					}
+					.pinglun_tanchu2_content_right_center{
+						width:100%;
+						height:80rpx;
+						font-weight: bold;
+						// border:1px solid yellow;
+						font-size: 24rpx;
+						color:#101010;
+					}
+					.pinglun_tanchu2_content_right_bottom{
+						width:100%;
+						height:40rpx;
+						// border:1px solid yellow;
+						.pinglun_tanchu2_content_right_bottom1{
+							width:100rpx;
+							height:30rpx;
+							line-height: 30rpx;
+							text-align: center;
+							// border:1px solid red;
+							float:left;
+							font-size: 24rpx;
+							color:#5D5D5E;
+						}
+						.pinglun_tanchu2_content_right_bottom2{
+							width:100rpx;
+							height:30rpx;
+							line-height: 30rpx;
+							text-align: center;
+							// border:1px solid red;
+							float:left;
+							font-size: 20rpx;
+							color:#101010;
+							border-radius: 20rpx;
+							background-color: #E6E6E6;
+							margin-left:20rpx;
+							font-weight: bold;
+						}
+						.pinglun_tanchu2_content_right_bottom3{
+							width:100rpx;
+							height:30rpx;
+							line-height: 30rpx;
+							text-align: center;
+							// border:1px solid red;
+							float:right;
+							font-size: 24rpx;
+							color:#5D5D5E;
+						}
+					}
+				}
+			}
 		}
 	}
 </style>

@@ -9,7 +9,7 @@
 			</view>
 			<view class="shouquan_button">
 <!-- 				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="wechatLogin" hover-class="none">获取授权</button> -->
-				<button class="buttons" @click="wechatLogin" >获取授权</button>
+				<button class="buttons" @click="wechatLogin">获取授权</button>
 			</view>
 			
 		</view>
@@ -109,11 +109,16 @@
 				var that=this
 				uni.getUserProfile({
 				  desc:'登录',
+				  lang:"zh_CN",
 				  success: function (infoRes) {
 					  console.log(infoRes);
-					  // uni.switchTab({
-					  // 	url:'../shouye/shouye'
-					  // })
+					  uni.setStorage({
+					  	key:'userData',
+						data:infoRes
+					  })
+					  uni.switchTab({
+					  	url:'../shouye/shouye'
+					  })
 				  },
 				  fail:function(res){
 					  console.log(res);
