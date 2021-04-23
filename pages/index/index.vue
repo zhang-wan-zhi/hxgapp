@@ -115,7 +115,7 @@
 					  uni.setStorage({
 					  	key:'userData',
 						data:infoRes
-					  })
+					  });
 					  uni.switchTab({
 					  	url:'../shouye/shouye'
 					  })
