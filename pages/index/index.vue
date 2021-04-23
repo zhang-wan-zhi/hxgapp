@@ -111,9 +111,9 @@
 				  desc:'登录',
 				  success: function (infoRes) {
 					  console.log(infoRes);
-					  // uni.switchTab({
-					  // 	url:'../shouye/shouye'
-					  // })
+					  uni.switchTab({
+					  	url:'../shouye/shouye'
+					  })
 				  },
 				  fail:function(res){
 					  console.log(res);
