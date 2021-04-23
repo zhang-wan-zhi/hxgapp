@@ -338,7 +338,7 @@
 			},
 			//点击向右箭头触发，打开题库,打开为id的试卷
 			zhenti_next(id){
-				// console.log(111);
+				console.log(id);
 				getyikaoTikuList_one(id).then((res)=>{
 					// console.log(res.data.data.quIdList);
 					let newArr=res.data.data.quIdList;

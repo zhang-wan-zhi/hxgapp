@@ -8,7 +8,8 @@
 				<view class="getShouquan_title_title">该小程序将获取你的信息</view>
 			</view>
 			<view class="shouquan_button">
-				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="wechatLogin" hover-class="none">获取授权</button>
+<!-- 				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="wechatLogin" hover-class="none">获取授权</button> -->
+				<button class="buttons" @click="wechatLogin" >获取授权</button>
 			</view>
 			
 		</view>
@@ -106,6 +107,18 @@
 			//登录授权
 			wechatLogin(){
 				var that=this
+				uni.getUserProfile({
+				  desc:'登录',
+				  success: function (infoRes) {
+					  console.log(infoRes);
+					  // uni.switchTab({
+					  // 	url:'../shouye/shouye'
+					  // })
+				  },
+				  fail:function(res){
+					  console.log(res);
+				  }
+				})	
 				
 				// 获取用户名  获取性别 获取头像 获取js_code去换取后台返回的openID
 				// uni.login({
@@ -113,16 +126,19 @@
 				//   success: function (loginRes) {
 				// 	console.log("wxcode",loginRes.code);
 
-				// 	// 获取用户信息，getUserInfo换了getUserProfile
-					uni.getUserInfo({
-					  // provider: 'weixin',
-					  success: function (infoRes) {
-						  uni.switchTab({
-						  	url:'../shouye/shouye'
-						  })
-					  },
-					  fail:function(res){}
-					})	
+				// // 	// 获取用户信息，getUserInfo换了getUserProfile
+				// 	uni.getUserProfile({
+				// 	  provider: 'weixin',
+				// 	  success: function (infoRes) {
+				// 		  console.log(infoRes);
+				// 		  uni.switchTab({
+				// 		  	url:'../shouye/shouye'
+				// 		  })
+				// 	  },
+				// 	  fail:function(res){
+				// 		  console.log(res);
+				// 	  }
+				// 	})	
 					
 					
 				//   },
