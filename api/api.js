@@ -255,7 +255,7 @@ export function getWenxuexiTestList(id){
 }
 
 //获取问学习，获取测试结果
-export function getWenxuexiResuleList(){
+export function getWenxuexiResuleList(scores){
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:urls+'/hxg/qlearn/getResult',
@@ -264,7 +264,7 @@ export function getWenxuexiResuleList(){
 			data:{
 				"optionsList": [
 					{
-						"score": 10, 
+						"score": scores, 
 						"testType": 1
 					}, 
 					{
