@@ -346,9 +346,10 @@
 						key:'yikaoTikuList_one1',
 						data:newArr
 					});	
-				})
-				uni.navigateTo({
-					url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids='+id
+				}).then(()=>{
+					uni.navigateTo({
+						url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids='+id
+					})
 				})
 			},
 			//点击艺考题库触发

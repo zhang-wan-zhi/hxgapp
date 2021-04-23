@@ -177,8 +177,9 @@
 				}
 				console.log(arr);
 				let result=this.sum(arr);
-				console.log(result);
-				getWenxuexiResuleList().then((res)=>{
+				// console.log(result);
+				// let result=82;
+				getWenxuexiResuleList(result).then((res)=>{
 					console.log(res.data.data);
 					let objs=res.data.data;
 					uni.setStorage({
