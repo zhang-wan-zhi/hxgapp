@@ -4,10 +4,10 @@
 		<!-- <u-navbar class="self-nav" :is-back="false" title-color="white" :background="{background:'#39c4f6'}" title="数据">
 			<text v-show="current===0" @click="popShowHandle" class="iconfont icon-shaixuan1">111</text>
 		</u-navbar> -->
-		<view class="pinggu_title">
+<!-- 		<view class="pinggu_title">
 			<view class="pinggu_title_title">性格评估</view>
-		</view>
-		<view class="pinggu_content">
+		</view> -->
+		<view class="pinggu_content" :style="{height:phoneHeight*0.7+'px;'}">
 			<view class="pinggu_content_content">
 				<view class="pinggu_content_content1">
 					<view class="pinggu_content_content1_tihao">
@@ -75,10 +75,14 @@
 				//选中的序号
 				active:null,
 				//多个合成一个数组
-				one_Arr:[]
+				one_Arr:[],
+				//适配手机高度
+				phoneHeight:0,
 			}
 		},
 		onLoad(ids) {
+			//获取窗口高度，适配手机
+			this.getWindowHeight();
 			console.log(ids.scores);
 			// console.log(ids.id);
 			
@@ -146,6 +150,19 @@
 			
 		},
 		methods:{
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
 			//将多层嵌套数组转为一层数组
 			// let one_Arr=[];
 			arrMoretoOne(arr){
@@ -261,8 +278,9 @@
 	}
 	.pinggu_content{
 		width:100%;
-		height:650rpx;
+		// height:800rpx;
 		// border:1px solid red;
+		margin-top:20%;
 		display: flex;
 		align-items: center;
 		justify-content: center;

@@ -6,9 +6,9 @@
 					<image src="../../static/img/mianfeiyuce_free_img2.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">免费预测</view>
-				<view class="mianfeiyuce_free_img">
+				<!-- <view class="mianfeiyuce_free_img">
 					<image src="../../static/img/mianfei_img.png"></image>
-				</view>
+				</view> -->
 				<!-- <view class="mianfeiyuce_enter" >
 					<view class="mianfeiyuce_enter1">点击进入</view>
 				</view> -->

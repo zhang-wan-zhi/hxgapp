@@ -4,25 +4,26 @@
 			<view class="content2_bg">
 				<image src='../../static/img/gerenzhongxin_bg.png'></image>
 			</view>
-			<view class="content2_user">
+			<!-- :style="{height:phoneHeight*0.25+'px;'}" -->
+			<view class="content2_user" >
 				<view class="content2_user_content">
 					<view class="content2_user_content_bg">
 						<image :src="userData.avatarUrl"></image>
 					</view>
-					<view class="content2_user_title">{{userData.nickName}}</view>
+					<!-- <view class="content2_user_title">{{userData.nickName}}</view> -->
 					<view class="content2_user_update">
-						<view class="content2_user_update_content" @click="xiugai">
-							<view  class="content2_user_img">修改</view>
-							<view class="content2_user_update_img">
+						<view class="content2_user_update_content" @click="click_shouquan" >
+							<view  class="content2_user_img">{{userData.nickName}}</view>
+							<!-- <view class="content2_user_update_img">
 								<image src="../../static/svg/xiugai_next.svg"></image>
-							</view>
+							</view> -->
 						</view>
 						
 					</view>
 				</view>
 			</view>
 			<view class="content2_content">
-				<view class="content2_content_body">
+				<view class="content2_content_body" >
 					<view class="content2_content_body1">
 						<view class="content2_content_body1s">
 							<view class="content2_content_body1s_fenxiang">
@@ -60,6 +61,10 @@
 					</view>
 				</view>
 			</view>
+			
+			<view class="content2_bottom">
+				<view class="content2_bottom1" @click="exitLogin">退出登录</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -69,7 +74,14 @@
 		data() {
 			return {
 				imgArr:[`../../static/img/touxiang_img.png`],
-				userData:{}
+				//适配手机高度
+				phoneHeight:0,
+				userData:{
+					avatarUrl:'../../static/img/gerenzhongxin_moren_logo.png',
+					nickName:'登录/注册'
+				},
+				//是否显示授权文本
+				isShow:true
 			}
 		},
 		methods: {
@@ -77,6 +89,48 @@
 			// fengxiang(){
 			// 	console.log(2222);
 			// },
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
+			//退出登录
+			exitLogin(){
+				// let sting_storage=uni.getStorageSync('userData');
+				// console.log(sting_storage);
+				
+				uni.showModal({
+					title: '温馨提示',
+					content: '您要退出登录吗？',
+					success: function (res) {
+						if (res.confirm) {
+							console.log('用户点击确定');
+							uni.removeStorage({key:'userData'});
+							//解决退出登录的bug
+							uni.reLaunch({
+								url:'../gerenzhongxin/gerenzhongxin'
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+
+			},
+			//登录授权
+			click_shouquan(){
+				uni.navigateTo({
+					url:'../index/index'
+				})
+			},
 			//关于我们
 			guanyuwomeng(){
 				uni.navigateTo({
@@ -100,15 +154,22 @@
 			}
 		},
 		onLoad(){
-			let sting_storage=uni.getStorageSync('userData');
-			let userData=sting_storage.userInfo;
-			this.userData=userData;
+			
 			// this.userData.avatarUrl=userData.avatarUrl;
 			//用户名
 			// let userName=userData.nickName;
 			// let userAvate=userData.avatarUrl;
 			// console.log(JSON.parse(sting_storage.rawData));
 			// console.log(JSON.parse(sting_storage).avatarUrl);
+		},
+		onShow(){
+			let sting_storage=uni.getStorageSync('userData');
+			console.log(sting_storage.userInfo);
+			let userData=sting_storage.userInfo;
+			this.userData=userData;
+			if(userData!=null){
+				this.isShow=false;
+			}
 		},
 		onShareAppMessage:function(e){
 			let title='掐指艺算';
@@ -155,12 +216,13 @@
 			.content2_user_content_bg{
 				width:100%;
 				height:120rpx;
-				// border:1px solid pink;
+				// border:1px solid #2A2929;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				margin-top:10rpx;
 				image{
+					border:1px solid #2A2929;
 					width:120rpx;
 					height:120rpx;
 					border-radius: 50%;	
@@ -183,21 +245,22 @@
 				align-items: center;
 				justify-content: center;
 				.content2_user_update_content{
-					width:150rpx;
+					width:250rpx;
 					height:60rpx; 
 					line-height:60rpx; 
 					text-align:center;
 					border-radius:5rpx;
+					margin-top: 75rpx;
 					// border:1px solid red;
 					.content2_user_img{
-						width:75rpx;
+						width:200rpx;
 						height:60rpx; 
 						line-height:60rpx; 
 						text-align:center;
-						border-radius:5rpx;
-						// border:1px solid green;
+						border-radius:15rpx;
+						// border:1px solid #FFA6A6;
 						float:left;
-						margin-left:20rpx;
+						margin-left:35rpx;
 					}
 					.content2_user_update_img{
 						width:30rpx;
@@ -205,13 +268,17 @@
 						line-height:60rpx; 
 						text-align:center;
 						border-radius:5rpx;
-						// border:1px solid blue;
+						// border:1px solid #2A2929;
 						float:left;
 						image{
+							// border:1px solid #2A2929;
 							width:100%;
 							height:100%;
 						};
 					}
+				}
+				.isNotNameShow{
+					display: none;
 				}
 			}
 			
@@ -288,6 +355,27 @@
 
 				}
 			}
+		}
+	}
+	.content2_bottom{
+		width:100%;
+		height:60rpx;
+		// border:1px solid red;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		bottom:70rpx;
+		.content2_bottom1{
+			width:180rpx;
+			height:60rpx;
+			line-height: 60rpx;
+			text-align: center;
+			// border:1px solid red;
+			border-radius: 15rpx;
+			bottom:60rpx;
+			background-color: #4CB5F6;
+			color:#fff;
 		}
 	}
 }

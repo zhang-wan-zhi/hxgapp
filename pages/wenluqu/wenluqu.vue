@@ -266,16 +266,20 @@
 				//体重
 				console.log(this.weight);
 				
-				getWenluquList(obj).then((res)=>{
-					// console.log(res.data.data.academies[0]);
-					let resArr=res.data.data.academies;
-					uni.setStorage({
-						key:'wenluqu_lists',
-						data:resArr
-					})
-					uni.navigateTo({
-						url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
-					})
+				// getWenluquList(obj).then((res)=>{
+				// 	// console.log(res.data.data.academies[0]);
+				// 	let resArr=res.data.data.academies;
+				// 	uni.setStorage({
+				// 		key:'wenluqu_lists',
+				// 		data:resArr
+				// 	})
+				// 	uni.navigateTo({
+				// 		url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+				// 	})
+				// })
+				
+				uni.navigateTo({
+					url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
 				})
 				
 			}

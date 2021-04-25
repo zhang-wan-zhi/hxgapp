@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
-		<view class="getUser">
+		<!-- 				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="wechatLogin" hover-class="none">获取授权</button> -->
+	<!-- 	<view class="getUser">
 			<view class="getUser_top">
 				<view class="getUser_top_title">确认授权登录</view>
 			</view>
@@ -8,10 +9,26 @@
 				<view class="getShouquan_title_title">该小程序将获取你的信息</view>
 			</view>
 			<view class="shouquan_button">
-<!-- 				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="wechatLogin" hover-class="none">获取授权</button> -->
+
 				<button class="buttons" @click="wechatLogin">获取授权</button>
 			</view>
-			
+		</view> -->
+		
+		<view class="getUser_content" :style="{height:phoneHeight*0.9+'px;'}">
+			<view class="login_view">
+			  <image src="../../static/img/qzys_logo.png" class="login_logo"></image>
+			  <view class="login_name">掐指艺算</view>
+			  <view class="login_line"></view>
+			  <view class="login_title">该程序将获取以下授权</view>
+			  <!-- 解码，对空格进行解析 -->
+			  <text class="login_describe" decode="true" space="true">· &ensp;获得您的公开信息(昵称、头像等)</text>
+			  <view class="login_chooise">
+			   <button  style="width:300rpx" class="login_refuse" @click="login_refuse">拒绝</button>
+			    <!--  v-if="canIUse"  -->
+			    <button style="width:300rpx" class="login_allow" lang="zh_CN" @click="wechatLogin">允许</button>
+			  <!--  <view v-else class="login_allow">请升级微信版本</view> -->
+			  </view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -22,10 +39,16 @@
 	export default {
 		data() {
 			return {
-				userInfo:[]
+				userInfo:[],
+				//判断小程序的API，回调，参数，组件等是否在当前版本可用。
+				// canIUse: uni.canIUse('button.open-type.getUserInfo'),
+				//适配手机高度
+				phoneHeight:0,
 			}
 		},
 		onLoad() {
+			  //获取窗口高度，适配手机
+			this.getWindowHeight();
 			//获取测试接口用户名
            // this.getInfo();
 		   //定义在app启动首次为横屏,锁定
@@ -60,50 +83,74 @@
 				  //  this.title=res.data.data[0].username;
 			   // })
            },
-		   
-		   //登录授权
-		 //   	onGotUserInfo: function(e) {
-			// 	// console.log('aaaaa', e);
-			// 	let rawData = e.detail.rawData;
-			// 	console.log(e.detail.rawData);
-			// 	if (e.detail.iv) {
-			// 		this.userInfo = e.detail.userInfo;
-			// 		uni.login({
-			// 			provider: 'weixin',
-			// 			success: function(loginRes) {
-			// 				console.log(loginRes);
-			// 				// console.log(rawData);
-			// 				//同步存储用户信息的数据
-			// 				uni.setStorageSync('login_info',rawData);
-			// 				//跳转到首页
-			// 				//使用uni.switchTab进行tab切换，解决授权，无法跳转到首页的bug
-			// 				uni.switchTab({
-			// 					url:'../shouye/shouye'
-			// 				});
-			// 		// 		uni.request({
-			// 		// 			url: `${this.$serverUrl}api/TestDenglu`,//仅为示例，并非真实接口地址。)
-			// 					// // #ifdef H5
-			// 					// url:'/api/api/TestDenglu',
-			// 					// // #endif
-			// 					// method: 'POST',
-			// 					// contentType: 'application/json;charset=UTF-8',
-			// 		// 			data: {
-			// 		// 				rawData: rawData,
-			// 		// 				code: loginRes.code
-			// 		// 			},
-			// 		// 			success: res => {
-			// 		// 				console.log(res);
-			// 		// 			}
-			// 		// 		});
-			// 			},
-			// 		});
-			// 	} else {
-			// 		uni.showToast({
-			// 			title: '用户拒绝授权',
-			// 			icon: 'none'
-			// 		});
-			// 	}
-			// },
+		   //获取窗口高度，适配手机
+		   getWindowHeight(){
+		   	uni.getSystemInfo({
+		   		success:(res)=>{
+		   			// console.log(res);
+		   			// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+		   			this.phoneHeight=res.windowHeight;
+		   			// console.log(res.windowHeight);
+		   			// console.log(this.phoneHeight);
+		   			// this.$store.commit('set_window_height',res.windowHeight*2);
+		   		}
+		   	})
+		   },
+		   //拒接登录
+		   login_refuse: function() {
+		       //返回上一级关闭当前页面
+		       uni.navigateBack({
+		         delta: 1
+		       })
+		     },
+		   /**
+		      * 允许登录
+		      */
+		    //  login_allow: function(e) {
+		    //    var that = this;
+		    //    if (!that.data.canIUse) {
+		    //      wx.showToast({
+		    //        title: '请升级微信版本',
+		    //        icon: 'none',
+		    //      })
+		    //      return;
+		    //    }
+		    //    // that.bindGetUserInfo(e);
+			   // that.wechatLogin(e);
+		    //  },
+			 
+			   // bindGetUserInfo: function(e) {
+			   //   var that = this;
+			   //   if (e.detail.userInfo) {
+			   //     //用户按了允许授权按钮
+			   //     let userInfo =getApp().globalData.userInfo;
+			   //     userInfo["avatarUrl"] = e.detail.userInfo.avatarUrl
+			   //     userInfo["city"] = e.detail.userInfo.city
+			   //     userInfo["country"] = e.detail.userInfo.country
+			   //     userInfo["gender"] = e.detail.userInfo.gender
+			   //     userInfo["language"] = e.detail.userInfo.language
+			   //     userInfo["nickName"] = e.detail.userInfo.nickName
+			   //     userInfo["province"] = e.detail.userInfo.province
+			   //     wx.setStorage({
+			   //       data: JSON.stringify(userInfo),
+			   //       key: 'userinfo',
+			   //     })
+			   //     getApp().globalData.userInfo=userInfo;
+			   //     // 登录
+			   //     wx.login({
+			   //       success: res => {
+			   //         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+			   //         console.log(res)
+			   //         //小程序尝试登陆接口
+			   //         that.tryLogin(res.code);
+			   //       }
+			   //     })
+			   //   } else {
+			   //     //用户按了拒绝按钮
+			   //     console.log("拒绝授权")
+			   //   }
+			   // },
+		  
 			//登录授权
 			wechatLogin(){
 				var that=this
@@ -117,38 +164,13 @@
 						data:infoRes
 					  });
 					  uni.switchTab({
-					  	url:'../shouye/shouye'
+					  	url:'../gerenzhongxin/gerenzhongxin'
 					  })
 				  },
 				  fail:function(res){
 					  console.log(res);
 				  }
 				})	
-				
-				// 获取用户名  获取性别 获取头像 获取js_code去换取后台返回的openID
-				// uni.login({
-				//   provider: 'weixin',
-				//   success: function (loginRes) {
-				// 	console.log("wxcode",loginRes.code);
-
-				// // 	// 获取用户信息，getUserInfo换了getUserProfile
-				// 	uni.getUserProfile({
-				// 	  provider: 'weixin',
-				// 	  success: function (infoRes) {
-				// 		  console.log(infoRes);
-				// 		  uni.switchTab({
-				// 		  	url:'../shouye/shouye'
-				// 		  })
-				// 	  },
-				// 	  fail:function(res){
-				// 		  console.log(res);
-				// 	  }
-				// 	})	
-					
-					
-				//   },
-				//   fail:function(res){}
-				// })
 				
 			},
 
@@ -219,6 +241,90 @@
 					font-size: 25rpx;
 					color:#fff;
 					margin-top:15rpx;
+				}
+			}
+		}
+		.getUser_content{
+			width:100%;
+			height:700rpx;
+			// border:1px solid red;
+			.login_view{
+				// width:95%;
+				// height:650rpx;
+				// border:1px solid blue;
+				width: 100%;
+			    background: #fafafa;
+			    height: 100%;
+			    display: flex;
+			    flex-direction: column;
+			    align-items: center;
+				.login_logo{
+					margin-top: 100rpx;
+					width: 100rpx;
+					height: 100rpx;
+				}
+				.login_name{
+				    margin-top: 50rpx;
+				    font-size: 32rpx;
+				    color: #636363;
+				}
+				.login_line {
+				  width: 100%;
+				  height: 1rpx;
+				  margin-top: 80rpx;
+				  background: #f4f4f4;
+				}
+				.login_title {
+				  width: 100%;
+				  padding-left: 100rpx;
+				  margin-top: 80rpx;
+				  font-size: 28rpx;
+				  color: #636363;
+				}
+				.login_describe {
+				  width: 100%;
+				  padding-left: 100rpx;
+				  margin-top: 30rpx;
+				  font-size: 24rpx;
+				  color: #9c9c9c;
+				}
+				.login_chooise{
+					width: 100%;
+					display: flex;
+					flex-direction: row;
+					padding-left: 50rpx;
+					padding-right: 50rpx;
+					box-sizing: border-box;
+					justify-content: space-between;
+					align-items: center;
+					margin-top: 80rpx;
+					.login_refuse{
+					  border: 1px;
+					  display: flex;
+					  border-radius: 50rpx;
+					  color: #fff;
+					  font-size: 28rpx;
+					  width: 30%;
+					  height: 70rpx;
+					  justify-content: center;
+					  margin-right: 50rpx;
+					  align-items: center;
+					  background: #b1b1b1;
+					}
+					.login_allow{
+					  border: 1px;
+					  display: flex;
+					  width: 30%;
+					  margin-left: 50rpx;
+					  border-radius: 50rpx;
+					  font-size: 28rpx;
+					  height: 70rpx;
+					  align-items: center;
+					  justify-content: center;
+					  color: #fff;
+					  background: #1296db;
+					}
+					
 				}
 			}
 		}

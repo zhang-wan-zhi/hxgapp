@@ -2,8 +2,10 @@
 	<view class="body_content">
 		<view class="yikaiKecheng_item">
 			<view class="yikaiKecheng_item_img">
-				<image :src="yikaoKechengList_one.aeImgurl"></image>
+				<!-- <image :src="yikaoKechengList_one.aeImgurl"></image> -->
+				<video :src="yikaoKechengList_one.aeVideourl" objectFit="cover"></video>
 			</view>
+			
 		</view>
 		
 		<view class="yikaiKecheng_item_title">
@@ -51,7 +53,7 @@
 		
 		<view class="yikaiKecheng_item_content"  v-for="(item,index) in yikaoKechengList" :key="index" v-show="isKecheng">
 			
-			<view class="yikaoKecheng_content_content">
+			<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}" @click="yikaokecheng_click(item.aeId)">
 				<view class="yikaoKecheng_content_content_left">
 					<view class="yikaoKecheng_content_content_left_img">
 						<image :src="item.aeImgurl"></image>
@@ -258,6 +260,26 @@
 			}
 		},
 		methods:{
+			//艺考课程
+			yikaokecheng_click(id){
+				// console.log(id);
+				uni.navigateTo({
+					url:"../yikaokecheng_item/yikaokecheng_item?ids="+id
+				})
+			},
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
 			//点击收藏图标触发
 			click_shouchang(){
 				this.isShouchang=!this.isShouchang;
@@ -291,6 +313,8 @@
 			}
 		},
 		onLoad(id){
+			//获取窗口高度，适配手机
+			this.getWindowHeight();
 			console.log(id.ids);
 			getyikaoKechengList_one(id.ids).then((res)=>{
 				// console.log(res.data.hxgArtexam);
@@ -327,7 +351,7 @@
 		.yikaiKecheng_item_img{
 			width:90%;
 			height:320rpx;
-			image{
+			video{
 				width:100%;
 				height:100%;
 			}

@@ -3,7 +3,8 @@
 		<view class="wenluqu_content1">
 			<view class="wenluqu_content1_content">你的录取概率为：</view>
 		</view>
-		<view class="wenluqu_content2">
+		
+	<!-- 	<view class="wenluqu_content2">
 			<view class="wenluqu_content2_content">{{Objs.stableProp}}%</view>
 		</view>
 		<view class="wenluqu_content3">
@@ -26,7 +27,43 @@
 		</view>
 		<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content">考试类型：{{Objs.acExamtype}}</view>
+		</view> -->
+		
+		
+		<view class="wenluqu_content2">
+			<view class="wenluqu_content2_content">80%</view>
 		</view>
+		<!-- <view class="wenluqu_content3s" @click="click_tiyan" :class="isTiyan?'isActiveTiyan':''">
+			<view class="wenluqu_content3_content1">缴费体验版，查看更多内容</view>
+		</view> -->
+		<!-- <view class="wenluqu_content3">
+			<view class="wenluqu_content3_content1">缴费会员版，查看更多内容</view>
+		</view>
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content1">缴费专业版，查看更多内容</view>
+		</view> -->
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content">院校代码：1111</view>
+		</view>
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content">院校名称：北京大学</view>
+		</view>
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content">录取批次：第1批</view>
+		</view>
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content">专业名称：计算机科学与技术</view>
+		</view>
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content">招生数量：50</view>
+		</view>
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content">录取原则：按文化分</view>
+		</view>
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_content">考试类型：111</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -37,7 +74,9 @@
 				//适配手机高度
 				phoneHeight:0,
 				//测试的结果对象
-				Objs:{}
+				Objs:{},
+				// 体验版的状态
+				isTiyan:false
 			}
 		},
 		onLoad(objs) {
@@ -48,6 +87,10 @@
 			this.getWindowHeight();
 		},
 		methods:{
+			//点击体验版触发
+			click_tiyan(){
+				this.isTiyan=true;
+			},
 			//获取窗口高度，适配手机
 			getWindowHeight(){
 				uni.getSystemInfo({
@@ -107,7 +150,7 @@
 		}
 		.wenluqu_content3{
 			width:100%;
-			height:100rpx;
+			height:120rpx;
 			// border:1px solid red;
 			display: flex;
 			align-items: center;
@@ -115,10 +158,31 @@
 			.wenluqu_content3_content{
 				width:80%;
 				height:60rpx;
-				// border:1px solid red;
+				border:1px solid red;
 				line-height: 60rpx;
 				text-align: center;
 				font-weight: bold;
+			}
+		}
+		.wenluqu_content3s{
+			width:100%;
+			height:120rpx;
+			// border:1px solid red;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.wenluqu_content3_content1{
+				width:80%;
+				height:100rpx;
+				border:1px solid red; 
+				background: linear-gradient(to right,#FF686B,#FF9666);
+				line-height: 120rpx;
+				text-align: center;
+				font-weight: bold;
+				color:#fff;
+			}
+			.isActiveTiyan{
+				display: block;
 			}
 		}
 	}

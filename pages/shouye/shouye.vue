@@ -38,7 +38,7 @@
 				  </view>
 			</view>
 			
-			<view class="content_contents" :style="{height:phoneHeight*0.62+'px;'}" v-show="yikaoDongtaiStatus" >
+			<view class="content_contents" :style="{height:phoneHeight*0.65+'px;'}" v-show="yikaoDongtaiStatus" >
 				
 				<view v-for="(item,index) in yikaiDongtaiList" :key="index">
 					<view class="content_content"  @click="yikaoDongtai(item.id)" :style="{height:phoneHeight*0.15+'px;'}">
@@ -57,9 +57,9 @@
 					</view>
 				</view>
 				
-				<view class="see_more">
+				<!-- <view class="see_more">
 					<view class="see_more_title" @click="mores">查看更多</view>
-				</view>
+				</view> -->
 							
 			</view>
 			
@@ -274,28 +274,49 @@
 			//获取艺考动态列表数据
 			this.getyikaoDongtaiLists();
 		},
+		//下拉触底的时候触发
+		onReachBottom(){
+			// console.log(222);
+			let currentPage=this.currentPage;
+			let pageSize=4;
+			currentPage=currentPage+1;
+			getmoreList(currentPage,pageSize).then((res)=>{
+				console.log(res.data.artexamdynamicList);	
+				// console.log(res.data.msg);
+				if(res.data.msg=='页码超出了哦!'){
+					return res.data.msg;
+				}else{
+					this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
+					this.currentPage=currentPage;
+					uni.setStorage({
+						key:'yikaoDongtaiList',
+						data:this.yikaiDongtaiList
+					});
+				}
+			})
+		},
 		methods: {
 			//查看更多
-			mores(){
-				// console.log(111);
-				let currentPage=this.currentPage;
-				let pageSize=4;
-				currentPage=currentPage+1;
-				getmoreList(currentPage,pageSize).then((res)=>{
-					console.log(res.data.artexamdynamicList);	
-					// console.log(res.data.msg);
-					if(res.data.msg=='页码超出了哦!'){
-						return res.data.msg;
-					}else{
-						this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
-						this.currentPage=currentPage;
-						uni.setStorage({
-							key:'yikaoDongtaiList',
-							data:this.yikaiDongtaiList
-						});
-					}
-				})
-			},
+			// mores(){
+			// 	// console.log(111);
+			// 	let currentPage=this.currentPage;
+			// 	let pageSize=4;
+			// 	currentPage=currentPage+1;
+			// 	getmoreList(currentPage,pageSize).then((res)=>{
+			// 		console.log(res.data.artexamdynamicList);	
+			// 		// console.log(res.data.msg);
+			// 		if(res.data.msg=='页码超出了哦!'){
+			// 			return res.data.msg;
+			// 		}else{
+			// 			this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
+			// 			this.currentPage=currentPage;
+			// 			uni.setStorage({
+			// 				key:'yikaoDongtaiList',
+			// 				data:this.yikaiDongtaiList
+			// 			});
+			// 		}
+			// 	})
+			// },
 			//获取艺考动态列表数据
 			getyikaoDongtaiLists(){
 				getyikaoDongtaiList().then((res)=>{
