@@ -1,23 +1,24 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path" : "pages/shouye/shouye",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+				// "navigationStyle":"custom"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "登录授权"
 			}
 		}
 	    ,
-		{
-            "path" : "pages/shouye/shouye",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "首页",
-                "enablePullDownRefresh": false,
-				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
-				// "navigationStyle":"custom"
-            }
-        },
+		
 		{
 		    "path" : "pages/yikaotimu_danxuan/yikaotimu_danxuan",
 		    "style" :                                                                                    
@@ -231,12 +232,12 @@
 	  		"iconPath":"./static/icon/wenxuexi_icon.png",
 	  		"text":"问学习"
 	  },
-      {
-        "pagePath": "pages/wenxiaokao/wenxiaokao",
-		"selectedIconPath":"./static/icon/wenxiaokao_icon_active.png",
-		"iconPath":"./static/icon/wenxiaokao_icon.png",
-		"text":"问校考"
-      },
+  //     {
+  //       "pagePath": "pages/wenxiaokao/wenxiaokao",
+		// "selectedIconPath":"./static/icon/wenxiaokao_icon_active.png",
+		// "iconPath":"./static/icon/wenxiaokao_icon.png",
+		// "text":"问校考"
+  //     },
       {
         "pagePath": "pages/wenluqu/wenluqu",
 		"selectedIconPath":"./static/icon/wenluqu_icon_active.png",

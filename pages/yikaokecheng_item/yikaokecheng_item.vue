@@ -2,8 +2,10 @@
 	<view class="body_content">
 		<view class="yikaiKecheng_item">
 			<view class="yikaiKecheng_item_img">
-				<image :src="yikaoKechengList_one.aeImgurl"></image>
+				<!-- <image :src="yikaoKechengList_one.aeImgurl"></image> -->
+				<video :src="yikaoKechengList_one.aeVideourl" objectFit="cover"></video>
 			</view>
+			
 		</view>
 		
 		<view class="yikaiKecheng_item_title">
@@ -25,9 +27,9 @@
 					<view class="yikaiKecheng_item_icon1_title">分享</view>
 				</view>
 				
-				<view class="yikaiKecheng_item_icon1">
+				<view class="yikaiKecheng_item_icon1" @click="click_shouchang">
 					<view class="yikaiKecheng_item_icon1_img">
-						<image src="../../static/img/shouchang_icon.png"></image>
+						<image :src="isShouchangArrstr"></image>
 					</view>
 					<view class="yikaiKecheng_item_icon1_title">收藏</view>
 				</view>
@@ -39,9 +41,9 @@
 					<view class="yikaiKecheng_item_icon1_title">评论</view>
 				</view>
 				
-				<view class="yikaiKecheng_item_icon1">
+				<view class="yikaiKecheng_item_icon1" @click="click_dianzan">
 					<view class="yikaiKecheng_item_icon1_img">
-						<image src="../../static/img/dianzan_icon.png"></image>
+						<image :src="isDianzanArrstr"></image>
 					</view>
 					<view class="yikaiKecheng_item_icon1_title">点赞</view>
 				</view>
@@ -51,7 +53,7 @@
 		
 		<view class="yikaiKecheng_item_content"  v-for="(item,index) in yikaoKechengList" :key="index" v-show="isKecheng">
 			
-			<view class="yikaoKecheng_content_content">
+			<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}" @click="yikaokecheng_click(item.aeId)">
 				<view class="yikaoKecheng_content_content_left">
 					<view class="yikaoKecheng_content_content_left_img">
 						<image :src="item.aeImgurl"></image>
@@ -246,10 +248,56 @@
 				//是否显示课程
 				isKecheng:true,
 				//是否显示评论
-				isPinlun:false
+				isPinlun:false,
+				//是否处于收藏状态
+				isShouchang:false,
+				isShouchangArr:["../../static/img/shouchang_icon1.png","../../static/img/shouchang_icon.png"],
+				isShouchangArrstr:"../../static/img/shouchang_icon.png",
+				//是否处于点赞状态
+				isDianzan:false,
+				isDianzanArr:["../../static/img/dianzan_icon1.png","../../static/img/dianzan_icon.png"],
+				isDianzanArrstr:"../../static/img/dianzan_icon.png",
 			}
 		},
 		methods:{
+			//艺考课程
+			yikaokecheng_click(id){
+				// console.log(id);
+				uni.navigateTo({
+					url:"../yikaokecheng_item/yikaokecheng_item?ids="+id
+				})
+			},
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
+			//点击收藏图标触发
+			click_shouchang(){
+				this.isShouchang=!this.isShouchang;
+				if(this.isShouchang){
+					this.isShouchangArrstr=this.isShouchangArr[0]
+				}else{
+					this.isShouchangArrstr=this.isShouchangArr[1]
+				}
+			},
+			//点击点赞图标触发
+			click_dianzan(){
+				this.isDianzan=!this.isDianzan;
+				if(this.isDianzan){
+					this.isDianzanArrstr=this.isDianzanArr[0]
+				}else{
+					this.isDianzanArrstr=this.isDianzanArr[1]
+				}
+			},
 			//点击右上角退出图标触发
 			exitIcon(){
 				this.isIcon=true;
@@ -265,6 +313,8 @@
 			}
 		},
 		onLoad(id){
+			//获取窗口高度，适配手机
+			this.getWindowHeight();
 			console.log(id.ids);
 			getyikaoKechengList_one(id.ids).then((res)=>{
 				// console.log(res.data.hxgArtexam);
@@ -301,7 +351,7 @@
 		.yikaiKecheng_item_img{
 			width:90%;
 			height:320rpx;
-			image{
+			video{
 				width:100%;
 				height:100%;
 			}

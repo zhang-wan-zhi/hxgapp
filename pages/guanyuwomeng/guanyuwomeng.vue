@@ -3,7 +3,7 @@
 		<view class="guanyuwomeng_top">
 			<view class="guanyuwomeng_top_top">
 				<view class="guanyuwomeng_top_img">
-					<image src="../../static/img/right_bg.png"></image>
+					<image src="../../static/img/qzys_logo.png"></image>
 				</view>
 				<view class="guanyuwomeng_top_title">掐指艺算</view>
 			</view>
