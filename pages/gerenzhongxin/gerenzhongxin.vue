@@ -70,6 +70,7 @@
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
@@ -139,6 +140,7 @@
 			},
 			//意见反馈
 			yijianFangkui(){
+				
 				uni.navigateTo({
 					url:'../yijianFangkui/yijianFangkui'
 				})

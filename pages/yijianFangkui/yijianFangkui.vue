@@ -2,7 +2,7 @@
 	<view>
 		<view class="yijianFangkui">
 			<view class="yijianFangkui_input">
-				<textarea type="text" :placeholder="placeholders" v-model="inputs_value" class="yijianFangkui_input1" @focus="getFocus" @blur="getBlur" placeholder-style="color:#bbb;"></textarea>
+				<textarea type="text" :placeholder="placeholders" v-model="textAreaValue" class="yijianFangkui_input1" @focus="getFocus" @blur="getBlur" placeholder-style="color:#bbb;"></textarea>
 			</view>
 		</view>
 		<view class="yijianFangkui_submit">
@@ -12,32 +12,28 @@
 </template>
 
 <script>
-	import {getyijianfangkui} from '../../api/api.js';
+	import {Yijianfankui} from '../../api/api.js'
 	export default{
 		data(){
 			return{
 				placeholders:'请输入您想反馈的问题....',
-				inputs_value:''
+				textAreaValue:''
 			}
 		},
 		methods:{
 			submits(){
-				// console.log(this.inputs_value);
-				let openid="22222";
-				// let img1="";
-				// let img2="";
-				// let img3="";
-				let opContent=this.inputs_value;
-				// let formData  = new FromData();
-				// formData.append('openid', '2222');
-				// formData.append('openid', this.inputs_value);
-				// console.log(opContent);
-				getyijianfangkui(openid,opContent).then((res)=>{
-						console.log(res);	
+				let openid="111";
+				let opContent=this.textAreaValue;
+				// console.log(this.textAreaValue);
+				Yijianfankui(openid,opContent).then((res)=>{
+					// console.log(res.data.code);
+					if(res.data.code==200){
+						uni.navigateTo({
+							url:'../yijianFangkuiSuccess/yijianFangkuiSuccess'
+						})
+					}
 				})
-				// uni.navigateTo({
-				// 	url:'../yijianFangkuiSuccess/yijianFangkuiSuccess'
-				// })
+				
 			},
 			//点击输入框，获得焦点时
 			getFocus(){

@@ -9,24 +9,7 @@
 		</view> -->
 		
 		<view class="Search_content">
-			<view class="Search_content1" @click="xiala_Search">
-				<image src="../../static/img/xiala_search.png"></image>
-			</view>
-			<input type="text" @input="getInput2" @focus="getFocus" @blur="getBlur" @confirm="getSubmit" v-model="inputs_text" :placeholder="placeholders" placeholder-style="color:#fff;" :placeholder-class="placeholders_styles">
-		</view>
-		
-		<view class="Search_content_content" v-show="isSelectSearch">
-			<view class="Search_content_content1">
-				<view class="Search_content_content1s">
-					<view class="Search_content_content1ss" @click="yikaodongtai_status" :class="isactiveStatus?'isActiveStatus':''">艺考动态</view>
-					<view class="Search_content_content1ss" @click="yikaokechen_status" :class="isactiveStatus1?'isActiveStatus':''">艺考课程</view>
-					<view class="Search_content_content1ss" style="border-bottom:none;" @click="yikaotiku_status" :class="isactiveStatus2?'isActiveStatus':''">艺考题库</view>
-				</view>
-			</view>
-			<view class="Search_content_content2">
-				<view class="Search_content_content2s" @click="xiala_Search_quxiao">取消</view>
-				<view class="Search_content_content2s" style="border-left:1px solid #BBBBBB;color:#FF4D4D;" @click="status_submit">确认</view>
-			</view>
+			<input type="text" @input="getInput2" @focus="getFocus" @blur="getBlur" @confirm="getSubmit" v-model="inputs_text" :placeholder="placeholders" placeholder-style="color:#fff; margin-left:215rpx;" :placeholder-class="placeholders_styles">
 		</view>
 		
 		<!-- 轮播图 -->
@@ -38,7 +21,7 @@
 			interval=3000
 			>
 				<swiper-item v-for="(item,index) in swipers" :key="index">
-					<image :src="item.banUrl" @click="click_lunbo(item.banSkipurl)"></image>
+					<image :src="item.banUrl"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -94,7 +77,7 @@
 						<view class="yikaoKecheng_content_content_right_bottom">
 							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">{{item.aeIntro}}</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title">
-								<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.peopleNum}}人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.aePrep1}}人观看</view>
 								<view class="yikaoKecheng_content_content_right_bottom_title_right">
 									<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
 										<image src="../../static/img/huiyuanmianfei.png"></image>
@@ -106,6 +89,59 @@
 					</view>
 				</view>
 				
+				<!-- <view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
+					<view class="yikaoKecheng_content_content_left">
+						<view class="yikaoKecheng_content_content_left_img">
+							<image src="../../static/img/yikaiKecheng_img2.png"></image>
+						</view>
+					</view>
+					<view class="yikaoKecheng_content_content_right">
+						<view class="yikaoKecheng_content_content_right_top">
+							<view class="yikaoKecheng_content_content_right_top_title">【回放】高考延期艺考生和家长如何应对？
+点下99999999999999999999</view>
+						</view>
+						<view class="yikaoKecheng_content_content_right_bottom">
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">内部课程，仅供专业认识和11111111111111111</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title">
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_right">
+								
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view> -->
+				
+				<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
+					<image src="../../static/img/huiyuanmianfei.png"></image>
+				</view> -->
+				
+			<!-- 	<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}">
+					<view class="yikaoKecheng_content_content_left">
+						<view class="yikaoKecheng_content_content_left_img">
+							<image src="../../static/img/yikaiKecheng_img3.png"></image>
+						</view>
+					</view>
+					<view class="yikaoKecheng_content_content_right">
+						<view class="yikaoKecheng_content_content_right_top">
+							<view class="yikaoKecheng_content_content_right_top_title">【直播】疫情背景下的传媒艺术创作动向
+评析及99999999999999999999</view>
+						</view>
+						<view class="yikaoKecheng_content_content_right_bottom">
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">内部课程，仅供专业认识和11111111111111111</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title">
+								<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
+								<view class="yikaoKecheng_content_content_right_bottom_title_right">
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_img" v-show="false">
+										<image src="../../static/img/huiyuanmianfei.png"></image>
+									</view>
+									<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view> -->
 				
 			</view>
 			
@@ -117,6 +153,50 @@
 					</view>
 				</view>
 				
+			<!-- 	<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+					<view class="yikaoTiku_content_content_left">浙江传媒学院2021年影视摄影与制作（电视摄影）线上
+初试真题</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view> -->
+				
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院播音主持专业校考复试真题（杭州
+考点）</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view> -->
+				
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+					<view class="yikaoTiku_content_content_left">2021年中央戏剧学院戏剧影视导演（电影导演）专业考试
+真题</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view> -->
+				
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+					<view class="yikaoTiku_content_content_left">2021年浙江传媒学院电视节目制作专业考试题目</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view> -->
+								
+				<!-- <view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+					<view class="yikaoTiku_content_content_left">2020年浙江传媒学院播音与主持专业面试真题（复试）</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view>	 -->
+						
+			<!-- 	<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+					<view class="yikaoTiku_content_content_left">2020年中央戏剧学院舞蹈表演专业考试内容</view>
+					<view class="yikaoTiku_content_content_right">
+						<image src="../../static/svg/xiugai_next.svg"></image>
+					</view>
+				</view> -->
 				
 			</view>
 		
@@ -180,12 +260,7 @@
 				currentPage:1,
 				isSearch:true,
 				//默认状态为艺考动态的
-				sousuoTyoe:1,
-				//搜索选择下拉框的显示与隐藏
-				isSelectSearch:false,
-				isactiveStatus:false,
-				isactiveStatus1:false,
-				isactiveStatus2:false
+				sousuoTyoe:1
 			}
 		},
 		onLoad(){
@@ -246,46 +321,6 @@
 			// 		}
 			// 	})
 			// },
-			click_lunbo(ids){
-				// console.log(ids);
-				uni.navigateTo({
-					url:'../yikaoxiangqing_lunbotu/yikaoxiangqing_lunbotu?id='+ids
-				})
-			},
-			//确定
-			status_submit(){
-				this.isSelectSearch=false;
-			},
-			//修改艺考动态搜索状态
-			yikaodongtai_status(){
-				// console.log(111);
-				this.sousuoTyoe=1;
-				this.isactiveStatus=true;
-				this.isactiveStatus1=false;
-				this.isactiveStatus2=false;
-			},
-			//修改艺考课程搜索状态
-			yikaokechen_status(){
-				this.sousuoTyoe=2;
-				this.isactiveStatus=false;
-				this.isactiveStatus1=true;
-				this.isactiveStatus2=false;
-			},
-			//修改艺考题库搜索状态
-			yikaotiku_status(){
-				this.sousuoTyoe=3;
-				this.isactiveStatus=false;
-				this.isactiveStatus1=false;
-				this.isactiveStatus2=true;
-			},
-			//下拉选择搜索
-			xiala_Search(){
-				// console.log(111);
-				this.isSelectSearch=!this.isSelectSearch;
-			},
-			xiala_Search_quxiao(){
-				this.isSelectSearch=false;
-			},
 			//获取艺考动态列表数据
 			getyikaoDongtaiLists(){
 				getyikaoDongtaiList().then((res)=>{
@@ -406,13 +441,11 @@
 				let aedTitle=e.target.value;
 				let currentPage=0;
 				let pageSize=10;
-				let sousuoTyoe=this.sousuoTyoe;
 				if(e.target.value==''){
 					this.isSearch=true;
 					this.getyikaoDongtaiLists();
 				}else{
-						
-					getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize).then((res)=>{
+					getmoreList1(aedTitle,currentPage,pageSize).then((res)=>{
 						this.isSearch=false;
 						console.log(res.data.artexamdynamicList);
 						this.yikaiDongtaiList=res.data.artexamdynamicList;
@@ -502,83 +535,16 @@
 	.Search_content{
 		width:100%;
 		height:100rpx;
-		line-height: 100rpx;
-		text-align: center;
 		// border:1px solid red;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		.Search_content1{
-			width:40rpx;
-			height:40rpx;
-			line-height: 40rpx;
-			text-align: center;
-			// border:1px solid #ccc;
-			// border-radius: 20rpx;
-			margin-right:20rpx;
-			image{
-				width:100%;
-				height:100%;
-			}
-		}
-		
 		input{
 			width:580rpx;
 			height:80rpx;
 			// border:1px solid blue;
 			border-radius: 32rpx;
 			background-color: #F37372;
-		}
-	}
-	.Search_content_content{
-		width:300rpx;
-		height:445rpx;
-		border:1px solid #E1DDDD;
-		position: absolute;
-		top:105rpx;
-		left:20rpx;
-		z-index:10;
-		background-color: #fff;
-		border-radius: 20rpx;
-		.Search_content_content1{
-			width:300rpx;
-			height:340rpx;
-			// border:1px solid green;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			.Search_content_content1s{
-				width:90%;
-				height:310rpx;
-				// border:1px solid blue;
-				.Search_content_content1ss{
-					width:100%;
-					height:100rpx;
-					line-height: 100rpx;
-					text-align: center;
-					border-bottom:1px solid #BBBBBB;
-					color:#101010;
-					font-size:35rpx;
-				}
-				.isActiveStatus{
-					background-color: #ccc;
-				}
-			}
-		}
-		.Search_content_content2{
-			width:300rpx;
-			height:100rpx;
-			border-top:1px solid #BBBBBB;
-			.Search_content_content2s{
-				width:143rpx;
-				height:95rpx;
-				line-height: 95rpx;
-				text-align: center;
-				// border:1px solid blue;
-				float:left;
-				color:#101010;
-				font-size:35rpx;
-			}
 		}
 	}
 	.home{

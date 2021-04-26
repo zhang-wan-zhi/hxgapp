@@ -7,7 +7,7 @@
 						<image src="../../static/img/yijianfankuoi_success_img.png"></image>
 					</view>
 				</view>
-				<view class="yijianFangkui_success2">提交成功</view>
+				<view class="yijianFangkui_success2">反馈成功</view>
 			</view>
 		</view>
 	</view>

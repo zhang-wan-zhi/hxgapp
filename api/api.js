@@ -42,28 +42,6 @@ export function getLunboList(){
 	})
 }
 
-//点击轮播图，进入轮播图详细信息
-export function getLunboList_one(banSkipurl,banType){
-	return new Promise((resolve,reject)=>{
-		uni.request({
-			url:urls+'/hxg/bannerSkip',
-			method: 'POST',
-			data:{
-				banSkipurl:banSkipurl,
-				banType:banType
-			},
-			contentType: 'application/json;charset=UTF-8',
-			success: res=>{
-				resolve(res)
-			},
-			fail: err=>{
-				reject(err)
-			},
-		})
-	})
-}
-
-
 //获取艺考动态列表数据
 export function getyikaoDongtaiList(){
 	return new Promise((resolve,reject)=>{
@@ -218,15 +196,14 @@ export function getmoreList(sousuoTyoe,currentPage,pageSize){
 }
 
 //艺考动态列表搜索
-export function getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize){
+export function getmoreList1(aedTitle,currentPage,pageSize){
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:urls+'/hxg/getArtexamdynamicList',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data:{
-				"ssTile": aedTitle,
-				"sousuoTyoe":sousuoTyoe,
+				"aedTitle": aedTitle,
 				"currentPage": currentPage,
 				"pageSize": pageSize
 			},
@@ -333,46 +310,21 @@ export function getWenluquList(datas){
 	})
 }
 
-//意见反馈
-export function getyijianfangkui(openid,opContent){
+//意见反馈接口
+export function Yijianfankui(openid,opContent){
 	return new Promise((resolve,reject)=>{
 		uni.request({
-			// url:urls+'/hxg/opinionFeedback?openid='+openid+'&img1='+img1+'&img2='+img2+'&img3='+img3+'&opContent='+opContent,
 			url:urls+'/hxg/opinionFeedback',
 			method: 'POST',
-			// contentType: 'multipart/form-data',
-			header:{
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			dataType: 'json',
+			// contentType: 'application/json;charset=UTF-8',
+			header: {
+			   "Content-Type": "application/x-www-form-urlencoded"
+			}, // 请求头
 			data:{
-				openid:openid,
-				// img1:img1,
-				// img2:img2,
-				// img3:img3,
-				opContent:opContent
+				openid,
+				opContent
 			},
-			// data:param,
-			success: res=>{
-				resolve(res)
-			},
-			fail: err=>{
-				reject(err)
-			},
-		})
-	})
-}
-
-//登录授权
-export function dengluShouquan(WxCode){
-	return new Promise((resolve,reject)=>{
-		uni.request({
-			url:urls+'/hxg/opinionFeedback?WxCode='+WxCode,
-			method: 'GET',
-			contentType: 'application/json;charset=UTF-8',
-			// data:{
-			// 	WxCode:WxCode
-			// },
+			dataType: 'json', // 返回数据格式
 			success: res=>{
 				resolve(res)
 			},
