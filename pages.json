@@ -16,9 +16,7 @@
 			"style": {
 				"navigationBarTitleText": "登录授权"
 			}
-		}
-	    ,
-		
+		},
 		{
 		    "path" : "pages/yikaotimu_danxuan/yikaotimu_danxuan",
 		    "style" :                                                                                    
@@ -190,6 +188,18 @@
 		    }
 		    
 		},
+		{
+		    "path" : "pages/yikaoxiangqing_lunbotu/yikaoxiangqing_lunbotu",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "轮播艺考动态",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+		    }
+		    
+		},
+		
 		{
 		    "path" : "pages/xinggepinggu/xinggepinggu",
 		    "style" :                                                                                    

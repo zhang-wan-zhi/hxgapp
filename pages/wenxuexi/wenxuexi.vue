@@ -31,7 +31,7 @@
 		</view>
 		
 		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
-			<view class="fanghui_content" style="background: linear-gradient(to right,#629768,#F3EC76);">
+			<view class="fanghui_content" style="background: linear-gradient(to right,#629768,#F3EC76);" @click="xinggepinggu_shoufei()">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/huiyuanyuce_img.png"></image>
 				</view>
@@ -46,7 +46,7 @@
 		</view>
 		
 		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
-			<view class="fanghui_content" style="background: linear-gradient(to right,#6D88C1,#8FC9CA);">
+			<view class="fanghui_content" style="background: linear-gradient(to right,#6D88C1,#8FC9CA);" @click="xinggepinggu_shoufei()">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/zhuangyeyuce_img.png"></image>
 				</view>
@@ -92,31 +92,31 @@
 			//点击进入收费页面
 			xinggepinggu_shoufei(){
 				// console.log(1111);
-				// uni.getSystemInfo({
-				// 	 success(res) {
-				// 		 //获取手机系统型号
-				// 		 let systems=res.system.slice(0,3);
-				// 		 console.log(systems);
-				// 	 	 if(systems=="iOS"){
-				// 			 console.log("由于相关规范，iOS暂不可用！");
-				// 			 uni.showToast({
-				// 			 	title: '由于相关规范，iOS暂不可用！',
-				// 			 	icon:'none',
-				// 			 	duration: 2000
-				// 			 });
+				uni.getSystemInfo({
+					 success(res) {
+						 //获取手机系统型号
+						 let systems=res.system.slice(0,3);
+						 console.log(systems);
+					 	 if(systems=="iOS"){
+							 console.log("由于相关规范，iOS暂不可用！");
+							 uni.showToast({
+							 	title: '由于相关规范，iOS暂不可用！',
+							 	icon:'none',
+							 	duration: 2000
+							 });
 
-				// 		 }else{
-				// 			 uni.navigateTo({
-				// 			 	url:'../chongzhizhongxin/chongzhizhongxin'
-				// 			 })
-				// 		 }
-				// 	 }
-				// })
+						 }else{
+							 uni.navigateTo({
+							 	url:'../chongzhizhongxin/chongzhizhongxin'
+							 })
+						 }
+					 }
+				})
 				let status=1;
 				
-				uni.navigateTo({
-					url:'../chongzhizhongxin/chongzhizhongxin'
-				})
+				// uni.navigateTo({
+				// 	url:'../chongzhizhongxin/chongzhizhongxin'
+				// })
 				
 			},
 			//点击进入性格评估

@@ -4,7 +4,7 @@
 			<view class="wenluqu_content1_content">你的录取概率为：</view>
 		</view>
 		
-	<!-- 	<view class="wenluqu_content2">
+		<view class="wenluqu_content2">
 			<view class="wenluqu_content2_content">{{Objs.stableProp}}%</view>
 		</view>
 		<view class="wenluqu_content3">
@@ -27,12 +27,12 @@
 		</view>
 		<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content">考试类型：{{Objs.acExamtype}}</view>
-		</view> -->
-		
-		
-		<view class="wenluqu_content2">
-			<view class="wenluqu_content2_content">80%</view>
 		</view>
+		
+		
+	<!-- 	<view class="wenluqu_content2">
+			<view class="wenluqu_content2_content">80%</view>
+		</view> -->
 		<!-- <view class="wenluqu_content3s" @click="click_tiyan" :class="isTiyan?'isActiveTiyan':''">
 			<view class="wenluqu_content3_content1">缴费体验版，查看更多内容</view>
 		</view> -->
@@ -42,7 +42,7 @@
 		<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content1">缴费专业版，查看更多内容</view>
 		</view> -->
-		<view class="wenluqu_content3">
+<!-- 		<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content">院校代码：1111</view>
 		</view>
 		<view class="wenluqu_content3">
@@ -62,7 +62,7 @@
 		</view>
 		<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content">考试类型：111</view>
-		</view>
+		</view> -->
 		
 	</view>
 </template>
@@ -158,7 +158,7 @@
 			.wenluqu_content3_content{
 				width:80%;
 				height:60rpx;
-				border:1px solid red;
+				// border:1px solid red;
 				line-height: 60rpx;
 				text-align: center;
 				font-weight: bold;
@@ -174,7 +174,7 @@
 			.wenluqu_content3_content1{
 				width:80%;
 				height:100rpx;
-				border:1px solid red; 
+				// border:1px solid red; 
 				background: linear-gradient(to right,#FF686B,#FF9666);
 				line-height: 120rpx;
 				text-align: center;
