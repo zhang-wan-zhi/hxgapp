@@ -36,8 +36,9 @@
 				// 	}
 				// }
 				getyikaoDongtaiList_one(ids).then((res)=>{
-					console.log(res.data.artexamdynamic);
+					console.log(res.data.artexamdynamic.aedContent);
 					this.yikaoDongtaiList_obj=res.data.artexamdynamic;
+					this.yikaoDongtaiList_obj.aedContent = (res.data.artexamdynamic.aedContent).replace(/<\/?[^>]*>/g, ''); //去除HTML Tag
 				});
 				// console.log(newLists);
 				// this.yikaoDongtaiList=newLists;
