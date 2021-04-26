@@ -18,6 +18,17 @@
 			}
 		},
 		{
+		    "path" : "pages/yikaoxiangqing_lunbo/yikaoxiangqing_lunbo",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "艺考轮播",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+				// "navigationStyle":"custom"
+		    }
+		},
+		{
 		    "path" : "pages/yikaotimu_danxuan/yikaotimu_danxuan",
 		    "style" :                                                                                    
 		    {

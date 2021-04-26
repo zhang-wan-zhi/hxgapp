@@ -42,6 +42,27 @@ export function getLunboList(){
 	})
 }
 
+//查看轮播图的每一项
+export function getLunboList_one(banSkipurl,banType){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/bannerSkip',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				banSkipurl,
+				banType
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
 //获取艺考动态列表数据
 export function getyikaoDongtaiList(){
 	return new Promise((resolve,reject)=>{

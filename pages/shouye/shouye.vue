@@ -21,7 +21,7 @@
 			interval=3000
 			>
 				<swiper-item v-for="(item,index) in swipers" :key="index">
-					<image :src="item.banUrl"></image>
+					<image :src="item.banUrl" @click="inter_lunbo_details(item.banSkipurl)"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -321,6 +321,14 @@
 			// 		}
 			// 	})
 			// },
+			//进入查看每项轮播图
+			inter_lunbo_details(id){
+				console.log(id);
+				uni.navigateTo({
+					url:"../yikaoxiangqing_lunbo/yikaoxiangqing_lunbo?ids="+id
+				})
+				
+			},
 			//获取艺考动态列表数据
 			getyikaoDongtaiLists(){
 				getyikaoDongtaiList().then((res)=>{
