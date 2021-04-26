@@ -25,7 +25,7 @@
 			let banType="1";
 			let banSkipurl=res.ids;
 			getLunboList_one(banSkipurl,banType).then((res)=>{
-				console.log(res.data.content);
+				// console.log(res.data.content);
 				this.yikaoDongtaiList_obj=res.data.content;
 				this.yikaoDongtaiList_obj.aedContent = (res.data.content.aedContent).replace(/<\/?[^>]*>/g, ''); //去除HTML Tag
 			})

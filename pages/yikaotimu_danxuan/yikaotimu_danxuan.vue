@@ -82,42 +82,25 @@
 				],
 				checkedArr:[], //复选框选中的值
 				allChecked:false, //是否全选
-				items: [
-					 //    {
-						// 	value: 'USA',
-						// 	content: '嵇康'
-						// },
-						// {
-						// 	value: 'CHN',
-						// 	content: '曹植',
-						// 	checked: 'true'
-						// },
-						// {
-						// 	value: 'BRA',
-						// 	content: '山涛'
-						// },
-						// {
-						// 	value: 'BRA3',
-						// 	content: '阮瑀'
-						// }
-					],
-					//目前选项的index
-					current: 0,
-					//题目的页码
-					currentId:1,
-					//题目总数
-					nums:0,
-					//单选题标题
-					content:'',
-					//显示上一题
-					isshowFront:true,
-					//显示下一题
-					isshowNext:true
+				items: [],
+				//目前选项的index
+				current: 0,
+				//题目的页码
+				currentId:1,
+				//题目总数
+				nums:0,
+				//单选题标题
+				content:'',
+				//显示上一题
+				isshowFront:true,
+				//显示下一题
+				isshowNext:true
 			}
 		},
 		onLoad(id) {
 			console.log(id.ids1);
 			// this.currentId=id.ids1;
+			//如果第一题
 			if(id.ids1==undefined||id.ids1=="1"){
 				let id=1;
 				this.isshowFront=false;
@@ -138,7 +121,7 @@
 			// this.currentId=id.ids;
 			let arrs=uni.getStorageSync('yikaoTikuList_one1');
 			this.nums=arrs.length;
-			//最后一题目，不显示下一页
+			//如果最后一题，不显示下一页
 			if(id.ids1==arrs.length){
 				this.isshowNext=false;
 			}

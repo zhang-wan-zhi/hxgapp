@@ -129,7 +129,7 @@
 </template>
 
 <script>
-	import {getWenluquList} from '../../api/api.js'
+	import {getWenluquList,getWenluquShengfeng} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -158,6 +158,22 @@
 				//体重
 				weight:''
 			}
+		},
+		onLoad() {
+			//获取省份信息
+			getWenluquShengfeng().then((res)=>{
+				// console.log(res.data.provinces);
+				let arr=res.data.provinces;
+				let arr2=[];
+				for(let i=0;i<arr.length;i++){
+					arr2.push(arr[i].pName);
+				}
+				let arrDefaule=["请选择"];
+				// console.log(arr2);
+				let newArr=arrDefaule.concat(arr2);
+				// console.log(newArr);
+				this.array=newArr;
+			})
 		},
 		methods: {
 			//获取大学名称
@@ -195,6 +211,7 @@
 			},
 			//下拉框
 			bindPickerChange: function(e) {		//改变的事件名
+				
 			    console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
 				this.index = e.target.value			//将数组改变索引赋给定义的index变量

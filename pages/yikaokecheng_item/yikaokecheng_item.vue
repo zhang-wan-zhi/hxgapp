@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		
-		<view class="yikaiKecheng_item_icon" :class="isIcon?'isShow':'isNotShow'">
+		<!-- <view class="yikaiKecheng_item_icon" :class="isIcon?'isShow':'isNotShow'">
 			<view class="yikaiKecheng_item_icons" >
 				<view class="yikaiKecheng_item_icon1">
 					<view class="yikaiKecheng_item_icon1_img">
@@ -49,7 +49,7 @@
 				</view>
 			</view>			
 			
-		</view>
+		</view> -->
 		
 		<view class="yikaiKecheng_item_content"  v-for="(item,index) in yikaoKechengList" :key="index" v-show="isKecheng">
 			

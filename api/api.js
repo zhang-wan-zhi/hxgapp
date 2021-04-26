@@ -314,6 +314,24 @@ export function getWenxuexiResuleList(scores){
 	})
 }
 
+//问录取，查询省份
+export function getWenluquShengfeng(){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getProvinces',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:datas,
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
 //问录取，输入出概率结果
 export function getWenluquList(datas){
 	return new Promise((resolve,reject)=>{
@@ -347,6 +365,70 @@ export function Yijianfankui(openid,opContent){
 				opContent
 			},
 			dataType: 'json', // 返回数据格式
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//测试做题接口
+export function TestApi(userId,examId,examTime){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/exam/submit?userId='+userId+'&examId='+examId+'&examTime='+examTime,
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			// header: {
+			//    "Content-Type": "application/x-www-form-urlencoded"
+			// }, // 请求头
+			data:
+				// userId,
+				// examId,
+				// examTime,
+				[
+				    {
+				        "quId": 1, 
+				        "answerId": 1, 
+				        "isRight": 0, 
+				        "score": 5
+				    }, 
+				    {
+				        "quId": 2, 
+				        "answerId": 2, 
+				        "isRight": 1, 
+				        "score": 5
+				    }, 
+				    {
+				        "quId": 3, 
+				        "answerId": 2, 
+				        "isRight": 0, 
+				        "score": 5
+				    }, 
+				    {
+				        "quId": 5, 
+				        "answerId": 1, 
+				        "isRight": 0, 
+				        "score": 5
+				    }, 
+				    {
+				        "quId": 6, 
+				        "answerId": 1, 
+				        "isRight": 0, 
+				        "score": 5
+				    }, 
+				    {
+				        "quId": 7, 
+				        "answerId": 1, 
+				        "isRight": 0, 
+				        "score": 5
+				    }
+				]
+			,
+			// dataType: 'json', // 返回数据格式
 			success: res=>{
 				resolve(res)
 			},
