@@ -4,46 +4,40 @@
 			<view class="chongzhizhongxin_top">
 				<view class="chongzhizhongxin_top_child" @click='tiyan_click' :class="isActive1?'chongzhizhongxin_top_child2':''">
 					<view class="chongzhizhongxin_top_child_top">体验版</view>
-					<view class="chongzhizhongxin_top_child_bottom">9.9</view>
+					<view class="chongzhizhongxin_top_child_bottom">￥9.9</view>
 				</view>
 				<view class="chongzhizhongxin_top_child" @click="huiyuan_click" :class="isActive2?'chongzhizhongxin_top_child2':''">
 					<view class="chongzhizhongxin_top_child_top">会员版</view>
-					<view class="chongzhizhongxin_top_child_bottom">99</view>
+					<view class="chongzhizhongxin_top_child_bottom">￥99</view>
 				</view>
 				<view class="chongzhizhongxin_top_child" @click="zhuanye_click" :class="isActive3?'chongzhizhongxin_top_child2':''">
 					<view class="chongzhizhongxin_top_child_top">专业版</view>
-					<view class="chongzhizhongxin_top_child_bottom">999</view>
+					<view class="chongzhizhongxin_top_child_bottom">￥999</view>
 				</view>
 			</view>
 		</view>
 		<view class="lijichongzhi">
-			<view class="lijichongzhi_title" @click="lijichongzhi_img">立即报名</view>
+			<view class="lijichongzhi_title" @click="lijichongzhi_img">直接缴费</view>
 		</view>
 		<view class="chongzhishuoming">
 			<view class="chongzhishuoming_content">
-				<!-- <view class="chongzhishuoming_content_title">版本说明</view> -->
-				<!-- <view class="chongzhishuoming_content_content">
+				<view class="chongzhishuoming_content_title">版本说明</view>
+				<view class="chongzhishuoming_content_content">
 					<view class="chongzhishuoming_content_content_parent">
 						<view class="chongzhishuoming_content_content1">
-												<view class="chongzhishuoming_content_content_title">体验版</view>
-												<view class="chongzhishuoming_content_content_content">「启程测试」期间，缴费总金额≤3600元，可获得150%的创世结晶返还。
-						当缴费总金额>3600元时，3600元以内的部分可获得150%的创世结晶返还，超出3600元的部分，按照125%的比例进行创世结晶的返还，不设上限。
-						举例：旅行者在测试期间累计缴费了3700元，可获得的创世结晶返还总额为：(3600元×10×150%)+(100元×10×125%)= 55250创世结晶。</view>
-											</view>
-											<view class="chongzhishuoming_content_content1">
-												<view class="chongzhishuoming_content_content_title">会员版</view>
-												<view class="chongzhishuoming_content_content_content">「启程测试」期间，缴费总金额≤3600元，可获得150%的创世结晶返还。
-						当缴费总金额>3600元时，3600元以内的部分可获得150%的创世结晶返还，超出3600元的部分，按照125%的比例进行创世结晶的返还，不设上限。
-						举例：旅行者在测试期间累计缴费了3700元，可获得的创世结晶返还总额为：(3600元×10×150%)+(100元×10×125%)= 55250创世结晶。</view>
-											</view>
-											<view class="chongzhishuoming_content_content1">
-												<view class="chongzhishuoming_content_content_title">专业版</view>
-												<view class="chongzhishuoming_content_content_content">「启程测试」期间，缴费总金额≤3600元，可获得150%的创世结晶返还。
-						当缴费总金额>3600元时，3600元以内的部分可获得150%的创世结晶返还，超出3600元的部分，按照125%的比例进行创世结晶的返还，不设上限。
-						举例：旅行者在测试期间累计缴费了3700元，可获得的创世结晶返还总额为：(3600元×10×150%)+(100元×10×125%)= 55250创世结晶。</view>
-											</view>
+							<view class="chongzhishuoming_content_content_title">体验版</view>
+							<view class="chongzhishuoming_content_content_content">提供学习建议和学习时机的查看功能</view>
+						</view>
+						<view class="chongzhishuoming_content_content1">
+							<view class="chongzhishuoming_content_content_title">会员版</view>
+							<view class="chongzhishuoming_content_content_content">提供优点和不足的查看功能</view>
+						</view>
+						<view class="chongzhishuoming_content_content1">
+							<view class="chongzhishuoming_content_content_title">专业版</view>
+							<view class="chongzhishuoming_content_content_content">提供具体学习建议的功能</view>
+						</view>
 					</view>
-				</view> -->
+				</view>
 			</view>
 		</view>
 	</view>

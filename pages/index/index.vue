@@ -35,7 +35,7 @@
 
 <script>
 	import {getTest} from '../../api/http.js'
-	import {getWxcode} from '../../api/api.js'
+	import {getWxcode,dengluShouquan} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -117,60 +117,38 @@
 		    //    }
 		    //    // that.bindGetUserInfo(e);
 			   // that.wechatLogin(e);
-		    //  },
-			 
-			   // bindGetUserInfo: function(e) {
-			   //   var that = this;
-			   //   if (e.detail.userInfo) {
-			   //     //用户按了允许授权按钮
-			   //     let userInfo =getApp().globalData.userInfo;
-			   //     userInfo["avatarUrl"] = e.detail.userInfo.avatarUrl
-			   //     userInfo["city"] = e.detail.userInfo.city
-			   //     userInfo["country"] = e.detail.userInfo.country
-			   //     userInfo["gender"] = e.detail.userInfo.gender
-			   //     userInfo["language"] = e.detail.userInfo.language
-			   //     userInfo["nickName"] = e.detail.userInfo.nickName
-			   //     userInfo["province"] = e.detail.userInfo.province
-			   //     wx.setStorage({
-			   //       data: JSON.stringify(userInfo),
-			   //       key: 'userinfo',
-			   //     })
-			   //     getApp().globalData.userInfo=userInfo;
-			   //     // 登录
-			   //     wx.login({
-			   //       success: res => {
-			   //         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-			   //         console.log(res)
-			   //         //小程序尝试登陆接口
-			   //         that.tryLogin(res.code);
-			   //       }
-			   //     })
-			   //   } else {
-			   //     //用户按了拒绝按钮
-			   //     console.log("拒绝授权")
-			   //   }
-			   // },
+		    //  }，
 		  
 			//登录授权
 			wechatLogin(){
-				var that=this
-				uni.getUserProfile({
-				  desc:'登录',
-				  lang:"zh_CN",
-				  success: function (infoRes) {
-					  console.log(infoRes);
-					  uni.setStorage({
-					  	key:'userData',
-						data:infoRes
-					  });
-					  uni.switchTab({
-					  	url:'../gerenzhongxin/gerenzhongxin'
-					  })
-				  },
-				  fail:function(res){
-					  console.log(res);
+				var that=this;
+				uni.login({
+				  provider: 'weixin',
+				  success: function (loginRes) {
+				    console.log(loginRes.code);
+					dengluShouquan(loginRes.code).then((res)=>{
+						console.log(res);
+					})
 				  }
-				})	
+				});
+				
+				// uni.getUserProfile({
+				//   desc:'登录',
+				//   lang:"zh_CN",
+				//   success: function (infoRes) {
+				// 	  console.log(infoRes);
+				// 	  uni.setStorage({
+				// 	  	key:'userData',
+				// 		data:infoRes
+				// 	  });
+				// 	  uni.switchTab({
+				// 	  	url:'../gerenzhongxin/gerenzhongxin'
+				// 	  })
+				//   },
+				//   fail:function(res){
+				// 	  console.log(res);
+				//   }
+				// })	
 				
 			},
 

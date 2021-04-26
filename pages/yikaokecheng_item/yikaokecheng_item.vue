@@ -67,9 +67,9 @@
 						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">{{item.aeIntro}}</view>
 						<view class="yikaoKecheng_content_content_right_bottom_title">
 							<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.aePrep1}}人观看</view>
-							<view class="yikaoKecheng_content_content_right_bottom_title_right">
+							<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right">
 								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">{{item.aeOriginalprice}}</view>
-							</view>
+							</view> -->
 						</view>
 					</view>
 				</view>
