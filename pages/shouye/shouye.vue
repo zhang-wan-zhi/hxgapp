@@ -441,11 +441,12 @@
 				let aedTitle=e.target.value;
 				let currentPage=0;
 				let pageSize=10;
+				let sousuoTyoe=1;
 				if(e.target.value==''){
 					this.isSearch=true;
 					this.getyikaoDongtaiLists();
 				}else{
-					getmoreList1(aedTitle,currentPage,pageSize).then((res)=>{
+					getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize).then((res)=>{
 						this.isSearch=false;
 						console.log(res.data.artexamdynamicList);
 						this.yikaiDongtaiList=res.data.artexamdynamicList;

@@ -196,14 +196,15 @@ export function getmoreList(sousuoTyoe,currentPage,pageSize){
 }
 
 //艺考动态列表搜索
-export function getmoreList1(aedTitle,currentPage,pageSize){
+export function getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize){
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:urls+'/hxg/getArtexamdynamicList',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data:{
-				"aedTitle": aedTitle,
+				"ssTile": aedTitle,
+				"sousuoTyoe":sousuoTyoe,
 				"currentPage": currentPage,
 				"pageSize": pageSize
 			},
