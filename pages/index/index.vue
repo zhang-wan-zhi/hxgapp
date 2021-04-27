@@ -154,6 +154,13 @@
 			//登录授权
 			wechatLogin(){
 				var that=this
+				// uni.login({
+				//   provider: 'weixin',
+				//   success: function (loginRes) {
+				//     console.log(loginRes.code);
+				//   }
+				// });
+				
 				uni.getUserProfile({
 				  desc:'登录',
 				  lang:"zh_CN",

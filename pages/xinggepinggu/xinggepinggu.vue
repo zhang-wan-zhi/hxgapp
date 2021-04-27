@@ -2,11 +2,11 @@
 	<view>
 		<view id="top-box" class="cu-bar bg-white solid-bottom">
 			<view class="action text-black">
-				<text v-if="currentType===1">判断题</text>
-				<text v-else-if="currentType===2">单选题</text>
+				<text v-if="currentType===2">单选题</text>
+			<!-- 	<text v-else-if="currentType===2">单选题</text>
 				<text v-else-if="currentType===3">多选题</text>
 				<text v-else-if="currentType===4">填空题</text>
-				<text v-else-if="currentType===5">问答题</text>
+				<text v-else-if="currentType===5">问答题</text> -->
 			</view>
 			<view class="action">
 				<button class="cu-btn bg-green shadow" @tap="showCardModal" data-target="modalCard">答题卡</button>
@@ -22,8 +22,8 @@
 					</view>					
 				</view>
 				<view class="grid col-5 ">
-					<view class="margin-tb-sm text-center" v-for="(subject,index) in subjectList" :key="index">
-						<button class="cu-btn round" :class="[subject.userAnswer.length===0?'line-grey':'bg-red']" @click="AppointedSubject(index)" >{{index+1}}</button>
+					<view class="margin-tb-sm text-center" v-for="(subject,index) in subjectList1" :key="index">
+						<button class="cu-btn round" :class="[subject.answer.length===0?'line-grey':'bg-red']" @click="AppointedSubject(index)" >{{index+1}}</button>
 					</view>
 				</view>
 				
@@ -55,30 +55,33 @@
 		</view>
 		<form>
 			<swiper :current="subjectIndex" class="swiper-box" @change="SwiperChange" :style="{'height':swiperHeight}">
-				<swiper-item v-for="(subject,index) in subjectList">
+				<swiper-item v-for="(subject,index) in subjectList1">
 					
 					<view v-if="index-subjectIndex>=-1&&index-subjectIndex<=1">
 										
 					<view class="cu-bar bg-white solid-bottom">
 						<view class="action text-black">
-							<text class="cuIcon-title text-red"></text>{{subject.title}}
+							<text class="cuIcon-title text-red"></text>{{subject.content}}
 						</view>
 					</view>
 					<view>
 
-						<radio-group class="block"  @change="RadioboxChange" v-if="subject.type===1||subject.type===2">
-							<view class="cu-form-group" v-for="option in subject.optionList">
-								<radio :value="option.id" :checked="subject.userAnswer.indexOf(option.id) > -1?true:false"></radio>
-								<view class="title text-black">{{option.id}}.{{option.content}}</view>
+                      <!--  单选 -->
+						<radio-group class="block"  @change="RadioboxChange" v-if="subject.optionsType===2">
+							<view class="cu-form-group" v-for="option in subject.answers">
+								<!-- indexOf(option.id) > -1，表示包含 -->
+								<radio :value="option.id" :checked="subject.answer.indexOf(option.id) > -1?true:false"></radio>
+								<view class="title text-black">{{option.content}}</view>
 							</view>
 						</radio-group>
 
-						<checkbox-group class="block"  @change="CheckboxChange" v-else-if="subject.type===3">
-							<view class="cu-form-group" v-for="option in subject.optionList">
-								<checkbox :value="option.id" :class="subject.userAnswer.indexOf(option.id) > -1?'checked':''" :checked="subject.userAnswer.indexOf(option.id) > -1?true:false"></checkbox>
+                         <!-- 多选 -->
+						<!-- <checkbox-group class="block"  @change="CheckboxChange" v-if="subject.optionsType===2">
+							<view class="cu-form-group" v-for="option in subject.answers">
+								<checkbox :value="option.id" :class="subject.answer.indexOf(option.id) > -1?'checked':''" :checked="subject.answer.indexOf(option.id) > -1?true:false"></checkbox>
 								<view class="title  text-black">{{option.id}}.{{option.content}}</view>
 							</view>
-						</checkbox-group>
+						</checkbox-group> -->
 
 						<view v-else-if="subject.type===4">
 							<view class="cu-form-group solid-bottom">
@@ -179,13 +182,14 @@
 				autoRadioNext:true,//判断题、单项题，自动移下一题
 				swiperHeight: '800px',//
 				title: '初中二年级2019期中考券',
-				subjectList:[
-					{"title":"水是液体？","type":1,"optionList":[{"id":"A","content":"对"},{"id":"B","content":"错"}],"answer":"A","userAnswer":"","userFavor":false,"explain":"难到是固体不成？"},
-					{"title":"电流分有？","type":2,"optionList":[{"id":"A","content":"直流"},{"id":"B","content":"交流"},{"id":"C","content":"直流和交流"}],"answer":"C","userAnswer":"","userFavor":false,"explain":"科技学依据"},
-					{"title":"酸菜鱼的味道？","type":3,"optionList":[{"id":"A","content":"咸味"},{"id":"B","content":"辣味"},{"id":"C","content":"甜味"},{"id":"D","content":"酸味"}],"answer":"A,B,D","userAnswer":"","userFavor":false,"explain":"你怎么想都行，要的就是这个味，答案只能选A,B,D"},
-					{"title":"床前（____）光，疑是地上霜。","type":4,"optionList":[{"id":"","content":""}],"answer":"明月","userAnswer":"","userFavor":false,"explain":"问答题没有选项，无法做答，且不参与计分"},
-					{"title":"什么美国要限制华为？","type":5,"optionList":[{"id":"","content":""}],"answer":"","userAnswer":"","userFavor":false,"explain":"问答题没有选项，无法做答，且不参与计分"},
-				   ],
+				// subjectList:[
+				// 	{"title":"水是液体？","type":1,"optionList":[{"id":"A","content":"对"},{"id":"B","content":"错"}],"answer":"A","userAnswer":"","userFavor":false,"explain":"难到是固体不成？"},
+				// 	{"title":"电流分有？","type":2,"optionList":[{"id":"A","content":"直流"},{"id":"B","content":"交流"},{"id":"C","content":"直流和交流"}],"answer":"C","userAnswer":"","userFavor":false,"explain":"科技学依据"},
+				// 	{"title":"酸菜鱼的味道？","type":3,"optionList":[{"id":"A","content":"咸味"},{"id":"B","content":"辣味"},{"id":"C","content":"甜味"},{"id":"D","content":"酸味"}],"answer":"A,B,D","userAnswer":"","userFavor":false,"explain":"你怎么想都行，要的就是这个味，答案只能选A,B,D"},
+				// 	{"title":"床前（____）光，疑是地上霜。","type":4,"optionList":[{"id":"","content":""}],"answer":"明月","userAnswer":"","userFavor":false,"explain":"问答题没有选项，无法做答，且不参与计分"},
+				// 	{"title":"什么美国要限制华为？","type":5,"optionList":[{"id":"","content":""}],"answer":"","userAnswer":"","userFavor":false,"explain":"问答题没有选项，无法做答，且不参与计分"},
+				//    ],
+			    subjectList1:[],
 				modalCard: null ,//显示答题卡
 				modalError:null , //纠错卡
 				errorList:['题目不完整','答案不正确','含有错别字','图片不存在','解析不完整','其他错误']
@@ -235,30 +239,31 @@
 			//试卷的id
 			console.log(id.ids1);
 			getyikaoTikuList_one_all(id.ids).then((res)=>{
-				console.log(res);
+				
 				// console.log(res.data.data);
 				let newArr=res.data.data;
+				console.log(newArr);
+				this.subjectList1=newArr;
 				//设置所有试题
 				// this.AllList=newArr;
 				//总题目数
 				// this.nums=newArr.length;
-				console.log(this.AllList);
+				// console.log(this.AllList);
 				//设置当前页的内容标题
-				this.content=this.AllList[this.current].content;
+				// this.content=this.AllList[this.current].content;
 				
-				console.log(this.current);
-				
+				this.currentType = this.subjectList1[0].optionsType;
 			})
 			
-			this.currentType = this.subjectList[0].type;
-			uni.setNavigationBarTitle({
-				title: this.title
-			});			
+		
+			// uni.setNavigationBarTitle({
+			// 	title: this.title
+			// });			
 			
 			//添加用户显示答案字段
-			for (var i = 0; i < this.subjectList.length; i++) {		
-				this.$set(this.subjectList[i],"showAnswer",false);				
-			}
+			// for (var i = 0; i < this.subjectList.length; i++) {		
+			// 	this.$set(this.subjectList[i],"showAnswer",false);				
+			// }
 			
 		},
 		methods: {
@@ -280,16 +285,16 @@
 				
 				if (index != undefined) {
 					this.subjectIndex = index;
-					this.currentType = this.subjectList[index].type;
-					this.userFavor = this.subjectList[index].userFavor;					
+					this.currentType = this.subjectList1[index].optionsType;
+					// this.userFavor = this.subjectList1[index].userFavor;					
 				}								
 			},			
 			RadioboxChange : function(e) { //单选选中
 			
-				var items = this.subjectList[this.subjectIndex].optionList;
+				var items = this.subjectList1[this.subjectIndex].answers;
 				var values = e.detail.value;
-				this.subjectList[this.subjectIndex].userAnswer = values;
-				if(this.autoRadioNext && this.subjectIndex < this.subjectList.length - 1){
+				this.subjectList1[this.subjectIndex].answer = values;
+				if(this.autoRadioNext && this.subjectIndex < this.subjectList1.length - 1){
 					this.subjectIndex += 1;						
 					};
 				
@@ -345,7 +350,7 @@
 				if (e === -1 && this.subjectIndex != 0) {
 					this.subjectIndex -= 1;
 				}
-				if (e === 1 && this.subjectIndex < this.subjectList.length - 1) {
+				if (e === 1 && this.subjectIndex < this.subjectList1.length - 1) {
 					this.subjectIndex += 1;
 				}
 			},

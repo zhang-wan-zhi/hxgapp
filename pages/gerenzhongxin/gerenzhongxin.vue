@@ -22,8 +22,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="content2_content">
-				<view class="content2_content_body" >
+			<view class="content2_content" >
+				<view class="content2_content_body">
 					<view class="content2_content_body1">
 						<view class="content2_content_body1s">
 							<view class="content2_content_body1s_fenxiang">
@@ -299,7 +299,7 @@
 	}
 	.content2_content{
 		width:100%;
-		height:400rpx;
+		height:450rpx;
 		// border:1px solid red;
 		display: flex;
 		align-items: center;
@@ -309,6 +309,7 @@
 			height:300rpx;
 			border:1px solid #ccc;
 			border-radius: 10rpx;
+			background-color: #fff;
 			.content2_content_body1{
 				width:100%;
 				height:90rpx;
