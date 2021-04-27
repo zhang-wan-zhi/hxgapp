@@ -22,7 +22,7 @@
 				<radio-group @change="radioChange">
 					<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in AllList[current].answers" :key="item.id">
 						<view class="radio_select">
-							<radio class="radio_select1" :id="item.id" :checked="index === current" color="#5FB8A2" />
+							<radio class="radio_select1" :value="item.content" :id="item.id" :checked="false" color="#5FB8A2" @click="getCllick(item)"/>
 							<view class="radio_select2">{{item.content}}</view>
 						</view>
 						
@@ -79,6 +79,7 @@
 				AllList:[],
 				//目前选项的index
 				current: 0,
+				// current1:null,
 				//题目的页码,第几道题
 				currentId:1,
 				//题目总数
@@ -94,6 +95,7 @@
 		//只加载一次
 		onLoad(id) {
 			//试卷的id
+			
 			console.log(id.ids1);
 			getyikaoTikuList_one_all(id.ids).then((res)=>{
 				// console.log(res.data.data);
@@ -104,7 +106,7 @@
 				this.nums=newArr.length;
 				console.log(this.AllList);
 				//设置当前页的内容标题
-				this.content=this.AllList[this.currentId].content;
+				this.content=this.AllList[this.current].content;
 				
 				console.log(this.current);
 				
@@ -169,6 +171,9 @@
 		// 	}
 		// },
 		methods:{
+			getCllick(item){
+				console.log(item);
+			},
 			//点击，跳转到上一页
 			// click_front(){
 			// 	let id=parseInt(this.currentId)-1
@@ -210,38 +215,40 @@
 				// this.content=arrs[this.current].contnet;
 			},
 			// 单个复选框事件
-			checkboxChange(e) {
-				let values = e.detail.value;
-				if(values[0]==1){
-					this.isChecked=true;
-				}else{
-					this.isChecked=false;
-				}
-			},
+			// checkboxChange(e) {
+			// 	let values = e.detail.value;
+			// 	if(values[0]==1){
+			// 		this.isChecked=true;
+			// 	}else{
+			// 		this.isChecked=false;
+			// 	}
+			// },
 			// 多选复选框改变事件
-			changeCheckbox(e){
-				this.checkedArr = e.detail.value;
-				// 如果选择的数组中有值，并且长度等于列表的长度，就是全选
-				if(this.checkedArr.length>0 && this.checkedArr.length==this.checkboxData.length){
-					this.allChecked=true;
-				}else{
-					this.allChecked=false;
-				}
-			},
-			radioChange: function(evt) {
+			// changeCheckbox(e){
+			// 	this.checkedArr = e.detail.value;
+			// 	// 如果选择的数组中有值，并且长度等于列表的长度，就是全选
+			// 	if(this.checkedArr.length>0 && this.checkedArr.length==this.checkboxData.length){
+			// 		this.allChecked=true;
+			// 	}else{
+			// 		this.allChecked=false;
+			// 	}
+			// },
+			radioChange: function(e) {
 				// var items = this.subjectList[this.subjectIndex].optionList;
 				// var values = evt.detail.value;
 				// this.subjectList[this.subjectIndex].userAnswer = values;
 				// if(this.autoRadioNext && this.subjectIndex < this.subjectList.length - 1){
 				// 	this.subjectIndex += 1;						
 				// 	};
-				var values = evt.detail.value;
-				for (let i = 0; i < this.items.length; i++) {
-					if (this.items[i].value === evt.target.value) {
-						this.current = i;
-						break;
-					}
-				}
+				//获取选项的值
+				// var values = e.detail.value;
+				console.log(e);
+				// for (let i = 0; i < this.items.length; i++) {
+				// 	if (this.items[i].value === evt.target.value) {
+				// 		this.current = i;
+				// 		break;
+				// 	}
+				// }
 			}
 		},
 	}

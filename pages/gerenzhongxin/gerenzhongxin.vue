@@ -66,7 +66,7 @@
 				<view class="content2_bottom1" @click="exitLogin">退出登录</view>
 			</view>
 			
-			<view style="width:200rpx;height:50rpx;border:1px solid red;" @click="test">测试做题</view>
+			<!-- <view style="width:200rpx;height:50rpx;border:1px solid red;" @click="test">测试做题</view> -->
 		</view>
 	</view>
 </template>

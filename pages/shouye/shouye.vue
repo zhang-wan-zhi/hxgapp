@@ -276,7 +276,7 @@
 			zhenti_next(id){
 				// console.log(id);
 				uni.navigateTo({
-					url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids='+id
+					url:'../xinggepinggu/xinggepinggu?ids='+id
 				})
 				
 			},
