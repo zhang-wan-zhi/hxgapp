@@ -155,6 +155,27 @@ export function getyikaoTikuList_one(id){
 	})
 }
 
+//获取试卷id，获取考试所有题目
+export function getyikaoTikuList_one_all(quId){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/qu/'+quId,
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:{
+			// 	paperId:id,
+			// 	userId:1
+			// },
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
 //获取艺考题库列表数据,创建考试试卷,获取下一题
 export function getyikaoTikuList_one_one(quId){
 	return new Promise((resolve,reject)=>{
@@ -319,6 +340,24 @@ export function getWenluquShengfeng(){
 	return new Promise((resolve,reject)=>{
 		uni.request({
 			url:urls+'/hxg/getProvinces',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:datas,
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
+//问录取，通过输入学校获取专业
+export function getZhuanhye(acName){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getAcademys?acName='+acName,
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			// data:datas,

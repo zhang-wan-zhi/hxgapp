@@ -18,32 +18,23 @@
 		</view>
 		<view class="yikaotimu_danxuan_content_content">
 			<view class="yikaotimu_danxuan_content_content1">
-				<!-- <view class="yikaotimu_danxuan_content_content1_select">
-					<view class="yikaotimu_danxuan_content_content1_select_left">A</view>
-					<view class="yikaotimu_danxuan_content_content1_select_right">嵇康</view>
-				</view>
-				<view class="yikaotimu_danxuan_content_content1_select">
-					<view class="yikaotimu_danxuan_content_content1_select_left">B</view>
-					<view class="yikaotimu_danxuan_content_content1_select_right">曹植</view>
-				</view>
-				<view class="yikaotimu_danxuan_content_content1_select">
-					<view class="yikaotimu_danxuan_content_content1_select_left">C</view>
-					<view class="yikaotimu_danxuan_content_content1_select_right">山涛</view>
-				</view>
-				<view class="yikaotimu_danxuan_content_content1_select">
-					<view class="yikaotimu_danxuan_content_content1_select_left">D</view>
-					<view class="yikaotimu_danxuan_content_content1_select_right">阮瑀</view>
-				</view> -->
 				
 				<radio-group @change="radioChange">
-					<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.quId">
+					<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in AllList[current].answers" :key="item.id">
 						<view class="radio_select">
-							<radio class="radio_select1" :quId="item.quId" :checked="index === current" color="#5FB8A2" />
+							<radio class="radio_select1" :id="item.id" :checked="index === current" color="#5FB8A2" />
 							<view class="radio_select2">{{item.content}}</view>
 						</view>
 						
 					</label>
 				</radio-group>
+				
+				<!-- <radio-group class="block"  @change="RadioboxChange" v-if="subject.type===1||subject.type===2">
+					<view class="cu-form-group" v-for="option in subject.optionList">
+						<radio :value="option.id" :checked="subject.userAnswer.indexOf(option.id) > -1?true:false"></radio>
+						<view class="title text-black">{{option.id}}.{{option.content}}</view>
+					</view>
+				</radio-group> -->
 				
 				 <!-- 单个复选框 -->
 				<!-- <checkbox-group class="block" @change="checkboxChange">
@@ -62,30 +53,33 @@
 			</view>
 		</view>
 		<view class="yikaotimu_danxuan_next">
-			<view class="yikaotimu_danxuan_front_button" @click="click_front" :class="isshowFront?'showFront':''">上一题</view>
-			<view class="yikaotimu_danxuan_next_button" @click="click_next" :class="isshowNext?'showNext':''">下一题</view>
+<!-- 			<view class="yikaotimu_danxuan_front_button" @click="MoveSubject(-1)" :class="isshowFront?'showFront':''">上一题</view> -->
+			<view class="yikaotimu_danxuan_next_button" @click="MoveSubject(1)" :class="isshowNext?'showNext':''">下一题</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import {getyikaoTikuList_one_one} from '../../api/api.js'
+	import {getyikaoTikuList_one_one,getyikaoTikuList_one_all} from '../../api/api.js'
 	export default{
 		data(){
 			return{
 				isChecked:false,
-				checkboxData:[
-					{'value':0,'label':'嵇康'},
-					{'value':1,'label':'曹植'},
-					{'value':2,'label':'山涛'},
-					{'value':3,'label':'阮瑀'},
-				],
-				checkedArr:[], //复选框选中的值
-				allChecked:false, //是否全选
-				items: [],
+				// checkboxData:[
+				// 	{'value':0,'label':'嵇康'},
+				// 	{'value':1,'label':'曹植'},
+				// 	{'value':2,'label':'山涛'},
+				// 	{'value':3,'label':'阮瑀'},
+				// ],
+				// checkedArr:[], //复选框选中的值
+				// allChecked:false, //是否全选
+				//单个的题目
+				// items: [],
+				//所有题目
+				AllList:[],
 				//目前选项的index
 				current: 0,
-				//题目的页码
+				//题目的页码,第几道题
 				currentId:1,
 				//题目总数
 				nums:0,
@@ -97,50 +91,123 @@
 				isshowNext:true
 			}
 		},
+		//只加载一次
 		onLoad(id) {
+			//试卷的id
 			console.log(id.ids1);
+			getyikaoTikuList_one_all(id.ids).then((res)=>{
+				// console.log(res.data.data);
+				let newArr=res.data.data;
+				//设置所有试题
+				this.AllList=newArr;
+				//总题目数
+				this.nums=newArr.length;
+				console.log(this.AllList);
+				//设置当前页的内容标题
+				this.content=this.AllList[this.currentId].content;
+				
+				console.log(this.current);
+				
+				//让第一页不显示上一题
+				// if(this.current=="0"){
+				// 	this.isshowFront=false;
+				// 	this.isshowNext=true;
+				// }
+				
+				//让最后一页不显示下一题目
+				// if(this.current=this.AllList.length-1){
+				// 	this.isshowNext=false;
+				// }
+			})
+			
+			
+			
+			//设置当前页的选项
+			// console.log(this.AllList);
 			// this.currentId=id.ids1;
 			//如果第一题
-			if(id.ids1==undefined||id.ids1=="1"){
-				let id=1;
-				this.isshowFront=false;
-				getyikaoTikuList_one_one(id).then((res)=>{
-					console.log(res.data.data);
-					this.content=res.data.data[0].content;
-					this.items=res.data.data[0].answers;
-				});
-			}else{
-				getyikaoTikuList_one_one(id.ids1).then((res)=>{
-					console.log(res);
-					this.currentId=id.ids1;
-					this.content=res.data.data[0].content;
-					this.items=res.data.data[0].answers;
-				});
-			}
-			//通过试卷id获取题目的id
-			// this.currentId=id.ids;
-			let arrs=uni.getStorageSync('yikaoTikuList_one1');
-			this.nums=arrs.length;
+			// if(id.ids1==undefined||id.ids1=="1"){
+			// 	let id=1;
+			// 	this.isshowFront=false;
+			// 	getyikaoTikuList_one_one(id).then((res)=>{
+			// 		console.log(res.data.data);
+			// 		this.content=res.data.data[0].content;
+			// 		this.items=res.data.data[0].answers;
+			// 	});
+			// }else{
+			// 	getyikaoTikuList_one_one(id.ids1).then((res)=>{
+			// 		console.log(res);
+			// 		this.currentId=id.ids1;
+			// 		this.content=res.data.data[0].content;
+			// 		this.items=res.data.data[0].answers;
+			// 	});
+			// }
+			
+			
 			//如果最后一题，不显示下一页
-			if(id.ids1==arrs.length){
-				this.isshowNext=false;
-			}
+			// if(id.ids1==arrs.length){
+			// 	this.isshowNext=false;
+			// }
 		},
+		onShow() {
+			// console.log(111);
+			
+		},
+		// watch:{
+		// 	current(){
+		// 		//让第一页不显示上一题
+		// 		if(this.current=="0"){
+		// 			this.isshowFront=false;
+		// 			this.isshowNext=true;
+		// 		}else if(this.current=this.AllList.length-1){
+		// 			this.isshowFront=true;
+		// 			this.isshowNext=false;
+		// 		}else{
+		// 			this.isshowFront=true;
+		// 			this.isshowNext=true;
+		// 		}
+		// 	}
+		// },
 		methods:{
 			//点击，跳转到上一页
-			click_front(){
-				let id=parseInt(this.currentId)-1
-				uni.reLaunch({
-					url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids1='+id
-				})
-			},
-			//点击，跳转到下一页
-			click_next(){
-				// console.log(111);
-				let id=parseInt(this.currentId)+1
-				uni.reLaunch({
-					url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids1='+id
-				})
+			// click_front(){
+			// 	let id=parseInt(this.currentId)-1
+			// 	uni.reLaunch({
+			// 		url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids1='+id
+			// 	})
+			// },
+			// //点击，跳转到下一页
+			// click_next(){
+			// 	// console.log(111);
+			// 	let id=parseInt(this.currentId)+1
+			// 	uni.reLaunch({
+			// 		url:'../yikaotimu_danxuan/yikaotimu_danxuan?ids1='+id
+			// 	})
+			// },
+			MoveSubject: function(e) { //上一题、下一题
+				// let arrs=uni.getStorageSync('yikaoTikuList_one1');
+				// this.AllList=arrs;
+				//上一题
+				if (e === -1 && this.current != 0) {
+					this.current -= 1;
+					this.currentId -= 1;
+					
+				}
+				
+				
+				//下一题
+				if (e === 1 && this.current < this.AllList.length - 1) {
+					this.current += 1;
+					this.currentId += 1;
+				}
+				if(this.current==this.AllList.length-1){
+					this.isshowNext=false;
+				}
+				
+				
+				// console.log(e);
+				// console.log(this.current);
+				// this.content=arrs[this.current].contnet;
 			},
 			// 单个复选框事件
 			checkboxChange(e) {
@@ -162,6 +229,13 @@
 				}
 			},
 			radioChange: function(evt) {
+				// var items = this.subjectList[this.subjectIndex].optionList;
+				// var values = evt.detail.value;
+				// this.subjectList[this.subjectIndex].userAnswer = values;
+				// if(this.autoRadioNext && this.subjectIndex < this.subjectList.length - 1){
+				// 	this.subjectIndex += 1;						
+				// 	};
+				var values = evt.detail.value;
 				for (let i = 0; i < this.items.length; i++) {
 					if (this.items[i].value === evt.target.value) {
 						this.current = i;

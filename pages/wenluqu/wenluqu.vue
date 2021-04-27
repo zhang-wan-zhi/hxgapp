@@ -65,7 +65,11 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">报考专业:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的报考专业" @input="getmajor">
+								<picker @change="bindPickerChangeZhuanye" :range="majorArr">
+									<!-- <label>省份：</label> -->
+									<label class="">{{major1}}</label>	
+								</picker>
+								<!-- <input type="text" placeholder="请输入你的报考专业" @input="getmajor"> -->
 							</view>
 						</view>
 					</view>
@@ -129,7 +133,7 @@
 </template>
 
 <script>
-	import {getWenluquList,getWenluquShengfeng} from '../../api/api.js'
+	import {getWenluquList,getWenluquShengfeng,getZhuanhye} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -149,6 +153,10 @@
 				generalExamination:'',
 				//报考专业
 				major:'',
+				indexMajor:0,
+				major1:'请输入你的报考专业',
+				//报考专业的专业数组
+				majorArr:['请先输入你的报考院校'],
 				//单科成绩,以语文成绩为例
 				chineseScore:'',
 				//视力
@@ -178,8 +186,24 @@
 		methods: {
 			//获取大学名称
 			getUniversity(e){
-				// console.log(e.detail.value);
 				this.likeUniversity=e.detail.value;
+				//根据学校获取专业
+				getZhuanhye(e.detail.value).then((res)=>{
+					// console.log(res.data.data);
+					let arr=res.data.data;
+					let arr1=[];
+					for(let i=0;i<arr.length;i++){
+						arr1.push(arr[i].acMajor);
+					}
+					console.log(arr1);
+					this.majorArr=arr1;
+				})
+				
+			},
+			bindPickerChangeZhuanye(e){
+				console.log(e.target.value);
+				this.indexMajor = e.target.value			//将数组改变索引赋给定义的index变量
+				this.major1=this.majorArr[this.indexMajor]		//将array【改变索引】的值赋给定义的jg变量
 			},
 			//获取高考成绩
 			getcollegeExamScore(e){
