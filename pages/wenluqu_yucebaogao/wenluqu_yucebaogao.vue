@@ -3,11 +3,19 @@
 		<view class="wenluqu_content1">
 			<view class="wenluqu_content1_content">你的录取概率为：</view>
 		</view>
-		
 		<view class="wenluqu_content2">
 			<view class="wenluqu_content2_content">{{Objs.stableProp}}%</view>
 		</view>
-		<view class="wenluqu_content3">
+		<view class="wenluqu_content3s" @click="click_tiyan" :class="isTiyan?'isActiveTiyan':''">
+			<view class="wenluqu_content3_content1">缴费体验版，查看更多内容</view>
+		</view>
+		<view class="wenluqu_content3s">
+			<view class="wenluqu_content3_content1" style="background: linear-gradient(to right,#4D8953,#F3EC76);">缴费会员版，查看更多内容</view>
+		</view>
+		<view class="wenluqu_content3s">
+			<view class="wenluqu_content3_content1" style="background: linear-gradient(to right,#FF954D,#FDC2C2);">缴费专业版，查看更多内容</view>
+		</view>
+	<!-- 	<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content">院校代码：{{Objs.acCode}}</view>
 		</view>
 		<view class="wenluqu_content3">
@@ -27,7 +35,7 @@
 		</view>
 		<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content">考试类型：{{Objs.acExamtype}}</view>
-		</view>
+		</view> -->
 		
 		
 	<!-- 	<view class="wenluqu_content2">
@@ -89,6 +97,7 @@
 		methods:{
 			//点击体验版触发
 			click_tiyan(){
+				console.log(111);
 				this.isTiyan=true;
 			},
 			//获取窗口高度，适配手机
@@ -182,7 +191,7 @@
 				color:#fff;
 			}
 			.isActiveTiyan{
-				display: block;
+				display: none;
 			}
 		}
 	}

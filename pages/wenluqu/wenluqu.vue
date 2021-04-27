@@ -93,7 +93,10 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">视力:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的视力" @input="getvision">
+								<picker @change="bindPickerChangeShili" :range="shiliArr">
+									<label class="">{{shili1}}</label>	
+								</picker>
+								<!-- <input type="text" placeholder="请输入你的视力" @input="getvision"> -->
 							</view>
 						</view>
 					</view>
@@ -105,7 +108,10 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">身高:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的身高" @input="getheight">
+								<picker @change="bindPickerShengao" :range="shengaoArr">
+									<label class="">{{shengao1}}</label>	
+								</picker>
+								<!-- <input type="text" placeholder="请输入你的身高" @input="getheight"> -->
 							</view>
 						</view>
 					</view>
@@ -117,7 +123,10 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">体重:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的体重" @input="getweight">
+								<picker @change="bindPickerTizhong" :range="tizhongArr">
+									<label class="">{{tizhong1}}</label>	
+								</picker>
+								<!-- <input type="text" placeholder="请输入你的体重" @input="getweight"> -->
 							</view>
 						</view>
 					</view>
@@ -161,10 +170,19 @@
 				chineseScore:'',
 				//视力
 				vision:'',
+				shiliArr:["0-3.0","3.0-5.0"],
+				indexShili:0,
+				shili1:'请输入你视力范围',
 				//身高
 				height:'',
+				indexShengao:0,
+				shengao1:'请输入你的身高范围',
+				shengaoArr:['0-170','170-200'],
 				//体重
-				weight:''
+				weight:'',
+				indexTizhong:0,
+				tizhong1:'请输入你的体重范围',
+				tizhongArr:['120-140','140-200'],
 			}
 		},
 		onLoad() {
@@ -200,10 +218,27 @@
 				})
 				
 			},
+			//专业下拉框
 			bindPickerChangeZhuanye(e){
-				console.log(e.target.value);
+				
 				this.indexMajor = e.target.value			//将数组改变索引赋给定义的index变量
 				this.major1=this.majorArr[this.indexMajor]		//将array【改变索引】的值赋给定义的jg变量
+			},
+			//视力下拉框
+			bindPickerChangeShili(e){
+				console.log(e.target.value);
+				this.indexShili=e.target.value;
+				this.shili1=this.shiliArr[this.indexShili]	
+			},
+			//身高下拉框
+			bindPickerShengao(e){
+				this.indexShengao=e.target.value;
+				this.shengao1=this.shengaoArr[this.indexShengao]	
+			},
+			//体重下拉框
+			bindPickerTizhong(e){
+				this.indexTizhong=e.target.value;
+				this.tizhong1=this.tizhongArr[this.indexTizhong]	
 			},
 			//获取高考成绩
 			getcollegeExamScore(e){

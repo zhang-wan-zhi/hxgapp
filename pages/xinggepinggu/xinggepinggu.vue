@@ -105,7 +105,7 @@
 
 					</view>
 
-					<view v-show="subject.showAnswer" class="margin-top solid-top">
+					<!-- <view v-show="subject.showAnswer" class="margin-top solid-top">
 						<view class="cu-bar">
 							<view class="action  text-grey">
 								<text>正确答案：</text>
@@ -121,7 +121,7 @@
 							{{subject.explain}}
 						</view>
 					</view>
-
+ -->
 					</view>
 				</swiper-item>
 			</swiper>
@@ -242,7 +242,7 @@
 				
 				// console.log(res.data.data);
 				let newArr=res.data.data;
-				console.log(newArr);
+				// console.log(newArr);
 				this.subjectList1=newArr;
 				//设置所有试题
 				// this.AllList=newArr;
@@ -253,6 +253,11 @@
 				// this.content=this.AllList[this.current].content;
 				
 				this.currentType = this.subjectList1[0].optionsType;
+				
+				//添加用户显示答案字段
+				for (var i = 0; i < this.subjectList1.length; i++) {		
+					this.$set(this.subjectList1[i],"showAnswer",false);				
+				}
 			})
 			
 		
@@ -260,10 +265,7 @@
 			// 	title: this.title
 			// });			
 			
-			//添加用户显示答案字段
-			// for (var i = 0; i < this.subjectList.length; i++) {		
-			// 	this.$set(this.subjectList[i],"showAnswer",false);				
-			// }
+			
 			
 		},
 		methods: {
@@ -286,7 +288,7 @@
 				if (index != undefined) {
 					this.subjectIndex = index;
 					this.currentType = this.subjectList1[index].optionsType;
-					// this.userFavor = this.subjectList1[index].userFavor;					
+					this.userFavor = this.subjectList1[index].userFavor;					
 				}								
 			},			
 			RadioboxChange : function(e) { //单选选中
@@ -321,13 +323,13 @@
 			},			
 			ShowAnswerChange: function(e) { //显示答案
 			
-				if(this.subjectList[this.subjectIndex].showAnswer)
+				if(this.subjectList1[this.subjectIndex].showAnswer)
 				{
-					this.subjectList[this.subjectIndex].showAnswer=false;					
+					this.subjectList1[this.subjectIndex].showAnswer=false;					
 				}
 				else{
 					
-					this.subjectList[this.subjectIndex].showAnswer=true;
+					this.subjectList1[this.subjectIndex].showAnswer=true;
 				}				
 			},
 			
@@ -336,12 +338,12 @@
 				if(this.userFavor)
 				{
 					this.userFavor=false;
-					this.subjectList[this.subjectIndex].userFavor=false;					
+					this.subjectList1[this.subjectIndex].userFavor=false;					
 				}
 				else{
 					
 					this.userFavor=true;
-					this.subjectList[this.subjectIndex].userFavor=true;	
+					this.subjectList1[this.subjectIndex].userFavor=true;	
 				}				
 			},
 			
