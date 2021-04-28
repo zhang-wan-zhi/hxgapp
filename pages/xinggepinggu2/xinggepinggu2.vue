@@ -28,7 +28,7 @@
 						</radio-group>
 					</view>
 					<view class="pinggu_content_content1_next">
-						<view class="pinggu_content_content1_next1" style="background-color: #ED5352;" @click="front" :class="isshow_front?'show_front':''">上一题</view>
+						<!-- <view class="pinggu_content_content1_next1" style="background-color: #ED5352;" @click="front" :class="isshow_front?'show_front':''">上一题</view> -->
 						<view class="pinggu_content_content1_next2" @click="next" :class="isshow_next?'show_next':''">下一题</view>
 					</view>
 					<view class="pinggu_content_content1_submit">
@@ -84,7 +84,7 @@
 			//获取窗口高度，适配手机
 			this.getWindowHeight();
 			console.log(ids.scores);
-			// console.log(ids.id);
+			console.log(ids.id);
 			
 			// console.log(ids.valueArr);
 			this.valueArr=[ids.valueArr];
@@ -134,11 +134,9 @@
 				this.isshow_front=true;
 			}
 			
-		
-			
 			//对下一题进行校验
 			//如果id为8的时候，不显示下一页
-			if(ids.id=="8"){
+			if(ids.id=="9"){
 				//不显示上一页
 				this.isshow_next=false;
 				this.isshow_submit=true;
@@ -154,12 +152,7 @@
 			getWindowHeight(){
 				uni.getSystemInfo({
 					success:(res)=>{
-						// console.log(res);
-						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
 						this.phoneHeight=res.windowHeight;
-						// console.log(res.windowHeight);
-						// console.log(this.phoneHeight);
-						// this.$store.commit('set_window_height',res.windowHeight*2);
 					}
 				})
 			},
@@ -212,7 +205,7 @@
 			//上一题
 			front(){
 				
-				let ids=this.indexs-1;
+				let ids=parseInt(this.indexs)-1;
 				// console.log(ids);
 				uni.reLaunch({
 					url:'../xinggepinggu2/xinggepinggu2?id='+ids
@@ -220,7 +213,8 @@
 			},
 			//下一题
 			next(){
-				let ids=this.indexs+1;
+				let ids=parseInt(this.indexs)+1;
+				console.log(ids);
 				// let valueArr=[this.selected1];
 				// console.log(valueArr);
 				console.log(this.selectedArr);

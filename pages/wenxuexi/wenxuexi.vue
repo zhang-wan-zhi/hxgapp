@@ -123,7 +123,7 @@
 			xinggepinggu(){
 				let ids=0;
 				getWenxuexiTestList(ids).then((res)=>{
-					// console.log(res.data.data);
+					console.log(res.data.data);
 					let arr=res.data.data;
 					let newArr=[];
 					//去除没有达到一项的数据

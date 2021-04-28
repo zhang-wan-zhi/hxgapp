@@ -55,12 +55,7 @@
 							</view>
 						</view>
 					</view>
-				</view>
-				
-				<!-- <view class="see_more">
-					<view class="see_more_title" @click="mores">查看更多</view>
-				</view> -->
-							
+				</view>			
 			</view>
 			
 			<view class="yikaoKecheng_content" v-show="yikaoKechengStatus"  v-for="(item,index) in yikaoKechengList" :key="index">

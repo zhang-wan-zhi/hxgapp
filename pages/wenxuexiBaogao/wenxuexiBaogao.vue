@@ -1,9 +1,9 @@
 <template>
 	<view>
-		<view class="wenxuexi_baogao_top">
+		<!-- <view class="wenxuexi_baogao_top">
 			<view class="wenxuexi_baogao_top_title">卢胤澍的答题报告</view>
-		</view>
-		<view class="wenxuexi_baogao_top_fenshu">
+		</view> -->
+	<!-- 	<view class="wenxuexi_baogao_top_fenshu">
 			<view class="wenxuexi_baogao_top_fenshu1">
 				<view class="wenxuexi_baogao_top_fenshu1_fenshu2">
 					<view class="wenxuexi_baogao_top_fenshu1_fenshu2s">82</view>
@@ -12,28 +12,25 @@
 					<view class="wenxuexi_baogao_top_fenshu1_fenshu3s">分数</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="wenxuexi_baogao_bottom">
 			<view class="wenxuexi_baogao_bottom_content_body">
 				<view class="wenxuexi_baogao_bottom_content">
-						<view class="wenxuexi_baogao_bottom_content_left ">学习建议</view>
-						<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">比较合适</view>
-					</view>
-					<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content1">
-						<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left1">学习时机</view>
-						<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">国庆节起</view>
-					</view>
-					<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
-						<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left2">整体印象</view>
-						<view class="wenxuexi_baogao_bottom_content_right">
-							1、有潜力，缺少状态
-							2、专业选择比较定向   
-							3、玩心大
-							<!-- <view class="wenxuexi_baogao_bottom_content_right_content">
-								
-							</view> -->
-						</view>
-					</view>
+					<view class="wenxuexi_baogao_bottom_content_left ">文化成绩</view>
+					<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">{{objs.CulturalAchievement.content}}</view>
+				</view>
+				<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content1">
+					<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left1">自然条件</view>
+					<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">{{objs.NaturalcConditions.content}}</view>
+				</view>
+				<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
+					<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left2">性格特点</view>
+					<view class="wenxuexi_baogao_bottom_content_right">{{objs.PersonalityTraits.content}}</view>
+				</view>
+				<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
+					<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left3">专业素养</view>
+					<view class="wenxuexi_baogao_bottom_content_right">{{objs.Professionalism.content}}</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -49,7 +46,7 @@
 		onLoad(){
 			let arrs=uni.getStorageSync('wenluqulists');
 			this.objs=arrs
-			console.log(arrs);
+			console.log(this.objs);
 		}
 	}
 </script>
@@ -128,6 +125,7 @@
 		width:100%;
 		height:600rpx;
 		// border:1px solid red;
+		margin-top:200rpx;
 		display:flex;
 		align-items: center;
 		justify-content: center;
@@ -160,6 +158,9 @@
 				}
 				.wenxuexi_baogao_bottom_content_left2{
 					color:#EC811F;
+				}
+				.wenxuexi_baogao_bottom_content_left3{
+					color:red;
 				}
 				.wenxuexi_baogao_bottom_content_right{
 					width:90%;
