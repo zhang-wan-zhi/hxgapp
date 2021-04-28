@@ -23,7 +23,7 @@
 				</view>
 				<view class="grid col-5 ">
 					<view class="margin-tb-sm text-center" v-for="(subject,index) in subjectList1" :key="index">
-						<button class="cu-btn round" :class="[subject.answer.length===0?'line-grey':'bg-red']" @click="AppointedSubject(index)" >{{index+1}}</button>
+						<button class="cu-btn round" :class="[subject.answerList[0].length===0?'line-grey':'bg-red']" @click="AppointedSubject(index)" >{{index+1}}</button>
 					</view>
 				</view>
 				
@@ -105,23 +105,22 @@
 
 					</view>
 
-					<!-- <view v-show="subject.showAnswer" class="margin-top solid-top">
+					<view v-show="subject.showAnswer" class="margin-top solid-top">
 						<view class="cu-bar">
 							<view class="action  text-grey">
 								<text>正确答案：</text>
-								<text class="solid-bottom  padding-left text-green">{{subject.answer}}</text>
+								<text class="solid-bottom  padding-left text-green">{{subject.answerList[0]}}</text>
 							</view>
 						</view>
-						<view class="cu-bar cu-bar-title">
+						<!-- <view class="cu-bar cu-bar-title">
 							<view class="action  text-grey">
 								<text>解析：</text>
 							</view>
 						</view>
 						<view class="text-content padding  text-grey">
 							{{subject.explain}}
-						</view>
+						</view> -->
 					</view>
- -->
 					</view>
 				</swiper-item>
 			</swiper>
@@ -242,7 +241,7 @@
 				
 				// console.log(res.data.data);
 				let newArr=res.data.data;
-				// console.log(newArr);
+				console.log(newArr);
 				this.subjectList1=newArr;
 				//设置所有试题
 				// this.AllList=newArr;
