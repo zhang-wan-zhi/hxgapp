@@ -232,6 +232,18 @@
 				// "navigationStyle":"custom"
 		    }
 		    
+		},
+		{
+		    "path" : "pages/test_search/test_search",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "搜索",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#F7A3A2"
+				// "navigationStyle":"custom"
+		    }
+		    
 		}
     ],
 "tabBar": {

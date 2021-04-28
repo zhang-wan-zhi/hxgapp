@@ -12,7 +12,7 @@
 			<view class="yikaiKecheng_item_titles">
 				<view class="yikaiKecheng_item_title1">{{yikaoKechengList_one.aeTitle}}</view>
 				<view class="yikaiKecheng_item_title2">
-					<view class="yikaiKecheng_item_title2_left">{{yikaoKechengList_one.aePrep1}}人正在观看</view>
+					<view class="yikaiKecheng_item_title2_left">{{yikaoKechengList_one.peopleNum}}人正在观看</view>
 					<view class="yikaiKecheng_item_title2_right">{{yikaoKechengList_one.aeCreatetime}}发布</view>
 				</view>
 			</view>
@@ -53,7 +53,7 @@
 		
 		<view class="yikaiKecheng_item_content"  v-for="(item,index) in yikaoKechengList" :key="index" v-show="isKecheng">
 			
-			<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.15+'px;'}" @click="yikaokecheng_click(item.aeId)">
+			<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.20+'px;'}" @click="yikaokecheng_click(item.aeId)">
 				<view class="yikaoKecheng_content_content_left">
 					<view class="yikaoKecheng_content_content_left_img">
 						<image :src="item.aeImgurl"></image>
@@ -66,7 +66,7 @@
 					<view class="yikaoKecheng_content_content_right_bottom">
 						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">{{item.aeIntro}}</view>
 						<view class="yikaoKecheng_content_content_right_bottom_title">
-							<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.aePrep1}}人观看</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.peopleNum}}人观看</view>
 							<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right">
 								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">{{item.aeOriginalprice}}</view>
 							</view> -->
@@ -259,6 +259,14 @@
 				isDianzanArrstr:"../../static/img/dianzan_icon.png",
 			}
 		},
+		//顶部左上角退出事件
+		// onBackPress(event) {
+		// 	console.log(111);
+		// 	uni.redirectTo({
+		// 		url:'../gerenzhongxin/gerenzhongxin'
+		// 	})
+		// 	return true;
+		// },
 		methods:{
 			//艺考课程
 			yikaokecheng_click(id){
@@ -316,21 +324,21 @@
 			//获取窗口高度，适配手机
 			this.getWindowHeight();
 			console.log(id.ids);
+			//获取指定艺考课程的数据
 			getyikaoKechengList_one(id.ids).then((res)=>{
-				// console.log(res.data.hxgArtexam);
+				console.log(res.data.hxgArtexam);
 				let oldStr=res.data.hxgArtexam.aeCreatetime;
 				// console.log(oldStr.split("-").join("/"));
 				this.yikaoKechengList_one=res.data.hxgArtexam;
+				//对时间进行处理
 				this.yikaoKechengList_one.aeCreatetime=oldStr.split("-").join("/");
 			})
+			//获取艺考课程列表
 			getyikaoKechengList().then((res)=>{
 				// console.log(res.data.artexams);
 				this.yikaoKechengList=res.data.artexams;
 			})
 		},
-		onShow(){
-			
-		}
 	}
 </script>
 
@@ -376,6 +384,9 @@
 				color:#333337;
 				font-size: 35rpx;
 				font-weight: bold;
+				overflow: hidden;/*超出部分隐藏*/
+				white-space: nowrap;/*不换行*/
+				text-overflow:ellipsis;/*超出部分文字以...显示*/
 			}
 			.yikaiKecheng_item_title2{
 				width:100%;

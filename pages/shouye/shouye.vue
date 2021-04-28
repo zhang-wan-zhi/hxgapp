@@ -13,7 +13,7 @@
 		</view>
 		
 		<!-- 轮播图 -->
-		<view class='home' v-if="isSearch">
+		<view class='home' v-if="isSearch" >
 			<swiper
 			indicator-dots 	
 			circular
@@ -362,9 +362,11 @@
 			},
 			//点击输入框，获得焦点时
 			getFocus(){
-				// console.log(2222);
 				this.placeholders='';
-				this.placeholders_styles=''
+				this.placeholders_styles='';
+				uni.navigateTo({
+					url:'../test_search/test_search'
+				})
 			},
 			//点击输入框，失去焦点时
 			getBlur(){
@@ -438,14 +440,14 @@
 	// background-color: #ccc;
 	.Search_content{
 		width:100%;
-		height:100rpx;
+		height:120rpx;
 		// border:1px solid red;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		input{
 			width:580rpx;
-			height:80rpx;
+			height:100rpx;
 			// border:1px solid blue;
 			border-radius: 32rpx;
 			background-color: #F37372;
@@ -453,14 +455,14 @@
 	}
 	.home{
 		width:100%;
-		height:320rpx;
+		height:340rpx;
 		// border:1px solid red;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		swiper{
 			width: 90%;
-			height:320rpx;
+			height:335rpx;
 			// border:1px solid red;
 		}
 		image{

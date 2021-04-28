@@ -67,6 +67,7 @@
 			</view>
 			
 			<!-- <view style="width:200rpx;height:50rpx;border:1px solid red;" @click="test">测试做题</view> -->
+			<!-- <view style="width:200rpx;height:50rpx;border:1px solid red;" @click="test2">测试搜索</view> -->
 		</view>
 	</view>
 </template>
@@ -100,6 +101,15 @@
 					url:'../test/test'
 				})
 			},
+			// test2(){
+			// 	// TestApi(1,1,1000).then((res)=>{
+			// 	// 	console.log(res);
+			// 	// })
+			// 	console.log(1111);
+			// 	uni.navigateTo({
+			// 		url:'../test_search/test_search'
+			// 	})
+			// },
 			//获取窗口高度，适配手机
 			getWindowHeight(){
 				uni.getSystemInfo({
