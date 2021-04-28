@@ -335,6 +335,24 @@ export function getWenxuexiResuleList(scores){
 	})
 }
 
+//获取问录取字段
+export function getWenluquZiduan(){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getAskAdmit',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:datas,
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
 //问录取，查询省份
 export function getWenluquShengfeng(){
 	return new Promise((resolve,reject)=>{
@@ -375,7 +393,7 @@ export function getZhuanhye(acName){
 export function getWenluquList(datas){
 	return new Promise((resolve,reject)=>{
 		uni.request({
-			url:urls+'/hxg/getProbability',
+			url:urls+'/hxg/getProbability1',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data:datas,

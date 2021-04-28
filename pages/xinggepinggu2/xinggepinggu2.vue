@@ -187,7 +187,7 @@
 				}
 				console.log(arr);
 				let result=this.sum(arr);
-				// console.log(result);
+				console.log(result);
 				// let result=82;
 				getWenxuexiResuleList(result).then((res)=>{
 					console.log(res.data.data);
@@ -359,6 +359,7 @@
 					// border:1px solid red;
 					display: flex;
 					align-items: center;
+					margin-top:30rpx;
 					//使得子元素左右相等排列
 					justify-content: space-evenly;
 					.pinggu_content_content1_next1{

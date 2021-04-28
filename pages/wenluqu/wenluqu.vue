@@ -1,12 +1,13 @@
 <template>
 	<view>
-		<view class="wenluqu_top">
+	<!-- 	<view class="wenluqu_top">
 			<view class="wenluqu_top_title">艺考预测</view>
-		</view>
+		</view> -->
 		
 		<view class="wenluqu_center">
 			<view class="wenluqu_center_child">
 				<view class="wenluqu_center_child_child">
+					
 					<view class="wenluqu_center_child_child1">
 						<view class="wenluqu_center_child_child1_content">
 						  <picker @change="bindPickerChange" :range="array">
@@ -21,6 +22,30 @@
 							</picker>
 						</view>
 					</view>
+					
+					<!-- <view class="wenluqu_center_child_child2">
+						<view class="wenluqu_center_child_child2_content">
+							<view class="wenluqu_center_child_child2_content1">
+								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+							</view>
+							<view class="wenluqu_center_child_child2_content2">省份:</view>
+							<view class="wenluqu_center_child_child2_content3">
+								<input type="text" placeholder="请选择你报考的省份" @input="getUniversity">
+							</view>
+						</view>
+					</view> -->
+					
+					<!-- <view class="wenluqu_center_child_child2">
+						<view class="wenluqu_center_child_child2_content">
+							<view class="wenluqu_center_child_child2_content1">
+								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
+							</view>
+							<view class="wenluqu_center_child_child2_content2">分科:</view>
+							<view class="wenluqu_center_child_child2_content3">
+								<input type="text" placeholder="请选择你的分科" @input="getUniversity">
+							</view>
+						</view>
+					</view> -->
 					
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
@@ -66,13 +91,12 @@
 							<view class="wenluqu_center_child_child2_content2">报考专业:</view>
 							<view class="wenluqu_center_child_child2_content3">
 								<picker @change="bindPickerChangeZhuanye" :range="majorArr">
-									<!-- <label>省份：</label> -->
 									<label class="">{{major1}}</label>	
 								</picker>
-								<!-- <input type="text" placeholder="请输入你的报考专业" @input="getmajor"> -->
 							</view>
 						</view>
 					</view>
+					<!-- <input type="text" placeholder="请输入你的报考专业" @input="getmajor"> -->
 					
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
@@ -96,12 +120,16 @@
 								<picker @change="bindPickerChangeShili" :range="shiliArr">
 									<label class="">{{shili1}}</label>	
 								</picker>
-								<!-- <input type="text" placeholder="请输入你的视力" @input="getvision"> -->
 							</view>
 						</view>
 					</view>
 					
-					<view class="wenluqu_center_child_child2">
+					<!-- <picker @change="bindPickerChangeShili" :range="shiliArr">
+						<label class="">{{shili1}}</label>	
+					</picker> -->
+					<!-- <input type="text" placeholder="请输入你的视力" @input="getvision"> -->
+					
+				<!-- 	<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
 								<image src="../../static/img/shengao_img.png"></image>
@@ -111,12 +139,12 @@
 								<picker @change="bindPickerShengao" :range="shengaoArr">
 									<label class="">{{shengao1}}</label>	
 								</picker>
-								<!-- <input type="text" placeholder="请输入你的身高" @input="getheight"> -->
 							</view>
 						</view>
-					</view>
+					</view> -->
+					<!-- <input type="text" placeholder="请输入你的身高" @input="getheight"> -->
 					
-					<view class="wenluqu_center_child_child2">
+					<!-- <view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
 							<view class="wenluqu_center_child_child2_content1">
 								<image src="../../static/img/tizhong_img.png"></image>
@@ -126,10 +154,11 @@
 								<picker @change="bindPickerTizhong" :range="tizhongArr">
 									<label class="">{{tizhong1}}</label>	
 								</picker>
-								<!-- <input type="text" placeholder="请输入你的体重" @input="getweight"> -->
 							</view>
 						</view>
 					</view>
+					 -->
+					<!-- <input type="text" placeholder="请输入你的体重" @input="getweight"> -->
 					
 				</view>
 			</view>
@@ -142,7 +171,7 @@
 </template>
 
 <script>
-	import {getWenluquList,getWenluquShengfeng,getZhuanhye} from '../../api/api.js'
+	import {getWenluquList,getWenluquShengfeng,getZhuanhye,getWenluquZiduan} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -170,7 +199,7 @@
 				chineseScore:'',
 				//视力
 				vision:'',
-				shiliArr:["0-3.0","3.0-5.0"],
+				shiliArr:["视力<3.0","视力>=3.0"],
 				indexShili:0,
 				shili1:'请输入你视力范围',
 				//身高
@@ -183,9 +212,22 @@
 				indexTizhong:0,
 				tizhong1:'请输入你的体重范围',
 				tizhongArr:['120-140','140-200'],
+				AllZiduanArr:[]
 			}
 		},
 		onLoad() {
+			//获取问录取字段
+			getWenluquZiduan().then((res)=>{
+				// console.log(res.data.askadmitList);
+				let arr=res.data.askadmitList;
+				console.log(arr);
+				this.AllZiduanArr=arr;
+				// let newArr=[];
+				// for(let i=0;i<arr.length;i++){
+				// 	newArr.push(arr[i].askParm)
+				// }
+				// console.log(newArr);
+			})
 			//获取省份信息
 			getWenluquShengfeng().then((res)=>{
 				// console.log(res.data.provinces);
@@ -200,6 +242,7 @@
 				// console.log(newArr);
 				this.array=newArr;
 			})
+			
 		},
 		methods: {
 			//获取大学名称
@@ -258,7 +301,7 @@
 			},
 			//获取视力
 			getvision(e){
-				this.vision=e.detail.value;
+				this.vision1=e.detail.value;
 			},
 			//获取身高
 			getheight(e){
@@ -290,7 +333,7 @@
 					//文理分科
 					"artAndSciences": this.artAndSciences,
 					//语文成绩
-					"chineseScore": this.chineseScore,
+					"english": this.chineseScore,
 					//高考成绩
 					"collegeExamScore": this.collegeExamScore,
 					//文化成绩
@@ -300,11 +343,11 @@
 					//统考成绩
 					"generalExamination": this.generalExamination,
 					//身高
-					"height": this.height,
+					// "height": this.shengao1,
 					//喜欢的大学
 					"likeUniversity": this.likeUniversity,
 					//报考专业
-					"major": this.major,
+					"major": this.major1,
 					//数学成绩
 					"mathScore": "",
 					//省份
@@ -312,11 +355,22 @@
 					//用户openid
 					"userOpenId": "",
 					//视力
-					"vision": this.vision,
+					"shili": this.shili1,
 					//体重
-					"weight": this.weight,
+					// "weight": this.tizhong1,
 					
-					"userOpenId":"dhsjfsdkfjgjifjdgkdjkgfdkl"
+				 //    "likeUniversity": "浙江传媒学院", 
+					// "artAndSciences": "文科", 
+					// "province": "山东", 
+					// "major": "播音与主持艺术", 
+					// "collegeExamScore": "299", 
+					// "generalExamination": "90", 
+					// "eyesight": "0.0<视力<=3.0", 
+					// "weight": "120<体重<140", 
+					// "height": "170<身高", 
+					// "english": "100"
+					
+					// "userOpenId":"dhsjfsdkfjgjifjdgkdjkgfdkl"
 					// "likeUniversity":"浙江传媒学院",
 					// "artAndSciences":"文科",
 					// "province":"山东",
@@ -332,31 +386,31 @@
 				//统考成绩
 				console.log(this.generalExamination);
 				//报考专业
-				console.log(this.major);
+				console.log(this.major1);
 				//单科成绩,以语文成绩为例
 				console.log(this.chineseScore);
 				//视力
-				console.log(this.vision);
+				console.log(this.shili1);
 				//身高
-				console.log(this.height);
+				// console.log(this.shengao1);
 				//体重
-				console.log(this.weight);
+				// console.log(this.tizhong1);
 				
-				// getWenluquList(obj).then((res)=>{
-				// 	// console.log(res.data.data.academies[0]);
-				// 	let resArr=res.data.data.academies;
-				// 	uni.setStorage({
-				// 		key:'wenluqu_lists',
-				// 		data:resArr
-				// 	})
-				// 	uni.navigateTo({
-				// 		url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
-				// 	})
-				// })
-				
-				uni.navigateTo({
-					url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+				getWenluquList(obj).then((res)=>{
+					// console.log(res.data.data.academies[0]);
+					let resArr=res.data.data.academies;
+					uni.setStorage({
+						key:'wenluqu_lists',
+						data:resArr
+					})
+					uni.navigateTo({
+						url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+					})
 				})
+				
+				// uni.navigateTo({
+				// 	url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+				// })
 				
 			}
 		}
@@ -385,14 +439,15 @@
 }
 .wenluqu_center{
 	width:100%;
-	height:1000rpx;
+	height:auto;
 	// border:1px solid red;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-top:20rpx;
 	.wenluqu_center_child{
 		width:90%;
-		height:900rpx;
+		height:auto;
 		border:1px solid #BBBBBB;
 		border-radius: 10rpx;
 		display: flex;
@@ -401,6 +456,7 @@
 		.wenluqu_center_child_child{
 			width:90%;
 			height:850rpx;
+			margin-top:20rpx;
 			// border:1px solid blue;
 			.wenluqu_center_child_child1{
 				width:100%;
@@ -408,6 +464,7 @@
 				// border:1px solid yellow;
 				display: flex;
 				justify-content: space-between;
+				margin-top:20rpx;
 				.wenluqu_center_child_child1_content{
 					width:250rpx;
 					height:50rpx;
@@ -420,6 +477,7 @@
 				width:100%;
 				height:95rpx;
 				// border:1px solid yellow;
+				margin-top:20rpx;
 				.wenluqu_center_child_child2_content{
 					width:100%;
 					height:50rpx;
@@ -460,11 +518,12 @@
 }
 .wenluqu_bottom{
 	width:100%;
-	height:150rpx;
+	height:100rpx;
 	// border:1px solid red;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	// margin-top:100rpx;
 	.wenluqu_bottom_content{
 		width:180rpx;
 		height:70rpx;
