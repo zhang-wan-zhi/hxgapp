@@ -4,9 +4,9 @@
 			<view class="wenluqu_top_title">艺考预测</view>
 		</view> -->
 		
-		<view class="wenluqu_center">
-			<view class="wenluqu_center_child">
-				<view class="wenluqu_center_child_child">
+		<view class="wenluqu_center"style="margin-top:250rpx;">
+			<view class="wenluqu_center_child" :style="{height:phoneHeight*0.8+'px;'}">
+				<view class="wenluqu_center_child_child" :style="{height:phoneHeight*0.78+'px;'}">
 					
 					<view class="wenluqu_center_child_child1">
 						<view class="wenluqu_center_child_child1_content">
@@ -216,6 +216,8 @@
 			}
 		},
 		onLoad() {
+			//获取窗口高度，适配手机
+			this.getWindowHeight()
 			//获取问录取字段
 			getWenluquZiduan().then((res)=>{
 				// console.log(res.data.askadmitList);
@@ -245,6 +247,19 @@
 			
 		},
 		methods: {
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
 			//获取大学名称
 			getUniversity(e){
 				this.likeUniversity=e.detail.value;

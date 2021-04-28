@@ -25,11 +25,11 @@
 				</view>
 				<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
 					<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left2">性格特点</view>
-					<view class="wenxuexi_baogao_bottom_content_right">{{objs.PersonalityTraits.content}}</view>
+					<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">{{objs.PersonalityTraits.content}}</view>
 				</view>
 				<view class="wenxuexi_baogao_bottom_content wenxuexi_baogao_bottom_content2">
 					<view class="wenxuexi_baogao_bottom_content_left wenxuexi_baogao_bottom_content_left3">专业素养</view>
-					<view class="wenxuexi_baogao_bottom_content_right">{{objs.Professionalism.content}}</view>
+					<view class="wenxuexi_baogao_bottom_content_right" style="line-height: 180rpx;">{{objs.Professionalism.content}}</view>
 				</view>
 			</view>
 		</view>
@@ -125,7 +125,7 @@
 		width:100%;
 		height:600rpx;
 		// border:1px solid red;
-		margin-top:200rpx;
+		margin-top:300rpx;
 		display:flex;
 		align-items: center;
 		justify-content: center;
@@ -174,7 +174,7 @@
 					word-break:keep-all;
 					word-wrap:break-world;
 					white-space:pre-line;
-					margin-top:10rpx;
+					// margin-top:10rpx;
 					// display: flex;
 					// align-items: center;
 					// justify-content: center;
