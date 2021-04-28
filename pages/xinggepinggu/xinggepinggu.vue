@@ -21,9 +21,10 @@
 						<text class="cuIcon-title text-red"></text>答题卡
 					</view>					
 				</view>
+				
 				<view class="grid col-5 ">
 					<view class="margin-tb-sm text-center" v-for="(subject,index) in subjectList1" :key="index">
-						<button class="cu-btn round" :class="[subject.answerList[0].length===0?'line-grey':'bg-red']" @click="AppointedSubject(index)" >{{index+1}}</button>
+						<button class="cu-btn round" :class="[subject.answer.length===0?'line-grey':'bg-red']" @click="AppointedSubject(index)" >{{index+1}}</button>
 					</view>
 				</view>
 				
@@ -236,7 +237,7 @@
 		},
 		onLoad(id) {
 			//试卷的id
-			console.log(id.ids1);
+			console.log(id);
 			getyikaoTikuList_one_all(id.ids).then((res)=>{
 				
 				// console.log(res.data.data);

@@ -156,10 +156,10 @@ export function getyikaoTikuList_one(id){
 }
 
 //获取试卷id，获取考试所有题目
-export function getyikaoTikuList_one_all(quId){
+export function getyikaoTikuList_one_all(paper_id){
 	return new Promise((resolve,reject)=>{
 		uni.request({
-			url:urls+'/hxg/qu/'+quId,
+			url:urls+'/hxg/qu/'+paper_id,
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			// data:{
