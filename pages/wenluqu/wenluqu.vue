@@ -397,15 +397,47 @@
 				// console.log(this.tizhong1);
 				
 				getWenluquList(obj).then((res)=>{
+					console.log(res);
 					// console.log(res.data.data.academies[0]);
 					let resArr=res.data.data.academies;
+					console.log(resArr);
 					uni.setStorage({
 						key:'wenluqu_lists',
 						data:resArr
 					})
-					uni.navigateTo({
-						url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
-					})
+					//如果数据库能查到，就跳转
+					if(resArr.length==0){
+						uni.showModal({
+						    title: '提示',
+						    content: '您输入的内容在数据库中不存在',
+						    success: function (res) {
+						        if (res.confirm) {
+						            console.log('用户点击确定');
+						        } else if (res.cancel) {
+						            console.log('用户点击取消');
+						        }
+						    }
+						});
+						
+					}else{
+						uni.navigateTo({
+							url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
+						})
+					}
+					
+				})
+				.catch((err)=>{
+					uni.showModal({
+					    title: '提示',
+					    content: '您输入的内容在数据库中不存在',
+					    success: function (res) {
+					        if (res.confirm) {
+					            console.log('用户点击确定');
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
 				})
 				
 				// uni.navigateTo({
