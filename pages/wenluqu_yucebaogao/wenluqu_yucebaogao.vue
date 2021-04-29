@@ -7,13 +7,13 @@
 			<view class="wenluqu_content2_content">{{Objs.stableProp}}%</view>
 		</view>
 		<view class="wenluqu_content3s" @click="click_tiyan" :class="isTiyan?'isActiveTiyan':''">
-			<view class="wenluqu_content3_content1">缴费体验版，查看更多内容</view>
+			<view class="wenluqu_content3_content1">体验版，查看更多内容</view>
 		</view>
 		<view class="wenluqu_content3s">
-			<view class="wenluqu_content3_content1" style="background: linear-gradient(to right,#4D8953,#F3EC76);">缴费会员版，查看更多内容</view>
+			<view class="wenluqu_content3_content1" style="background: linear-gradient(to right,#4D8953,#F3EC76);">会员版，查看更多内容</view>
 		</view>
 		<view class="wenluqu_content3s">
-			<view class="wenluqu_content3_content1" style="background: linear-gradient(to right,#FF954D,#FDC2C2);">缴费专业版，查看更多内容</view>
+			<view class="wenluqu_content3_content1" style="background: linear-gradient(to right,#FF954D,#FDC2C2);">专业版，查看更多内容</view>
 		</view>
 	<!-- 	<view class="wenluqu_content3">
 			<view class="wenluqu_content3_content">院校代码：{{Objs.acCode}}</view>
@@ -175,17 +175,17 @@
 		}
 		.wenluqu_content3s{
 			width:100%;
-			height:120rpx;
+			height:300rpx;
 			// border:1px solid red;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			.wenluqu_content3_content1{
 				width:80%;
-				height:100rpx;
+				height:280rpx;
 				// border:1px solid red; 
 				background: linear-gradient(to right,#FF686B,#FF9666);
-				line-height: 120rpx;
+				line-height: 280rpx;
 				text-align: center;
 				font-weight: bold;
 				color:#fff;

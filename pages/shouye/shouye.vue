@@ -9,7 +9,7 @@
 		</view> -->
 		
 		<view class="Search_content">
-			<input type="text" @input="getInput2" @focus="getFocus" @blur="getBlur" @confirm="getSubmit" v-model="inputs_text" :placeholder="placeholders" placeholder-style="color:#fff; margin-left:215rpx;" :placeholder-class="placeholders_styles">
+			<input type="text" @input="getInput2" @focus="getFocus" @blur="getBlur" @confirm="getSubmit" v-model="inputs_text" :placeholder="placeholders" placeholder-style="color:#fff; margin-left:165rpx;" :placeholder-class="placeholders_styles">
 		</view>
 		
 		<!-- 轮播图 -->
@@ -93,9 +93,7 @@
 					<view class="yikaoTiku_content_content_right" @click="zhenti_next(item.id)">
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
-				</view>
-
-				
+				</view>				
 			</view>
 		
 			
@@ -129,7 +127,7 @@
 				//新输入框的值
 				inputs_text:'',
 				//输入框默认的值
-				placeholders:'搜索快讯',
+				placeholders:'搜索艺考动态',
 				//输入框默认的样式
 				placeholders_styles:'iconfont icon-sousuo',
 				//轮播图图的数组地址
@@ -441,7 +439,7 @@
 		align-items: center;
 		justify-content: center;
 		input{
-			width:580rpx;
+			width:90%;
 			height:100rpx;
 			// border:1px solid blue;
 			border-radius: 32rpx;
@@ -721,8 +719,9 @@
 			width:100%;
 			height:auto;
 			.yikaoTiku_content_content{
-				width:100%;
+				width:90%;
 				height:80rpx;
+				margin-left: 5%;
 				// border:1px solid blue;
 				border-bottom:1px solid #E7E7E7;
 				margin-top:5rpx;

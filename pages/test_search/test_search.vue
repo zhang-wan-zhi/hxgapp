@@ -110,6 +110,8 @@ methods: {
 			uni.showModal({
 			title: '搜索内容不能为空'
 		  });
+		  //解决ios鼠标无法弹回的问题
+		  uni.hideKeyboard();     //添加这一行代码即可
 		} else {
 			//如果历史记录缓存没有，就包含进去
 			if (!this.searchHistoryList.includes(this.inputValue)) {
@@ -128,6 +130,8 @@ methods: {
 					console.log(res.data.artexamdynamicList);
 					this.yikaiDongtaiList=res.data.artexamdynamicList;
 					console.log(this.yikaiDongtaiList);
+					//解决ios鼠标无法弹回的问题
+					uni.hideKeyboard();     //添加这一行代码即可
 				})
 				
 		} else {
@@ -151,6 +155,8 @@ methods: {
 				// this.isSearch=false;
 				console.log(res.data.artexamdynamicList);
 				this.yikaiDongtaiList=res.data.artexamdynamicList;
+				//解决ios鼠标无法弹回的问题
+				uni.hideKeyboard();     //添加这一行代码即可
 			})
 		}
 	}

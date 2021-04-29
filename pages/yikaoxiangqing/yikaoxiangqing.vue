@@ -53,12 +53,17 @@
 		.content1_title{
 			width:100%;
 			height:100rpx;
-			// border:1px solid red;
+			border:1px solid red;
 			font-weight: bold;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			margin-top:40rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
 			.content1_title_title{
 				width:90%;
 				height:100rpx;
@@ -75,6 +80,7 @@
 			.content1_user_user{
 				width:150rpx;
 				height:50rpx;
+				// margin-left:50rpx;
 				// border:1px solid pink;
 				float:left;
 				text-align:center;
@@ -87,8 +93,9 @@
 			}
 		}
 		.content1_content{
-			width:100%;
+			width:90%;
 			height:500rpx;
+			margin-left:5%;
 			// border:1px solid red;
 			text-indent: 50rpx;
 			margin-top:30rpx;
