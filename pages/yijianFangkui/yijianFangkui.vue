@@ -5,6 +5,9 @@
 				<textarea type="text" :placeholder="placeholders" v-model="textAreaValue" class="yijianFangkui_input1" @focus="getFocus" @blur="getBlur" placeholder-style="color:#bbb;"></textarea>
 			</view>
 		</view>
+		<!-- <view class="yijianFangkui_upload">
+			<view class="yijianFangkui_upload1">上传图片</view>
+		</view> -->
 		<view class="yijianFangkui_submit">
 			<view class="yijianFangkui_submit_button" @click="submits">提交</view>
 		</view>
@@ -68,6 +71,16 @@
 				// border:1px solid red;
 				border-radius: 20rpx;
 			}
+		}
+	}
+	.yijianFangkui_upload{
+		width:100%;
+		height:360rpx;
+		border:1px solid red;
+		.yijianFangkui_upload1{
+			width:150rpx;
+			height:150rpx;
+			border:1px solid green;
 		}
 	}
 	.yijianFangkui_submit{

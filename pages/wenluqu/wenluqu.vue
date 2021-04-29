@@ -124,6 +124,22 @@
 						</view>
 					</view>
 					
+					<!-- 测试动态属性 -->
+					<!-- <view class="wenluqu_center_child_child2">
+						<view class="wenluqu_center_child_child2_content">
+							<view class="wenluqu_center_child_child2_content1">
+								<image src="../../static/img/shili_img.png"></image>
+							</view>
+							<view class="wenluqu_center_child_child2_content2">视力:</view>
+							<view class="wenluqu_center_child_child2_content3">
+								<picker @change="bindPickerChangeShili" :range="shiliArr">
+									<label class="">{{shili1}}</label>	
+								</picker>
+								<input type="text" placeholder="请输入你的单科成绩" @input="getchineseScore">
+							</view>
+						</view>
+					</view> -->
+					
 					<!-- <picker @change="bindPickerChangeShili" :range="shiliArr">
 						<label class="">{{shili1}}</label>	
 					</picker> -->
@@ -163,6 +179,30 @@
 				</view>
 			</view>
 		</view>
+		<!-- 测试动态属性 -->
+<!-- 		<view class="wenluqu_center"style="margin-top:250rpx;">
+			<view class="wenluqu_center_child" :style="{height:phoneHeight*0.8+'px;'}" >
+				<view class="wenluqu_center_child_child" :style="{height:phoneHeight*0.78+'px;'}" >
+						
+					
+					<view class="wenluqu_center_child_child2" v-for="(item,index) in AllZiduanArr">
+						<view class="wenluqu_center_child_child2_content">
+							<view class="wenluqu_center_child_child2_content1">
+								<image src="../../static/img/shili_img.png"></image>
+							</view>
+							<view class="wenluqu_center_child_child2_content2">{{item.askParm}}:</view>
+							<view class="wenluqu_center_child_child2_content3">
+								<picker @change="bindPickerChangeShili" :range="shiliArr" v-if="item.askType==2||item.askType==3">
+									<label class="">{{shili1}}</label>	
+								</picker>
+								<input type="text" :placeholder="item.askPrep1" @input="getchineseScore" v-else="item.askType==1">
+							</view>
+						</view>
+					</view>
+										
+				</view>
+			</view>
+		</view> -->
 		
 		<view class="wenluqu_bottom">
 			<view class="wenluqu_bottom_content" @click="wenluqu_yuce">开始预测</view>
@@ -212,6 +252,7 @@
 				indexTizhong:0,
 				tizhong1:'请输入你的体重范围',
 				tizhongArr:['120-140','140-200'],
+				//获取的动态字段
 				AllZiduanArr:[]
 			}
 		},

@@ -368,7 +368,9 @@
 			},
 			//点击确定电脑回车，或者手机回车时触发
 			getSubmit(){
-				console.log(111);
+				// console.log(111);
+				//解决ios键盘无法弹回的问题
+				uni.hideKeyboard(); 
 				this.Searchs();
 			},
 			// 取消搜索

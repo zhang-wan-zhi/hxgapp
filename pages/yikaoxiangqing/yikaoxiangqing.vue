@@ -53,7 +53,7 @@
 		.content1_title{
 			width:100%;
 			height:100rpx;
-			border:1px solid red;
+			// border:1px solid red;
 			font-weight: bold;
 			display: flex;
 			align-items: center;
@@ -68,6 +68,7 @@
 				width:90%;
 				height:100rpx;
 				// border:1px solid red;
+				margin-left:5%;
 			}
 		}
 		.content1_user{
