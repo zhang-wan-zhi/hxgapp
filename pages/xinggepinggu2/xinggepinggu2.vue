@@ -216,11 +216,26 @@
 				let ids=parseInt(this.indexs)+1;
 				console.log(ids);
 				// let valueArr=[this.selected1];
-				// console.log(valueArr);
-				console.log(this.selectedArr);
-				uni.reLaunch({
-					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+this.selectedArr+'&scores='+this.scores
-				})
+				console.log(this.selected1);
+				//如果没有选择，提示用户先选择
+				if(this.selected1==""){
+					uni.showModal({
+					    title: '提示',
+					    content: '请先选择选项',
+					    success: function (res) {
+					        if (res.confirm) {
+					            console.log('用户点击确定');
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+				}else{
+					uni.reLaunch({
+						url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+this.selectedArr+'&scores='+this.scores
+					})
+				}
+				
 			},
 			radioChange: function(evt) {
 				let arr=[];
