@@ -22,7 +22,7 @@
 		<view class="chongzhishuoming">
 			<view class="chongzhishuoming_content">
 				<view class="chongzhishuoming_content_title">版本说明</view>
-				<view class="chongzhishuoming_content_content">
+				<view class="chongzhishuoming_content_content" :style="{height:phoneHeight*0.40+'px;'}">
 					<view class="chongzhishuoming_content_content_parent">
 						<view class="chongzhishuoming_content_content1">
 							<view class="chongzhishuoming_content_content_title">体验版</view>
@@ -49,10 +49,29 @@
 			return{
 				isActive1:false,
 				isActive2:false,
-				isActive3:false
+				isActive3:false,
+				//适配手机高度
+				phoneHeight:0,
 			}
 		},
+		onLoad() {
+			//获取窗口高度，适配手机
+			this.getWindowHeight();
+		},
 		methods:{
+			//获取窗口高度，适配手机
+			getWindowHeight(){
+				uni.getSystemInfo({
+					success:(res)=>{
+						// console.log(res);
+						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
+						this.phoneHeight=res.windowHeight;
+						// console.log(res.windowHeight);
+						// console.log(this.phoneHeight);
+						// this.$store.commit('set_window_height',res.windowHeight*2);
+					}
+				})
+			},
 			//点击立即充值触发
 			lijichongzhi_img(){
 				console.log(11);
@@ -85,15 +104,15 @@
 <style lang="scss" scoped>
 	.chongzhizhongxin_top1{
 		width:100%;
-		height:300rpx;
+		height:350rpx;
 		// border:1px solid red;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-top:15rpx;
+		margin-top:120rpx;
 		.chongzhizhongxin_top{
 			width:85%;
-			height:210rpx;
+			height:300rpx;
 			// border:1px solid yellow;
 			display:flex;
 			flex-wrap:wrap;
@@ -101,8 +120,9 @@
 			justify-content: space-between;
 			.chongzhizhongxin_top_child{
 				width:29%;
-				height:210rpx;
-				border:1px solid #F2F2F2;
+				height:290rpx;
+				// border:1px solid #F2F2F2;
+				border:1px solid orange;
 				box-shadow: 0 0 1px 1px #F2F2F2;
 				border-top-left-radius:10px;
 				border-bottom-right-radius:10px;
@@ -113,6 +133,7 @@
 					text-align: center;
 					// border:1px solid pink;
 					// margin-left:10%;
+					margin-top:65rpx;
 					color:#101010;
 					font-size:30rpx;
 					font-weight:bold;
@@ -166,7 +187,7 @@
 		.chongzhishuoming_content{
 			width:85%;
 			height:auto;
-			margin-top:20rpx;
+			margin-top:45rpx;
 			// border:1px solid #BBBBBB;
 			box-shadow:0px 0px  2px 1px #BBBBBB;
 			.chongzhishuoming_content_title{
