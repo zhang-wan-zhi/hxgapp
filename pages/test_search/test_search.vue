@@ -104,6 +104,10 @@ methods: {
 	//取消,清空输入框的数据
 	qingkongSearchvalue(){
 		this.inputValue="";
+		// console.log(1111);
+		uni.reLaunch({
+			url:'../shouye/shouye'
+		})
 	},
 	search() {
 		if (this.inputValue == '') {
@@ -200,6 +204,7 @@ methods: {
 	.search1{
 		display: flex;
 		align-items: center;
+		// border:1px solid red;
 		.searchInput {
 			background-color: #fff;
 			width: 220px;
@@ -207,7 +212,15 @@ methods: {
 			margin-left: 5px;
 			margin-top: 35rpx;
 			/* border:1px solid red; */
-			border-radius: 25rpx;
+			border-radius: 32rpx;
+
+			background-color: rgba(255, 255, 255, 100);
+			color: rgba(16, 16, 16, 100);
+			font-size: 14px;
+			text-align: center;
+			box-shadow: 0px 1px 9px 2px rgba(195, 195, 195, 40);
+			font-family: Roboto;
+			border: 1px solid rgba(217, 212, 212, 100);
 		}
 	}
 	.searchQuxiao{

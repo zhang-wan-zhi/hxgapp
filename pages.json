@@ -8,6 +8,7 @@
 				"enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
 				"navigationBarBackgroundColor":"#F7A3A2"
+				// "enablePullDownRefresh": true
 				// "navigationStyle":"custom"
 			}
 		},
@@ -288,6 +289,8 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"onReachBottomDistance":160
+		// "onReachBottomDistance":160
 	}
 }

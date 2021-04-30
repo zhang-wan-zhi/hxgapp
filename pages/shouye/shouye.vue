@@ -9,7 +9,7 @@
 		</view> -->
 		
 		<view class="Search_content">
-			<input type="text" @input="getInput2" @focus="getFocus" @blur="getBlur" @confirm="getSubmit" v-model="inputs_text" :placeholder="placeholders" placeholder-style="color:#fff; margin-left:165rpx;" :placeholder-class="placeholders_styles">
+			<input type="text" @input="getInput2" @focus="getFocus" @blur="getBlur" @confirm="getSubmit" v-model="inputs_text" :placeholder="placeholders" placeholder-style="color:#fff; margin-left:220rpx;" :placeholder-class="placeholders_styles">
 		</view>
 		
 		<!-- 轮播图 -->
@@ -180,11 +180,19 @@
 			let currentPage=this.currentPage;
 			let pageSize=4;
 			currentPage=currentPage+1;
+			uni.showLoading({
+				title: '加载更多中'
+			});
 			getmoreList(sousuoTyoe,currentPage,pageSize).then((res)=>{
 				console.log(res.data.artexamdynamicList);	
 				// console.log(res.data.msg);
 				if(res.data.msg=='页码超出了哦!'){
-					return res.data.msg;
+					uni.showToast({
+						title: '页码超出了哦!',
+						icon:'none',
+						duration: 2000
+					});
+					// return res.data.msg;
 				}else{
 					this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
 					this.currentPage=currentPage;
@@ -194,6 +202,9 @@
 					});
 				}
 			})
+			setTimeout(function () {
+				uni.hideLoading();
+			}, 2000);
 		},
 		methods: {
 			//查看更多
