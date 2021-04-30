@@ -70,7 +70,7 @@
 							<view class="yikaoKecheng_content_content_right_top_title">{{item.aeTitle}}</view>
 						</view>
 						<view class="yikaoKecheng_content_content_right_bottom">
-							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">{{item.aeIntro}}</view>
+							<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" v-if="item.aeIntro!=null">{{item.aeIntro}}</view>
 							<view class="yikaoKecheng_content_content_right_bottom_title">
 								<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.peopleNum}}人观看</view>
 								<view class="yikaoKecheng_content_content_right_bottom_title_right">
