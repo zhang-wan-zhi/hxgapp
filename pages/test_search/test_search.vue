@@ -200,7 +200,8 @@ methods: {
 	justify-content: space-between;
 	box-sizing: border-box;
 	padding: 0px 15px;
-	margin-top:35rpx;
+	// margin-top:35rpx;
+	margin-top:160rpx;
 	.search1{
 		display: flex;
 		align-items: center;

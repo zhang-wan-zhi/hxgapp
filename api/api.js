@@ -32,46 +32,17 @@ export function getUser_openid_Info(openid,province,sex,userImg,userName){
 			url:urls+'/hxg/hxgaddUser',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
-				"address": "",
-				//年龄
-				"age": 0,
-				"appsecret": "",
-				"content": "",
-				"createBy": "",
-				"createTime": "",
-				"id": 0,
-				//openid
-				"openid": openid,
-				"params": {},
-				"prep1": "",
-				"prep2": "",
-				"prep3": "",
-				//省份
+			data:
+			{
+				"avatarUrl": userImg,
+				"city": "",
+				"country": "",
+				"gender": sex,
+				"language": "",
+				"nickName": userName,
+				"openId": openid,
 				"province": province,
-				"remark": "",
-				"searchValue": "",
-				//sessionKey
-				"sessionKey": "",
-				//性别
-				"sex": sex,
-				"state": 0,
-				"updateBy": "",
-				"updateTime": "",
-				//用户图片
-				"userImg": userImg,
-				"userIntro": "",
-				//用户名
-				"userName": userName,
-				"userPhone": "",
-				"wxCreateby": "",
-				"wxCreatetime": "",
-				"wxId": "",
-				"wxImg": "",
-				"wxPhone": "",
-				"wxUpdateby": "",
-				"wxUpdatetime": "",
-				"wxUsername": ""
+				"wxCode": ""
 			},
 			success: res=>{
 				resolve(res)
