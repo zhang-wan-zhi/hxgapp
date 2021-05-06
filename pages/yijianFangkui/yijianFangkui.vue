@@ -26,16 +26,38 @@
 		methods:{
 			submits(){
 				let openid="111";
+				let openids=uni.getStorageSync('openid');
+				// console.log(openids);
 				let opContent=this.textAreaValue;
-				// console.log(this.textAreaValue);
-				Yijianfankui(openid,opContent).then((res)=>{
-					// console.log(res.data.code);
-					if(res.data.code==200){
-						uni.navigateTo({
-							url:'../yijianFangkuiSuccess/yijianFangkuiSuccess'
+				//如果没有登录
+				if(openids==""){
+					uni.showToast({
+						title:'请先登录!',
+						icon:'none',
+						duration:2000
+					})
+				}else{
+					//如果输入的意见为空
+					if(opContent==""){
+						uni.showToast({
+							title:'请先输入意见',
+							icon:'none',
+							duration:2000
+						})
+					}else{
+						Yijianfankui(openid,opContent).then((res)=>{
+							// console.log(res.data.code);
+							if(res.data.code==200){
+								uni.navigateTo({
+									url:'../yijianFangkuiSuccess/yijianFangkuiSuccess'
+								})
+							}
 						})
 					}
-				})
+				}
+				
+				// console.log(this.textAreaValue);
+				
 				
 			},
 			//点击输入框，获得焦点时
@@ -59,7 +81,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-top:50rpx;
+		margin-top:90rpx;
 		.yijianFangkui_input{
 			width:80%;
 			height:360rpx;
