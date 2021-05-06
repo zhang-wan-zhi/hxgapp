@@ -59,10 +59,11 @@
 				<swiper-item v-for="(subject,index) in subjectList1">
 					
 					<view v-if="index-subjectIndex>=-1&&index-subjectIndex<=1">
-										
+									
+					<!-- 试题的标题 -->	
 					<view class="cu-bar bg-white solid-bottom">
 						<view class="action text-black">
-							<text class="cuIcon-title text-red"></text>{{subject.content}}
+							<text class="cuIcon-title text-red"></text>{{subject.id}}.{{subject.content}}
 						</view>
 					</view>
 					<view>
