@@ -320,18 +320,23 @@
 			//获取大学名称
 			getUniversity(e){
 				this.likeUniversity=e.detail.value;
-				//根据学校获取专业
-				getZhuanhye(e.detail.value).then((res)=>{
-					// console.log(res.data.data);
-					let arr=res.data.data;
-					let arr1=[];
-					for(let i=0;i<arr.length;i++){
-						arr1.push(arr[i].acMajor);
-					}
-					console.log(arr1);
-					this.majorArr=arr1;
-				})
-				
+				// console.log(e.detail.value);
+				//如果学校为空，对应的专业也为空
+				if(e.detail.value==""){
+					this.majorArr=['请先输入你的报考院校'];
+				}else{
+					//根据学校获取专业
+					getZhuanhye(e.detail.value).then((res)=>{
+						// console.log(res.data.data);
+						let arr=res.data.data;
+						let arr1=[];
+						for(let i=0;i<arr.length;i++){
+							arr1.push(arr[i].acMajor);
+						}
+						console.log(arr1);
+						this.majorArr=arr1;
+					})
+				}			
 			},
 			//专业下拉框
 			bindPickerChangeZhuanye(e){
