@@ -63,7 +63,7 @@
 					<!-- 试题的标题 -->	
 					<view class="cu-bar bg-white solid-bottom">
 						<view class="action text-black">
-							<text class="cuIcon-title text-red"></text>{{subject.id}}.{{subject.content}}
+							<text class="cuIcon-title text-red"></text>{{subject.id}}/{{sumNum}}.{{subject.content}}
 						</view>
 					</view>
 					<view>
@@ -193,7 +193,9 @@
 			    subjectList1:[],
 				modalCard: null ,//显示答题卡
 				modalError:null , //纠错卡
-				errorList:['题目不完整','答案不正确','含有错别字','图片不存在','解析不完整','其他错误']
+				errorList:['题目不完整','答案不正确','含有错别字','图片不存在','解析不完整','其他错误'],
+				//总题目个数
+				sumNum:0
 			}
 		},
 		onReady() {
@@ -244,6 +246,7 @@
 				// console.log(res.data.data);
 				let newArr=res.data.data;
 				console.log(newArr);
+				this.sumNum=newArr.length;
 				this.subjectList1=newArr;
 				//设置所有试题
 				// this.AllList=newArr;
@@ -283,8 +286,10 @@
 				this.modalError = null
 			},
 			SwiperChange: function(e) { //滑动事件
+			    console.log(this.sumNum);
 			
 				let index = e.target.current;
+				console.log(index);
 				
 				if (index != undefined) {
 					this.subjectIndex = index;
@@ -296,10 +301,11 @@
 			
 				var items = this.subjectList1[this.subjectIndex].answers;
 				var values = e.detail.value;
+				// console.log(e);
 				this.subjectList1[this.subjectIndex].answer = values;
 				if(this.autoRadioNext && this.subjectIndex < this.subjectList1.length - 1){
 					this.subjectIndex += 1;						
-					};
+				};
 				
 			},
 			CheckboxChange: function(e) { //复选选中
