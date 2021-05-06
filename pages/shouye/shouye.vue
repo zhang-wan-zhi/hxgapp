@@ -88,9 +88,9 @@
 			</view>
 			
 			<view v-show="yikaoTikuStatus" class="yikaoTiku_content" v-for="(item,index) in yikaoTikuList" :key="index">
-				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}">
+				<view class="yikaoTiku_content_content" :style="{height:phoneHeight*0.08+'px;'}" @click="zhenti_next(item.id)">
 					<view class="yikaoTiku_content_content_left">{{item.title}}</view>
-					<view class="yikaoTiku_content_content_right" @click="zhenti_next(item.id)">
+					<view class="yikaoTiku_content_content_right" >
 						<image src="../../static/svg/xiugai_next.svg"></image>
 					</view>
 				</view>				
