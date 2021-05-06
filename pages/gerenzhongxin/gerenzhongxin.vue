@@ -62,7 +62,7 @@
 				</view>
 			</view>
 			
-			<view class="content2_bottom">
+			<view class="content2_bottom" :class="isExitShow?'exitshow':'notexitshow'">
 				<view class="content2_bottom1" @click="exitLogin">退出登录</view>
 			</view>
 			
@@ -85,7 +85,9 @@
 					nickName:'登录/注册'
 				},
 				//是否显示授权文本
-				isShow:true
+				isShow:true,
+				//是否显示退出
+				isExitShow:false
 			}
 		},
 		methods: {
@@ -177,6 +179,14 @@
 			}
 		},
 		onLoad(){
+			//对退出登录校验
+			let openids=uni.getStorageSync('openid');
+			console.log(openids);
+			if(openids==""){
+				this.isExitShow=false;
+			}else{
+				this.isExitShow=true;
+			}
 			
 			// this.userData.avatarUrl=userData.avatarUrl;
 			//用户名
@@ -186,6 +196,15 @@
 			// console.log(JSON.parse(sting_storage).avatarUrl);
 		},
 		onShow(){
+			//对退出登录校验
+			let openids=uni.getStorageSync('openid');
+			console.log(openids);
+			if(openids==""){
+				this.isExitShow=false;
+			}else{
+				this.isExitShow=true;
+			}
+			
 			let sting_storage=uni.getStorageSync('userData');
 			console.log(sting_storage.userInfo);
 			let userData=sting_storage.userInfo;
@@ -196,13 +215,33 @@
 		},
 		onShareAppMessage:function(e){
 			let title='掐指艺算';
+			let openids=uni.getStorageSync('openid');
+			
+			// console.log(e);
+			// if(e.from=="button"){
+			// 	console.log(e.target);
+			// }
+			// console.log(openids);
+			//如果没有登录
+			// if(openids==""){
+			// 	uni.showToast({
+			// 		title:'请先登录!',
+			// 		icon:'none',
+			// 		duration:200
+			// 	})
+			// }
+			
 			//同步获取图像名称
 			let sting_storage=uni.getStorageSync('login_info')
 			return {
 				title:title,
-				path:'pages/shouye/shouye'
+				path:'pages/shouye/shouye',
+				// success:(res)=>{
+				// 	console.log(res);
+				// }
 				// imageUrl:JSON.parse(sting_storage).avatarUrl
 			}
+			
 		}
 	}
 </script>
@@ -401,6 +440,12 @@
 			background-color: #4CB5F6;
 			color:#fff;
 		}
+	}
+	.exitshow{
+		display: felx;
+	}
+	.notexitshow{
+		display: none;
 	}
 }
 </style>

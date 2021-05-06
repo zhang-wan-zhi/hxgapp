@@ -189,9 +189,10 @@
 										key:'openid',
 										data:openid
 									})
-								})
-								uni.switchTab({
-									url:'../gerenzhongxin/gerenzhongxin'
+								}).then(()=>{
+									uni.switchTab({
+										url:'../gerenzhongxin/gerenzhongxin'
+									})
 								})
 								
 							 })
