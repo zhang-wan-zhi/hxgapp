@@ -644,6 +644,7 @@
 					height:100%;
 					// border:1px solid yellow;
 					float:left;
+					position: relative;
 					.yikaoKecheng_content_content_right_top{
 						width:100%;
 						height:50%;
@@ -654,7 +655,7 @@
 							// border:1px solid green;
 							color:#333337;
 							font-weight: bold;
-							
+							margin-top:13rpx;
 							overflow: hidden;
 							text-overflow: ellipsis;
 							display: -webkit-box;
@@ -668,8 +669,8 @@
 						// border:1px solid blue;
 						.yikaoKecheng_content_content_right_bottom_title_jianjie{
 							width:300rpx;
-							height:40rpx;
-							line-height: 40rpx;
+							height:35rpx;
+							line-height: 35rpx;
 							// border:1px solid red;
 							color:#8D8886;
 							font-size: 24rpx;
@@ -684,11 +685,13 @@
 							height:35rpx;
 							// border:1px solid blue;
 							line-height: 35rpx;
+							position: absolute;
+							bottom:10rpx;
 							// margin-top:20rpx;
 							
 							.yikaoKecheng_content_content_right_bottom_title_left{
 								width:150rpx;
-								height:60rpx;
+								height:35rpx;
 								// border:1px solid red;
 								float:left;
 								font-size:24rpx;
@@ -698,7 +701,7 @@
 							}
 							.yikaoKecheng_content_content_right_bottom_title_right{
 								width:250rpx;
-								height:60rpx;
+								height:35rpx;
 								// border:1px solid red;
 								float:right;
 								font-size: 30rpx;
@@ -717,7 +720,7 @@
 								}
 								.yikaoKecheng_content_content_right_bottom_title_right_rmb{
 									width:100rpx;
-									height:60rpx;
+									height:35rpx;
 									// border:1px solid blue;
 									margin-right:15rpx;
 									float:right;
