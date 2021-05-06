@@ -187,7 +187,7 @@
 							    }).then((res)=>{
 									uni.setStorage({
 										key:'openid',
-										data:res.data.data.openid
+										data:openid
 									})
 								})
 								uni.switchTab({
