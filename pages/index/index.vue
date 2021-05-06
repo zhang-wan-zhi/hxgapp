@@ -35,7 +35,7 @@
 
 <script>
 	import {getTest} from '../../api/http.js'
-	import {getWxcode} from '../../api/api.js'
+	import {getWxcode,getUser_openid_Info} from '../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -44,6 +44,7 @@
 				// canIUse: uni.canIUse('button.open-type.getUserInfo'),
 				//适配手机高度
 				phoneHeight:0,
+				// openid:''
 			}
 		},
 		onLoad() {
@@ -153,26 +154,51 @@
 		  
 			//登录授权
 			wechatLogin(){
-				var that=this
-				// uni.login({
-				//   provider: 'weixin',
-				//   success: function (loginRes) {
-				//     console.log(loginRes.code);
-				//   }
-				// });
+				var that=this;	
 				
 				uni.getUserProfile({
 				  desc:'登录',
 				  lang:"zh_CN",
 				  success: function (infoRes) {
-					  console.log(infoRes);
-					  uni.setStorage({
-					  	key:'userData',
-						data:infoRes
+					  // console.log(infoRes);
+					  //存储用户信息到缓存中
+					  let userinfo=infoRes.userInfo;
+					   uni.setStorage({
+					   	key:'userData',
+					  	data:infoRes
+					   });
+					  
+					  uni.login({
+					    provider: 'weixin',
+					    success: function (loginRes) {
+					      // console.log(loginRes.code);
+							getWxcode(loginRes.code).then((res)=>{
+								//获取到用户的openid
+								// console.log(res.data.data.openid);
+								let openid=res.data.data.openid;
+								console.log(userinfo);
+								let province=userinfo.province;
+								let sex=userinfo.gender;
+								let userImg=userinfo.avatarUrl;
+								let userName=userinfo.nickName;
+								//将用户信息存入数据库后，将openid存入缓存中
+							    getUser_openid_Info(openid,province,sex,userImg,userName).then((res)=>{
+								    console.log(res);
+							    }).then((res)=>{
+									uni.setStorage({
+										key:'openid',
+										data:res.data.data.openid
+									})
+								})
+								uni.switchTab({
+									url:'../gerenzhongxin/gerenzhongxin'
+								})
+								
+							 })
+					    }
 					  });
-					  uni.switchTab({
-					  	url:'../gerenzhongxin/gerenzhongxin'
-					  })
+					  
+					
 				  },
 				  fail:function(res){
 					  console.log(res);

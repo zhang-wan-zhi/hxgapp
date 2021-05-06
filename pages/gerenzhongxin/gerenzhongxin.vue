@@ -135,6 +135,7 @@
 						if (res.confirm) {
 							console.log('用户点击确定');
 							uni.removeStorage({key:'userData'});
+							uni.removeStorage({key:'openid'});
 							//解决退出登录的bug
 							uni.reLaunch({
 								url:'../gerenzhongxin/gerenzhongxin'

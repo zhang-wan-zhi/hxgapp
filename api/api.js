@@ -5,7 +5,7 @@
 //线上地址
 let urls="https://orangezoom.cn:8091";
 
-//授权，获取wxcode
+//授权，通过wxcode获取appid
 export function getWxcode(wxcode){
 	return new Promise((resolve,reject)=>{
 		uni.request({
@@ -24,6 +24,65 @@ export function getWxcode(wxcode){
 		})
 	})
 }
+
+//保存用户信息到数据库
+export function getUser_openid_Info(openid,province,sex,userImg,userName){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/hxgaddUser',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				"address": "",
+				//年龄
+				"age": 0,
+				"appsecret": "",
+				"content": "",
+				"createBy": "",
+				"createTime": "",
+				"id": 0,
+				//openid
+				"openid": openid,
+				"params": {},
+				"prep1": "",
+				"prep2": "",
+				"prep3": "",
+				//省份
+				"province": province,
+				"remark": "",
+				"searchValue": "",
+				//sessionKey
+				"sessionKey": "",
+				//性别
+				"sex": sex,
+				"state": 0,
+				"updateBy": "",
+				"updateTime": "",
+				//用户图片
+				"userImg": userImg,
+				"userIntro": "",
+				//用户名
+				"userName": userName,
+				"userPhone": "",
+				"wxCreateby": "",
+				"wxCreatetime": "",
+				"wxId": "",
+				"wxImg": "",
+				"wxPhone": "",
+				"wxUpdateby": "",
+				"wxUpdatetime": "",
+				"wxUsername": ""
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
+				reject(err)
+			},
+		})
+	})
+}
+
 //GET
 //获取轮播图接口数据
 export function getLunboList(){
