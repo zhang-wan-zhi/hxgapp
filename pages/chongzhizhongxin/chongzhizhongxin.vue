@@ -229,7 +229,7 @@
 							width:100%;
 							height:auto;
 							// border:1px solid blue;
-							font-size: 20rpx;
+							font-size: 28rpx;
 							color:#ccc;
 							// text-indent:2em;
 						}
