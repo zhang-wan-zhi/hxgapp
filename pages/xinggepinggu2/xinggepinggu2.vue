@@ -11,7 +11,7 @@
 			<view class="pinggu_content_content">
 				<view class="pinggu_content_content1">
 					<view class="pinggu_content_content1_tihao">
-						<view class="pinggu_content_content1_tihao1">第{{indexs+1}}题</view>
+						<view class="pinggu_content_content1_tihao1">第{{indexs+1}}/{{total}}题</view>
 					</view>
 					<view class="pinggu_content_content1_biaoti">
 						<view class="pinggu_content_content1_biaoti1">{{content}}</view>
@@ -78,6 +78,8 @@
 				one_Arr:[],
 				//适配手机高度
 				phoneHeight:0,
+				//总题数
+				total:0
 			}
 		},
 		onLoad(ids) {
@@ -112,6 +114,7 @@
 			
 			let currentArr=uni.getStorageSync('lists1');
 			// console.log(currentArr);
+			this.total=currentArr.length;
 			let lists=currentArr[parseInt(ids.id)];
 			// console.log(lists);
 			this.content=lists.content;
@@ -316,7 +319,7 @@
 					align-items: center;
 					justify-content: center;
 					.pinggu_content_content1_tihao1{
-						width:120rpx;
+						width:200rpx;
 						height:50rpx;
 						line-height: 50rpx;
 						text-align: center;

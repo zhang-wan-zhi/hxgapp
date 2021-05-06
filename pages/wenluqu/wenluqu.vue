@@ -78,7 +78,7 @@
 							</view>
 							<view class="wenluqu_center_child_child2_content2">统考成绩:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的统考成绩" @input="getgeneralExamination">
+								<input type="text" placeholder="请输入你的统考成绩" @input="getgeneralExamination" >
 							</view>
 						</view>
 					</view>
@@ -103,9 +103,9 @@
 							<view class="wenluqu_center_child_child2_content1">
 								<image src="../../static/img/dankechengji_img.png"></image>
 							</view>
-							<view class="wenluqu_center_child_child2_content2">单科成绩:</view>
+							<view class="wenluqu_center_child_child2_content2">英语成绩:</view>
 							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的单科成绩" @input="getchineseScore">
+								<input type="text" placeholder="请输入你的英语成绩" @input="getchineseScore">
 							</view>
 						</view>
 					</view>
@@ -207,6 +207,10 @@
 		<view class="wenluqu_bottom">
 			<view class="wenluqu_bottom_content" @click="wenluqu_yuce">开始预测</view>
 		</view>
+		
+		<!-- <view class="wenluqu_bottom">
+			<view class="wenluqu_bottom_content" @click="chongzhi">重置清空</view>
+		</view> -->
 	</view>
 </template>
 
@@ -288,6 +292,18 @@
 			
 		},
 		methods: {
+			//重置清空
+			// chongzhi(){
+			// 	console.log(1111);
+			// 	this.province="";
+			// 	this.artAndSciences="";
+			// 	this.likeUniversity="";
+			// 	this.collegeExamScore="";
+			// 	this.generalExamination="";
+			// 	this.major1="";
+			// 	this.shili1="";
+			// 	this.chineseScore="";
+			// },
 			//获取窗口高度，适配手机
 			getWindowHeight(){
 				uni.getSystemInfo({
@@ -583,7 +599,7 @@
 						}
 					}
 					.wenluqu_center_child_child2_content2{
-						width:150rpx;
+						width:120rpx;
 						height:50rpx;
 						line-height: 50rpx;
 						font-size:24rpx;
@@ -593,11 +609,12 @@
 						font-weight: bold;
 					}
 					.wenluqu_center_child_child2_content3{
-						width:300rpx;
+						width:430rpx;
 						height:50rpx;
 						// border:1px solid red;
 						float:left;
-						margin-left:40rpx;
+						font-size: 24rpx;
+						// margin-left:40rpx;
 					}
 				}
 			}
