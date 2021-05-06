@@ -366,7 +366,12 @@
 			
 			SubmitError: function(e) { //提交纠错
 				
-					this.modalError = null;														
+					this.modalError = null;
+					uni.showToast({
+						title: '提交成功',
+						duration: 2000
+					});
+
 			}
 			
 		}
