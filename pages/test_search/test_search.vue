@@ -5,7 +5,7 @@
 	<view class="search">
 		<view class="search1">
 			<text class="iconfont icon-sousuo position-absolute text-muted"></text>
-			<input class="searchInput" v-model="inputValue" @confirm="search" placeholder="搜索" type="text" />
+			<input class="searchInput" v-model="inputValue" @confirm="search" placeholder="请输入艺考动态标题..." type="text" />
 		</view>
 		<view  class="searchQuxiao" @click="qingkongSearchvalue">取消</view>
 	</view>
@@ -15,10 +15,12 @@
 	<view class="searchHistory">
 		<view class="searchHistory1" :class="isShow?'isShows':'isNotShows'">
 			<view class="lishiSearch_title">历史搜索</view>
-			<view style="color: red;font-size: 28px;" @click="empty">×</view>
+			<view  @click="empty" class="lishiSearch_title1">
+				<image src="../../static/img/delete_history.png"></image>
+			</view>
 		</view>
 		<view class="searchHistoryItem" :class="isShow?'isShows':'isNotShows'">
-			<view v-for="(item, index) in searchHistoryList" :key="index">
+			<view v-for="(item, index) in searchHistoryList" :key="index" class="searchHistoryItem1">
 				<text class="searchHistoryItem_item" :class="isShow?'isShows':'isNotShows'" @click="click_item_search(item)">{{ item }}</text>
 			</view>
 		</view>
@@ -135,10 +137,18 @@ methods: {
 				let pageSize=10;
 				let sousuoTyoe=1;
 				getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize).then((res)=>{
+					console.log(res.data.msg);
 					// this.isSearch=false;
-					console.log(res.data.artexamdynamicList);
-					this.yikaiDongtaiList=res.data.artexamdynamicList;
-					console.log(this.yikaiDongtaiList);
+					if(res.data.msg=='暂无数据,请期待哦!'){
+						uni.showModal({
+							title:'暂无数据,请期待哦!'
+						})
+					}else{
+						// console.log(res.data.artexamdynamicList);
+						this.yikaiDongtaiList=res.data.artexamdynamicList;
+						// console.log(this.yikaiDongtaiList);
+					}
+					
 					//解决ios鼠标无法弹回的问题
 					uni.hideKeyboard();     //添加这一行代码即可
 				})
@@ -230,15 +240,16 @@ methods: {
 		}
 	}
 	.searchQuxiao{
-		width: 100px;
+		width: 80px;
 		height:80rpx;
 		line-height: 80rpx;
 		text-align: center;
+		border-radius: 32rpx;
 		margin-left: 5px;
 		margin-top: 35rpx;
 		/* border:1px solid red; */
-		background-color: #fff;
-		border-radius: 25rpx;;
+		background-color: #4CB5F6;
+		color:#fff;
 	}
 	
 }
@@ -259,6 +270,25 @@ methods: {
 			font-size: 40rpx;
 			/* border:1px solid red; */
 			margin-top:30rpx;
+			margin-left:50rpx;
+			
+			width: 112px;
+			height: 41px;
+			color: rgba(16, 16, 16, 100);
+			font-size: 24px;
+			// text-align: left;
+			font-family: SourceHanSansSC-bold;
+		}
+		.lishiSearch_title1{
+			width: 50rpx;
+			height: 50rpx;
+			// border:1px solid red;
+			margin-right:25rpx;
+			font-size: 24px;
+			image{
+				width:100%;
+				height:100%;
+			}
 		}
 	}
 	.isShows{
@@ -273,16 +303,25 @@ methods: {
 		display: flex;
 		flex-wrap: wrap;
 		// border: 1px solid red;
-	}
-	.searchHistoryItem view {
-	/* width: 50px; */
-		height: 50rpx;
-		line-height: 50rpx;
-		text-align: center;
-	
-		margin: 0px 5px;
-		background-color: #fff;
-		border-radius: 8rpx;
+		.searchHistoryItem1{
+			height: 56rpx;
+			line-height: 56rpx;
+			text-align: center;
+			margin: 0px 5px;
+			border-radius: 6px;
+			background-color: #fff;
+			text-align: center;
+			border: 1px solid rgba(255, 255, 255, 100);
+			.searchHistoryItem_item{
+				// width: 100%;
+				height: 29px;
+				color: rgba(16, 16, 16, 100);
+				font-size: 15px;
+				text-align: center;
+				color:#000;
+				// font-family: SourceHanSansSC-regular;
+			}
+		}
 	}
 	.content_contents{
 		width:100%;
