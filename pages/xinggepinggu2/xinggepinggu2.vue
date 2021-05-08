@@ -202,6 +202,7 @@
 					uni.navigateTo({
 						url:'../wenxuexiBaogao/wenxuexiBaogao'
 					})
+					
 				})
 				
 			},

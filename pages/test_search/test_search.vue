@@ -1,5 +1,6 @@
 <template>
 <view>
+	<!-- <uniNavBar></uniNavBar> -->
 <!-- 搜索框 -->
 	<view class="search">
 		<view class="search1">
@@ -46,8 +47,12 @@
 </template>
 
 <script>
-import {getmoreList1} from '../../api/api.js'
+import {getmoreList1} from '../../api/api.js';
+// import uniNavBar from '../../components/uni-nav-bar/uni-nav-bar.vue';
 export default {
+// components:{
+// 	uniNavBar
+// },
 data() {
 	return {
 		inputValue: '',
@@ -56,7 +61,7 @@ data() {
 		//是否显示历史搜索
 		isShow:true,
 		//适配手机高度
-		phoneHeight:0,
+		phoneHeight:0
 	};
 },
 onLoad() {

@@ -1,5 +1,15 @@
 <template>
 	<view class="body_content">
+		<view class="returns">
+			<view class="returns1" @click="fanghui">
+				<view class="returns1_s">
+					<image src="../../static/svg/top_return.svg"></image>
+				</view>
+				<view class="returns1_s_s">返回</view>
+			</view>
+			<view class="returns2">艺考课程</view>
+		</view>
+		
 		<view class="yikaiKecheng_item">
 			<view class="yikaiKecheng_item_img">
 				<!-- <image :src="yikaoKechengList_one.aeImgurl"></image> -->
@@ -268,6 +278,13 @@
 		// 	return true;
 		// },
 		methods:{
+			//点击左上角返回
+			fanghui(){
+				// console.log(111);
+				uni.reLaunch({
+					url:"../shouye/shouye"
+				})
+			},
 			//艺考课程
 			yikaokecheng_click(id){
 				// console.log(id);
@@ -348,6 +365,50 @@
 		height:100%;
 		background-color: #F5F5F5;
 		// background-color: red;
+		
+	}
+	.returns{
+		width:100%;
+		height:150rpx;
+		// border:1px solid red;
+		background-color: #F7A3A2;
+		.returns1{
+			width:150rpx;
+			height:60rpx;
+			margin-top: 60rpx;
+			// border:1px solid green;
+			float:left;
+			.returns1_s{
+				width:60rpx;
+				height:60rpx;
+				// border:1px solid pink;
+				float:left;
+				image{
+					width:100%;
+					height:100%
+				}
+			}
+			.returns1_s_s{
+				width:85rpx;
+				height:60rpx;
+				line-height: 60rpx;
+				text-align: center;
+				color:#fff;
+				margin-top:5rpx;
+				// border:1px solid pink;
+				float:left;
+			}
+		}
+		.returns2{
+			width:150rpx;
+			height:60rpx;
+			line-height: 60rpx;
+			color:#fff;
+			margin-top: 60rpx;
+			margin-left: 200rpx;
+			// border:1px solid green;
+			float:left;
+		}
 	}
 	.yikaiKecheng_item{
 		width:100%;

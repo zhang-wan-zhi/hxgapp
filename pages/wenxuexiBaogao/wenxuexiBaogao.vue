@@ -45,7 +45,7 @@
 		},
 		onLoad(){
 			let arrs=uni.getStorageSync('wenluqulists');
-			this.objs=arrs
+			this.objs=arrs;
 			console.log(this.objs);
 		}
 	}

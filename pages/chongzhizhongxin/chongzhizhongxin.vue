@@ -75,6 +75,42 @@
 			//点击立即充值触发
 			lijichongzhi_img(){
 				console.log(11);
+				uni.getProvider({
+					     //获取支付类型
+						service: 'payment',
+						success(reson) {
+							console.log(reson);
+							//接口请求
+							payment(data).then(res => { 
+								let result = res.data.data //接口返回数据		
+								uni.showLoading({}) //拉起支付加载提示
+								if (res.statusCode == 200) {
+									uni.hideLoading()
+									uni.requestPayment({ //下面参数为必传
+										provider: reson.provider[0], //支付类型
+										appId: result.appId, //小程序Appid
+										timeStamp: result.timeStamp, //创建订单时间戳
+										nonceStr: result.nonceStr,
+										package: result.package, // 订单包
+										signType: 'MD5', // 加密方式统一'MD5'
+										paySign: result.paySign, // 后台支付签名返回
+										success(res) { 
+											showTips('支付成功')
+											setTimeout(() => { //支付成功跳转
+												callback()
+											}, 1200)
+										},
+										fail(err) {
+											showTips('支付失败')
+											setTimeout(() => { //支付失败跳转
+												callback()
+											})
+										}
+									})
+								}
+							})
+						}
+					})
 				// uni.navigateTo({
 				// 	url:'../zhifudingdan/zhifudingdan'
 				// })

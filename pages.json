@@ -58,8 +58,8 @@
 		        "navigationBarTitleText": "艺考课程",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
-				// "navigationStyle":"custom"
+				"navigationBarBackgroundColor":"#F7A3A2",
+				"navigationStyle":"custom"
 		    }
 		},
 		
@@ -244,6 +244,9 @@
 				"navigationBarBackgroundColor":"#F7A3A2",
 				"navigationStyle":"custom",
 				"app-plus": {"titleNView":false}
+				// "usingComponents":{
+				// 	"uni-nav-bar":"./components/uni-nav-bar/uni-nav-bar.vue"
+				// }
 		    }
 		    
 		}

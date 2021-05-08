@@ -141,12 +141,12 @@
 				<view class="text-gray">下一题</view>
 			</view>
 
-			<view class="action" @click="FavorSubject">
+		<!-- 	<view class="action" @click="FavorSubject">
 				<view class="cuIcon-cu-image">
 					<text class="lg cuIcon-favor" :class="[userFavor?'text-red':'text-gray']"></text>
 				</view>
 				<view  :class="[userFavor?'text-red':'text-gray']">收藏</view>
-			</view>
+			</view> -->
 
 			<view class="action" @click="ShowAnswerChange">
 				<view class="cuIcon-cu-image">
@@ -301,8 +301,9 @@
 			
 				var items = this.subjectList1[this.subjectIndex].answers;
 				var values = e.detail.value;
-				// console.log(e);
+				console.log(e);
 				this.subjectList1[this.subjectIndex].answer = values;
+				//判断题、单项题，自动移下一题
 				if(this.autoRadioNext && this.subjectIndex < this.subjectList1.length - 1){
 					this.subjectIndex += 1;						
 				};
