@@ -1,10 +1,147 @@
 <template>
 	<view>
-	<!-- 	<view class="wenluqu_top">
+		<view class="wenluqu_top">
 			<view class="wenluqu_top_title">艺考预测</view>
-		</view> -->
+		</view>
 		
-		<view class="wenluqu_center"style="margin-top:250rpx;">
+		<view class="wenluqu_content1">
+			<view class="wenluqu_content1_display">
+				<view class="wenluqu_content1_display_title">
+					<view class="wenluqu_content1_display_title1">报考的院校</view>
+				</view>
+				<view class="wenluqu_content1_display_input">
+				  <input type="text" placeholder="请输入你想报考的院校" @input="getUniversity">
+				</view>
+			</view>
+		</view>
+		
+		<view class="wenluqu_content2">
+			<view class="wenluqu_content2_display">
+				<view class="wenluqu_content2_display_title">
+					<view class="wenluqu_content2_display_title1">省份类别</view>
+				</view>
+				<view class="wenluqu_content2_display_input">
+				  <view class="wenluqu_content2_display_input_title">省份地区</view>
+				  <picker @change="bindPickerChange" :range="array">		
+							<label class="wenluqu_content2_display_input_value">{{province}}</label>		
+				  </picker>
+				  <view class="wenluqu_content2_display_input_svg">
+						<image src="../../static/svg/shengfen_xiala.svg"></image>
+				  </view>
+				  
+				</view>
+				<view class="wenluqu_content2_display_input">
+				  <view class="wenluqu_content2_display_input_title">文理分类</view>
+				  <picker @change="bindPickerChange2" :range="array2">
+				  	<label class="wenluqu_content2_display_input_value">{{artAndSciences}}</label>	
+				  </picker>
+				  <view class="wenluqu_content2_display_input_svg">
+					  <image src="../../static/svg/shengfen_xiala.svg"></image>
+				  </view>
+				</view>
+				<view class="wenluqu_content2_display_input">
+				  <view class="wenluqu_content2_display_input_title">报考专业</view>
+				  <picker @change="bindPickerChangeZhuanye" :range="majorArr">
+				  	<label class="wenluqu_content2_display_input_value">{{major1}}</label>	
+				  </picker>
+				  <view class="wenluqu_content2_display_input_svg">
+					  <image src="../../static/svg/shengfen_xiala.svg"></image>
+				  </view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_display">
+				<view class="wenluqu_content3_display_title">
+					<view class="wenluqu_content3_display_title1">成绩信息</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">高考分</view>
+					<view class="wenluqu_content3_display_input_input">
+					  <input type="text" placeholder="请输入高考分">
+					</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">统考成绩</view>
+					<view class="wenluqu_content3_display_input_input">
+					  <input type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
+					</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">校考成绩</view>
+					<view class="wenluqu_content3_display_input_input">
+					  <input type="text" placeholder="请输入校考成绩" @input="getxiaokaoExamination">
+					</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">外语成绩</view>
+					<view class="wenluqu_content3_display_input_input">
+					  <input type="text" placeholder="请输入外语成绩" @input="getenglishExamination">
+					</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">语文成绩</view>
+					<view class="wenluqu_content3_display_input_input">
+					  <input type="text" placeholder="请输入语文成绩" @input="getchineseExamination">
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="wenluqu_content3">
+			<view class="wenluqu_content3_display">
+				<view class="wenluqu_content3_display_title">
+					<view class="wenluqu_content3_display_title1">基本信息</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">视力</view>
+					<view class="wenluqu_content3_display_input_input">
+						<picker @change="bindPickerChangeShili" :range="shiliArr">
+							<label class="">{{shili1}}</label>	
+						</picker>
+					  <!-- <input type="text" placeholder="请输入视力"> -->
+					</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">身高</view>
+					<view class="wenluqu_content3_display_input_input">
+						<picker @change="bindPickerShengao" :range="shengaoArr">
+							<label class="">{{shengao1}}</label>	
+						</picker>
+					  <!-- <input type="text" placeholder="请输入升高"> -->
+					</view>
+				</view>
+				<view class="wenluqu_content3_display_input">
+					<view class="wenluqu_content3_display_input_title">体重</view>
+					<view class="wenluqu_content3_display_input_input">
+						<picker @change="bindPickerTizhong" :range="tizhongArr">
+							<label class="">{{tizhong1}}</label>	
+						</picker>
+					  <!-- <input type="text" placeholder="请输入体重"> -->
+					</view>
+				</view>
+			</view>
+		</view>
+		
+		<view class="begin_yuce">开始预测</view>
+		
+		<view class="yuceshuoming_body">
+			<view class="yuceshuoming_body_child">
+				<view class="yuceshuoming_body_child_title">预测说明</view>
+				<view class="yuceshuoming_body_child_content">
+					<view class="yuceshuoming_body_child_content_child">1.「启程测试」期间，充值总金额≤3600元，可获得150%的创世结晶返还。
+当充值总金额>3600元时，3600元以内的部分可获得150%的创世结晶返还，超出3600元的部分，按照125%的比例进行创世结晶的返还，不设上限。
+举例：旅行者在测试期间累计充值了3700元，可获得的创世结晶返还总额为：(3600元×10×150%)+(100元×10×125%)= 55250创世结晶。
+2.「启程测试」期间，购买“空月祝福”的旅行者，除按照上述充值返还规则1返还与“空月祝福”对应充值金额的创世结晶以外，还将免费获得相同时间“空月祝福”。(“空月祝福”返还上限为2次、效果共计60天)
+举例：旅行者在测试期间购买2件价值30元的“空月祝福”，购买“空月祝福”花费的60元将计入充值总金额，按照充值返还规则1进行创世结晶返还。并且旅行者还可免费获得2件、效果共计60天的“空月祝福”。(“空月祝福”每日送出的原石不计入规则1的充值返还)
+3. 「启程测试」中，购买解锁“珍珠纪行”的旅行者，除按照上述充值返还规则1返还与“珍珠纪行”对应充值金额的创世结晶以外，还将免费获得一期“珍珠纪行”的使用权。(“珍珠纪行”返还上限为1次)
+举例：旅行者在测试期间购买激活价值68元的“珍珠纪行”，此68元将计入充值总金额，按照充值返还规则1进行创世结晶返还。并且，旅行者还可以免费获得一期“珍珠纪行”的使用权。(“珍珠纪行”中包含的原石不计入规则1的充值返还)</view>
+				</view>
+			</view>
+		</view>
+		
+		<!-- <view class="wenluqu_center"style="margin-top:100rpx;">
 			<view class="wenluqu_center_child" :style="{height:phoneHeight*0.8+'px;'}">
 				<view class="wenluqu_center_child_child" :style="{height:phoneHeight*0.78+'px;'}">
 					
@@ -12,40 +149,16 @@
 						<view class="wenluqu_center_child_child1_content">
 						  <picker @change="bindPickerChange" :range="array">
 							<label>省份：</label>
-							<label class="">{{province}}</label>	
+							<label >{{province}}</label>	
 						  </picker>
 						</view>
 						<view class="wenluqu_center_child_child1_content">
 							<picker @change="bindPickerChange2" :range="array2">
 								<label>分科：</label>
-								<label class="">{{artAndSciences}}</label>	
+								<label >{{artAndSciences}}</label>	
 							</picker>
 						</view>
 					</view>
-					
-					<!-- <view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">省份:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请选择你报考的省份" @input="getUniversity">
-							</view>
-						</view>
-					</view> -->
-					
-					<!-- <view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">分科:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请选择你的分科" @input="getUniversity">
-							</view>
-						</view>
-					</view> -->
 					
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
@@ -96,7 +209,6 @@
 							</view>
 						</view>
 					</view>
-					<!-- <input type="text" placeholder="请输入你的报考专业" @input="getmajor"> -->
 					
 					<view class="wenluqu_center_child_child2">
 						<view class="wenluqu_center_child_child2_content">
@@ -124,89 +236,14 @@
 						</view>
 					</view>
 					
-					<!-- 测试动态属性 -->
-					<!-- <view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/shili_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">视力:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<picker @change="bindPickerChangeShili" :range="shiliArr">
-									<label class="">{{shili1}}</label>	
-								</picker>
-								<input type="text" placeholder="请输入你的单科成绩" @input="getchineseScore">
-							</view>
-						</view>
-					</view> -->
-					
-					<!-- <picker @change="bindPickerChangeShili" :range="shiliArr">
-						<label class="">{{shili1}}</label>	
-					</picker> -->
-					<!-- <input type="text" placeholder="请输入你的视力" @input="getvision"> -->
-					
-				<!-- 	<view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/shengao_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">身高:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<picker @change="bindPickerShengao" :range="shengaoArr">
-									<label class="">{{shengao1}}</label>	
-								</picker>
-							</view>
-						</view>
-					</view> -->
-					<!-- <input type="text" placeholder="请输入你的身高" @input="getheight"> -->
-					
-					<!-- <view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/tizhong_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">体重:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<picker @change="bindPickerTizhong" :range="tizhongArr">
-									<label class="">{{tizhong1}}</label>	
-								</picker>
-							</view>
-						</view>
-					</view>
-					 -->
-					<!-- <input type="text" placeholder="请输入你的体重" @input="getweight"> -->
-					
-				</view>
-			</view>
-		</view>
-		<!-- 测试动态属性 -->
-<!-- 		<view class="wenluqu_center"style="margin-top:250rpx;">
-			<view class="wenluqu_center_child" :style="{height:phoneHeight*0.8+'px;'}" >
-				<view class="wenluqu_center_child_child" :style="{height:phoneHeight*0.78+'px;'}" >
-						
-					
-					<view class="wenluqu_center_child_child2" v-for="(item,index) in AllZiduanArr">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/shili_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">{{item.askParm}}:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<picker @change="bindPickerChangeShili" :range="shiliArr" v-if="item.askType==2||item.askType==3">
-									<label class="">{{shili1}}</label>	
-								</picker>
-								<input type="text" :placeholder="item.askPrep1" @input="getchineseScore" v-else="item.askType==1">
-							</view>
-						</view>
-					</view>
-										
 				</view>
 			</view>
 		</view> -->
+
 		
-		<view class="wenluqu_bottom">
+		<!-- <view class="wenluqu_bottom">
 			<view class="wenluqu_bottom_content" @click="wenluqu_yuce">开始预测</view>
-		</view>
+		</view> -->
 		
 		<!-- <view class="wenluqu_bottom">
 			<view class="wenluqu_bottom_content" @click="chongzhi">重置清空</view>
@@ -233,19 +270,24 @@
 				collegeExamScore:'',
 				//统考成绩
 				generalExamination:'',
+				//校考成绩
+				xiaokaoExamination:'',
+				//外语成绩
+				englishExamination:'',
+				//单科成绩,以语文成绩为例
+				chineseScore:'',
 				//报考专业
 				major:'',
 				indexMajor:0,
 				major1:'请输入你的报考专业',
 				//报考专业的专业数组
 				majorArr:['请先输入你的报考院校'],
-				//单科成绩,以语文成绩为例
-				chineseScore:'',
+				
 				//视力
 				vision:'',
 				shiliArr:["视力<3.0","视力>=3.0"],
 				indexShili:0,
-				shili1:'请输入你视力范围',
+				shili1:'请输入你的视力范围',
 				//身高
 				height:'',
 				indexShengao:0,
@@ -368,10 +410,22 @@
 			getgeneralExamination(e){
 				this.generalExamination=e.detail.value;
 			},
-			//获取报考专业
-			getmajor(e){
-				this.major=e.detail.value;
+			//获取外语成绩
+			getenglishExamination(e){
+				this.englishExamination=e.detail.value;
 			},
+			//获取语文成绩
+			getchineseExamination(e){
+				this.chineseScore=e.detail.value;
+			},
+			//获取校考成绩
+			getxiaokaoExamination(e){
+				this.xiaokaoExamination=e.detail.value;
+			},
+			//获取报考专业
+			// getmajor(e){
+			// 	this.major=e.detail.value;
+			// },
 			//获取单科语文成绩
 			getchineseScore(e){
 				this.chineseScore=e.detail.value;
@@ -385,9 +439,9 @@
 				this.height=e.detail.value;
 			},
 			//获取体重
-			getweight(e){
-				this.weight=e.detail.value;
-			},
+			// getweight(e){
+			// 	this.weight=e.detail.value;
+			// },
 			//下拉框
 			bindPickerChange: function(e) {		//改变的事件名
 				
@@ -421,13 +475,13 @@
 					"generalExamination": this.generalExamination,
 					//身高
 					// "height": this.shengao1,
-					//喜欢的大学
+					//喜欢的大学,报考院校
 					"likeUniversity": this.likeUniversity,
 					//报考专业
 					"major": this.major1,
 					//数学成绩
 					"mathScore": "",
-					//省份
+					//省份地区
 					"province": this.province,
 					//用户openid
 					"userOpenId": "",
@@ -544,6 +598,232 @@
 		color:#FF6E2F;
 		font-size:40rpx;
 		font-weight: bold;
+	}
+}
+.wenluqu_content1{
+	width:100%;
+	height:120rpx;
+	// border:1px solid red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 20rpx;
+	.wenluqu_content1_display{
+		width:90%;
+		height:115rpx;
+		border-bottom:1px solid #E1DFDF;
+		.wenluqu_content1_display_title{
+			width:100%;
+			height:50rpx;
+			// border:1px solid pink;
+			.wenluqu_content1_display_title1{
+				width: 250rpx;
+				height: 48rpx;
+				color: rgba(16, 16, 16, 100);
+				font-size: 40rpx;
+				text-align: left;
+				font-weight: bold;
+				font-family: SourceHanSansSC-bold;
+			}
+		}
+		.wenluqu_content1_display_input{
+			width:100%;
+			height:60rpx;
+			line-height: 60rpx;
+			margin-top:20rpx;
+			// border:1px solid pink;
+			input{
+				height:60rpx;
+				line-height: 60rpx;
+			}
+		}
+	}
+}
+.wenluqu_content2{
+	width:100%;
+	height:auto;
+	// border:1px solid red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 30rpx;
+	.wenluqu_content2_display{
+		width:90%;
+		height:auto;
+		// border-bottom:1px solid #E1DFDF;
+		.wenluqu_content2_display_title{
+			width:100%;
+			height:50rpx;
+			// border:1px solid pink;
+			.wenluqu_content2_display_title1{
+				width: 250rpx;
+				height: 48rpx;
+				color: rgba(16, 16, 16, 100);
+				font-size: 40rpx;
+				text-align: left;
+				font-weight: bold;
+				font-family: SourceHanSansSC-bold;
+			}
+		}
+		.wenluqu_content2_display_input{
+			width:100%;
+			height:70rpx;
+			line-height: 70rpx;
+			border:1px solid pink;
+			margin-top:20rpx;
+			border-radius: 6px;
+			background-color: rgba(242, 243, 245, 100);
+			text-align: center;
+			border: 1px solid rgba(255, 255, 255, 100);
+			.wenluqu_content2_display_input_title{
+				width:150rpx;
+				height:65rpx;
+				// border:1px solid pink;
+				margin-left: 10rpx;
+				float: left;
+			
+				color: rgba(16, 16, 16, 100);
+				font-size: 28rpx;
+				text-align: left;
+				font-family: SourceHanSansSC-regular;
+			}
+			.wenluqu_content2_display_input_value{
+				width:450rpx;
+				height:65rpx;
+				// border:1px solid pink;
+				// margin-left:30rpx;
+				float: left;
+			}
+			.wenluqu_content2_display_input_svg{
+				width:55rpx;
+				height:65rpx;
+				// border:1px solid pink;
+				float: right;
+				image{
+					width:100%;
+					height:100%;
+				}
+			}
+		}
+	}
+}
+.wenluqu_content3{
+	width:100%;
+	height:auto;
+	// border:1px solid red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 30rpx;
+	.wenluqu_content3_display{
+		width:90%;
+		height:auto;
+		.wenluqu_content3_display_title{
+			width:100%;
+			height:50rpx;
+			// border:1px solid pink;
+			.wenluqu_content3_display_title1{
+				width: 250rpx;
+				height: 48rpx;
+				color: rgba(16, 16, 16, 100);
+				font-size: 40rpx;
+				text-align: left;
+				font-weight: bold;
+				font-family: SourceHanSansSC-bold;
+			}
+		}
+		.wenluqu_content3_display_input{
+			width:100%;
+			height:60rpx;
+			line-height: 60rpx;
+			margin-top:20rpx;
+			// border:1px solid pink;
+			border-bottom:1px solid #E1DFDF;
+			.wenluqu_content3_display_input_title{
+				width:150rpx;
+				height:60rpx;
+				// border:1px solid red;
+				float:left;
+			
+				color: rgba(153, 153, 153, 100);
+				font-size: 28rpx;
+				font-weight: bold;
+				font-family: SourceHanSansSC-bold;
+			}
+			.wenluqu_content3_display_input_input{
+				width:520rpx;
+				height:60rpx;
+				// border:1px solid red;
+				float:left;
+				input{
+					height:60rpx;
+					line-height: 60rpx;
+				
+					color: rgba(16, 16, 16, 100);
+					font-size: 24rpx;
+					text-align: left;
+					font-family: SourceHanSansSC-regular;
+				}
+			}
+			
+		}
+	}
+}
+.begin_yuce{
+	width: 100%;
+	height: 100rpx;
+	line-height: 100rpx;
+	background-color: rgba(255, 77, 77, 100);
+	text-align: center;
+	border: 1px solid rgba(187, 187, 187, 100);
+	color:#FFFFFF;
+	font-size: 40rpx;
+	font-weight: bold;
+	margin-top: 20rpx;;
+}
+.yuceshuoming_body{
+	width: 100%;
+	height: auto;
+	// border:1px solid red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top:20rpx;
+	.yuceshuoming_body_child{
+		width: 90%;
+		height: auto;
+		// border:1px solid pink;
+		
+		box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.4);
+		border: 1px solid rgba(187, 187, 187, 100);
+		.yuceshuoming_body_child_title{
+			width: 100%;
+			height: 60rpx;
+			line-height: 60rpx;
+			text-align:center;
+			// border:1px solid green;
+			font-weight: bold;
+			
+			color: rgba(16, 16, 16, 100);
+			font-size: 36rpx;
+			font-family: SourceHanSansSC-bold;
+		}
+		.yuceshuoming_body_child_content{
+			width: 100%;
+			height: auto;
+			// border:1px solid blue;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.yuceshuoming_body_child_content_child{
+				width: 90%;
+				height: auto;
+				// border:1px solid pink;
+				margin-top:10rpx;
+				font-size: 25rpx;
+				font-family: SourceHanSansSC-regular;
+			}
+		}
 	}
 }
 .wenluqu_center{
