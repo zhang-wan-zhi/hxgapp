@@ -102,8 +102,17 @@ methods: {
 		let sousuoTyoe=1;
 		getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize).then((res)=>{
 			// this.isSearch=false;
-			console.log(res.data.artexamdynamicList);
-			this.yikaiDongtaiList=res.data.artexamdynamicList;
+			if(res.data.msg=='暂无数据,请期待哦!'){
+				uni.showModal({
+					title:'暂无数据,请期待哦!'
+				})
+			}else{
+				// console.log(res.data.artexamdynamicList);
+				this.yikaiDongtaiList=res.data.artexamdynamicList;
+				// console.log(this.yikaiDongtaiList);
+			}
+			// console.log(res.data.artexamdynamicList);
+			
 			
 		})
 

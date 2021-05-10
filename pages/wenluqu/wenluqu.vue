@@ -56,10 +56,21 @@
 				<view class="wenluqu_content3_display_title">
 					<view class="wenluqu_content3_display_title1">成绩信息</view>
 				</view>
+			<!-- 	<view v-for="(item,index) in AllZiduanArr" :key="item.askEgname">
+					<view class="wenluqu_content3_display_input">
+						<view class="wenluqu_content3_display_input_title">{{item.askParm}}</view>
+						<view class="wenluqu_content3_display_input_input">
+						  <input type="text" :placeholder="item.askPrep1" v-if="item.askType==1" @input="getInputs">
+						  <picker @change="bindInfo($event,item.askadmitcontentVos,item.askEgname)"  :range="item.askadmitcontentVos" :range-key="'key'" v-if="item.askType==2">
+						  	<label class="wenluqu_content2_display_input_value">{{item.askPrep1}}</label>	
+						  </picker>
+						</view>
+					</view>
+				</view> -->
 				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">高考分</view>
+					<view class="wenluqu_content3_display_input_title">高考成绩</view>
 					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入高考分">
+					  <input type="text" placeholder="请输入高考成绩" @input="getcollegeExamScore">
 					</view>
 				</view>
 				<view class="wenluqu_content3_display_input">
@@ -68,24 +79,19 @@
 					  <input type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
 					</view>
 				</view>
+				
 				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">校考成绩</view>
+					<view class="wenluqu_content3_display_input_title">英语成绩</view>
 					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入校考成绩" @input="getxiaokaoExamination">
+					  <input type="text" placeholder="请输入英语成绩" @input="getchineseScore">
 					</view>
 				</view>
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">外语成绩</view>
-					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入外语成绩" @input="getenglishExamination">
-					</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
+				<!-- <view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">语文成绩</view>
 					<view class="wenluqu_content3_display_input_input">
 					  <input type="text" placeholder="请输入语文成绩" @input="getchineseExamination">
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		
@@ -100,48 +106,39 @@
 						<picker @change="bindPickerChangeShili" :range="shiliArr">
 							<label class="">{{shili1}}</label>	
 						</picker>
-					  <!-- <input type="text" placeholder="请输入视力"> -->
 					</view>
 				</view>
-				<view class="wenluqu_content3_display_input">
+			<!-- 	<view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">身高</view>
 					<view class="wenluqu_content3_display_input_input">
 						<picker @change="bindPickerShengao" :range="shengaoArr">
 							<label class="">{{shengao1}}</label>	
 						</picker>
-					  <!-- <input type="text" placeholder="请输入升高"> -->
 					</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
+				</view> -->
+				<!-- <view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">体重</view>
 					<view class="wenluqu_content3_display_input_input">
 						<picker @change="bindPickerTizhong" :range="tizhongArr">
 							<label class="">{{tizhong1}}</label>	
 						</picker>
-					  <!-- <input type="text" placeholder="请输入体重"> -->
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		
-		<view class="begin_yuce">开始预测</view>
+		<view class="begin_yuce" @click="wenluqu_yuce">开始预测</view>
 		
 		<view class="yuceshuoming_body">
 			<view class="yuceshuoming_body_child">
 				<view class="yuceshuoming_body_child_title">预测说明</view>
 				<view class="yuceshuoming_body_child_content">
-					<view class="yuceshuoming_body_child_content_child">1.「启程测试」期间，充值总金额≤3600元，可获得150%的创世结晶返还。
-当充值总金额>3600元时，3600元以内的部分可获得150%的创世结晶返还，超出3600元的部分，按照125%的比例进行创世结晶的返还，不设上限。
-举例：旅行者在测试期间累计充值了3700元，可获得的创世结晶返还总额为：(3600元×10×150%)+(100元×10×125%)= 55250创世结晶。
-2.「启程测试」期间，购买“空月祝福”的旅行者，除按照上述充值返还规则1返还与“空月祝福”对应充值金额的创世结晶以外，还将免费获得相同时间“空月祝福”。(“空月祝福”返还上限为2次、效果共计60天)
-举例：旅行者在测试期间购买2件价值30元的“空月祝福”，购买“空月祝福”花费的60元将计入充值总金额，按照充值返还规则1进行创世结晶返还。并且旅行者还可免费获得2件、效果共计60天的“空月祝福”。(“空月祝福”每日送出的原石不计入规则1的充值返还)
-3. 「启程测试」中，购买解锁“珍珠纪行”的旅行者，除按照上述充值返还规则1返还与“珍珠纪行”对应充值金额的创世结晶以外，还将免费获得一期“珍珠纪行”的使用权。(“珍珠纪行”返还上限为1次)
-举例：旅行者在测试期间购买激活价值68元的“珍珠纪行”，此68元将计入充值总金额，按照充值返还规则1进行创世结晶返还。并且，旅行者还可以免费获得一期“珍珠纪行”的使用权。(“珍珠纪行”中包含的原石不计入规则1的充值返还)</view>
+					<view class="yuceshuoming_body_child_content_child">1.免费版，可免费查看预测概率</view>
 				</view>
 			</view>
 		</view>
 		
-		<!-- <view class="wenluqu_center"style="margin-top:100rpx;">
+<!-- 		<view class="wenluqu_center"style="margin-top:250rpx;">
 			<view class="wenluqu_center_child" :style="{height:phoneHeight*0.8+'px;'}">
 				<view class="wenluqu_center_child_child" :style="{height:phoneHeight*0.78+'px;'}">
 					
@@ -241,7 +238,7 @@
 		</view> -->
 
 		
-		<!-- <view class="wenluqu_bottom">
+<!-- 		<view class="wenluqu_bottom">
 			<view class="wenluqu_bottom_content" @click="wenluqu_yuce">开始预测</view>
 		</view> -->
 		
@@ -256,6 +253,8 @@
 	export default {
 		data() {
 			return {
+				//动态属性的下拉数组
+				arrs:['1','2'],
 				array:['请选择','浙江','山东'],
 				index:0,
 				//省份
@@ -303,6 +302,7 @@
 			}
 		},
 		onLoad() {
+			
 			//获取窗口高度，适配手机
 			this.getWindowHeight()
 			//获取问录取字段
@@ -334,6 +334,19 @@
 			
 		},
 		methods: {
+			getInputs(e){
+				console.log(e.detail.value);
+			},
+			//下拉框动态获取
+			bindInfo(e,list,value){
+				console.log(e);
+				console.log(list);
+				console.log(value);
+				value=list[e.detail.value].key;
+				console.log(value);
+				// this.index = e.target.value
+				// this.pickerData = storage[this.index]
+			},
 			//重置清空
 			// chongzhi(){
 			// 	console.log(1111);
@@ -461,32 +474,39 @@
             //问录取输入结果
 			wenluqu_yuce(){
 				let obj={
-					//文理分科
-					"artAndSciences": this.artAndSciences,
-					//语文成绩
-					"english": this.chineseScore,
-					//高考成绩
-					"collegeExamScore": this.collegeExamScore,
-					//文化成绩
-					"culturalScore": "",
-					//外语成绩
-					"foreignScore": "",
-					//统考成绩
-					"generalExamination": this.generalExamination,
-					//身高
-					// "height": this.shengao1,
+					"userOpenId": "dhsjfsdkfjgjifjdgkdjkgfdkl", 
 					//喜欢的大学,报考院校
 					"likeUniversity": this.likeUniversity,
-					//报考专业
-					"major": this.major1,
-					//数学成绩
-					"mathScore": "",
+					//文理分科
+					"artAndSciences": this.artAndSciences,
 					//省份地区
 					"province": this.province,
-					//用户openid
-					"userOpenId": "",
+					//报考专业
+					"major": this.major1,
+					//高考成绩
+					"collegeExamScore": this.collegeExamScore,
+					//统考成绩
+					"generalExamination": this.generalExamination,
 					//视力
 					"shili": this.shili1,
+					
+					//文化成绩
+					// "culturalScore": "",
+					//外语成绩
+					// "foreignScore": this.englishExamination,
+					//英语成绩
+					"english": this.chineseScore,
+					
+					//身高
+					// "height": this.shengao1,
+					
+					
+					//数学成绩
+					// "mathScore": "",
+					
+					//用户openid
+					// "userOpenId": "",
+					
 					//体重
 					// "weight": this.tizhong1,
 					
@@ -526,7 +546,7 @@
 				// console.log(this.shengao1);
 				//体重
 				// console.log(this.tizhong1);
-				
+				console.log(obj);
 				getWenluquList(obj).then((res)=>{
 					console.log(res);
 					// console.log(res.data.data.academies[0]);
@@ -602,7 +622,7 @@
 }
 .wenluqu_content1{
 	width:100%;
-	height:120rpx;
+	height:auto;
 	// border:1px solid red;
 	display: flex;
 	align-items: center;
@@ -789,6 +809,7 @@
 	align-items: center;
 	justify-content: center;
 	margin-top:20rpx;
+	margin-bottom:20rpx;
 	.yuceshuoming_body_child{
 		width: 90%;
 		height: auto;
