@@ -1,64 +1,58 @@
 <template>
 	<view>
-		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
+		<!-- <view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" @click="xinggepinggu">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/mianfeiyuce_free_img2.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">免费预测</view>
-				<!-- <view class="mianfeiyuce_free_img">
-					<image src="../../static/img/mianfei_img.png"></image>
-				</view> -->
-				<!-- <view class="mianfeiyuce_enter" >
-					<view class="mianfeiyuce_enter1">点击进入</view>
-				</view> -->
+			</view>
+		</view> -->
+		
+		<view class="dayiyuce" @click="xinggepinggu">
+			<view class="dayiyuce_child">
+				<view class="dayiyuce_child_title">
+					<view class="dayiyuce_child_title_title">答题预测</view>
+				</view>
+				<view class="dayiyuce_child_content">预测结果分为三种可供选择分别为免费预测结果、会员预测结果和专业预测结果</view>
 			</view>
 		</view>
 		
-		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
+		<view class="dayiyuce2">
+			<view class="dayiyuce_child2">
+				<view class="dayiyuce_child_title2">
+					<view class="dayiyuce_child_title_title2">精准预测</view>
+				</view>
+				<view class="dayiyuce_child_content2">通过人工的方式更精准得为您预测</view>
+			</view>
+		</view>
+		
+		<!-- <view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" style="background: linear-gradient(to right,#FF6063,#FF9766);" @click="xinggepinggu_shoufei()">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/tiyanyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">体验预测</view>
-				<!-- <view class="mianfeiyuce_free_img2">
-					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
-				</view> -->
-				<!-- <view class="mianfeiyuce_enter">
-					<view class="mianfeiyuce_enter1" style="background-color: #F03A3E;">点击进入</view>
-				</view> -->
 			</view>
-		</view>
+		</view> -->
 		
-		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
+		<!-- <view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" style="background: linear-gradient(to right,#629768,#F3EC76);" @click="xinggepinggu_shoufei()">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/huiyuanyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">会员预测</view>
-				<!-- <view class="mianfeiyuce_free_img2">
-					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
-				</view> -->
-				<!-- <view class="mianfeiyuce_enter">
-					<view class="mianfeiyuce_enter1" style="background-color: #4B884E;">点击进入</view>
-				</view> -->
 			</view>
-		</view>
+		</view> -->
 		
-		<view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
+		<!-- <view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
 			<view class="fanghui_content" style="background: linear-gradient(to right,#6D88C1,#8FC9CA);" @click="xinggepinggu_shoufei()">
 				<view class="mianfeiyuce">
 					<image src="../../static/img/zhuangyeyuce_img.png"></image>
 				</view>
 				<view class="mianfeiyuce_title">专业预测</view>
-				<!-- <view class="mianfeiyuce_free_img2">
-					<image src="../../static/img/wenxuexi_shoufei_img.png"></image>
-				</view> -->
-				<!-- <view class="mianfeiyuce_enter">
-					<view class="mianfeiyuce_enter1" style="background-color: #5978B9;">点击进入</view>
-				</view> -->
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -227,5 +221,99 @@
 			  }
 		  }
 	  }
+  }
+  .dayiyuce{
+	  width:100%;
+	  height:380rpx;
+	  // border:1px solid red;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  margin-top:120rpx;
+	  .dayiyuce_child{
+		  width:380rpx;
+		  height:380rpx;
+		  // border:1px solid blue;
+		  border-radius: 50%;
+		  box-shadow: 0px 2px 6px 0px rgba(165, 149, 178, 100);
+		  border: 1px solid rgba(165, 149, 178, 100);
+		  .dayiyuce_child_title{
+			  width:90%;
+			  margin-left: 20rpx;
+			  height:170rpx;
+			  border:1px solid rgba(0,0,0,0);
+			  color: rgba(93, 65, 117, 100);
+			  font-size: 36rpx;
+			  font-family: SourceHanSansSC-regular;
+			  .dayiyuce_child_title_title{
+				  width:250rpx;
+				  height:80rpx;
+				  line-height: 80rpx;
+				  margin-top: 60rpx;
+				  margin-left:50rpx;
+				  text-align: center;
+				  // border:1px solid red;
+			  }
+		  }
+		  .dayiyuce_child_content{
+			  width:90%;
+			  margin-left: 26rpx;
+			  height:170rpx;
+			  // border:1px solid pink;
+			  text-indent: 2em;	  
+			  color: rgba(93, 65, 117, 100);
+			  font-size: 26rpx;
+			  font-family: SourceHanSansSC-regular;
+		  }
+		  
+	  }
+  }
+  .dayiyuce2{
+  	  width:100%;
+  	  height:380rpx;
+  	  // border:1px solid red;
+  	  display: flex;
+  	  align-items: center;
+  	  justify-content: center;
+	  margin-top: 60rpx;
+  	  .dayiyuce_child2{
+  		  width:380rpx;
+  		  height:380rpx;
+  		  // border:1px solid blue;
+  		  border-radius: 50%;
+  		  box-shadow: 0px 2px 6px 0px rgba(165, 149, 178, 100);
+  		  border: 1px solid rgba(165, 149, 178, 100);
+		  background-color: rgba(165, 149, 178, 100);
+  		  .dayiyuce_child_title2{
+  			  width:90%;
+  			  margin-left: 20rpx;
+  			  height:170rpx;
+  			  border:1px solid rgba(0,0,0,0);
+  			  color: rgba(93, 65, 117, 100);
+  			  font-size: 36rpx;
+  			  font-family: SourceHanSansSC-regular;
+  			  .dayiyuce_child_title_title2{
+  				  width:250rpx;
+  				  height:80rpx;
+  				  line-height: 80rpx;
+  				  margin-top: 60rpx;
+  				  margin-left:50rpx;
+  				  text-align: center;
+				  color: rgba(255, 255, 255, 100);
+  				  // border:1px solid red;
+  			  }
+  		  }
+  		  .dayiyuce_child_content2{
+  			  width:90%;
+  			  margin-left: 26rpx;
+  			  height:170rpx;
+  			  // border:1px solid pink;
+  			  text-indent: 2em;	  
+  			  font-size: 26rpx;
+  			  font-family: SourceHanSansSC-regular;
+			  color: rgba(255, 255, 255, 100);
+  		  }
+  		  
+  	  }
   }
 </style>
