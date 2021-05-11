@@ -19,12 +19,12 @@
 		</view>
 		
 		<view class="dayiyuce2">
-			<view class="dayiyuce_child2">
+			<button class="dayiyuce_child2" open-type="contact">
 				<view class="dayiyuce_child_title2">
 					<view class="dayiyuce_child_title_title2">精准预测</view>
 				</view>
 				<view class="dayiyuce_child_content2">通过人工的方式更精准得为您预测</view>
-			</view>
+			</button>
 		</view>
 		
 		<!-- <view class="fanghui" :style="{height:phoneHeight*0.22+'px;'}">
@@ -176,11 +176,12 @@
 			  width:200rpx;
 			  height:220rpx;
 			  line-height: 220rpx;
-			  // border:1px solid pink;
+			  border:1px solid pink;
 			  font-size:50rpx;
 			  float:left;
 			  margin-left:50rpx;
 		  }
+		
 		  .mianfeiyuce_free_img{
 			  width:170rpx;
 			  height:170rpx;
@@ -286,7 +287,7 @@
 		  background-color: rgba(165, 149, 178, 100);
   		  .dayiyuce_child_title2{
   			  width:90%;
-  			  margin-left: 20rpx;
+  			  // margin-left: 20rpx;
   			  height:170rpx;
   			  border:1px solid rgba(0,0,0,0);
   			  color: rgba(93, 65, 117, 100);

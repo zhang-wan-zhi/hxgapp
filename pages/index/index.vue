@@ -160,7 +160,7 @@
 				  desc:'登录',
 				  lang:"zh_CN",
 				  success: function (infoRes) {
-					  // console.log(infoRes);
+					  console.log(infoRes);
 					  //存储用户信息到缓存中
 					  let userinfo=infoRes.userInfo;
 					   uni.setStorage({
@@ -171,7 +171,7 @@
 					  uni.login({
 					    provider: 'weixin',
 					    success: function (loginRes) {
-					      // console.log(loginRes.code);
+					      console.log(loginRes.code);
 							getWxcode(loginRes.code).then((res)=>{
 								//获取到用户的openid
 								// console.log(res.data.data.openid);
