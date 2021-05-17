@@ -3,10 +3,10 @@
 // let urls="https://localhost:8091";
 
 //局域网地址
-let urls="http://192.168.3.247:8091"
+// let urls="http://192.168.3.247:8091"
 
 //线上地址
-// let urls="https://orangezoom.cn:8091";
+let urls="https://orangezoom.cn:8091";
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode){

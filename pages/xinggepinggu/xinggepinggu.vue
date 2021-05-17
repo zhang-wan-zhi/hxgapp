@@ -63,7 +63,7 @@
 					<!-- 试题的标题 -->	
 					<view class="cu-bar bg-white solid-bottom">
 						<view class="action text-black">
-							<text class="cuIcon-title text-red"></text>{{subject.id}}/{{sumNum}}.{{subject.content}}
+							<text class="cuIcon-title text-red"></text>{{subject.id}}/{{sumNum}}.<view v-html="subject.content">{{subject.content}}</view>
 						</view>
 					</view>
 					<view>
