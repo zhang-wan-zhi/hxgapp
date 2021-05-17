@@ -73,7 +73,7 @@
 							<view class="cu-form-group" v-for="option in subject.answers">
 								<!-- indexOf(option.id) > -1，表示包含 -->
 								<radio :value="option.id" :checked="subject.answer.indexOf(option.id) > -1?true:false"></radio>
-								<view class="title text-black">{{option.content}}</view>
+								<view class="title text-black" v-html="option.content">{{option.content}}</view>
 							</view>
 						</radio-group>
 
