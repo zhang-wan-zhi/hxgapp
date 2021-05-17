@@ -30,7 +30,7 @@
 			<swiper :autoplay="false" :current="currentIndex" :circular="true" previous-margin="80rpx" next-margin="80rpx"
 			 :interval="3000" :duration="500" @change="swierChange">
 				<swiper-item v-for="(item,i) in swipers" :key="i">
-					<image :src="item.banUrl" class="slide-image" :class="currentIndex === i?'active':''"></image>
+					<image :src="item.banUrl" @click="inter_lunbo_details(item.banSkipurl)" class="slide-image" :class="currentIndex === i?'active':''"></image>
 				</swiper-item>
 			</swiper>
 		</view>
