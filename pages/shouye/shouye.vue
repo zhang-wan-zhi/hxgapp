@@ -13,7 +13,7 @@
 		</view>
 		
 		<!-- 轮播图 -->
-		<view class='home' v-if="isSearch" >
+	<!-- 	<view class='home' v-if="isSearch" >
 			<swiper
 			indicator-dots 	
 			circular
@@ -24,7 +24,17 @@
 					<image :src="item.banUrl" @click="inter_lunbo_details(item.banSkipurl)"></image>
 				</swiper-item>
 			</swiper>
+		</view> -->
+		
+		<view class="">
+			<swiper :autoplay="false" :current="currentIndex" :circular="true" previous-margin="80rpx" next-margin="80rpx"
+			 :interval="3000" :duration="500" @change="swierChange">
+				<swiper-item v-for="(item,i) in swipers" :key="i">
+					<image :src="item.banUrl" class="slide-image" :class="currentIndex === i?'active':''"></image>
+				</swiper-item>
+			</swiper>
 		</view>
+
 		
 		<!-- :class="{'width':$store.state.set_window_height*0.3+'rpx'}" -->
 		
@@ -122,6 +132,7 @@
 		},
 		data() {
 			return {
+				currentIndex: 0,
 				// 输入框的数据
 				input_value:'',
 				//新输入框的值
@@ -207,6 +218,9 @@
 			}, 2000);
 		},
 		methods: {
+			swierChange(e){
+				this.currentIndex = e.detail.current
+			},
 			//查看更多
 			// mores(){
 			// 	// console.log(111);
@@ -407,6 +421,30 @@
 
 <style  lang="scss">
 @import '../../style/iconfont.css';
+
+
+.slide-image {
+  position: absolute;
+  height: 200rpx;
+  width:75vw;
+  z-index: 5;
+  opacity: 0.8;
+  top: 18%;
+  margin: 0 20rpx;
+}
+
+swiper {
+  height: 60vw;
+}
+
+.active {
+  opacity: 1;
+  z-index: 10;
+  height: 320rpx;
+  width: 75vw;
+  top: 7%;
+  transition: all 0.2s ease-in 0s;
+}
 
 // .history{
 // 	.search {
