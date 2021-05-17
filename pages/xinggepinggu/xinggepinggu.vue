@@ -3,10 +3,10 @@
 		<view id="top-box" class="cu-bar bg-white solid-bottom">
 			<view class="action text-black">
 				<text v-if="currentType===2">单选题</text>
-			<!-- 	<text v-else-if="currentType===2">单选题</text>
 				<text v-else-if="currentType===3">多选题</text>
 				<text v-else-if="currentType===4">填空题</text>
-				<text v-else-if="currentType===5">问答题</text> -->
+				<text v-else-if="currentType===5">文本输入题</text>
+				<!-- <text v-else-if="currentType===5">问答题</text> -->
 			</view>
 			<view class="action">
 				<button class="cu-btn bg-green shadow" @tap="showCardModal" data-target="modalCard">答题卡</button>
@@ -78,14 +78,14 @@
 						</radio-group>
 
                          <!-- 多选 -->
-						<!-- <checkbox-group class="block"  @change="CheckboxChange" v-if="subject.optionsType===2">
+						<checkbox-group class="block"  @change="CheckboxChange" v-if="subject.optionsType===3">
 							<view class="cu-form-group" v-for="option in subject.answers">
 								<checkbox :value="option.id" :class="subject.answer.indexOf(option.id) > -1?'checked':''" :checked="subject.answer.indexOf(option.id) > -1?true:false"></checkbox>
-								<view class="title  text-black">{{option.id}}.{{option.content}}</view>
+								<view class="title  text-black" v-html="option.content">{{option.id}}.{{option.content}}</view>
 							</view>
-						</checkbox-group> -->
+						</checkbox-group>
 
-						<view v-else-if="subject.type===4">
+						<view v-else-if="subject.optionsType===4">
 							<view class="cu-form-group solid-bottom">
 								<view class="title  text-black">
 									答：
@@ -94,7 +94,7 @@
 							</view>
 						</view>
 
-						<view v-else-if="subject.type===5">
+						<view v-else-if="subject.optionsType===5">
 							<view class="cu-bar cu-bar-title bg-white margin-top">
 								<view class="action  text-black">
 									答：
@@ -111,7 +111,7 @@
 						<view class="cu-bar">
 							<view class="action  text-grey">
 								<text>正确答案：</text>
-								<text class="solid-bottom  padding-left text-green">{{subject.answerList[0]}}</text>
+								<view class="solid-bottom  padding-left text-green" v-html="subject.answerList[0]">{{subject.answerList[0]}}</view>
 							</view>
 						</view>
 						<!-- <view class="cu-bar cu-bar-title">
