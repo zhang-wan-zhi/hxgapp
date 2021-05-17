@@ -81,9 +81,9 @@
 				</view>
 				
 				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">英语成绩</view>
+					<view class="wenluqu_content3_display_input_title">性别</view>
 					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入英语成绩" @input="getchineseScore">
+					  <input type="text" placeholder="请输入性别" @input="getchineseScore">
 					</view>
 				</view>
 				<!-- <view class="wenluqu_content3_display_input">
@@ -108,22 +108,24 @@
 						</picker>
 					</view>
 				</view>
-			<!-- 	<view class="wenluqu_content3_display_input">
+				<view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">身高</view>
 					<view class="wenluqu_content3_display_input_input">
-						<picker @change="bindPickerShengao" :range="shengaoArr">
+						<!-- <picker @change="bindPickerShengao" :range="shengaoArr">
 							<label class="">{{shengao1}}</label>	
-						</picker>
+						</picker> -->
+						 <input type="text" placeholder="请输入你的身高" @input="getShengao">
 					</view>
-				</view> -->
-				<!-- <view class="wenluqu_content3_display_input">
+				</view>
+				<view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">体重</view>
 					<view class="wenluqu_content3_display_input_input">
-						<picker @change="bindPickerTizhong" :range="tizhongArr">
+						<!-- <picker @change="bindPickerTizhong" :range="tizhongArr">
 							<label class="">{{tizhong1}}</label>	
-						</picker>
+						</picker> -->
+						<input type="text" placeholder="请输入你的体重" @input="gettizhong">
 					</view>
-				</view> -->
+				</view>
 			</view>
 		</view>
 		
@@ -286,7 +288,7 @@
 				vision:'',
 				shiliArr:["视力<3.0","视力>=3.0"],
 				indexShili:0,
-				shili1:'请输入你的视力范围',
+				shili1:'请输入你的视力情况',
 				//身高
 				height:'',
 				indexShengao:0,
@@ -302,19 +304,26 @@
 			}
 		},
 		onLoad() {
+			//获取视力下拉框数据
+			
 			
 			//获取窗口高度，适配手机
 			this.getWindowHeight()
 			//获取问录取字段
+			//获取视力下拉框
 			getWenluquZiduan().then((res)=>{
 				// console.log(res.data.askadmitList);
 				let arr=res.data.askadmitList;
 				console.log(arr);
 				this.AllZiduanArr=arr;
-				// let newArr=[];
-				// for(let i=0;i<arr.length;i++){
-				// 	newArr.push(arr[i].askParm)
-				// }
+				console.log(arr[1].askadmitcontentVos);
+				let shiliArr=arr[1].askadmitcontentVos;
+				
+				let newArr=[];
+				for(let i=0;i<shiliArr.length;i++){
+					newArr.push(shiliArr[i].key)
+				}
+				this.shiliArr=newArr;
 				// console.log(newArr);
 			})
 			//获取省份信息
@@ -406,15 +415,16 @@
 				this.shili1=this.shiliArr[this.indexShili]	
 			},
 			//身高下拉框
-			bindPickerShengao(e){
-				this.indexShengao=e.target.value;
-				this.shengao1=this.shengaoArr[this.indexShengao]	
-			},
+			// bindPickerShengao(e){
+			// 	this.indexShengao=e.target.value;
+			// 	this.shengao1=this.shengaoArr[this.indexShengao]	
+			// },
 			//体重下拉框
-			bindPickerTizhong(e){
-				this.indexTizhong=e.target.value;
-				this.tizhong1=this.tizhongArr[this.indexTizhong]	
-			},
+			// bindPickerTizhong(e){
+			// 	this.indexTizhong=e.target.value;
+			// 	this.tizhong1=this.tizhongArr[this.indexTizhong]	
+			// },
+			
 			//获取高考成绩
 			getcollegeExamScore(e){
 				this.collegeExamScore=e.detail.value;
@@ -440,6 +450,7 @@
 			// 	this.major=e.detail.value;
 			// },
 			//获取单科语文成绩
+			//获取性别
 			getchineseScore(e){
 				this.chineseScore=e.detail.value;
 			},
@@ -448,13 +459,20 @@
 				this.vision1=e.detail.value;
 			},
 			//获取身高
-			getheight(e){
+			// getheight(e){
+			// 	this.height=e.detail.value;
+			// },
+			//获取身高
+			getShengao(e){
 				this.height=e.detail.value;
 			},
 			//获取体重
 			// getweight(e){
 			// 	this.weight=e.detail.value;
 			// },
+			gettizhong(e){
+				this.weight=e.detail.value;
+			},
 			//下拉框
 			bindPickerChange: function(e) {		//改变的事件名
 				
@@ -494,11 +512,10 @@
 					// "culturalScore": "",
 					//外语成绩
 					// "foreignScore": this.englishExamination,
-					//英语成绩
-					"english": this.chineseScore,
 					
-					//身高
-					// "height": this.shengao1,
+					
+					// 身高
+					"height": this.height,
 					
 					
 					//数学成绩
@@ -508,7 +525,11 @@
 					// "userOpenId": "",
 					
 					//体重
-					// "weight": this.tizhong1,
+					"weight": this.weight,
+					
+					//英语成绩
+					//性别
+					"sex": this.chineseScore,
 					
 				 //    "likeUniversity": "浙江传媒学院", 
 					// "artAndSciences": "文科", 
