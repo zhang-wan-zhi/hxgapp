@@ -1,451 +1,462 @@
 <template>
-	<view>
-		<view class="content2">
-			<view class="content2_bg">
-				<image src='../../static/img/gerenzhongxin_bg.png'></image>
-			</view>
-			<!-- :style="{height:phoneHeight*0.25+'px;'}" -->
-			<view class="content2_user" >
-				<view class="content2_user_content">
-					<view class="content2_user_content_bg">
-						<image :src="userData.avatarUrl"></image>
-					</view>
-					<!-- <view class="content2_user_title">{{userData.nickName}}</view> -->
-					<view class="content2_user_update">
-						<view class="content2_user_update_content" @click="click_shouquan" >
-							<view  class="content2_user_img">{{userData.nickName}}</view>
-							<!-- <view class="content2_user_update_img">
-								<image src="../../static/svg/xiugai_next.svg"></image>
-							</view> -->
-						</view>
-						
-					</view>
-				</view>
-			</view>
-			<view class="content2_content" >
-				<view class="content2_content_body">
-					<view class="content2_content_body1">
-						<view class="content2_content_body1s">
-							<view class="content2_content_body1s_fenxiang">
-								<image src="../../static/img/fenxiang.png"></image>
-							</view>
-							<view class="content2_content_body1s_fenxiang_title">分享好友</view>
-							<button class="content2_content_body1s_fenxiang_img" open-type="share" data-name="share-btn" hover-class="none">
-								<image src="../../static/svg/xiugai_next.svg"></image>
-							</button>
-						</view>
-					</view>
-					
-					<view class="content2_content_body1">
-						<view class="content2_content_body1s">
-							<view class="content2_content_body1s_fenxiang">
-								<image src="../../static/img/yijian_img.png"></image>
-							</view>
-							<view class="content2_content_body1s_fenxiang_title">意见反馈</view>
-							<button class="content2_content_body1s_fenxiang_img" @click="yijianFangkui">
-								<image src="../../static/svg/xiugai_next.svg" ></image>
-							</button>
-						</view>
-					</view>
-					
-					<view class="content2_content_body1">
-						<view class="content2_content_body1s">
-							<view class="content2_content_body1s_fenxiang">
-								<image src="../../static/img/guanyu_img.png"></image>
-							</view>
-							<view class="content2_content_body1s_fenxiang_title">关于我们</view>
-							<button class="content2_content_body1s_fenxiang_img" @click="guanyuwomeng">
-								<image src="../../static/svg/xiugai_next.svg"></image>
-							</button>
-						</view>
-					</view>
-				</view>
-			</view>
-			
-			<view class="content2_bottom" :class="isExitShow?'exitshow':'notexitshow'">
-				<view class="content2_bottom1" @click="exitLogin">退出登录</view>
-			</view>
-			
-			<!-- <view style="width:200rpx;height:50rpx;border:1px solid red;" @click="test">测试做题</view> -->
-			<!-- <view style="width:200rpx;height:50rpx;border:1px solid red;" @click="test2">测试搜索</view> -->
+	<view class="box">
+		<!-- 未登录展示 -->
+		<view v-show="!isExitShow">
+			<view class="user-box"><view class="login" @click="click_shouquan">点击登录</view></view>
 		</view>
+		<!-- 用户信息 -->
+		<view v-show="isExitShow">
+			<view class="user-box">
+				<view class="user-img"><image :src="userData.avatarUrl" mode=""></image></view>
+				<view class="user-detail">
+					<view class="user-name">{{ userData.nickName }}</view>
+					<view class="user-vip">vip</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 充值会员 -->
+		<view class="vip-box">
+			<view class="professional">
+				<view class="vip-logo-one"><image src="../../static/img/my/special.png"></image></view>
+				<view class="vip-title">
+					<view class="vip-title-top">专业版</view>
+					<view class="vip-title-bottom">所有信息特享</view>
+				</view>
+			</view>
+
+			<view class="members">
+				<view class="vip-logo-two "><image src="../../static/img/my/member.png"></image></view>
+				<view class="vip-title">
+					<view class="vip-title-top">会员版</view>
+					<view class="vip-title-bottom">更多信息优享</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 分享收藏部分 -->
+		
+		<view class="uer-handle">
+			<!-- 我的收藏 -->
+			<view class="item">
+				<image src="../../static/img/my/save.png" ></image>
+				<text class="title">我的收藏</text>
+			</view>
+			<view class="item">
+				<button open-type="share" class="share-btn">
+					<image src="../../static/img/my/share.png" ></image>
+					<text class="title">分享</text>
+				</button>
+			</view>
+			<view class="item" @click="yijianFangkui">
+				<image src="../../static/img/my/opinion.png" ></image>
+				<text class="title">意见反馈</text>
+			</view>
+			<view class="item" @click="guanyuwomeng">
+				<image src="../../static/img/my/about.png" ></image>
+				<text class="title">关于我们</text>
+			</view>
+			
+		</view>
+		
+
+		<view class="content2_bottom" :class="isExitShow ? 'exitshow' : 'notexitshow'"><view class="content2_bottom1" @click="exitLogin">退出登录</view></view>
 	</view>
 </template>
 
 <script>
-	import {TestApi} from '../../api/api.js'
-	export default {
-		data() {
-			return {
-				imgArr:[`../../static/img/touxiang_img.png`],
-				//适配手机高度
-				phoneHeight:0,
-				userData:{
-					avatarUrl:'../../static/img/gerenzhongxin_moren_logo.png',
-					nickName:'登录/注册'
-				},
-				//是否显示授权文本
-				isShow:true,
-				//是否显示退出
-				isExitShow:false
-			}
+import { TestApi } from '../../api/api.js';
+export default {
+	data() {
+		return {
+			imgArr: [`../../static/img/touxiang_img.png`],
+			//适配手机高度
+			phoneHeight: 0,
+			userData: {
+				avatarUrl: '',
+				nickName: ''
+			},
+			//是否显示授权文本
+			isShow: true,
+			//是否显示退出
+			isExitShow: false
+		};
+	},
+	methods: {
+		test() {
+			uni.navigateTo({
+				url: '../test/test'
+			});
 		},
-		methods: {
-			//点击分享图标触发
-			// fengxiang(){
-			// 	console.log(2222);
-			// },
-			test(){
-				// TestApi(1,1,1000).then((res)=>{
-				// 	console.log(res);
-				// })
-				uni.navigateTo({
-					url:'../test/test'
-				})
-			},
-			// test2(){
-			// 	// TestApi(1,1,1000).then((res)=>{
-			// 	// 	console.log(res);
-			// 	// })
-			// 	console.log(1111);
-			// 	uni.navigateTo({
-			// 		url:'../test_search/test_search'
-			// 	})
-			// },
-			//获取窗口高度，适配手机
-			getWindowHeight(){
-				uni.getSystemInfo({
-					success:(res)=>{
-						// console.log(res);
-						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-						this.phoneHeight=res.windowHeight;
-						// console.log(res.windowHeight);
-						// console.log(this.phoneHeight);
-						// this.$store.commit('set_window_height',res.windowHeight*2);
-					}
-				})
-			},
-			//退出登录
-			exitLogin(){
-				// let sting_storage=uni.getStorageSync('userData');
-				// console.log(sting_storage);
-				
-				uni.showModal({
-					title: '温馨提示',
-					content: '您要退出登录吗？',
-					success: function (res) {
-						if (res.confirm) {
-							console.log('用户点击确定');
-							uni.removeStorage({key:'userData'});
-							uni.removeStorage({key:'openid'});
-							//解决退出登录的bug
-							uni.reLaunch({
-								url:'../gerenzhongxin/gerenzhongxin'
-							})
-						} else if (res.cancel) {
-							console.log('用户点击取消');
-						}
-					}
-				});
 
-			},
-			//登录授权
-			click_shouquan(){
-				uni.navigateTo({
-					url:'../index/index'
-				})
-			},
-			//关于我们
-			guanyuwomeng(){
-				uni.navigateTo({
-					url:'../guanyuwomeng/guanyuwomeng'
-				})
-			},
-			//意见反馈
-			yijianFangkui(){
-				
-				uni.navigateTo({
-					url:'../yijianFangkui/yijianFangkui'
-				})
-			},
-			//点击修改触发
-			xiugai(){
-				//跳转到个人信息修改页面
-				uni.navigateTo({
-					url:'../gerenzhongxin_update/gerenzhongxin_update'
-				})
-				//console.log(111);
-				
-			}
+		//获取窗口高度，适配手机
+		getWindowHeight() {
+			uni.getSystemInfo({
+				success: res => {
+					this.phoneHeight = res.windowHeight;
+				}
+			});
 		},
-		onLoad(){
-			//对退出登录校验
-			let openids=uni.getStorageSync('openid');
-			console.log(openids);
-			if(openids==""){
-				this.isExitShow=false;
-			}else{
-				this.isExitShow=true;
-			}
-			
-			// this.userData.avatarUrl=userData.avatarUrl;
-			//用户名
-			// let userName=userData.nickName;
-			// let userAvate=userData.avatarUrl;
-			// console.log(JSON.parse(sting_storage.rawData));
-			// console.log(JSON.parse(sting_storage).avatarUrl);
+		//退出登录
+		exitLogin() {
+			uni.showModal({
+				title: '温馨提示',
+				content: '您要退出登录吗？',
+				success: function(res) {
+					if (res.confirm) {
+						console.log('用户点击确定');
+						uni.removeStorage({ key: 'userData' });
+						uni.removeStorage({ key: 'openid' });
+						//解决退出登录的bug
+						uni.reLaunch({
+							url: '../gerenzhongxin/gerenzhongxin'
+						});
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			});
 		},
-		onShow(){
-			//对退出登录校验
-			let openids=uni.getStorageSync('openid');
-			console.log(openids);
-			if(openids==""){
-				this.isExitShow=false;
-			}else{
-				this.isExitShow=true;
-			}
-			
-			let sting_storage=uni.getStorageSync('userData');
-			console.log(sting_storage.userInfo);
-			let userData=sting_storage.userInfo;
-			this.userData=userData;
-			if(userData!=null){
-				this.isShow=false;
-			}
+		//登录授权
+		click_shouquan() {
+			uni.navigateTo({
+				url: '../index/index'
+			});
 		},
-		onShareAppMessage:function(e){
-			let title='掐指艺算';
-			let openids=uni.getStorageSync('openid');
-			
-			// console.log(e);
-			// if(e.from=="button"){
-			// 	console.log(e.target);
-			// }
-			// console.log(openids);
-			//如果没有登录
-			// if(openids==""){
-			// 	uni.showToast({
-			// 		title:'请先登录!',
-			// 		icon:'none',
-			// 		duration:200
-			// 	})
-			// }
-			
-			//同步获取图像名称
-			let sting_storage=uni.getStorageSync('login_info')
-			return {
-				title:title,
-				path:'pages/shouye/shouye',
-				// success:(res)=>{
-				// 	console.log(res);
-				// }
-				// imageUrl:JSON.parse(sting_storage).avatarUrl
-			}
-			
+		//关于我们
+		guanyuwomeng() {
+			uni.navigateTo({
+				url: '../guanyuwomeng/guanyuwomeng'
+			});
+		},
+		//意见反馈
+		yijianFangkui() {
+			uni.navigateTo({
+				url: '../yijianFangkui/yijianFangkui'
+			});
+		},
+		//点击修改触发
+		xiugai() {
+			//跳转到个人信息修改页面
+			uni.navigateTo({
+				url: '../gerenzhongxin_update/gerenzhongxin_update'
+			});
+			//console.log(111);
 		}
+	},
+	onLoad() {
+		//对退出登录校验
+		let openids = uni.getStorageSync('openid');
+		console.log(openids);
+		if (openids == '') {
+			this.isExitShow = false;
+		} else {
+			this.isExitShow = true;
+		}
+	},
+	onShow() {
+		//对退出登录校验
+		let openids = uni.getStorageSync('openid');
+		console.log(openids);
+		if (openids == '') {
+			this.isExitShow = false;
+		} else {
+			this.isExitShow = true;
+		}
+
+		let sting_storage = uni.getStorageSync('userData');
+		console.log(sting_storage.userInfo);
+		let userData = sting_storage.userInfo;
+		this.userData = userData;
+		if (userData != null) {
+			this.isShow = false;
+		}
+	},
+	onShareAppMessage: function(e) {
+		let title = '掐指艺算';
+		let openids = uni.getStorageSync('openid');
+
+		//同步获取图像名称
+		let sting_storage = uni.getStorageSync('login_info');
+		return {
+			title: title,
+			path: 'pages/shouye/shouye'
+		};
 	}
+};
 </script>
 
 <style lang="scss" scoped>
-.content2{
-	.content2_bg{
-		width:100%;
-		height:280rpx;
-		position:absolute;
-		top:0;
-		// border:1px solid red;
-		z-index:-1;
-		image{
-			width:100%;
-			height:100%;
-		}
+.box {
+	padding: 0rpx 50rpx;
+}
+.user-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 104rpx;
+	margin: 30rpx 0rpx 40rpx;
+}
+.login {
+	width: 200rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+	text-align: center;
+	border: 1px solid #ed5c4d;
+	border-radius: 32rpx;
+	font-size: 28rpx;
+	font-weight: 400;
+	color: #ed5c4d;
+}
+.user-img {
+	width: 104rpx;
+	height: 104rpx;
+	margin-right: 32rpx;
+	border: 4rpx solid #ed5c4d;
+	border-radius: 50%;
+	overflow: hidden;
+	image {
+		width: 100%;
+		height: 100%;
 	}
-	.content2_user{
-		width:100%;
-		height:280rpx;
-		// border:1px solid red;
-		margin-top:100rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: rgba(0,0,0,0.01);
-		.content2_user_content{
-			border-radius: 20rpx;
-			width:60%;
-			height:280rpx;
-			border:1px solid #ccc;
-			background-color: #fff;
-			.content2_user_content_bg{
-				width:100%;
-				height:120rpx;
-				// border:1px solid #2A2929;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				margin-top:10rpx;
-				image{
-					border:1px solid #2A2929;
-					width:120rpx;
-					height:120rpx;
-					border-radius: 50%;	
-					//使得头像，水平垂直居中
-					// margin:0 auto;
-				}
-			}
-			.content2_user_title{
-				width:100%;
-				height:60rpx;
-				line-height: 60rpx;
-				text-align: center;
-				// border:1px solid pink;
-			}
-			.content2_user_update{
-				width:100%;
-				height:60rpx;
-				// border:1px solid blue;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				.content2_user_update_content{
-					width:250rpx;
-					height:60rpx; 
-					line-height:60rpx; 
-					text-align:center;
-					border-radius:5rpx;
-					margin-top: 75rpx;
-					// border:1px solid red;
-					.content2_user_img{
-						width:200rpx;
-						height:60rpx; 
-						line-height:60rpx; 
-						text-align:center;
-						border-radius:15rpx;
-						// border:1px solid #FFA6A6;
-						float:left;
-						margin-left:35rpx;
-					}
-					.content2_user_update_img{
-						width:30rpx;
-						height:60rpx; 
-						line-height:60rpx; 
-						text-align:center;
-						border-radius:5rpx;
-						// border:1px solid #2A2929;
-						float:left;
-						image{
-							// border:1px solid #2A2929;
-							width:100%;
-							height:100%;
-						};
-					}
-				}
-				.isNotNameShow{
-					display: none;
-				}
-			}
-			
-		}
-		
-	}
-	.content2_content{
-		width:100%;
-		height:450rpx;
-		// border:1px solid red;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		.content2_content_body{
-			width:90%;
-			height:300rpx;
-			border:1px solid #ccc;
-			border-radius: 10rpx;
-			background-color: #fff;
-			.content2_content_body1{
-				width:100%;
-				height:90rpx;
-				// border:1px solid blue;
-				
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				.content2_content_body1s{
-					width:95%;
-					height:90rpx;
-					color:#222222;
-					font-size: 24rpx;
-					// border:1px solid red;
-					border-bottom:1px solid #ccc;
-					.content2_content_body1s_fenxiang{
-						width:60rpx;
-						height:60rpx;
-						margin-top:10rpx;
-						// border:1px solid pink;
-						float:left;
-						image{
-							width:90%;
-							height:90%;
-						}
-					}
-					.content2_content_body1s_fenxiang_title{
-						width:160rpx;
-						height:90rpx;
-						line-height: 90rpx;
-						margin-left:10rpx;
-						// border:1px solid pink;
-						float:left;
-					}
-					.content2_content_body1s_fenxiang_img{
-						width:80rpx;
-						height:80rpx;
-						background-color: #fff;
+}
+.user-detail {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.user-name {
+	height: 64rpx;
+	font-size: 36rpx;
+	font-weight: 700;
+	line-height: 64rpx;
+	color: #0f1826;
+}
+.user-vip {
+	height: 40rpx;
+	font-size: 24rpx;
+	font-weight: 400;
+	line-height: 40rpx;
+	color: #0f1826;
+}
 
-						// border:1px solid pink;
-						margin-top:5rpx;
-						border-radius: 0;
-						float:right;
-						image{
-							// width:100%;
-							// height:100%;
-							margin-left:-10rpx;
-							width:40rpx;
-							height:80rpx;
-						}
-					}
-					button::after{
-						border: none;
-						background-color: none;
-					}
+// 充值会员
+.vip-box {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	margin: 28rpx 0rpx;
+}
 
+.vip-box .professional,
+.members {
+	width: 320rpx;
+	height: 140rpx;
+	background-color: #ffffff;
+	border-radius: 16rpx;
+	display: flex;
+	align-items: center;
+}
+.professional{
+	background: url(../../static/img/my/huiyuan1.png) no-repeat 0px 0px;
+	background-size: 320rpx 140rpx;
+}
+.members{
+	background: url(../../static/img/my/huiyuan2.png) no-repeat 0px 0px;
+	background-size: 320rpx 140rpx;
+}
+
+.vip-box .vip-logo-one {
+	width: 80rpx;
+	height: 80rpx;
+	margin: 0rpx 36rpx;
+}
+.vip-box .vip-logo-two {
+	width: 80rpx;
+	height: 80rpx;
+	margin: 0rpx 30rpx;
+}
+
+.vip-box .vip-logo-one image,
+.vip-box .vip-logo-two image {
+	width: 100%;
+	height: 100%;
+}
+
+.vip-box .vip-title {
+	width: 160rpx;
+}
+
+.vip-box .vip-title-top {
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+	color: #ed5c4d;
+	height: 25px;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 25px;
+	color: #f9ddb6;
+}
+
+.vip-box .vip-title-bottom {
+	margin-top: 8rpx;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 17px;
+	color: #FFFFFF;
+}
+
+
+
+
+
+// 分享收藏样式
+
+
+.uer-handle{
+	width: 100%;
+}
+
+
+.uer-handle .item,.share-btn{
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 96rpx;
+	margin-top: 12rpx;
+	background-color: #FFFFFF;
+	border-radius: 16rpx;
+	border-width: 0rpx;
+	font-size: 28rpx;
+	image{
+		width: 34rpx;
+		height: 34rpx;
+		margin: 0rpx 20rpx;
+	}
+}
+
+.share-btn{
+	margin: 0px;
+	padding: 0px;
+	border-width: 0rpx;
+	background-color: #FFFFFF;
+}
+
+.share-btn::after{
+	border: none;
+}
+
+
+
+
+
+
+
+
+
+
+.content2_content {
+	width: 100%;
+	height: 450rpx;
+	// border:1px solid red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.content2_content_body {
+		width: 90%;
+		height: 300rpx;
+		border: 1px solid #ccc;
+		border-radius: 10rpx;
+		background-color: #fff;
+		.content2_content_body1 {
+			width: 100%;
+			height: 90rpx;
+			// border:1px solid blue;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.content2_content_body1s {
+				width: 95%;
+				height: 90rpx;
+				color: #222222;
+				font-size: 24rpx;
+				// border:1px solid red;
+				border-bottom: 1px solid #ccc;
+				.content2_content_body1s_fenxiang {
+					width: 60rpx;
+					height: 60rpx;
+					margin-top: 10rpx;
+					// border:1px solid pink;
+					float: left;
+					image {
+						width: 90%;
+						height: 90%;
+					}
+				}
+				.content2_content_body1s_fenxiang_title {
+					width: 160rpx;
+					height: 90rpx;
+					line-height: 90rpx;
+					margin-left: 10rpx;
+					// border:1px solid pink;
+					float: left;
+				}
+				.content2_content_body1s_fenxiang_img {
+					width: 80rpx;
+					height: 80rpx;
+					background-color: #fff;
+
+					// border:1px solid pink;
+					margin-top: 5rpx;
+					border-radius: 0;
+					float: right;
+					image {
+						// width:100%;
+						// height:100%;
+						margin-left: -10rpx;
+						width: 40rpx;
+						height: 80rpx;
+					}
+				}
+				button::after {
+					border: none;
+					background-color: none;
 				}
 			}
 		}
 	}
-	.content2_bottom{
-		width:100%;
-		height:60rpx;
+}
+.content2_bottom {
+	width: 100%;
+	height: 60rpx;
+	// border:1px solid red;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 70rpx;
+	.content2_bottom1 {
+		width: 180rpx;
+		height: 60rpx;
+		line-height: 60rpx;
+		text-align: center;
 		// border:1px solid red;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		bottom:70rpx;
-		.content2_bottom1{
-			width:180rpx;
-			height:60rpx;
-			line-height: 60rpx;
-			text-align: center;
-			// border:1px solid red;
-			border-radius: 15rpx;
-			bottom:60rpx;
-			background-color: #4CB5F6;
-			color:#fff;
-		}
+		border-radius: 15rpx;
+		bottom: 60rpx;
+		background-color: #4cb5f6;
+		color: #fff;
 	}
-	.exitshow{
-		display: felx;
-	}
-	.notexitshow{
-		display: none;
-	}
+}
+.exitshow {
+	display: felx;
+}
+.notexitshow {
+	display: none;
 }
 </style>
