@@ -108,8 +108,7 @@
   height: 50rpx;
   line-height: 40rpx;
   text-align: center;
-  -webkit-border-radius: 30rpx;
-          border-radius: 30rpx;
+  border-radius: 30rpx;
   color: #fff;
   background-color: #196AD4;
 }
@@ -133,8 +132,7 @@
 .tanchukuang .tanchukuang_content.data-v-2287f006 {
   width: 80%;
   height: 345rpx;
-  -webkit-border-radius: 30rpx;
-          border-radius: 30rpx;
+  border-radius: 30rpx;
   background-color: #fff;
   color: #000;
 }
@@ -195,6 +193,24 @@
   width: 100%;
   height: 100%;
 }
+.tanchukuang .tanchukuang_content .tanchukuang_content_content2.data-v-2287f006 {
+  width: 100%;
+  height: 160rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.tanchukuang .tanchukuang_content .tanchukuang_content_content2 input.data-v-2287f006 {
+  width: 80%;
+  height: 55rpx;
+  border: 1px solid #ccc;
+}
 .tanchukuang .tanchukuang_content .tanchukuang_content_submit.data-v-2287f006 {
   width: 100%;
   height: 60rpx;
@@ -213,8 +229,7 @@
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  -webkit-border-radius: 30rpx;
-          border-radius: 30rpx;
+  border-radius: 30rpx;
   color: #fff;
   background-color: #196AD4;
 }

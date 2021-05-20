@@ -65,8 +65,7 @@
 .zhfu_content .zhfu_content_center.data-v-01846ea6 {
   width: 100%;
   height: 10%;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -130,8 +129,7 @@
   height: 70rpx;
   line-height: 70rpx;
   text-align: center;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
   background-color: #03DC06;
   color: #fff;
 }

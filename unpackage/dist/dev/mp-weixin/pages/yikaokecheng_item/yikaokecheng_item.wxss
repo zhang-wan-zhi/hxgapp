@@ -29,6 +29,44 @@
   height: 100%;
   background-color: #F5F5F5;
 }
+.returns.data-v-d9804400 {
+  width: 100%;
+  height: 150rpx;
+  background-color: #F7A3A2;
+}
+.returns .returns1.data-v-d9804400 {
+  width: 150rpx;
+  height: 60rpx;
+  margin-top: 60rpx;
+  float: left;
+}
+.returns .returns1 .returns1_s.data-v-d9804400 {
+  width: 60rpx;
+  height: 60rpx;
+  float: left;
+}
+.returns .returns1 .returns1_s image.data-v-d9804400 {
+  width: 100%;
+  height: 100%;
+}
+.returns .returns1 .returns1_s_s.data-v-d9804400 {
+  width: 85rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  color: #fff;
+  margin-top: 5rpx;
+  float: left;
+}
+.returns .returns2.data-v-d9804400 {
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  color: #fff;
+  margin-top: 60rpx;
+  margin-left: 200rpx;
+  float: left;
+}
 .yikaiKecheng_item.data-v-d9804400 {
   width: 100%;
   height: 350rpx;
@@ -47,7 +85,7 @@
   width: 90%;
   height: 320rpx;
 }
-.yikaiKecheng_item .yikaiKecheng_item_img image.data-v-d9804400 {
+.yikaiKecheng_item .yikaiKecheng_item_img video.data-v-d9804400 {
   width: 100%;
   height: 100%;
 }
@@ -75,6 +113,12 @@
   color: #333337;
   font-size: 35rpx;
   font-weight: bold;
+  overflow: hidden;
+  /*超出部分隐藏*/
+  white-space: nowrap;
+  /*不换行*/
+  text-overflow: ellipsis;
+  /*超出部分文字以...显示*/
 }
 .yikaiKecheng_item_title .yikaiKecheng_item_titles .yikaiKecheng_item_title2.data-v-d9804400 {
   width: 100%;
@@ -129,6 +173,14 @@
 .yikaiKecheng_item_icon .yikaiKecheng_item_icons .yikaiKecheng_item_icon1 .yikaiKecheng_item_icon1_title.data-v-d9804400 {
   width: 75rpx;
   height: 38rpx;
+}
+.isShow.data-v-d9804400 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.isNotShow.data-v-d9804400 {
+  display: none;
 }
 .yikaiKecheng_item_content.data-v-d9804400 {
   width: 100%;
@@ -259,5 +311,138 @@
   color: #fff;
   line-height: 60rpx;
   text-align: center;
+}
+.pinglun_tanchu.data-v-d9804400 {
+  width: 100%;
+  height: auto;
+}
+.pinglun_tanchu .pinglun_tanchu1.data-v-d9804400 {
+  width: 100%;
+  height: 100rpx;
+  border-top: 1px solid #D5CFCF;
+  border-bottom: 1px solid #D5CFCF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  background-color: #FFFFFF;
+}
+.pinglun_tanchu .pinglun_tanchu1 .pinglun_tanchu1s.data-v-d9804400 {
+  width: 90%;
+  height: 95rpx;
+}
+.pinglun_tanchu .pinglun_tanchu1 .pinglun_tanchu1s .pinglun_tanchu1_title.data-v-d9804400 {
+  width: 610rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  float: left;
+  color: #101010;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+.pinglun_tanchu .pinglun_tanchu1 .pinglun_tanchu1s .pinglun_tanchu1_exit.data-v-d9804400 {
+  width: 50rpx;
+  height: 50rpx;
+  float: right;
+}
+.pinglun_tanchu .pinglun_tanchu1 .pinglun_tanchu1s .pinglun_tanchu1_exit image.data-v-d9804400 {
+  width: 100%;
+  height: 100%;
+}
+.pinglun_tanchu .pinglun_tanchu2.data-v-d9804400 {
+  width: 100%;
+  height: 220rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #D5CFCF;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content.data-v-d9804400 {
+  width: 95%;
+  height: 200rpx;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_left.data-v-d9804400 {
+  width: 19%;
+  height: 200rpx;
+  float: left;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_left .pinglun_tanchu2_content_left_top.data-v-d9804400 {
+  width: 100rpx;
+  height: 100rpx;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_left .pinglun_tanchu2_content_left_top image.data-v-d9804400 {
+  width: 100%;
+  height: 100%;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right.data-v-d9804400 {
+  width: 79%;
+  height: 200rpx;
+  float: left;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right .pinglun_tanchu2_content_right_top.data-v-d9804400 {
+  width: 100%;
+  height: 60rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #191919;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right .pinglun_tanchu2_content_right_top .pinglun_tanchu2_content_right_top1.data-v-d9804400 {
+  width: 100rpx;
+  height: 34rpx;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right .pinglun_tanchu2_content_right_center.data-v-d9804400 {
+  width: 100%;
+  height: 80rpx;
+  font-weight: bold;
+  font-size: 24rpx;
+  color: #101010;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right .pinglun_tanchu2_content_right_bottom.data-v-d9804400 {
+  width: 100%;
+  height: 40rpx;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right .pinglun_tanchu2_content_right_bottom .pinglun_tanchu2_content_right_bottom1.data-v-d9804400 {
+  width: 100rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  float: left;
+  font-size: 24rpx;
+  color: #5D5D5E;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right .pinglun_tanchu2_content_right_bottom .pinglun_tanchu2_content_right_bottom2.data-v-d9804400 {
+  width: 100rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  float: left;
+  font-size: 20rpx;
+  color: #101010;
+  border-radius: 20rpx;
+  background-color: #E6E6E6;
+  margin-left: 20rpx;
+  font-weight: bold;
+}
+.pinglun_tanchu .pinglun_tanchu2 .pinglun_tanchu2_content .pinglun_tanchu2_content_right .pinglun_tanchu2_content_right_bottom .pinglun_tanchu2_content_right_bottom3.data-v-d9804400 {
+  width: 100rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  float: right;
+  font-size: 24rpx;
+  color: #5D5D5E;
 }
 

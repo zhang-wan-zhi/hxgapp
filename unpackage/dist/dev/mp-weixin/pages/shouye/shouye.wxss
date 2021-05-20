@@ -43,13 +43,34 @@
 .icon-sousuo:before {
   content: "\e612";
 }
+.slide-image {
+  position: absolute;
+  height: 200rpx;
+  width: 75vw;
+  z-index: 5;
+  opacity: 0.8;
+  top: 18%;
+  margin: 0 20rpx;
+}
+swiper {
+  height: 60vw;
+}
+.active {
+  opacity: 1;
+  z-index: 10;
+  height: 320rpx;
+  width: 75vw;
+  top: 7%;
+  -webkit-transition: all 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
+}
 .all_content {
   width: 100%;
   height: 100%;
 }
 .all_content .Search_content {
   width: 100%;
-  height: 100rpx;
+  height: 120rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -61,15 +82,14 @@
           justify-content: center;
 }
 .all_content .Search_content input {
-  width: 580rpx;
-  height: 80rpx;
-  -webkit-border-radius: 32rpx;
-          border-radius: 32rpx;
+  width: 90%;
+  height: 100rpx;
+  border-radius: 32rpx;
   background-color: #F37372;
 }
 .all_content .home {
   width: 100%;
-  height: 320rpx;
+  height: 340rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -82,7 +102,7 @@
 }
 .all_content .home swiper {
   width: 90%;
-  height: 320rpx;
+  height: 335rpx;
 }
 .all_content .home image {
   width: 100%;
@@ -115,8 +135,7 @@
   height: 60rpx;
   float: left;
   background-color: #ED5352;
-  -webkit-border-radius: 5rpx;
-          border-radius: 5rpx;
+  border-radius: 5rpx;
   font-size: 28rpx;
 }
 .all_content .Shouye_content .content_title .content_title_title .shouye_title_right {
@@ -217,8 +236,7 @@
   width: 150rpx;
   height: 50rpx;
   text-align: center;
-  -webkit-border-radius: 25rpx;
-          border-radius: 25rpx;
+  border-radius: 25rpx;
   background-color: #196AD4;
   color: #fff;
   font-weight: bold;
@@ -259,6 +277,7 @@
   width: 68%;
   height: 100%;
   float: left;
+  position: relative;
 }
 .all_content .Shouye_content .yikaoKecheng_content .yikaoKecheng_content_content .yikaoKecheng_content_content_right .yikaoKecheng_content_content_right_top {
   width: 100%;
@@ -269,6 +288,7 @@
   height: 85rpx;
   color: #333337;
   font-weight: bold;
+  margin-top: 13rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -281,8 +301,8 @@
 }
 .all_content .Shouye_content .yikaoKecheng_content .yikaoKecheng_content_content .yikaoKecheng_content_content_right .yikaoKecheng_content_content_right_bottom .yikaoKecheng_content_content_right_bottom_title_jianjie {
   width: 300rpx;
-  height: 40rpx;
-  line-height: 40rpx;
+  height: 35rpx;
+  line-height: 35rpx;
   color: #8D8886;
   font-size: 24rpx;
   overflow: hidden;
@@ -296,17 +316,19 @@
   width: 100%;
   height: 35rpx;
   line-height: 35rpx;
+  position: absolute;
+  bottom: 10rpx;
 }
 .all_content .Shouye_content .yikaoKecheng_content .yikaoKecheng_content_content .yikaoKecheng_content_content_right .yikaoKecheng_content_content_right_bottom .yikaoKecheng_content_content_right_bottom_title .yikaoKecheng_content_content_right_bottom_title_left {
   width: 150rpx;
-  height: 60rpx;
+  height: 35rpx;
   float: left;
   font-size: 24rpx;
   color: #8D8886;
 }
 .all_content .Shouye_content .yikaoKecheng_content .yikaoKecheng_content_content .yikaoKecheng_content_content_right .yikaoKecheng_content_content_right_bottom .yikaoKecheng_content_content_right_bottom_title .yikaoKecheng_content_content_right_bottom_title_right {
   width: 250rpx;
-  height: 60rpx;
+  height: 35rpx;
   float: right;
   font-size: 30rpx;
   color: #C6A078;
@@ -324,7 +346,7 @@
 }
 .all_content .Shouye_content .yikaoKecheng_content .yikaoKecheng_content_content .yikaoKecheng_content_content_right .yikaoKecheng_content_content_right_bottom .yikaoKecheng_content_content_right_bottom_title .yikaoKecheng_content_content_right_bottom_title_right .yikaoKecheng_content_content_right_bottom_title_right_rmb {
   width: 100rpx;
-  height: 60rpx;
+  height: 35rpx;
   margin-right: 15rpx;
   float: right;
 }
@@ -333,8 +355,9 @@
   height: auto;
 }
 .all_content .Shouye_content .yikaoTiku_content .yikaoTiku_content_content {
-  width: 100%;
+  width: 90%;
   height: 80rpx;
+  margin-left: 5%;
   border-bottom: 1px solid #E7E7E7;
   margin-top: 5rpx;
 }

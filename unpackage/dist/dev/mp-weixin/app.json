@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/shouye/shouye",
+    "pages/test/test",
+    "pages/index/index",
+    "pages/yikaoxiangqing_lunbo/yikaoxiangqing_lunbo",
     "pages/yikaotimu_danxuan/yikaotimu_danxuan",
     "pages/yikaokecheng_item/yikaokecheng_item",
     "pages/wenxuexi/wenxuexi",
@@ -18,14 +20,16 @@
     "pages/yijianFangkuiSuccess/yijianFangkuiSuccess",
     "pages/yikaoxiangqing/yikaoxiangqing",
     "pages/xinggepinggu/xinggepinggu",
-    "pages/xinggepinggu2/xinggepinggu2"
+    "pages/xinggepinggu2/xinggepinggu2",
+    "pages/test_search/test_search"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    "onReachBottomDistance": 160
   },
   "tabBar": {
     "color": "#7A7E83",
@@ -44,12 +48,6 @@
         "selectedIconPath": "./static/icon/wenxuexi_icon_active.png",
         "iconPath": "./static/icon/wenxuexi_icon.png",
         "text": "问学习"
-      },
-      {
-        "pagePath": "pages/wenxiaokao/wenxiaokao",
-        "selectedIconPath": "./static/icon/wenxiaokao_icon_active.png",
-        "iconPath": "./static/icon/wenxiaokao_icon.png",
-        "text": "问校考"
       },
       {
         "pagePath": "pages/wenluqu/wenluqu",
@@ -73,6 +71,5 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

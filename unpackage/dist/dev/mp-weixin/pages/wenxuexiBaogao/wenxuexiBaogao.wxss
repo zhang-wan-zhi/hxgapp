@@ -112,6 +112,7 @@
 .wenxuexi_baogao_bottom.data-v-570e3d06 {
   width: 100%;
   height: 600rpx;
+  margin-top: 300rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -147,6 +148,9 @@
 .wenxuexi_baogao_bottom .wenxuexi_baogao_bottom_content_body .wenxuexi_baogao_bottom_content .wenxuexi_baogao_bottom_content_left2.data-v-570e3d06 {
   color: #EC811F;
 }
+.wenxuexi_baogao_bottom .wenxuexi_baogao_bottom_content_body .wenxuexi_baogao_bottom_content .wenxuexi_baogao_bottom_content_left3.data-v-570e3d06 {
+  color: red;
+}
 .wenxuexi_baogao_bottom .wenxuexi_baogao_bottom_content_body .wenxuexi_baogao_bottom_content .wenxuexi_baogao_bottom_content_right.data-v-570e3d06 {
   width: 90%;
   height: 180rpx;
@@ -157,7 +161,6 @@
   word-break: keep-all;
   word-wrap: break-world;
   white-space: pre-line;
-  margin-top: 10rpx;
 }
 .wenxuexi_baogao_bottom .wenxuexi_baogao_bottom_content_body .wenxuexi_baogao_bottom_content1.data-v-570e3d06 {
   border-left: 1px solid #03DC06;

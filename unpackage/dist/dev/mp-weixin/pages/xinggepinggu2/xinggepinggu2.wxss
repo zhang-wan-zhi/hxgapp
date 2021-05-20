@@ -46,7 +46,7 @@
 }
 .pinggu_content.data-v-62ad275c {
   width: 100%;
-  height: 650rpx;
+  margin-top: 20%;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -60,8 +60,7 @@
 .pinggu_content .pinggu_content_content.data-v-62ad275c {
   width: 80%;
   height: 755rpx;
-  -webkit-border-radius: 20rpx;
-          border-radius: 20rpx;
+  border-radius: 20rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -93,7 +92,7 @@
           justify-content: center;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_tihao .pinggu_content_content1_tihao1.data-v-62ad275c {
-  width: 120rpx;
+  width: 200rpx;
   height: 50rpx;
   line-height: 50rpx;
   text-align: center;
@@ -152,6 +151,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
+  margin-top: 30rpx;
   -webkit-box-pack: space-evenly;
   -webkit-justify-content: space-evenly;
           justify-content: space-evenly;
@@ -163,8 +163,7 @@
   text-align: center;
   background-color: #196AD4;
   color: #fff;
-  -webkit-border-radius: 30rpx;
-          border-radius: 30rpx;
+  border-radius: 30rpx;
   z-index: 1;
   display: none;
 }
@@ -175,12 +174,14 @@
   text-align: center;
   background-color: #196AD4;
   color: #fff;
-  -webkit-border-radius: 30rpx;
-          border-radius: 30rpx;
+  border-radius: 30rpx;
   z-index: 1;
-  display: block;
+  display: none;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_next .show_front.data-v-62ad275c {
+  display: block;
+}
+.pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_next .show_next.data-v-62ad275c {
   display: block;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_submit.data-v-62ad275c {
@@ -203,9 +204,12 @@
   text-align: center;
   background-color: #EDA252;
   color: #fff;
-  -webkit-border-radius: 30rpx;
-          border-radius: 30rpx;
+  border-radius: 30rpx;
   z-index: 1;
+  display: none;
+}
+.pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_submit .show_submit.data-v-62ad275c {
+  display: block;
 }
 .pinggu_content .pinggu_content_content .pinggu_content_content1 .pinggu_content_content1_right_bg.data-v-62ad275c {
   width: 100%;
