@@ -1,15 +1,10 @@
 <template>
 	<view class="all_content">
 		<!-- 搜索区域 -->
-		<view class="Search_content">
+		<view class="Search_content" @click="getFocus">
 			<text class="iconfont icon-sousuo sousuo"></text>
 			<input
-				type="text"
-				@input="getInput2"
-				@focus="getFocus"
-				@blur="getBlur"
-				@confirm="getSubmit"
-				v-model="inputs_text"
+				:disabled="true"
 				:placeholder="placeholders"
 				placeholder-style=" margin-left:300rpx; font-size: 32rpx; color:#A9AFB8;"
 			/>
@@ -326,11 +321,6 @@ export default {
 		//点击查看某一篇的艺考动态信息
 		yikaoDongtai(ids) {
 			console.log(ids);
-			// let id=1;
-			// getyikaoDongtaiList_one(id).then((res)=>{
-			// 	console.log(res);
-			// });
-			// let yikaoDongtaiList=this.yikaoDongtaiList;
 			uni.navigateTo({
 				url: '../yikaoxiangqing/yikaoxiangqing?id=' + ids
 			});
@@ -367,35 +357,6 @@ export default {
 			this.placeholders_styles = '';
 			uni.navigateTo({
 				url: '../test_search/test_search'
-			});
-		},
-		//点击输入框，失去焦点时
-		getBlur() {
-			this.placeholders = '搜索快讯';
-			this.placeholders_styles = 'iconfont icon-sousuo';
-		},
-		//点击确定电脑回车，或者手机回车时触发
-		getSubmit() {
-			// console.log(111);
-			//解决ios键盘无法弹回的问题
-			uni.hideKeyboard();
-			this.Searchs();
-		},
-		// 取消搜索
-		Searchs() {
-			console.log(this.inputs_text);
-			uni.request({
-				url: `${this.$serverUrl}api/TestSearchPost`,
-				//#ifdef H5
-				url: '/api/api/TestSearchPost',
-				//#endif
-				method: 'POST',
-				contentType: 'application/json;charset=UTF-8',
-				data: {
-					content: this.inputs_text
-				}
-			}).then(res => {
-				console.log(res);
 			});
 		},
 		//点击进入性格评估
@@ -500,6 +461,9 @@ export default {
 	border-width: 0px;
 	background-color: #FFFFFF;
 }
+.to-service::after{
+	border-width: 0rpx;
+}
 .test-box .online,
 .accurate {
 	width: 320rpx;
@@ -534,7 +498,7 @@ export default {
 .test-box .test-title-top {
 	font-size: 16px;
 	font-weight: 400;
-	line-height: 22px;
+	line-height: 50rpx;
 	color: #ed5c4d;
 }
 

@@ -2,6 +2,8 @@
   "navigationBarTitleText": "意见反馈",
   "enablePullDownRefresh": false,
   "navigationBarTextStyle": "white",
-  "navigationBarBackgroundColor": "#F7A3A2",
-  "usingComponents": {}
+  "navigationBarBackgroundColor": "#ED5C4D",
+  "usingComponents": {
+    "uni-file-picker": "/uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker"
+  }
 }

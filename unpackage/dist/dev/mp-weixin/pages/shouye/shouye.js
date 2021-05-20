@@ -104,6 +104,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.yikaoTikuList, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.title.length > 20 ? item.title.substring(0, 20) : null
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -248,6 +266,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 190));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 197));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -258,10 +277,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 192));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 199));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
     yikaoDongtai: yikaoDongtai,
@@ -275,11 +290,13 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
       //新输入框的值
       inputs_text: '',
       //输入框默认的值
-      placeholders: '搜索艺考动态',
+      placeholders: '搜索',
       //输入框默认的样式
-      placeholders_styles: 'iconfont icon-sousuo',
-      //轮播图图的数组地址
+      // placeholders_styles:'iconfont icon-sousuo',
+      //轮播图的数组地址
       swipers: [],
+      // 当前显示的指示点
+      currentDotIndex: 0,
       //艺考动态标题栏的切换
       isactive: true,
       //艺考课程标题栏的切换
@@ -295,7 +312,7 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
       //艺考题库显示隐藏的状态
       yikaoTikuStatus: false,
       //艺考动态列表数据
-      yikaiDongtaiList: [],
+      yikaoDongtaiList: [],
       //艺考课程列表数据
       yikaoKechengList: [],
       //艺考题库列表数据
@@ -342,11 +359,11 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
 
         // return res.data.msg;
       } else {
-        _this.yikaiDongtaiList = _this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
+        _this.yikaoDongtaiList = _this.yikaoDongtaiList.concat(res.data.artexamdynamicList);
         _this.currentPage = currentPage;
         uni.setStorage({
           key: 'yikaoDongtaiList',
-          data: _this.yikaiDongtaiList });
+          data: _this.yikaoDongtaiList });
 
       }
     });
@@ -356,45 +373,25 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
   },
   methods: {
     swierChange: function swierChange(e) {
+      // console.log(e.detail);
+      this.currentDotIndex = e.detail.current;
       this.currentIndex = e.detail.current;
     },
-    //查看更多
-    // mores(){
-    // 	// console.log(111);
-    // 	let currentPage=this.currentPage;
-    // 	let pageSize=4;
-    // 	currentPage=currentPage+1;
-    // 	getmoreList(currentPage,pageSize).then((res)=>{
-    // 		console.log(res.data.artexamdynamicList);	
-    // 		// console.log(res.data.msg);
-    // 		if(res.data.msg=='页码超出了哦!'){
-    // 			return res.data.msg;
-    // 		}else{
-    // 			this.yikaiDongtaiList=this.yikaiDongtaiList.concat(res.data.artexamdynamicList);
-    // 			this.currentPage=currentPage;
-    // 			uni.setStorage({
-    // 				key:'yikaoDongtaiList',
-    // 				data:this.yikaiDongtaiList
-    // 			});
-    // 		}
-    // 	})
-    // },
     //进入查看每项轮播图
     inter_lunbo_details: function inter_lunbo_details(id) {
       console.log(id);
       uni.navigateTo({
-        url: "../yikaoxiangqing_lunbo/yikaoxiangqing_lunbo?ids=" + id });
-
+        url: '../yikaoxiangqing_lunbo/yikaoxiangqing_lunbo?ids=' + id });
 
     },
     //获取艺考动态列表数据
     getyikaoDongtaiLists: function getyikaoDongtaiLists() {var _this2 = this;
       (0, _api.getyikaoDongtaiList)().then(function (res) {
         // console.log(res.data.artexamdynamicList);
-        _this2.yikaiDongtaiList = res.data.artexamdynamicList;
+        _this2.yikaoDongtaiList = res.data.artexamdynamicList;
         uni.setStorage({
           key: 'yikaoDongtaiList',
-          data: _this2.yikaiDongtaiList });
+          data: _this2.yikaoDongtaiList });
 
       });
     },
@@ -405,7 +402,6 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
         console.log(res.data.banners);
         _this3.swipers = res.data.banners;
       });
-
     },
     //获取窗口高度，适配手机
     getWindowHeight: function getWindowHeight() {var _this4 = this;
@@ -424,7 +420,7 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
     yikaokecheng_click: function yikaokecheng_click(id) {
       // console.log(id);
       uni.navigateTo({
-        url: "../yikaokecheng_item/yikaokecheng_item?ids=" + id });
+        url: '../yikaokecheng_item/yikaokecheng_item?ids=' + id });
 
     },
     //点击向右箭头触发，打开题库,打开为id的试卷
@@ -432,7 +428,6 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
       // console.log(id);
       uni.navigateTo({
         url: '../xinggepinggu/xinggepinggu?ids=' + id });
-
 
     },
     //点击艺考题库触发
@@ -475,15 +470,12 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
       this.yikaoDongtaiStatus = true;
       this.yikaoKechengStatus = false;
       this.yikaoTikuStatus = false;
+
+      console.log(this.yikaoDongtaiList);
     },
     //点击查看某一篇的艺考动态信息
     yikaoDongtai: function yikaoDongtai(ids) {
       console.log(ids);
-      // let id=1;
-      // getyikaoDongtaiList_one(id).then((res)=>{
-      // 	console.log(res);
-      // });
-      // let yikaiDongtaiList=this.yikaiDongtaiList;
       uni.navigateTo({
         url: '../yikaoxiangqing/yikaoxiangqing?id=' + ids });
 
@@ -507,10 +499,9 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
         (0, _api.getmoreList1)(aedTitle, sousuoTyoe, currentPage, pageSize).then(function (res) {
           _this7.isSearch = false;
           console.log(res.data.artexamdynamicList);
-          _this7.yikaiDongtaiList = res.data.artexamdynamicList;
+          _this7.yikaoDongtaiList = res.data.artexamdynamicList;
         });
       }
-
 
       //解决点击搜索时键盘不收回
       // uni.hideKeyboard();
@@ -523,33 +514,32 @@ var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = fu
         url: '../test_search/test_search' });
 
     },
-    //点击输入框，失去焦点时
-    getBlur: function getBlur() {
-      this.placeholders = '搜索快讯';
-      this.placeholders_styles = 'iconfont icon-sousuo';
-    },
-    //点击确定电脑回车，或者手机回车时触发
-    getSubmit: function getSubmit() {
-      // console.log(111);
-      //解决ios键盘无法弹回的问题
-      uni.hideKeyboard();
-      this.Searchs();
-    },
-    // 取消搜索
-    Searchs: function Searchs() {
-      console.log(this.inputs_text);
-      uni.request({
-        url: "".concat(this.$serverUrl, "api/TestSearchPost"),
+    //点击进入性格评估
+    xinggepinggu: function xinggepinggu() {
+      var ids = 0;
+      (0, _api.getWenxuexiTestList)(ids).then(function (res) {
+        console.log(res.data.data);
+        var arr = res.data.data;
+        var newArr = [];
+        //去除没有达到一项的数据
+        for (var i = 0; i < arr.length; i++) {
+          // console.log(arr[i]);
+          if (arr[i].optionsList.length > 1) {
+            newArr.push(arr[i]);
+          }
+        }
 
+        uni.setStorage({
+          key: 'lists1',
+          data: newArr });
 
+        console.log(newArr);
 
-        method: "POST",
-        contentType: 'application/json;charset=UTF-8',
-        data: {
-          content: this.inputs_text } }).
+      }).then(function () {
+        var valueArr = [];
+        uni.navigateTo({
+          url: '../xinggepinggu2/xinggepinggu2?id=' + ids + '&valueArr=' + valueArr });
 
-      then(function (res) {
-        console.log(res);
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

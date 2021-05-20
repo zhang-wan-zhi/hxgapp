@@ -1,796 +1,266 @@
 <template>
-	<view class="body_content">
-		<view class="returns">
-			<view class="returns1" @click="fanghui">
-				<view class="returns1_s">
-					<image src="../../static/svg/top_return.svg"></image>
+	<view>
+		<!-- 视频 -->
+		<view class="class-item">
+			<view class="class-video"><video :src="yikaoKechengList_one.aeVideourl" objectFit="cover"></video></view>
+			<!-- 视频详情 -->
+			<view class="detail">
+				<text class="title">{{ yikaoKechengList_one.aeTitle }}</text>
+				<view class="watch">
+					<image src="../../static/img/firstIcon/watch.png" mode=""></image>
+					<text class="watch-number">{{ yikaoKechengList_one.peopleNum }}人正在观看</text>
 				</view>
-				<view class="returns1_s_s">返回</view>
 			</view>
-			<view class="returns2">艺考课程</view>
+			<!-- 点赞分享 -->
+			<view class="handle">
+				<view @click="click_dianzan">
+					<image src="../../static/icon/kecheng/dianzan1.png" v-show="!isDianzan"></image>
+					<image src="../../static/icon/kecheng/dianzan.png" v-show="isDianzan"></image>
+					<text>赞</text>
+				</view>
+				<view>
+					<image src="../../static/icon/kecheng/comment.png"></image>
+					<text>评论</text>
+				</view>
+				<view>
+					<image src="../../static/icon/kecheng/shoucang1.png"></image>
+					<text>收藏</text>
+				</view>
+				<view>
+					<image src="../../static/icon/kecheng/fenxiang.png" mode=""></image>
+					<text>分享</text>
+				</view>
+			</view>
 		</view>
-		
-		<view class="yikaiKecheng_item">
-			<view class="yikaiKecheng_item_img">
-				<!-- <image :src="yikaoKechengList_one.aeImgurl"></image> -->
-				<video :src="yikaoKechengList_one.aeVideourl" objectFit="cover"></video>
-			</view>
-			
-		</view>
-		
-		<view class="yikaiKecheng_item_title">
-			<view class="yikaiKecheng_item_titles">
-				<view class="yikaiKecheng_item_title1">{{yikaoKechengList_one.aeTitle}}</view>
-				<view class="yikaiKecheng_item_title2">
-					<view class="yikaiKecheng_item_title2_left">{{yikaoKechengList_one.peopleNum}}人正在观看</view>
-					<view class="yikaiKecheng_item_title2_right">{{yikaoKechengList_one.aeCreatetime}}发布</view>
-				</view>
-			</view>
-		</view>
-		
-		<!-- <view class="yikaiKecheng_item_icon" :class="isIcon?'isShow':'isNotShow'">
-			<view class="yikaiKecheng_item_icons" >
-				<view class="yikaiKecheng_item_icon1">
-					<view class="yikaiKecheng_item_icon1_img">
-						<image src="../../static/img/fenxiang_icon.png"></image>
-					</view>
-					<view class="yikaiKecheng_item_icon1_title">分享</view>
-				</view>
-				
-				<view class="yikaiKecheng_item_icon1" @click="click_shouchang">
-					<view class="yikaiKecheng_item_icon1_img">
-						<image :src="isShouchangArrstr"></image>
-					</view>
-					<view class="yikaiKecheng_item_icon1_title">收藏</view>
-				</view>
-				
-				<view class="yikaiKecheng_item_icon1" @click="click_pinlun">
-					<view class="yikaiKecheng_item_icon1_img">
-						<image src="../../static/img/pinlun_icon.png"></image>
-					</view>
-					<view class="yikaiKecheng_item_icon1_title">评论</view>
-				</view>
-				
-				<view class="yikaiKecheng_item_icon1" @click="click_dianzan">
-					<view class="yikaiKecheng_item_icon1_img">
-						<image :src="isDianzanArrstr"></image>
-					</view>
-					<view class="yikaiKecheng_item_icon1_title">点赞</view>
-				</view>
-			</view>			
-			
-		</view> -->
-		
-		<view class="yikaiKecheng_item_content"  v-for="(item,index) in yikaoKechengList" :key="index" v-show="isKecheng">
-			
-			<view class="yikaoKecheng_content_content" :style="{height:phoneHeight*0.20+'px;'}" @click="yikaokecheng_click(item.aeId)">
-				<view class="yikaoKecheng_content_content_left">
-					<view class="yikaoKecheng_content_content_left_img">
-						<image :src="item.aeImgurl"></image>
-					</view>
-				</view>
-				<view class="yikaoKecheng_content_content_right">
-					<view class="yikaoKecheng_content_content_right_top">
-						<view class="yikaoKecheng_content_content_right_top_title">{{item.aeTitle}}</view>
-					</view>
-					<view class="yikaoKecheng_content_content_right_bottom">
-						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">{{item.aeIntro}}</view>
-						<view class="yikaoKecheng_content_content_right_bottom_title">
-							<view class="yikaoKecheng_content_content_right_bottom_title_left">{{item.peopleNum}}人观看</view>
-							<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">{{item.aeOriginalprice}}</view>
-							</view> -->
-						</view>
-					</view>
-				</view>
-			</view>
-			
-			<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-				<image src="../../static/img/huiyuanmianfei.png"></image>
-			</view> -->
-			
-	<!-- 		<view class="yikaoKecheng_content_content">
-				<view class="yikaoKecheng_content_content_left">
-					<view class="yikaoKecheng_content_content_left_img">
-						<image src="../../static/img/yikaiKecheng_img2.png"></image>
-					</view>
-				</view>
-				<view class="yikaoKecheng_content_content_right">
-					<view class="yikaoKecheng_content_content_right_top">
-						<view class="yikaoKecheng_content_content_right_top_title">【回放】高考延期艺考生和家长如何应对？
-点下99999999999999999999</view>
-					</view>
-					<view class="yikaoKecheng_content_content_right_bottom">
-						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie" style="visibility: hidden;">内部课程，仅供专业认识和11111111111111111</view>
-						<view class="yikaoKecheng_content_content_right_bottom_title">
-							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
-							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb">免费</view>
+
+		<!-- 分割线 -->
+		<view class="line"></view>
+
+		<!-- 更多视频 -->
+		<view class="more">
+			<view class="tip">更多视频</view>
+			<!-- 艺考课程列表 -->
+			<view>
+				<view class="class-contents" v-for="(item, index) in yikaoKechengList" :key="index">
+					<view class="class-content" @click="yikaokecheng_click(item.aeId)">
+						<view class="class-img"><image :src="item.aeImgurl"></image></view>
+						<view class="class-detail">
+							<view class="class-title">{{ item.aeTitle }}</view>
+							<view class="class-number">
+								<image src="../../static/img/firstIcon/watch.png"></image>
+								<text>{{ item.peopleNum + '人正在观看' }}</text>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view> -->
-			
-			<!-- <view class="yikaoKecheng_content_content_right_bottom_title_right_img">
-				<image src="../../static/img/huiyuanmianfei.png"></image>
-			</view> -->
-			
-		<!-- 	<view class="yikaoKecheng_content_content">
-				<view class="yikaoKecheng_content_content_left">
-					<view class="yikaoKecheng_content_content_left_img">
-						<image src="../../static/img/yikaiKecheng_img3.png"></image>
-					</view>
-				</view>
-				<view class="yikaoKecheng_content_content_right">
-					<view class="yikaoKecheng_content_content_right_top">
-						<view class="yikaoKecheng_content_content_right_top_title">【直播】疫情背景下的传媒艺术创作动向
-评析及99999999999999999999</view>
-					</view>
-					<view class="yikaoKecheng_content_content_right_bottom">
-						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">内部课程，仅供专业认识和11111111111111111</view>
-						<view class="yikaoKecheng_content_content_right_bottom_title">
-							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
-							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_img" v-show="false">
-									<image src="../../static/img/huiyuanmianfei.png"></image>
-								</view>
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view> -->
-			
-		<!-- 	<view class="yikaoKecheng_content_content">
-				<view class="yikaoKecheng_content_content_left">
-					<view class="yikaoKecheng_content_content_left_img">
-						<image src="../../static/img/yikaiKecheng_img4.png"></image>
-					</view>
-				</view>
-				<view class="yikaoKecheng_content_content_right">
-					<view class="yikaoKecheng_content_content_right_top">
-						<view class="yikaoKecheng_content_content_right_top_title">原来《艺考开讲》的课程是这样直播的</view>
-					</view>
-					<view class="yikaoKecheng_content_content_right_bottom">
-						<view class="yikaoKecheng_content_content_right_bottom_title_jianjie">《艺考开讲》国庆特别课程...</view>
-						<view class="yikaoKecheng_content_content_right_bottom_title">
-							<view class="yikaoKecheng_content_content_right_bottom_title_left">3151人观看</view>
-							<view class="yikaoKecheng_content_content_right_bottom_title_right">
-								<view class="yikaoKecheng_content_content_right_bottom_title_right_rmb" style="color:#F46667; font-size: 24rpx;">免费</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view> -->
-			
-			<!-- <view class="yikaiKecheng_item_content_item">
-				<view class='yikaiKecheng_item_content_item_left'>
-					<view class="yikaiKecheng_item_content_item_left_img">
-						<image></image>
-					</view>
-				</view>
-				<view class='yikaiKecheng_item_content_item_right'>
-					<view class="yikaiKecheng_item_content_item_right_top"></view>
-					<view class="yikaiKecheng_item_content_item_right_center"></view>
-					<view class="yikaiKecheng_item_content_item_right_bottom">
-						<view class="yikaiKecheng_item_content_item_right_bottom_renshu"></view>
-						<view class="yikaiKecheng_item_content_item_right_bottom_img"></view>
-						<view class="yikaiKecheng_item_content_item_right_bottom_price"></view>
-					</view>
-				</view>
-			</view> -->
-			
+			</view>
 		</view>
-		
-		<!-- <view class="yikaoKecheng_content_bottom" :style="{bottom:0}">
-			<view class="yikaoKecheng_content_bottom1">购买￥99</view>
-		</view> -->
-		
-		<!-- 评论弹出框 -->
-		<view class="pinglun_tanchu" v-show="isPinlun">
-			<view class="pinglun_tanchu1">
-				<view class="pinglun_tanchu1s">
-					<view class="pinglun_tanchu1_title">全部评论</view>
-					<view class="pinglun_tanchu1_exit" @click="exitIcon">
-						<image src='../../static/svg/x.svg'></image>
-					</view>
-				</view>
-			</view>
-			
-			<view class="pinglun_tanchu2">
-				<view class="pinglun_tanchu2_content">
-					<view class="pinglun_tanchu2_content_left">
-						<view class="pinglun_tanchu2_content_left_top">
-							<image src="../../static/img/touxiang_img.png"></image>
-						</view>
-					</view>
-					<view class="pinglun_tanchu2_content_right">
-						<view class="pinglun_tanchu2_content_right_top">
-							<view class="pinglun_tanchu2_content_right_top1">长歌</view>
-						</view>
-						<view class="pinglun_tanchu2_content_right_center">看大家都说今天出成绩，想问一下谁知道今天几点出呢？</view>
-						<view class="pinglun_tanchu2_content_right_bottom">
-							<view class="pinglun_tanchu2_content_right_bottom1">1小时前</view>
-							<view class="pinglun_tanchu2_content_right_bottom2">10回复</view>
-							<view class="pinglun_tanchu2_content_right_bottom3">回复</view>
-						</view>
-					</view>
-				</view>
-			</view>
-			
-			<view class="pinglun_tanchu2">
-				<view class="pinglun_tanchu2_content">
-					<view class="pinglun_tanchu2_content_left">
-						<view class="pinglun_tanchu2_content_left_top">
-							<image src="../../static/img/touxiang_img.png"></image>
-						</view>
-					</view>
-					<view class="pinglun_tanchu2_content_right">
-						<view class="pinglun_tanchu2_content_right_top">
-							<view class="pinglun_tanchu2_content_right_top1">长歌</view>
-						</view>
-						<view class="pinglun_tanchu2_content_right_center">看大家都说今天出成绩，想问一下谁知道今天几点出呢？</view>
-						<view class="pinglun_tanchu2_content_right_bottom">
-							<view class="pinglun_tanchu2_content_right_bottom1">1小时前</view>
-							<view class="pinglun_tanchu2_content_right_bottom2">10回复</view>
-							<view class="pinglun_tanchu2_content_right_bottom3">回复</view>
-						</view>
-					</view>
-				</view>
-			</view>
-			
-		</view>
+
 	</view>
 </template>
 
 <script>
-	import {getyikaoKechengList_one,getyikaoKechengList} from '../../api/api.js'
-	export default{
-		data(){
-			return{
-				yikaoKechengList_one:[],
-				//艺考课程列表数据
-				yikaoKechengList:[],
-				//是否显示icon图标
-				isIcon:true,
-				//是否显示课程
-				isKecheng:true,
-				//是否显示评论
-				isPinlun:false,
-				//是否处于收藏状态
-				isShouchang:false,
-				isShouchangArr:["../../static/img/shouchang_icon1.png","../../static/img/shouchang_icon.png"],
-				isShouchangArrstr:"../../static/img/shouchang_icon.png",
-				//是否处于点赞状态
-				isDianzan:false,
-				isDianzanArr:["../../static/img/dianzan_icon1.png","../../static/img/dianzan_icon.png"],
-				isDianzanArrstr:"../../static/img/dianzan_icon.png",
-			}
+import { getyikaoKechengList_one, getyikaoKechengList } from '../../api/api.js';
+export default {
+	data() {
+		return {
+			yikaoKechengList_one: [],
+			//艺考课程列表数据
+			yikaoKechengList: [],
+			//是否显示icon图标
+			isIcon: true,
+			//是否显示课程
+			isKecheng: true,
+			//是否显示评论
+			comment: false,
+			//是否处于收藏状态
+			isShouchang: false,
+			//是否处于点赞状态
+			isDianzan: false,
+			isDianzanArr: ['../../static/img/dianzan_icon1.png', '../../static/img/dianzan_icon.png'],
+			isDianzanArrstr: '../../static/img/dianzan_icon.png'
+		};
+	},
+
+	methods: {
+		//艺考课程
+		yikaokecheng_click(id) {
+			// console.log(id);
+			uni.navigateTo({
+				url: '../yikaokecheng_item/yikaokecheng_item?ids=' + id
+			});
 		},
-		//顶部左上角退出事件
-		// onBackPress(event) {
-		// 	console.log(111);
-		// 	uni.redirectTo({
-		// 		url:'../gerenzhongxin/gerenzhongxin'
-		// 	})
-		// 	return true;
-		// },
-		methods:{
-			//点击左上角返回
-			fanghui(){
-				// console.log(111);
-				uni.reLaunch({
-					url:"../shouye/shouye"
-				})
-			},
-			//艺考课程
-			yikaokecheng_click(id){
-				// console.log(id);
-				uni.navigateTo({
-					url:"../yikaokecheng_item/yikaokecheng_item?ids="+id
-				})
-			},
-			//获取窗口高度，适配手机
-			getWindowHeight(){
-				uni.getSystemInfo({
-					success:(res)=>{
-						// console.log(res);
-						// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-						this.phoneHeight=res.windowHeight;
-						// console.log(res.windowHeight);
-						// console.log(this.phoneHeight);
-						// this.$store.commit('set_window_height',res.windowHeight*2);
-					}
-				})
-			},
-			//点击收藏图标触发
-			click_shouchang(){
-				this.isShouchang=!this.isShouchang;
-				if(this.isShouchang){
-					this.isShouchangArrstr=this.isShouchangArr[0]
-				}else{
-					this.isShouchangArrstr=this.isShouchangArr[1]
+		//获取窗口高度，适配手机
+		getWindowHeight() {
+			uni.getSystemInfo({
+				success: res => {
+					this.phoneHeight = res.windowHeight;
 				}
-			},
-			//点击点赞图标触发
-			click_dianzan(){
-				this.isDianzan=!this.isDianzan;
-				if(this.isDianzan){
-					this.isDianzanArrstr=this.isDianzanArr[0]
-				}else{
-					this.isDianzanArrstr=this.isDianzanArr[1]
-				}
-			},
-			//点击右上角退出图标触发
-			exitIcon(){
-				this.isIcon=true;
-				this.isKecheng=true;
-				this.isPinlun=false;
-			},
-			//点击评论图标触发
-			click_pinlun(){
-				this.isIcon=false;
-				this.isKecheng=false;
-				this.isPinlun=true;
-				// console.log(1111);
-			}
+			});
 		},
-		onLoad(id){
-			//获取窗口高度，适配手机
-			this.getWindowHeight();
-			console.log(id.ids);
-			//获取指定艺考课程的数据
-			getyikaoKechengList_one(id.ids).then((res)=>{
-				console.log(res.data.hxgArtexam);
-				let oldStr=res.data.hxgArtexam.aeCreatetime;
-				// console.log(oldStr.split("-").join("/"));
-				this.yikaoKechengList_one=res.data.hxgArtexam;
-				//对时间进行处理
-				this.yikaoKechengList_one.aeCreatetime=oldStr.split("-").join("/");
-			})
-			//获取艺考课程列表
-			getyikaoKechengList().then((res)=>{
-				// console.log(res.data.artexams);
-				this.yikaoKechengList=res.data.artexams;
-			})
+		//点击收藏图标触发
+		click_shouchang() {
+			this.isShouchang = !this.isShouchang;
 		},
+		//点击点赞图标触发
+		click_dianzan() {
+			this.isDianzan = !this.isDianzan;
+		},
+	},
+	onLoad(id) {
+		//获取窗口高度，适配手机
+		this.getWindowHeight();
+		console.log('onload');
+		//获取指定艺考课程的数据
+		getyikaoKechengList_one(id.ids).then(res => {
+			console.log(res.data.hxgArtexam);
+			let oldStr = res.data.hxgArtexam.aeCreatetime;
+			this.yikaoKechengList_one = res.data.hxgArtexam;
+			//对时间进行处理
+			this.yikaoKechengList_one.aeCreatetime = oldStr.split('-').join('/');
+		});
+		//获取艺考课程列表
+		getyikaoKechengList().then(res => {
+			// console.log(res.data.artexams);
+			this.yikaoKechengList = res.data.artexams;
+		});
+	},
+	onUnload(){
+		console.log('onback');
 	}
+};
 </script>
 
 <style lang="scss" scoped>
-	.body_content{
-		width:100%;
-		height:100%;
-		background-color: #F5F5F5;
-		// background-color: red;
-		
+.class-video {
+	width: 100%;
+	height: 440rpx;
+	video {
+		width: 100%;
+		height: 100%;
 	}
-	.returns{
-		width:100%;
-		height:150rpx;
-		// border:1px solid red;
-		background-color: #F7A3A2;
-		.returns1{
-			width:150rpx;
-			height:60rpx;
-			margin-top: 60rpx;
-			// border:1px solid green;
-			float:left;
-			.returns1_s{
-				width:60rpx;
-				height:60rpx;
-				// border:1px solid pink;
-				float:left;
-				image{
-					width:100%;
-					height:100%
-				}
-			}
-			.returns1_s_s{
-				width:85rpx;
-				height:60rpx;
-				line-height: 60rpx;
-				text-align: center;
-				color:#fff;
-				margin-top:5rpx;
-				// border:1px solid pink;
-				float:left;
-			}
-		}
-		.returns2{
-			width:150rpx;
-			height:60rpx;
-			line-height: 60rpx;
-			color:#fff;
-			margin-top: 60rpx;
-			margin-left: 200rpx;
-			// border:1px solid green;
-			float:left;
-		}
-	}
-	.yikaiKecheng_item{
-		width:100%;
-		height:350rpx;
+}
+
+.detail {
+	width: 100%;
+	padding: 30rpx 40rpx;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: 400;
+	color: #0f1826;
+}
+.watch {
+	display: flex;
+	width: 100%;
+	height: 80rpx;
+	align-items: center;
+}
+.watch image {
+	width: 36rpx;
+	height: 36rpx;
+}
+.watch-number {
+	padding: 0rpx 10rpx;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 22px;
+	color: #a9afb8;
+}
+// 用户操作样式
+
+.handle {
+	display: flex;
+	width: 100%;
+	height: 120rpx;
+	justify-content: space-between;
+	padding: 0rpx 40rpx;
+	view {
 		display: flex;
+		width: 60rpx;
+		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		background-color: #FFFFFF;
-		.yikaiKecheng_item_img{
-			width:90%;
-			height:320rpx;
-			video{
-				width:100%;
-				height:100%;
-			}
+		image {
+			width: 52rpx;
+			height: 52rpx;
 		}
 	}
-	.yikaiKecheng_item_title{
-		background-color: #FFFFFF;
-		width:100%;
-		height:150rpx;
-		// border:1px solid red;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		.yikaiKecheng_item_titles{
-			width:90%;
-			height:150rpx;
-			// border:1px solid blue;
-			.yikaiKecheng_item_title1{
-				width:100%;
-				height:50rpx;
-				// border:1px solid blue;
-				color:#333337;
-				font-size: 35rpx;
-				font-weight: bold;
-				overflow: hidden;/*超出部分隐藏*/
-				white-space: nowrap;/*不换行*/
-				text-overflow:ellipsis;/*超出部分文字以...显示*/
-			}
-			.yikaiKecheng_item_title2{
-				width:100%;
-				height:50rpx;
-				// border:1px solid pink;
-				color:#101010;
-				font-size: 24rpx;
-				line-height: 50rpx;
-				margin-top:10rpx;
-				.yikaiKecheng_item_title2_left{
-					width:45%;
-					height:50rpx;
-					// border:1px solid red;
-					float:left;
-				}
-				.yikaiKecheng_item_title2_right{
-					width:45%;
-					height:50rpx;
-					// border:1px solid green;
-					float:left;
-				}
-			}
-		}
-		
+}
+
+// 分割线
+.line {
+	width: 100%;
+	height: 6rpx;
+	margin: 30rpx 0rpx;
+	background-color: #cccccc;
+}
+// 更多视频样式
+.more {
+	padding: 10rpx 40rpx;
+	font-size: 16px;
+	line-height: 22px;
+	color: #6e7580;
+}
+.tip {
+	margin-bottom: 20rpx;
+}
+
+// 艺考动态列表样式
+
+.class-content {
+	display: flex;
+	align-items: center;
+	width: 670rpx;
+	height: 192rpx;
+	margin: 0rpx auto 28rpx;
+	border-radius: 16rpx;
+	background-color: #ffffff;
+}
+
+.class-content .class-img {
+	width: 232rpx;
+	height: 160rpx;
+	margin: 0rpx 16rpx;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.class-content .class-img image {
+	width: 100%;
+	height: 100%;
+}
+
+.class-detail {
+	width: 368rpx;
+	height: 160rpx;
+	display: flex;
+	flex-direction: column;
+}
+
+.class-title {
+	width: 100%;
+	flex: 1;
+	font-size: 28rpx;
+	font-weight: 700;
+	line-height: 40rpx;
+	color: #0f1826;
+}
+// 艺考课程样式
+
+.class-number {
+	height: 36rpx;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 36rpx;
+	color: #a9afb8;
+	display: flex;
+	align-items: center;
+	image {
+		width: 36rpx;
+		height: 36rpx;
+		margin-right: 10rpx;
 	}
-	.yikaiKecheng_item_icon{
-		width:100%;
-		height:120rpx;
-		// border:1px solid red;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #FFFFFF;
-		.yikaiKecheng_item_icons{
-			width:90%;
-			height:120rpx;
-			// border:1px solid green;
-			.yikaiKecheng_item_icon1{
-				width:22%;
-				height:115rpx;
-				// border:1px solid pink;
-				float:left;
-				margin-left:14rpx;
-				.yikaiKecheng_item_icon1_img{
-					width:75rpx;
-					height:75rpx;
-					// border:1px solid blue;
-					image{
-						width:100%;
-						height:100%;
-					}
-				}
-				.yikaiKecheng_item_icon1_title{
-					width:75rpx;
-					height:38rpx;
-					// border:1px solid blue;
-				}
-			}
-		}
-		
-	}
-	.isShow{
-		display: flex;
-	}
-	.isNotShow{
-		display: none;
-	}
-	.yikaiKecheng_item_content{
-		width:100%;
-		height:auto;
-		background-color: #FFFFFF;
-		margin-top:10rpx;
-		.yikaoKecheng_content_content{
-			width:100%;
-			height:160rpx;
-			// border:1px solid blue;
-			border-bottom:1px solid #E7E7E7;
-			margin-top:5rpx;
-			.yikaoKecheng_content_content_left{
-				width:30%;
-				height:100%;
-				// border:1px solid pink;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				float:left;
-				.yikaoKecheng_content_content_left_img{
-					width:200rpx;
-					height:130rpx;
-					// border:1px solid red;
-					image{
-						width:100%;
-						height:100%;
-					}
-				}
-			}
-			.yikaoKecheng_content_content_right{
-				width:68%;
-				height:100%;
-				// border:1px solid yellow;
-				float:left;
-				.yikaoKecheng_content_content_right_top{
-					width:100%;
-					height:50%;
-					// border:1px solid red;
-					.yikaoKecheng_content_content_right_top_title{
-						width:100%;
-						height:85rpx;
-						// border:1px solid green;
-						color:#333337;
-						font-weight: bold;
-						
-						overflow: hidden;
-						text-overflow: ellipsis;
-						display: -webkit-box;
-						-webkit-line-clamp: 2;
-						-webkit-box-orient: vertical;
-					}
-				}
-				.yikaoKecheng_content_content_right_bottom{
-					width:100%;
-					height:50%;
-					// border:1px solid blue;
-					.yikaoKecheng_content_content_right_bottom_title_jianjie{
-						width:300rpx;
-						height:40rpx;
-						line-height: 40rpx;
-						// border:1px solid red;
-						color:#8D8886;
-						font-size: 24rpx;
-						// margin-top:5rpx;
-						// display: -webkit-box;
-						overflow: hidden;/*超出部分隐藏*/
-						white-space: nowrap;/*不换行*/
-						text-overflow:ellipsis;/*超出部分文字以...显示*/
-					}
-					.yikaoKecheng_content_content_right_bottom_title{
-						width:100%;
-						height:35rpx;
-						// border:1px solid blue;
-						line-height: 35rpx;
-						// margin-top:20rpx;
-						
-						.yikaoKecheng_content_content_right_bottom_title_left{
-							width:150rpx;
-							height:60rpx;
-							// border:1px solid red;
-							float:left;
-							font-size:24rpx;
-							color:#8D8886;
-							
-							
-						}
-						.yikaoKecheng_content_content_right_bottom_title_right{
-							width:250rpx;
-							height:60rpx;
-							// border:1px solid red;
-							float:right;
-							font-size: 30rpx;
-							color:#C6A078;
-							font-weight: bold;
-							.yikaoKecheng_content_content_right_bottom_title_right_img{
-								width:100rpx;
-								height:35rpx;
-								// border:1px solid green;
-								border:1px solid #C6A078;
-								float:left;
-								image{
-									width:100%;
-									height:100%;
-								};
-							}
-							.yikaoKecheng_content_content_right_bottom_title_right_rmb{
-								width:100rpx;
-								height:60rpx;
-								// border:1px solid blue;
-								margin-right:15rpx;
-								float:right;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	.yikaoKecheng_content_bottom{
-		width:100%;
-		height:75rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #F74F52;
-		//解决下滑，一直在屏幕底部的问题
-		position: fixed;
-		bottom:0;
-		.yikaoKecheng_content_bottom1{
-			width:100%;
-			height:60rpx;
-			color:#fff;
-			line-height: 60rpx;
-			text-align: center;
-			
-		}
-	}
-	.pinglun_tanchu{
-		width:100%;
-		height:auto;
-		
-		// border:1px solid red;
-		// background-color: #FFFFFF;
-		.pinglun_tanchu1{
-			width:100%;
-			height:100rpx;
-			// border:1px solid green;
-			border-top: 1px solid #D5CFCF;
-			border-bottom: 1px solid #D5CFCF;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: #FFFFFF;
-			.pinglun_tanchu1s{
-				width:90%;
-				height:95rpx;
-				// border:1px solid green;
-				.pinglun_tanchu1_title{
-					width:610rpx;
-					height:80rpx;
-					line-height: 80rpx;
-					text-align: center;
-					// border:1px solid pink;
-					float:left;
-					color:#101010;
-					font-size: 24rpx;
-					font-weight: bold;
-				}
-				.pinglun_tanchu1_exit{
-					width:50rpx;
-					height:50rpx;
-					// border:1px solid pink;
-					float:right;
-					image{
-						width:100%;
-						height:100%;
-					}
-				}
-			}
-		}
-		.pinglun_tanchu2{
-			width:100%;
-			height:220rpx;
-			// border:1px solid green;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: #FFFFFF;
-			border-bottom:1px solid #D5CFCF;
-			.pinglun_tanchu2_content{
-				width:95%;
-				height:200rpx;
-				// border:1px solid green;
-				.pinglun_tanchu2_content_left{
-					width:19%;
-					height:200rpx;
-					// border:1px solid pink;
-					float:left;
-					.pinglun_tanchu2_content_left_top{
-						width:100rpx;
-						height:100rpx;
-						
-						// border:1px solid yellow;
-						image{
-							width:100%;
-							height:100%;
-						}
-					}
-				}
-				.pinglun_tanchu2_content_right{
-					width:79%;
-					height:200rpx;
-					// border:1px solid pink;
-					float:left;
-					.pinglun_tanchu2_content_right_top{
-						width:100%;
-						height:60rpx;
-						// border:1px solid yellow;
-						font-size: 28rpx;
-						font-weight: bold;
-						color:#191919;
-						.pinglun_tanchu2_content_right_top1{
-							width:100rpx;
-							height:34rpx;
-							// border:1px solid red;
-						}
-					}
-					.pinglun_tanchu2_content_right_center{
-						width:100%;
-						height:80rpx;
-						font-weight: bold;
-						// border:1px solid yellow;
-						font-size: 24rpx;
-						color:#101010;
-					}
-					.pinglun_tanchu2_content_right_bottom{
-						width:100%;
-						height:40rpx;
-						// border:1px solid yellow;
-						.pinglun_tanchu2_content_right_bottom1{
-							width:100rpx;
-							height:30rpx;
-							line-height: 30rpx;
-							text-align: center;
-							// border:1px solid red;
-							float:left;
-							font-size: 24rpx;
-							color:#5D5D5E;
-						}
-						.pinglun_tanchu2_content_right_bottom2{
-							width:100rpx;
-							height:30rpx;
-							line-height: 30rpx;
-							text-align: center;
-							// border:1px solid red;
-							float:left;
-							font-size: 20rpx;
-							color:#101010;
-							border-radius: 20rpx;
-							background-color: #E6E6E6;
-							margin-left:20rpx;
-							font-weight: bold;
-						}
-						.pinglun_tanchu2_content_right_bottom3{
-							width:100rpx;
-							height:30rpx;
-							line-height: 30rpx;
-							text-align: center;
-							// border:1px solid red;
-							float:right;
-							font-size: 24rpx;
-							color:#5D5D5E;
-						}
-					}
-				}
-			}
-		}
-	}
+}
+// 评论样式
 </style>

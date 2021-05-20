@@ -1,126 +1,159 @@
 <template>
-	<view>
-		<view class="yijianFangkui">
-			<view class="yijianFangkui_input">
-				<textarea type="text" :placeholder="placeholders" v-model="textAreaValue" class="yijianFangkui_input1" @focus="getFocus" @blur="getBlur" placeholder-style="color:#bbb;"></textarea>
+	<view class="opinion-box">
+		<view class="opinion">
+			<textarea type="text" :placeholder="placeholders" v-model="textAreaValue" class="content" @focus="getFocus" @blur="getBlur" placeholder-style="color:#bbb;"></textarea>
+			<uni-file-picker
+				v-model="imageValue"
+				fileMediatype="image"
+				mode="grid"
+				@select="select"
+				@progress="progress"
+				@success="uploadSuccess"
+				@fail="fail"
+				@delete="deleteImg"
+			/>
+		</view>
+		<view class="type">
+			<view class="title">选择要反馈的类型</view>
+			<view class="type-item">
+				<view class="">
+					
+				</view>
 			</view>
 		</view>
-		<!-- <view class="yijianFangkui_upload">
-			<view class="yijianFangkui_upload1">上传图片</view>
-		</view> -->
-		<view class="yijianFangkui_submit">
-			<view class="yijianFangkui_submit_button" @click="submits">提交</view>
-		</view>
+
+		<!-- <view class=""><view  @click="submits">提交</view></view> -->
 	</view>
 </template>
 
 <script>
-	import {Yijianfankui} from '../../api/api.js'
-	export default{
-		data(){
-			return{
-				placeholders:'请输入您想反馈的问题....',
-				textAreaValue:''
+import { Yijianfankui } from '../../api/api.js';
+export default {
+	data() {
+		return {
+			placeholders: '请输入您想反馈的问题....',
+			textAreaValue: '',
+			// 图片列表
+			imageValue: [],
+			typeList: [
+				{
+					value: 'USA',
+					name: '美国'
+				},
+				{
+					value: 'CHN',
+					name: '中国',
+					checked: 'true'
+				},
+				{
+					value: 'BRA',
+					name: '巴西'
+				},
+				{
+					value: 'JPN',
+					name: '日本'
+				},
+				{
+					value: 'ENG',
+					name: '英国'
+				},
+				{
+					value: 'FRA',
+					name: '法国'
+				}
+			]
+		};
+	},
+	methods: {
+		submits() {
+			let openids = uni.getStorageSync('openid');
+			let opContent = this.textAreaValue;
+			//如果没有登录
+			if (openids == '') {
+				uni.showToast({
+					title: '请先登录!',
+					icon: 'none',
+					duration: 2000
+				});
+			} else {
+				//如果输入的意见为空
+				if (opContent.trim() === '') {
+					uni.showToast({
+						title: '请先输入意见',
+						icon: 'none',
+						duration: 2000
+					});
+				} else {
+					Yijianfankui(openid, opContent).then(res => {
+						// console.log(res.data.code);
+						if (res.data.code == 200) {
+							uni.navigateTo({
+								url: '../yijianFangkuiSuccess/yijianFangkuiSuccess'
+							});
+						}
+					});
+				}
 			}
 		},
-		methods:{
-			submits(){
-				let openid="111";
-				let openids=uni.getStorageSync('openid');
-				// console.log(openids);
-				let opContent=this.textAreaValue;
-				//如果没有登录
-				if(openids==""){
-					uni.showToast({
-						title:'请先登录!',
-						icon:'none',
-						duration:2000
-					})
-				}else{
-					//如果输入的意见为空
-					if(opContent==""){
-						uni.showToast({
-							title:'请先输入意见',
-							icon:'none',
-							duration:2000
-						})
-					}else{
-						Yijianfankui(openid,opContent).then((res)=>{
-							// console.log(res.data.code);
-							if(res.data.code==200){
-								uni.navigateTo({
-									url:'../yijianFangkuiSuccess/yijianFangkuiSuccess'
-								})
-							}
-						})
-					}
-				}
-				
-				// console.log(this.textAreaValue);
-				
-				
-			},
-			//点击输入框，获得焦点时
-			getFocus(){
-				// console.log(2222);
-				this.placeholders='';
-			},
-			//点击输入框，失去焦点时
-			getBlur(){
-				this.placeholders='请输入您想反馈的问题....';
-			},
+		//点击输入框，获得焦点时
+		getFocus() {
+			this.placeholders = '';
+		},
+		//点击输入框，失去焦点时
+		getBlur() {
+			this.placeholders = '请输入您想反馈的问题....';
+		},
+		// 图片1上传成功时
+		uploadSuccess(e) {
+			console.log('e', e);
+			console.log(this.imageValue);
+		},
+		// 删除图片时
+		deleteImg(e) {
+			console.log('e', e);
+			console.log(this.imageValue);
 		}
 	}
+};
 </script>
 
 <style lang="scss" scoped>
-	.yijianFangkui{
-		width:100%;
-		height:360rpx;
-		// border:1px solid red;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-top:90rpx;
-		.yijianFangkui_input{
-			width:80%;
-			height:360rpx;
-			border:1px solid #ccc;
-			border-radius: 20rpx;
-			.yijianFangkui_input1{
-				// width:100%;
-				height:360rpx;
-				// border:1px solid red;
-				border-radius: 20rpx;
-			}
-		}
-	}
-	.yijianFangkui_upload{
-		width:100%;
-		height:360rpx;
-		border:1px solid red;
-		.yijianFangkui_upload1{
-			width:150rpx;
-			height:150rpx;
-			border:1px solid green;
-		}
-	}
-	.yijianFangkui_submit{
-		width:100%;
-		height:300rpx;
-		// border:1px solid red;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		.yijianFangkui_submit_button{
-			width:120rpx;
-			height:60rpx;
-			line-height: 60rpx;
-			text-align: center;
-			border:1px solid #ccc;
-			border-radius: 30rpx;
-			background-color: #196AD4;
-			color:#fff;
-		}
-	}
+.opinion-box {
+	width: 100%;
+	padding: 30rpx 40rpx;
+}
+.opinion {
+	width: 100%;
+	padding: 40rpx;
+	min-height: 500rpx;
+	background: #ffffff;
+	border-radius: 8px;
+}
+.content {
+	width: 100%;
+	min-height: 200rpx;
+	margin-bottom: 30rpx;
+}
+// 选择类型
+.type {
+	width: 100%;
+}
+.type .title {
+	height: 44rpx;
+	margin-top: 30rpx;
+	margin-bottom: 50rpx;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+	color: #6e7580;
+}
+.type-item {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+
+
 </style>

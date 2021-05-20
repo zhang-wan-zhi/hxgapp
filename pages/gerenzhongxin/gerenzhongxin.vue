@@ -56,11 +56,12 @@
 				<image src="../../static/img/my/about.png" ></image>
 				<text class="title">关于我们</text>
 			</view>
-			
 		</view>
 		
-
-		<view class="content2_bottom" :class="isExitShow ? 'exitshow' : 'notexitshow'"><view class="content2_bottom1" @click="exitLogin">退出登录</view></view>
+<!-- 退出登录 -->
+	<view class="out-login" v-show="isExitShow" @click="exitLogin">
+		退出登录
+	</view>
 	</view>
 </template>
 
@@ -351,112 +352,18 @@ export default {
 	border: none;
 }
 
+// 退出登录样式
 
-
-
-
-
-
-
-
-
-.content2_content {
-	width: 100%;
-	height: 450rpx;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	.content2_content_body {
-		width: 90%;
-		height: 300rpx;
-		border: 1px solid #ccc;
-		border-radius: 10rpx;
-		background-color: #fff;
-		.content2_content_body1 {
-			width: 100%;
-			height: 90rpx;
-			// border:1px solid blue;
-
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			.content2_content_body1s {
-				width: 95%;
-				height: 90rpx;
-				color: #222222;
-				font-size: 24rpx;
-				// border:1px solid red;
-				border-bottom: 1px solid #ccc;
-				.content2_content_body1s_fenxiang {
-					width: 60rpx;
-					height: 60rpx;
-					margin-top: 10rpx;
-					// border:1px solid pink;
-					float: left;
-					image {
-						width: 90%;
-						height: 90%;
-					}
-				}
-				.content2_content_body1s_fenxiang_title {
-					width: 160rpx;
-					height: 90rpx;
-					line-height: 90rpx;
-					margin-left: 10rpx;
-					// border:1px solid pink;
-					float: left;
-				}
-				.content2_content_body1s_fenxiang_img {
-					width: 80rpx;
-					height: 80rpx;
-					background-color: #fff;
-
-					// border:1px solid pink;
-					margin-top: 5rpx;
-					border-radius: 0;
-					float: right;
-					image {
-						// width:100%;
-						// height:100%;
-						margin-left: -10rpx;
-						width: 40rpx;
-						height: 80rpx;
-					}
-				}
-				button::after {
-					border: none;
-					background-color: none;
-				}
-			}
-		}
-	}
+.out-login{
+	width: 260rpx;
+	height: 80rpx;
+	margin: 200rpx auto;
+	border-radius: 12rpx;
+	text-align: center;
+	line-height: 80rpx;
+	background-color: #ED5C4D;
+	color: #FFFFFF;
 }
-.content2_bottom {
-	width: 100%;
-	height: 60rpx;
-	// border:1px solid red;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	bottom: 70rpx;
-	.content2_bottom1 {
-		width: 180rpx;
-		height: 60rpx;
-		line-height: 60rpx;
-		text-align: center;
-		// border:1px solid red;
-		border-radius: 15rpx;
-		bottom: 60rpx;
-		background-color: #4cb5f6;
-		color: #fff;
-	}
-}
-.exitshow {
-	display: felx;
-}
-.notexitshow {
-	display: none;
-}
+
+
 </style>

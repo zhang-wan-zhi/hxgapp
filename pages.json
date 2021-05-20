@@ -4,10 +4,10 @@
 			"path" : "pages/shouye/shouye",
 			"style" :                                                                                    
 			{
-				"navigationBarTitleText": "首页",
+				"navigationBarTitleText": "掐指艺算",
 				"enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 				// "enablePullDownRefresh": true
 				// "navigationStyle":"custom"
 			}
@@ -19,7 +19,7 @@
 				"navigationBarTitleText": "测试做题",
 				"enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 				// "navigationStyle":"custom"
 			}
 		},
@@ -36,7 +36,7 @@
 		        "navigationBarTitleText": "艺考轮播",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 				// "navigationStyle":"custom"
 		    }
 		},
@@ -47,7 +47,7 @@
 		        "navigationBarTitleText": "艺考题目",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 				// "navigationStyle":"custom"
 		    }
 		},
@@ -58,8 +58,8 @@
 		        "navigationBarTitleText": "艺考课程",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2",
-				"navigationStyle":"custom"
+				"navigationBarBackgroundColor":"#ED5C4D"
+				// "navigationStyle":"custom"
 		    }
 		},
 		
@@ -70,7 +70,7 @@
                 "navigationBarTitleText": "问学习",
                 "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
             }
             
         },
@@ -81,7 +81,7 @@
 		        "navigationBarTitleText": "充值中心",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -92,7 +92,7 @@
 		        "navigationBarTitleText": "支付订单",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -104,7 +104,7 @@
 		        "navigationBarTitleText": "问学习报告",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		}
@@ -115,7 +115,7 @@
                 "navigationBarTitleText": "问校考",
                 "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
             }
             
         }
@@ -126,7 +126,7 @@
                 "navigationBarTitleText": "问录取",
                 "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
             }
             
         }
@@ -137,7 +137,7 @@
 		        "navigationBarTitleText": "预测报告",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		}
@@ -149,7 +149,7 @@
                 "navigationBarTitleText": "个人中心",
                 "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
             }
             
         },
@@ -160,7 +160,7 @@
 		        "navigationBarTitleText": "个人中心修改",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -172,7 +172,7 @@
 		        "navigationBarTitleText": "意见反馈",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -183,7 +183,7 @@
 		        "navigationBarTitleText": "关于我们",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -195,7 +195,7 @@
 		        "navigationBarTitleText": "意见反馈成功",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -207,7 +207,7 @@
 		        "navigationBarTitleText": "艺考动态",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -218,7 +218,7 @@
 		        "navigationBarTitleText": "艺考做题",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
 		},
@@ -229,7 +229,7 @@
 		        "navigationBarTitleText": "性格评估",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2"
+				"navigationBarBackgroundColor":"#ED5C4D"
 				// "navigationStyle":"custom"
 		    }
 		    
@@ -241,7 +241,7 @@
 		        "navigationBarTitleText": "搜索",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
-				"navigationBarBackgroundColor":"#F7A3A2",
+				"navigationBarBackgroundColor":"#ED5C4D",
 				"navigationStyle":"custom",
 				"app-plus": {"titleNView":false}
 				// "usingComponents":{
@@ -263,12 +263,12 @@
 		"iconPath":"./static/icon/shouye_icon.png",
 		"text":"首页"
       },
-	  {
-	    "pagePath": "pages/wenxuexi/wenxuexi",
-	  		"selectedIconPath":"./static/icon/wenxuexi_icon_active.png",
-	  		"iconPath":"./static/icon/wenxuexi_icon.png",
-	  		"text":"问学习"
-	  },
+	  // {
+	  //   "pagePath": "pages/wenxuexi/wenxuexi",
+	  // 		"selectedIconPath":"./static/icon/wenxuexi_icon_active.png",
+	  // 		"iconPath":"./static/icon/wenxuexi_icon.png",
+	  // 		"text":"问学习"
+	  // },
   //     {
   //       "pagePath": "pages/wenxiaokao/wenxiaokao",
 		// "selectedIconPath":"./static/icon/wenxiaokao_icon_active.png",
@@ -285,16 +285,16 @@
         "pagePath": "pages/gerenzhongxin/gerenzhongxin",
 		"selectedIconPath":"./static/icon/gerenzhongxin_icon_active.png",
 		"iconPath":"./static/icon/gerenzhongxin_icon.png",
-		"text":"个人中心"
+		"text":"我的"
       }
     ]
   },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#ED5C4D",
 		"backgroundColor": "#F8F8F8",
-		"onReachBottomDistance":160
+		"onReachBottomDistance":160  
 		// "onReachBottomDistance":160
 	}
 }

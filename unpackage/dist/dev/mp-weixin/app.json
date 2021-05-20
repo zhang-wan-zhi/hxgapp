@@ -27,7 +27,7 @@
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#ED5C4D",
     "backgroundColor": "#F8F8F8",
     "onReachBottomDistance": 160
   },
@@ -44,12 +44,6 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/wenxuexi/wenxuexi",
-        "selectedIconPath": "./static/icon/wenxuexi_icon_active.png",
-        "iconPath": "./static/icon/wenxuexi_icon.png",
-        "text": "问学习"
-      },
-      {
         "pagePath": "pages/wenluqu/wenluqu",
         "selectedIconPath": "./static/icon/wenluqu_icon_active.png",
         "iconPath": "./static/icon/wenluqu_icon.png",
@@ -59,7 +53,7 @@
         "pagePath": "pages/gerenzhongxin/gerenzhongxin",
         "selectedIconPath": "./static/icon/gerenzhongxin_icon_active.png",
         "iconPath": "./static/icon/gerenzhongxin_icon.png",
-        "text": "个人中心"
+        "text": "我的"
       }
     ]
   },
@@ -71,5 +65,6 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

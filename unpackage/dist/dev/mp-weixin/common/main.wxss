@@ -1,17 +1,6 @@
-/*
-  ColorUi for uniApp  v2.1.6 | by 文晓港 2019-05-31 10:44:24
-  仅供学习交流，如作它用所承受的法律责任一概与作者无关  
-  
-  *使用ColorUi开发扩展与插件时，请注明基于ColorUi开发 
-  
-  （QQ交流群：240787041）
-*/
 
-/* ==================
-        初始化
- ==================== */
 page {
-	/* background-color: #f1f1f1; */
+	background-color:#F4F4F4;
 	font-size: 28rpx;
 	color: #333333;
 	font-family: Helvetica Neue, Helvetica, sans-serif;
@@ -4560,4 +4549,11 @@ scroll-view.cu-steps .cu-item {
 }
 
 /*每个页面公共css */
+
+/* radio样式 */
+uni-radio .uni-radio-input{
+	width: 28rpx !important;
+	height: 28rpx !important; 
+	border: 1px solid #ED5C4D;
+}
 

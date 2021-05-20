@@ -1,14 +1,19 @@
 <template>
-	<view class="content1">
-		<view class="content1_title">
-			<view class="content1_title_title">{{yikaoDongtaiList_obj.aedTitle}}</view>
+
+	<view class="dynamic-detail">
+		<view class="title">
+			{{yikaoDongtaiList_obj.aedTitle}}
 		</view>
-		<view class="content1_user">
-			<view class="content1_user_user">{{yikaoDongtaiList_obj.aedPublisheder}}</view>
-			<view class="content1_user_time">{{yikaoDongtaiList_obj.aedCreatetime}}</view>
+		<view class="pub">
+			<text>{{yikaoDongtaiList_obj.aedPublisheder}}</text>
+			<text>{{yikaoDongtaiList_obj.aedCreatetime}}</text>
 		</view>
-		<view class="content1_content">{{yikaoDongtaiList_obj.aedContent}}</view>
+		<view class="content" v-html="yikaoDongtaiList_obj.aedContent"></view>
+		<view class="img">
+			<image :src="yikaoDongtaiList_obj.aedMinimg" mode=""></image>
+		</view>
 	</view>
+	
 </template>
 
 <script>
@@ -28,21 +33,12 @@
 			getList(ids){
 				let yikaoDongtaiLists=uni.getStorageSync('yikaoDongtaiList');
 				let newLists=[];
-				// console.log(ids);
-				// for(let i=0;i<yikaoDongtaiLists.length;i++){
-				// 	console.log(yikaoDongtaiLists[i].id);
-				// 	if(yikaoDongtaiLists[i].id==ids){
-				// 	  	newLists.push(yikaoDongtaiLists[i])
-				// 	}
-				// }
 				getyikaoDongtaiList_one(ids).then((res)=>{
-					console.log(res.data.artexamdynamic.aedContent);
+					console.log(res)
+					// console.log(res.data.artexamdynamic.aedContent);
 					this.yikaoDongtaiList_obj=res.data.artexamdynamic;
-					this.yikaoDongtaiList_obj.aedContent = (res.data.artexamdynamic.aedContent).replace(/<\/?[^>]*>/g, ''); //去除HTML Tag
+					
 				});
-				// console.log(newLists);
-				// this.yikaoDongtaiList=newLists;
-				// console.log(this.yikaoDongtaiList);
 			}
 		}
 	}
@@ -102,4 +98,44 @@
 			margin-top:30rpx;
 		}
 	}
+	
+	.dynamic-detail{
+		width: 100%;
+		padding: 0rpx 40rpx;
+	}
+	.title{
+		margin: 20rpx 0rpx;
+		font-size: 18px;
+		font-weight: 400;
+		line-height: 25px;
+		color: #0F1826;
+	}
+	
+	.pub{
+		display: flex;
+		justify-content: flex-end;
+	}
+	.pub text{
+		padding: 0rpx 30rpx;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 40rpx;
+		color: #707070;
+	}
+	.content{
+		margin: 40rpx 0rpx;
+		font-size: 14px;
+		text-indent: 50rpx;
+		line-height: 50rpx;
+	}
+	.img{
+		width: 100%;
+		height: 100%;
+		image{
+			width: 100%;
+			height: 448rpx;
+			border-radius: 16rpx;
+		}
+	}
+	
 </style>
