@@ -1,72 +1,147 @@
 <template>
-	<view>
+	<view class="wenluqu">
 		<view class="wenluqu_top">
-			<view class="wenluqu_top_title">艺考预测</view>
+			<view id= "baokao" class="wenluqu_top_left"  @click="changeShow">
+				<image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image>
+				报考
+			</view>
+			<view id= "luqu" class="wenluqu_top_right"   @click="changeShow2" >录取</view>
 		</view>
+		<image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image>
 		
-		<view class="wenluqu_content1">
-			<view class="wenluqu_content1_display">
-				<view class="wenluqu_content1_display_title">
-					<view class="wenluqu_content1_display_title1">报考的院校</view>
-				</view>
-				<view class="wenluqu_content1_display_input">
-				  <input type="text" placeholder="请输入你想报考的院校" @input="getUniversity">
+		<view  class="wenluqu_content">
+			<view v-show="isShow" class="wenluqu_content_display">
+				<view  class="wenluqu_content_display_input">
+					<view class="province">
+						<view class="spot"></view>
+						<view class="seclet_province">
+							选择省
+						</view>
+					</view>
+					<view class="sex">
+						<view class="spot"></view>
+						<view class="seclet_sex">性别</view>
+					</view>
+					<view class="picker_province">
+						<picker  @change="bindPickerChange" :range="array">
+							<label class="wenluqu_content_display_input_value">{{province}}</label>		
+							<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+						</picker>
+							
+					</view>
+					<view class="picker_sex">
+						<picker  @change="bindPickerChangeSex" :range="sexOption">
+							<label class="wenluqu_content_display_input_value">{{sex}}</label>	
+							<image style="width:55rpx;height:65rpx;float: right;color: #f6b7b0;" src="../../static/svg/shengfen_xiala.svg"></image>
+						</picker>
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">文理分类</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChange2" :range="array2">
+								<label class="wenluqu_content_display_input_value">{{artAndSciences}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">选择专业</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeZhuanye" :range="majorArr">
+								<label class="wenluqu_content_display_input_value">{{major1}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的身高</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeHeight" :range="HeightOption">
+								<label class="wenluqu_content_display_input_value">{{height}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的视力</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeShili" :range="shiliOption">
+								<label class="wenluqu_content_display_input_value">{{shili}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的体重</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeWeight" :range="weightOption">
+								<label class="wenluqu_content_display_input_value">{{weight}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的特长</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeSkill" :range="skillOption">
+								<label class="wenluqu_content_display_input_value">{{skill}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+				
+			
 				</view>
 			</view>
-		</view>
-		
-		<view class="wenluqu_content2">
-			<view class="wenluqu_content2_display">
-				<view class="wenluqu_content2_display_title">
-					<view class="wenluqu_content2_display_title1">省份类别</view>
-				</view>
-				<view class="wenluqu_content2_display_input">
-				  <view class="wenluqu_content2_display_input_title">省份地区</view>
-				  <picker @change="bindPickerChange" :range="array">		
-							<label class="wenluqu_content2_display_input_value">{{province}}</label>		
-				  </picker>
-				  <view class="wenluqu_content2_display_input_svg">
-						<image src="../../static/svg/shengfen_xiala.svg"></image>
-				  </view>
-				  
-				</view>
-				<view class="wenluqu_content2_display_input">
-				  <view class="wenluqu_content2_display_input_title">文理分类</view>
-				  <picker @change="bindPickerChange2" :range="array2">
-				  	<label class="wenluqu_content2_display_input_value">{{artAndSciences}}</label>	
-				  </picker>
-				  <view class="wenluqu_content2_display_input_svg">
-					  <image src="../../static/svg/shengfen_xiala.svg"></image>
-				  </view>
-				</view>
-				<view class="wenluqu_content2_display_input">
-				  <view class="wenluqu_content2_display_input_title">报考专业</view>
-				  <picker @change="bindPickerChangeZhuanye" :range="majorArr">
-				  	<label class="wenluqu_content2_display_input_value">{{major1}}</label>	
-				  </picker>
-				  <view class="wenluqu_content2_display_input_svg">
-					  <image src="../../static/svg/shengfen_xiala.svg"></image>
-				  </view>
-				</view>
+			<view  v-show="isShow2" class="wenluqu-luqu">
+				恭喜你被录取了
 			</view>
+			<view class="button_bottom">
+				<button type="warn" style="width: 80%;border-radius: 20px;" @click="wenluqu_yuce">测试</button>
+			</view>
+			
 		</view>
 		
-		<view class="wenluqu_content3">
+		<!-- <view class="wenluqu_content3">
 			<view class="wenluqu_content3_display">
 				<view class="wenluqu_content3_display_title">
 					<view class="wenluqu_content3_display_title1">成绩信息</view>
 				</view>
-			<!-- 	<view v-for="(item,index) in AllZiduanArr" :key="item.askEgname">
+				<view v-for="(item,index) in AllZiduanArr" :key="item.askEgname">
 					<view class="wenluqu_content3_display_input">
 						<view class="wenluqu_content3_display_input_title">{{item.askParm}}</view>
 						<view class="wenluqu_content3_display_input_input">
 						  <input type="text" :placeholder="item.askPrep1" v-if="item.askType==1" @input="getInputs">
 						  <picker @change="bindInfo($event,item.askadmitcontentVos,item.askEgname)"  :range="item.askadmitcontentVos" :range-key="'key'" v-if="item.askType==2">
-						  	<label class="wenluqu_content2_display_input_value">{{item.askPrep1}}</label>	
+						  	<label class="wenluqu_content_display_input_value">{{item.askPrep1}}</label>	
 						  </picker>
 						</view>
 					</view>
-				</view> -->
+				</view>
 				<view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">高考成绩</view>
 					<view class="wenluqu_content3_display_input_input">
@@ -86,16 +161,16 @@
 					  <input type="text" placeholder="请输入性别" @input="getchineseScore">
 					</view>
 				</view>
-				<!-- <view class="wenluqu_content3_display_input">
+				<view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">语文成绩</view>
 					<view class="wenluqu_content3_display_input_input">
 					  <input type="text" placeholder="请输入语文成绩" @input="getchineseExamination">
 					</view>
-				</view> -->
+				</view>
 			</view>
-		</view>
+		</view> -->
 		
-		<view class="wenluqu_content3">
+	<!-- 	<view class="wenluqu_content3">
 			<view class="wenluqu_content3_display">
 				<view class="wenluqu_content3_display_title">
 					<view class="wenluqu_content3_display_title1">基本信息</view>
@@ -111,18 +186,18 @@
 				<view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">身高</view>
 					<view class="wenluqu_content3_display_input_input">
-						<!-- <picker @change="bindPickerShengao" :range="shengaoArr">
+						<picker @change="bindPickerShengao" :range="shengaoArr">
 							<label class="">{{shengao1}}</label>	
-						</picker> -->
+						</picker>
 						 <input type="text" placeholder="请输入你的身高" @input="getShengao">
 					</view>
 				</view>
 				<view class="wenluqu_content3_display_input">
 					<view class="wenluqu_content3_display_input_title">体重</view>
 					<view class="wenluqu_content3_display_input_input">
-						<!-- <picker @change="bindPickerTizhong" :range="tizhongArr">
+						<picker @change="bindPickerTizhong" :range="tizhongArr">
 							<label class="">{{tizhong1}}</label>	
-						</picker> -->
+						</picker>
 						<input type="text" placeholder="请输入你的体重" @input="gettizhong">
 					</view>
 				</view>
@@ -138,7 +213,7 @@
 					<view class="yuceshuoming_body_child_content_child">1.免费版，可免费查看预测概率</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		
 <!-- 		<view class="wenluqu_center"style="margin-top:250rpx;">
 			<view class="wenluqu_center_child" :style="{height:phoneHeight*0.8+'px;'}">
@@ -152,7 +227,7 @@
 						  </picker>
 						</view>
 						<view class="wenluqu_center_child_child1_content">
-							<picker @change="bindPickerChange2" :range="array2">
+							<picker @change="bindPickerChange2" :range="sex">
 								<label>分科：</label>
 								<label >{{artAndSciences}}</label>	
 							</picker>
@@ -255,16 +330,21 @@
 	export default {
 		data() {
 			return {
+				//显示隐藏
+				isShow:true,
+				isShow2:false,
 				//动态属性的下拉数组
 				arrs:['1','2'],
-				array:['请选择','浙江','山东'],
+				array:['请选择','浙江省','山东省'],
 				index:0,
 				//省份
 				province:'请选择',
 				array2:['请选择','文科','理科','文理不限'],
+				sexOption:['请选择','男','女'],
+				sex:'请选择',
 				index2:0,
 				//文理分科
-				artAndSciences:'请选择',
+				artAndSciences:'文科',
 				//喜欢的大学,报考院校
 				"likeUniversity": "",
 				//高考分数
@@ -282,23 +362,25 @@
 				indexMajor:0,
 				major1:'请输入你的报考专业',
 				//报考专业的专业数组
-				majorArr:['请先输入你的报考院校'],
+				majorArr:['请先输入你的报考专业','表演','音乐','计算机','会计'],
 				
 				//视力
 				vision:'',
-				shiliArr:["视力<3.0","视力>=3.0"],
+				shiliOption:["视力<3.0","视力>=3.0"],
 				indexShili:0,
-				shili1:'请输入你的视力情况',
+				shili:'请输入你的视力情况',
 				//身高
 				height:'',
 				indexShengao:0,
-				shengao1:'请输入你的身高范围',
-				shengaoArr:['0-170','170-200'],
+				height:'请输入你的身高范围',
+				HeightOption:['0-170','170-200'],
 				//体重
 				weight:'',
 				indexTizhong:0,
-				tizhong1:'请输入你的体重范围',
-				tizhongArr:['120-140','140-200'],
+				weight:'请输入你的体重范围',
+				weightOption:['30-50','50-60','60-70','70以上'],
+				skillOption:['体育运动','艺术','其他'],
+				skill:'请输入你的特长',
 				//获取的动态字段
 				AllZiduanArr:[]
 			}
@@ -343,6 +425,25 @@
 			
 		},
 		methods: {
+			
+			//点击显示报考隐藏录取
+			changeShow(){
+				this.isShow = true;
+				this.isShow2 = false;
+				uni.createSelectorQuery().select('#baokao').boundingClientRect(function(e){
+				                console.log(e)
+				                uni.pageScrollTo({
+				                    scrollTop: e.top,
+				                    duration: 800
+				                });
+				            }).exec()
+			},
+			//点击显示录取隐藏报考
+			changeShow2(){
+				this.isShow = false;
+				this.isShow2 = true;
+			},
+			
 			getInputs(e){
 				console.log(e.detail.value);
 			},
@@ -382,7 +483,7 @@
 				})
 			},
 			//获取大学名称
-			getUniversity(e){
+			/* getUniversity(e){
 				this.likeUniversity=e.detail.value;
 				// console.log(e.detail.value);
 				//如果学校为空，对应的专业也为空
@@ -401,10 +502,10 @@
 						this.majorArr=arr1;
 					})
 				}			
-			},
+			}, */
 			//专业下拉框
 			bindPickerChangeZhuanye(e){
-				
+				console.log(e.target.value);
 				this.indexMajor = e.target.value			//将数组改变索引赋给定义的index变量
 				this.major1=this.majorArr[this.indexMajor]		//将array【改变索引】的值赋给定义的jg变量
 			},
@@ -412,52 +513,59 @@
 			bindPickerChangeShili(e){
 				console.log(e.target.value);
 				this.indexShili=e.target.value;
-				this.shili1=this.shiliArr[this.indexShili]	
+				this.shili=this.shiliOption[this.indexShili]	
 			},
-			//身高下拉框
-			// bindPickerShengao(e){
-			// 	this.indexShengao=e.target.value;
-			// 	this.shengao1=this.shengaoArr[this.indexShengao]	
-			// },
-			//体重下拉框
-			// bindPickerTizhong(e){
-			// 	this.indexTizhong=e.target.value;
-			// 	this.tizhong1=this.tizhongArr[this.indexTizhong]	
-			// },
-			
+			// 身高下拉框
+			bindPickerChangeHeight(e){
+				this.indexShengao=e.target.value;
+				this.height=this.HeightOption[this.indexShengao]	
+			},
+			// 体重下拉框
+			bindPickerChangeWeight(e){
+				this.indexTizhong=e.target.value;
+				this.weight=this.weightOption[this.indexTizhong]	
+			},
+			// 特长下拉框
+			bindPickerChangeSkill(e){
+				this.indexTizhong=e.target.value;
+				this.skill=this.skillOption[this.indexTizhong]	
+			},
 			//获取高考成绩
-			getcollegeExamScore(e){
+			/* getcollegeExamScore(e){
 				this.collegeExamScore=e.detail.value;
-			},
+			}, */
 			//获取统考成绩
-			getgeneralExamination(e){
+			/* getgeneralExamination(e){
 				this.generalExamination=e.detail.value;
-			},
+			}, */
 			//获取外语成绩
-			getenglishExamination(e){
+			/* getenglishExamination(e){
 				this.englishExamination=e.detail.value;
-			},
+			}, */
 			//获取语文成绩
-			getchineseExamination(e){
+			/* getchineseExamination(e){
 				this.chineseScore=e.detail.value;
-			},
+			}, */
 			//获取校考成绩
-			getxiaokaoExamination(e){
+			/* getxiaokaoExamination(e){
 				this.xiaokaoExamination=e.detail.value;
-			},
+			}, */
 			//获取报考专业
-			// getmajor(e){
-			// 	this.major=e.detail.value;
-			// },
+			getmajor(e){
+				this.major=e.detail.value;
+			},
 			//获取单科语文成绩
 			//获取性别
+			getSex(e){
+				this.sex=e.detail.value;
+			},
 			getchineseScore(e){
 				this.chineseScore=e.detail.value;
 			},
 			//获取视力
-			getvision(e){
-				this.vision1=e.detail.value;
-			},
+			// getvision(e){
+			// 	this.vision1=e.detail.value;
+			// },
 			//获取身高
 			// getheight(e){
 			// 	this.height=e.detail.value;
@@ -476,18 +584,22 @@
 			//下拉框
 			bindPickerChange: function(e) {		//改变的事件名
 				
-			    console.log(e.target.value);
+			    // console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
 				this.index = e.target.value			//将数组改变索引赋给定义的index变量
 				this.province=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
 			},
 			bindPickerChange2: function(e) {		//改变的事件名
-			    console.log(e.target.value);
+			    // console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
 				this.index2 = e.target.value;			//将数组改变索引赋给定义的index变量
 				this.artAndSciences=this.array2[this.index2]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
+			},
+			bindPickerChangeSex:function(e){
+				this.indexSex = e.target.value;			//将数组改变索引赋给定义的index变量
+				this.sex=this.sexOption[this.indexSex]
 			},
             //问录取输入结果
 			wenluqu_yuce(){
@@ -506,7 +618,7 @@
 					//统考成绩
 					"generalExamination": this.generalExamination,
 					//视力
-					"shili": this.shili1,
+					"shili": this.shili,
 					
 					//文化成绩
 					// "culturalScore": "",
@@ -622,353 +734,452 @@
 </script>
 
 <style lang="scss" scoped>
-.wenluqu_top{
-	width:100%;
-	height:100rpx;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 20rpx;
-	.wenluqu_top_title{
-		width:200rpx;
-		height:70rpx;
-		line-height: 70rpx;
-		text-align: center;
-		// border:1px solid pink;
-		color:#FF6E2F;
-		font-size:40rpx;
-		font-weight: bold;
-	}
-}
-.wenluqu_content1{
-	width:100%;
-	height:auto;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 20rpx;
-	.wenluqu_content1_display{
-		width:90%;
-		height:115rpx;
-		border-bottom:1px solid #E1DFDF;
-		.wenluqu_content1_display_title{
+	.wenluqu{
+		padding: 0;
+		margin: 0;
+		.wenluqu_top{
 			width:100%;
-			height:50rpx;
-			// border:1px solid pink;
-			.wenluqu_content1_display_title1{
-				width: 250rpx;
-				height: 48rpx;
-				color: rgba(16, 16, 16, 100);
-				font-size: 40rpx;
-				text-align: left;
-				font-weight: bold;
-				font-family: SourceHanSansSC-bold;
+			// border:1px solid red;
+			display: flex;
+			align-items: center;
+			justify-content:space-around;
+			margin-top: 60rpx;
+			.wenluqu_top_left{
+				height: 80rpx; 
+				line-height: 80rpx; 
+				width: 30%;
+				text-align: center;
+				background-color: #ED5C4D; 
+				border-radius: 20px;
 			}
-		}
-		.wenluqu_content1_display_input{
-			width:100%;
-			height:60rpx;
-			line-height: 60rpx;
-			margin-top:20rpx;
-			// border:1px solid pink;
-			input{
-				height:60rpx;
-				line-height: 60rpx;
+			.wenluqu_top_right{
+				height: 80rpx; 
+				line-height: 80rpx; 
+				width: 30%;
+				text-align: center;
+				background-color: #ECE9E9; 
+				border-radius: 20px;
 			}
-		}
-	}
-}
-.wenluqu_content2{
-	width:100%;
-	height:auto;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 30rpx;
-	.wenluqu_content2_display{
-		width:90%;
-		height:auto;
-		// border-bottom:1px solid #E1DFDF;
-		.wenluqu_content2_display_title{
-			width:100%;
-			height:50rpx;
-			// border:1px solid pink;
-			.wenluqu_content2_display_title1{
-				width: 250rpx;
-				height: 48rpx;
-				color: rgba(16, 16, 16, 100);
-				font-size: 40rpx;
-				text-align: left;
-				font-weight: bold;
-				font-family: SourceHanSansSC-bold;
-			}
-		}
-		.wenluqu_content2_display_input{
-			width:100%;
-			height:70rpx;
-			line-height: 70rpx;
-			border:1px solid pink;
-			margin-top:20rpx;
-			border-radius: 6px;
-			background-color: rgba(242, 243, 245, 100);
-			text-align: center;
-			border: 1px solid rgba(255, 255, 255, 100);
-			.wenluqu_content2_display_input_title{
-				width:150rpx;
-				height:65rpx;
+			.wenluqu_top_title{
+				width:200rpx;
+				height:70rpx;
+				line-height: 70rpx;
+				text-align: center;
 				// border:1px solid pink;
-				margin-left: 10rpx;
-				float: left;
-			
-				color: rgba(16, 16, 16, 100);
-				font-size: 28rpx;
-				text-align: left;
-				font-family: SourceHanSansSC-regular;
-			}
-			.wenluqu_content2_display_input_value{
-				width:450rpx;
-				height:65rpx;
-				// border:1px solid pink;
-				// margin-left:30rpx;
-				float: left;
-			}
-			.wenluqu_content2_display_input_svg{
-				width:55rpx;
-				height:65rpx;
-				// border:1px solid pink;
-				float: right;
-				image{
-					width:100%;
-					height:100%;
-				}
-			}
-		}
-	}
-}
-.wenluqu_content3{
-	width:100%;
-	height:auto;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 30rpx;
-	.wenluqu_content3_display{
-		width:90%;
-		height:auto;
-		.wenluqu_content3_display_title{
-			width:100%;
-			height:50rpx;
-			// border:1px solid pink;
-			.wenluqu_content3_display_title1{
-				width: 250rpx;
-				height: 48rpx;
-				color: rgba(16, 16, 16, 100);
-				font-size: 40rpx;
-				text-align: left;
+				color:#FF6E2F;
+				font-size:40rpx;
 				font-weight: bold;
-				font-family: SourceHanSansSC-bold;
 			}
 		}
-		.wenluqu_content3_display_input{
+		.wenluqu_content1{
 			width:100%;
-			height:60rpx;
-			line-height: 60rpx;
-			margin-top:20rpx;
-			// border:1px solid pink;
-			border-bottom:1px solid #E1DFDF;
-			.wenluqu_content3_display_input_title{
-				width:150rpx;
-				height:60rpx;
-				// border:1px solid red;
-				float:left;
-			
-				color: rgba(153, 153, 153, 100);
-				font-size: 28rpx;
-				font-weight: bold;
-				font-family: SourceHanSansSC-bold;
-			}
-			.wenluqu_content3_display_input_input{
-				width:520rpx;
-				height:60rpx;
-				// border:1px solid red;
-				float:left;
-				input{
-					height:60rpx;
-					line-height: 60rpx;
-				
-					color: rgba(16, 16, 16, 100);
-					font-size: 24rpx;
-					text-align: left;
-					font-family: SourceHanSansSC-regular;
-				}
-			}
-			
-		}
-	}
-}
-.begin_yuce{
-	width: 100%;
-	height: 100rpx;
-	line-height: 100rpx;
-	background-color: rgba(255, 77, 77, 100);
-	text-align: center;
-	border: 1px solid rgba(187, 187, 187, 100);
-	color:#FFFFFF;
-	font-size: 40rpx;
-	font-weight: bold;
-	margin-top: 20rpx;;
-}
-.yuceshuoming_body{
-	width: 100%;
-	height: auto;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top:20rpx;
-	margin-bottom:20rpx;
-	.yuceshuoming_body_child{
-		width: 90%;
-		height: auto;
-		// border:1px solid pink;
-		
-		box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.4);
-		border: 1px solid rgba(187, 187, 187, 100);
-		.yuceshuoming_body_child_title{
-			width: 100%;
-			height: 60rpx;
-			line-height: 60rpx;
-			text-align:center;
-			// border:1px solid green;
-			font-weight: bold;
-			
-			color: rgba(16, 16, 16, 100);
-			font-size: 36rpx;
-			font-family: SourceHanSansSC-bold;
-		}
-		.yuceshuoming_body_child_content{
-			width: 100%;
-			height: auto;
-			// border:1px solid blue;
+			height:auto;
+			// border:1px solid red;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			.yuceshuoming_body_child_content_child{
-				width: 90%;
-				height: auto;
-				// border:1px solid pink;
-				margin-top:10rpx;
-				font-size: 25rpx;
-				font-family: SourceHanSansSC-regular;
-			}
-		}
-	}
-}
-.wenluqu_center{
-	width:100%;
-	height:auto;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top:20rpx;
-	.wenluqu_center_child{
-		width:90%;
-		height:auto;
-		border:1px solid #BBBBBB;
-		border-radius: 10rpx;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		.wenluqu_center_child_child{
-			width:90%;
-			height:850rpx;
-			margin-top:20rpx;
-			// border:1px solid blue;
-			.wenluqu_center_child_child1{
-				width:100%;
-				height:70rpx;
-				// border:1px solid yellow;
-				display: flex;
-				justify-content: space-between;
-				margin-top:20rpx;
-				.wenluqu_center_child_child1_content{
-					width:250rpx;
-					height:50rpx;
-					border:1px solid #BBBBBB;
-					float:left;
-					border-radius: 5prx;
-				}
-			}
-			.wenluqu_center_child_child2{
-				width:100%;
-				height:95rpx;
-				// border:1px solid yellow;
-				margin-top:20rpx;
-				.wenluqu_center_child_child2_content{
+			margin-top: 20rpx;
+			.wenluqu_content1_display{
+				width:90%;
+				height:115rpx;
+				border-bottom:1px solid #E1DFDF;
+				.wenluqu_content1_display_title{
 					width:100%;
 					height:50rpx;
-					border-bottom:1px solid #BBBBBB;
-					float:left;
-					margin-top:40rpx;
-					.wenluqu_center_child_child2_content1{
-						width:50rpx;
-						height:50rpx;
+					// border:1px solid pink;
+					.wenluqu_content1_display_title1{
+						width: 250rpx;
+						height: 48rpx;
+						color: rgba(16, 16, 16, 100);
+						font-size: 40rpx;
+						text-align: left;
+						font-weight: bold;
+						font-family: SourceHanSansSC-bold;
+					}
+				}
+				.wenluqu_content1_display_input{
+					width:100%;
+					height:60rpx;
+					line-height: 60rpx;
+					margin-top:20rpx;
+					// border:1px solid pink;
+					input{
+						height:60rpx;
+						line-height: 60rpx;
+					}
+				}
+			}
+		}
+		.wenluqu_content{
+			width:100%;
+			height:auto;
+			// border:1px solid red;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			margin-top: 60rpx;
+			.wenluqu_content_display{
+				width:90%;
+				height:auto;
+				// border-bottom:1px solid #E1DFDF;
+				.wenluqu_content_display_input{
+					width:100%;
+					height:70rpx;
+					line-height: 70rpx;
+					// border:1px solid pink;
+					border-radius: 6px;
+					display: flex;
+					flex-wrap:wrap;
+					justify-content: start;
+					background-color: rgba(242, 243, 245, 100);
+					text-align: left;
+					// border: 1px solid rgba(255, 255, 255, 100);
+					.province{
+						width:50%;
+						color: #273253;
+						font-weight: bold;
+						font-size: 30rpx;
+						display: flex;
 						// border:1px solid red;
-						float:left;
+						.spot{
+							height: 15rpx;
+							width: 15rpx;
+							border-radius: 5px;
+							background-color: #FBBE4B;
+							margin-top: 22rpx;
+						}
+						.seclet_province{
+							
+						}
+					}
+					.sex{
+						width:50%;
+						font-weight: bold;
+						color: #273253;
+						font-size: 30rpx;
+						display: flex;
+						.spot{
+							height: 15rpx;
+							width: 15rpx;
+							border-radius: 5px;
+							background-color: #FBBE4B;
+							margin-top: 22rpx;
+						}
+						.seclet_sex{
+							margin-left: 5rpx;
+						}
+						// border:1px solid red;
+					}
+					.picker_province{
+						width: 50%;
+						border:1px solid #ECE9E9;
+						border-radius: 10px;
+					
+					}
+					.picker_sex{
+						width: 50%;
+						border:1px solid #ECE9E9;
+						border-radius: 10px;
+					}
+					.wenluqu_alloption{
+						width:100%;
+						color: #273253;
+						display: flex;
+						font-size: 30rpx;
+						margin-bottom: 40rpx;
+						margin-bottom: 20rpx;
+						border-bottom:1px solid #ECE9E9;
+						.subject{
+							width: 50%;
+							font-size: 30rpx;
+							font-weight: bold;
+							display: flex;
+							.spot{
+								height: 15rpx;
+								width: 15rpx;
+								border-radius: 5px;
+								background-color: #FBBE4B;
+								margin-top: 22rpx;
+							}
+							.seclet_subject{
+								width: 40%;
+							}
+						}
+						
+					}
+					
+					.picker_sex{
+							width: 50%;
+							// border:1px solid pink;
+						
+					}
+					.picker_subject{
+							width: 50%;
+							// border:1px solid pink;
+						
+					}
+					.wenluqu_content_display_input_title{
+						width:150rpx;
+						height:65rpx;
+						// border:1px solid pink;
+						color: rgba(16, 16, 16, 100);
+						font-weight: bold;
+						font-size: 30rpx;
+						font-family: SourceHanSansSC-regular;
+					}
+					.wenluqu_content_display_input_value{
+						width:450rpx;
+						height:65rpx;
+						// border:1px solid pink;
+						// margin-left:30rpx;
+					}
+					.wenluqu_content_display_input_svg{
+						width:55rpx;
+						height:65rpx;
+						// border:1px solid pink;
 						image{
+							color: #f6b7b0;
 							width:100%;
 							height:100%;
 						}
 					}
-					.wenluqu_center_child_child2_content2{
-						width:120rpx;
-						height:50rpx;
-						line-height: 50rpx;
-						font-size:24rpx;
-						// border:1px solid red;
-						float:left;
-						text-align: center;
+				}
+				
+				
+			}
+			.button_bottom{
+				
+				width: 100%;
+				// border:1px solid pink;
+				margin-top: 90%;
+			}
+		}
+		
+		.wenluqu_content3{
+			width:100%;
+			height:auto;
+			// border:1px solid red;
+			margin-top: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.wenluqu_content3_display{
+				width:90%;
+				height:auto;
+				.wenluqu_content3_display_title{
+					width:100%;
+					height:50rpx;
+					// border:1px solid pink;
+					.wenluqu_content3_display_title1{
+						width: 250rpx;
+						height: 48rpx;
+						color: rgba(16, 16, 16, 100);
+						font-size: 40rpx;
+						text-align: left;
 						font-weight: bold;
+						font-family: SourceHanSansSC-bold;
 					}
-					.wenluqu_center_child_child2_content3{
-						width:430rpx;
-						height:50rpx;
+				}
+				.wenluqu_content3_display_input{
+					width:100%;
+					height:60rpx;
+					line-height: 60rpx;
+					margin-top:20rpx;
+					// border:1px solid pink;
+					border-bottom:1px solid #E1DFDF;
+					.wenluqu_content3_display_input_title{
+						width:150rpx;
+						height:60rpx;
 						// border:1px solid red;
 						float:left;
-						font-size: 24rpx;
-						// margin-left:40rpx;
+					
+						color: rgba(153, 153, 153, 100);
+						font-size: 28rpx;
+						font-weight: bold;
+						font-family: SourceHanSansSC-bold;
+					}
+					.wenluqu_content3_display_input_input{
+						width:520rpx;
+						height:60rpx;
+						// border:1px solid red;
+						float:left;
+						input{
+							height:60rpx;
+							line-height: 60rpx;
+						
+							color: rgba(16, 16, 16, 100);
+							font-size: 24rpx;
+							text-align: left;
+							font-family: SourceHanSansSC-regular;
+						}
+					}
+					
+				}
+			}
+		}
+		.begin_yuce{
+			width: 100%;
+			height: 100rpx;
+			line-height: 100rpx;
+			background-color: rgba(255, 77, 77, 100);
+			text-align: center;
+			border: 1px solid rgba(187, 187, 187, 100);
+			color:#FFFFFF;
+			font-size: 40rpx;
+			font-weight: bold;
+			margin-top: 20rpx;;
+		}
+		.yuceshuoming_body{
+			width: 100%;
+			height: auto;
+			// border:1px solid red;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top:20rpx;
+			margin-bottom:20rpx;
+			.yuceshuoming_body_child{
+				width: 90%;
+				height: auto;
+				// border:1px solid pink;
+				
+				box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.4);
+				border: 1px solid rgba(187, 187, 187, 100);
+				.yuceshuoming_body_child_title{
+					width: 100%;
+					height: 60rpx;
+					line-height: 60rpx;
+					text-align:center;
+					// border:1px solid green;
+					font-weight: bold;
+					
+					color: rgba(16, 16, 16, 100);
+					font-size: 36rpx;
+					font-family: SourceHanSansSC-bold;
+				}
+				.yuceshuoming_body_child_content{
+					width: 100%;
+					height: auto;
+					// border:1px solid blue;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					.yuceshuoming_body_child_content_child{
+						width: 90%;
+						height: auto;
+						// border:1px solid pink;
+						margin-top:10rpx;
+						font-size: 25rpx;
+						font-family: SourceHanSansSC-regular;
 					}
 				}
 			}
 		}
+		.wenluqu_center{
+			width:100%;
+			height:auto;
+			// border:1px solid red;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top:20rpx;
+			.wenluqu_center_child{
+				width:90%;
+				height:auto;
+				border:1px solid #BBBBBB;
+				border-radius: 10rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				.wenluqu_center_child_child{
+					width:90%;
+					height:850rpx;
+					margin-top:20rpx;
+					// border:1px solid blue;
+					.wenluqu_center_child_child1{
+						width:100%;
+						height:70rpx;
+						// border:1px solid yellow;
+						display: flex;
+						justify-content: space-between;
+						margin-top:20rpx;
+						.wenluqu_center_child_child1_content{
+							width:250rpx;
+							height:50rpx;
+							border:1px solid #BBBBBB;
+							float:left;
+							border-radius: 5prx;
+						}
+					}
+					.wenluqu_center_child_child2{
+						width:100%;
+						height:95rpx;
+						// border:1px solid yellow;
+						margin-top:20rpx;
+						.wenluqu_center_child_child2_content{
+							width:100%;
+							height:50rpx;
+							border-bottom:1px solid #BBBBBB;
+							float:left;
+							margin-top:40rpx;
+							.wenluqu_center_child_child2_content1{
+								width:50rpx;
+								height:50rpx;
+								// border:1px solid red;
+								float:left;
+								image{
+									width:100%;
+									height:100%;
+								}
+							}
+							.wenluqu_center_child_child2_content2{
+								width:120rpx;
+								height:50rpx;
+								line-height: 50rpx;
+								font-size:24rpx;
+								// border:1px solid red;
+								float:left;
+								text-align: center;
+								font-weight: bold;
+							}
+							.wenluqu_center_child_child2_content3{
+								width:430rpx;
+								height:50rpx;
+								// border:1px solid red;
+								float:left;
+								font-size: 24rpx;
+								// margin-left:40rpx;
+							}
+						}
+					}
+				}
+			}
+		}
+		.wenluqu_bottom{
+			width:100%;
+			height:100rpx;
+			// border:1px solid red;
+			display: flex;
+			align-items: center;
+			margin-top: 20rpx;
+			justify-content: center;
+			// margin-top:100rpx;
+			.wenluqu_bottom_content{
+				width:180rpx;
+				height:70rpx;
+				line-height: 70rpx;
+				text-align: center;
+				// border:1px solid pink;
+				color:#fff;
+				font-size:35rpx;
+				font-weight: bold;
+				// background-color: #FF6E2F;
+				background-image: url('../../static/img/kaishiyuce_img.png');
+				background-size: 100% 100%;;
+				border-radius: 10rpx;
+			}
+		}
 	}
-}
-.wenluqu_bottom{
-	width:100%;
-	height:100rpx;
-	// border:1px solid red;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	// margin-top:100rpx;
-	.wenluqu_bottom_content{
-		width:180rpx;
-		height:70rpx;
-		line-height: 70rpx;
-		text-align: center;
-		// border:1px solid pink;
-		color:#fff;
-		font-size:35rpx;
-		font-weight: bold;
-		// background-color: #FF6E2F;
-		background-image: url('../../static/img/kaishiyuce_img.png');
-		background-size: 100% 100%;;
-		border-radius: 10rpx;
-	}
-}
+
 </style>
