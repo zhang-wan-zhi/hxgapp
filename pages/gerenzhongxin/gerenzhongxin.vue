@@ -16,8 +16,8 @@
 		</view>
 
 		<!-- 充值会员 -->
-		<view class="vip-box">
-			<view class="professional">
+		<view class="vip-box" >
+			<view class="professional" @click="consume">
 				<view class="vip-logo-one"><image src="../../static/img/my/special.png"></image></view>
 				<view class="vip-title">
 					<view class="vip-title-top">专业版</view>
@@ -38,7 +38,7 @@
 		
 		<view class="uer-handle">
 			<!-- 我的收藏 -->
-			<view class="item">
+			<view class="item" @click="toSave">
 				<image src="../../static/img/my/save.png" ></image>
 				<text class="title">我的收藏</text>
 			</view>
@@ -122,6 +122,19 @@ export default {
 		click_shouquan() {
 			uni.navigateTo({
 				url: '../index/index'
+			});
+		},
+		// 充值会员
+		consume(){
+			console.log(11)
+			uni.navigateTo({
+				url: '../huiyuanzhongxin/huiyuanzhongxin'
+			});
+		},
+		// 我的收藏
+		toSave(){
+			uni.navigateTo({
+				url: '../wodeshoucang/wodeshoucang'
 			});
 		},
 		//关于我们
@@ -357,7 +370,7 @@ export default {
 .out-login{
 	width: 260rpx;
 	height: 80rpx;
-	margin: 200rpx auto;
+	margin: 200rpx auto 0rpx;
 	border-radius: 12rpx;
 	text-align: center;
 	line-height: 80rpx;

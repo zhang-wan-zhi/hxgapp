@@ -266,7 +266,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 190));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 197));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _api = __webpack_require__(/*! ../../api/api.js */ 17);var yikaoDongtai = function yikaoDongtai() {__webpack_require__.e(/*! require.ensure | components/index/yikaoDongtai */ "components/index/yikaoDongtai").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoDongtai.vue */ 208));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var yikaoKecheng = function yikaoKecheng() {__webpack_require__.e(/*! require.ensure | components/index/yikaoKecheng */ "components/index/yikaoKecheng").then((function () {return resolve(__webpack_require__(/*! ../../components/index/yikaoKecheng.vue */ 215));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

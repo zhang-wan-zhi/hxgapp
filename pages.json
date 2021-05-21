@@ -242,15 +242,34 @@
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle":"white",
 				"navigationBarBackgroundColor":"#ED5C4D",
-				"navigationStyle":"custom",
 				"app-plus": {"titleNView":false}
-				// "usingComponents":{
-				// 	"uni-nav-bar":"./components/uni-nav-bar/uni-nav-bar.vue"
-				// }
+		    }
+		    
+		},{
+		    "path" : "pages/wodeshoucang/wodeshoucang",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "收藏",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#ED5C4D",
+				"app-plus": {"titleNView":false}
 		    }
 		    
 		}
-    ],
+        ,{
+            "path" : "pages/huiyuanzhongxin/huiyuanzhongxin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "会员中心",
+                "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#ED5C4D",
+				"app-plus": {"titleNView":false}
+            }
+            
+        }
+    ],   
 "tabBar": {
     "color": "#7A7E83",
     "selectedColor": "#F37372",

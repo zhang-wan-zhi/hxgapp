@@ -21,7 +21,9 @@
     "pages/yikaoxiangqing/yikaoxiangqing",
     "pages/xinggepinggu/xinggepinggu",
     "pages/xinggepinggu2/xinggepinggu2",
-    "pages/test_search/test_search"
+    "pages/test_search/test_search",
+    "pages/wodeshoucang/wodeshoucang",
+    "pages/huiyuanzhongxin/huiyuanzhongxin"
   ],
   "subPackages": [],
   "window": {
@@ -65,6 +67,5 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

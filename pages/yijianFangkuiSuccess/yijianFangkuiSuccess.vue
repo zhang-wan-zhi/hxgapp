@@ -1,58 +1,88 @@
 <template>
-	<view>
-		<view class="yijianFangkui_success">
-			<view class="yijianFangkui_success_success">
-				<view class="yijianFangkui_success1">
-					<view class="yijianFangkui_success1_img">
-						<image src="../../static/img/yijianfankuoi_success_img.png"></image>
-					</view>
-				</view>
-				<view class="yijianFangkui_success2">反馈成功</view>
-			</view>
+	<view class="success" :style="[{height:phoneHeight+'px'}]">
+		<view class="center">
+			<view class="title-one">提交成功</view>
+			<view class="title-two">感谢您的建议和反馈</view>
 		</view>
+		<view class="return" @click="fanhui">返回</view>
 	</view>
 </template>
 
 <script>
+export default {
+	data(){
+		return{
+			phoneHeight:600
+		}
+	},
+	methods: {
+		fanhui() {
+			uni.switchTab({
+				url: '/pages/gerenzhongxin/gerenzhongxin'
+			});
+		}
+	},
+	onLoad(){
+		try {
+		    const res = uni.getSystemInfoSync();
+		    console.log(res.model);
+		    console.log(res.pixelRatio);
+		    console.log(res.windowWidth);
+		    console.log(res.windowHeight);
+		    console.log(res.language);
+		    console.log(res.version);
+		    console.log(res.platform);
+			this.phoneHeight=res.windowHeight	
+		} catch (e) {
+		     console.log(e);
+		}
+	},
+	
+}
+
+
 </script>
 
 <style lang="scss" scoped>
-	.yijianFangkui_success{
-		margin-top:300rpx;
-		width:100%;
-		height:300rpx;
-		// border:1px solid red;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		.yijianFangkui_success_success{
-			width:200rpx;
-			height:250rpx;
-			// border:1px solid red;
-			.yijianFangkui_success1{
-				width:200rpx;
-				height:200rpx;
-				// border:1px solid pink;
-				.yijianFangkui_success1_img{
-					width:200rpx;
-					height:200rpx;
-					// border:1px solid orange;
-					image{
-						width:100%;
-						height:100%;
-					}
-				}
-			}
-			.yijianFangkui_success2{
-				width:100%;
-				height:50rpx;
-				line-height: 50rpx;
-				text-align: center;
-				// border:1px solid pink;
-				color:#1296DB;
-				font-size: 35rpx;
-				font-weight:bold;
-			}
-		}
-	}
+.success {
+	position: relative;
+	width: 100%;
+	height: 600px;
+	text-align: center;
+	letter-spacing: 8rpx;
+}
+.center {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 50%;
+}
+.title-one {
+	margin-bottom: 20rpx;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 20px;
+	color: #273253;
+}
+.title-two {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	color: #273253;
+}
+.return {
+	position: absolute;
+	transform: translateX(-50%);
+	left: 50%;
+	bottom: 200rpx;
+	width: 640rpx;
+	height: 90rpx;
+	background: #ed5c4d;
+	border-radius: 90rpx;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 22px;
+	color: #ffffff;
+	line-height: 90rpx;
+}
 </style>
