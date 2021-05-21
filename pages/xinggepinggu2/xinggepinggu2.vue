@@ -18,13 +18,13 @@
 				
 			</view>
 			<view class="pinggu_content_bottom">
-				<view class="contain_conten_page">
+				<view class="contain_content_page">
 					第{{indexs+1}}/{{total}}题
 				</view>
-				<view class="contain_conten_title">
+				<view class="contain_content_title">
 					{{content}}
 				</view>
-				<view class="contain_conten_content">
+				<view class="contain_content_option">
 					<radio-group @change="radioChange">
 						<label  v-for="(item, index) in items" :key="item.id">
 							<view class="radio_select">
@@ -400,7 +400,7 @@
 			// align-items: center;
 			// justify-content: center;
 			background-color: #FFFFFF;
-			.contain_conten_page{
+			.contain_content_page{
 				margin-top: 10%;
 				height:10%;
 				line-height: 50rpx;
@@ -409,7 +409,7 @@
 				color:#0F0E0E;
 				font-weight: bold;
 			}
-			.contain_conten_title{
+			.contain_content_title{
 				margin-top: 5%;
 				margin-bottom: 5%;
 				text-align: center;
@@ -417,29 +417,36 @@
 				font-size:25rpx;
 				font-weight: bold;
 			}
-			.contain_conten_content{
+			.contain_content_option{
 				padding-top:2%;
 				padding: 2%;
+				width:100%;
+				height:520rpx;
 				text-align: center;
-				.radio_select{
-					width:100%;
-					height:50rpx;
-					margin-top:10rpx;
-					display: flex;
+				overflow-y:auto;
+					
 					// border:1px solid blue;
-					.radio_select1{
-						
-						width:50rpx;
+					.radio_select{
+						width:100%;
 						height:50rpx;
+						margin-top:50rpx;
+						display: flex;
 						// border:1px solid blue;
-					}
-					.radio_select2{
-						width:300rpx;
-						height:50rpx;
-						// border:1px solid blue;
+						.radio_select1{
+							width:60rpx;
+							height:60rpx;
+							// border:1px solid blue;
+						}
+						.radio_select2{
+							width:300rpx;
+							height:60rpx;
+							line-height: 60rpx;
+							text-align: left;
+							margin-left: 10rpx;
+							// border:1px solid blue;
+						}
 					}
 				}
-			}
 			.pinggu_content_content1_next{
 				width:100%;
 				height:60rpx;
