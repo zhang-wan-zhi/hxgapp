@@ -1,1 +1,0 @@
-<view class="success data-v-6cdd5786" style="{{'height:'+(phoneHeight+'px')+';'}}"><view class="center data-v-6cdd5786"><view class="title-one data-v-6cdd5786">提交成功</view><view class="title-two data-v-6cdd5786">感谢您的建议和反馈</view></view><view data-event-opts="{{[['tap',[['fanhui',['$event']]]]]}}" class="return data-v-6cdd5786" bindtap="__e">返回</view></view>

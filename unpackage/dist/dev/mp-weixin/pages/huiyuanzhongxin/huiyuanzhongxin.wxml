@@ -1,1 +1,0 @@
-<view class="box"><view><swiper current="{{currentIndex}}" duration="{{500}}" previous-margin="34px" next-margin="34px" data-event-opts="{{[['change',[['swierChange',['$event']]]]]}}" bindchange="__e"><swiper-item><view class="professional"></view></swiper-item><swiper-item><view class="members"></view></swiper-item></swiper></view></view>

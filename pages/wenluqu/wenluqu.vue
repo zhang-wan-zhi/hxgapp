@@ -2,12 +2,12 @@
 	<view class="wenluqu">
 		<view class="wenluqu_top">
 			<view id= "baokao" class="wenluqu_top_left"  @click="changeShow">
-				<image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image>
+				<!-- <image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image> -->
 				报考
 			</view>
 			<view id= "luqu" class="wenluqu_top_right"   @click="changeShow2" >录取</view>
 		</view>
-		<image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image>
+		<!-- <image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image> -->
 		
 		<view  class="wenluqu_content">
 			<view v-show="isShow" class="wenluqu_content_display">
