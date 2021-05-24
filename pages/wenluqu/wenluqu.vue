@@ -793,12 +793,13 @@
 			.wenluqu_content_display{
 				width:90%;
 				height:auto;
-				border-bottom:1px solid #E1DFDF;
+				// border-bottom:1px solid #E1DFDF;
 				.wenluqu_content_display_input{
 					width:100%;
 					height:70rpx;
 					line-height: 70rpx;
 					// border:1px solid pink;
+					// border-bottom:1px solid #e12007;
 					border-radius: 6px;
 					display: flex;
 					flex-wrap:wrap;
@@ -819,9 +820,10 @@
 							border-radius: 5px;
 							background-color: #FBBE4B;
 							margin-top: 22rpx;
+							margin-right: 10rpx;
 						}
 						.seclet_province{
-							
+							// border:1px solid red;
 						}
 					}
 					.sex{
@@ -836,6 +838,7 @@
 							border-radius: 5px;
 							background-color: #FBBE4B;
 							margin-top: 22rpx;
+							margin-right: 10rpx;
 						}
 						.seclet_sex{
 							margin-left: 5rpx;
@@ -843,14 +846,16 @@
 						// border:1px solid red;
 					}
 					.picker_province{
-						width: 50%;
+						width: 45%;
 						border:1px solid #ECE9E9;
+						
 						border-radius: 10px;
 					
 					}
 					.picker_sex{
 						width: 50%;
 						border:1px solid #ECE9E9;
+						margin-left: 5%;
 						border-radius: 10px;
 					}
 					.wenluqu_alloption{
@@ -870,6 +875,7 @@
 								height: 15rpx;
 								width: 15rpx;
 								border-radius: 5px;
+								margin-right: 10rpx;
 								background-color: #FBBE4B;
 								margin-top: 22rpx;
 							}
