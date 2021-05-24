@@ -43,7 +43,7 @@
 				<text class="title">我的收藏</text>
 			</view>
 			<view class="item">
-				<button open-type="share" class="share-btn">
+				<button open-type="share" class="share-btn" @click="share">
 					<image src="../../static/img/my/share.png" ></image>
 					<text class="title">分享</text>
 				</button>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { TestApi } from '../../api/api.js';
+import { TestApi,hasOpenid } from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -131,10 +131,29 @@ export default {
 			});
 		},
 		// 我的收藏
-		toSave(){
+		 toSave(){
+			if(!hasOpenid()){
+				uni.showToast({
+					title:'请登录账号',
+					duration:2000,
+					icon:'none'
+				})
+				return false
+			}
 			uni.navigateTo({
 				url: '../wodeshoucang/wodeshoucang'
 			});
+		},
+		// 分享
+		share(){
+			if(!hasOpenid()){
+				uni.showToast({
+					title:'请登录账号',
+					duration:2000,
+					icon:'none'
+				})
+				return false
+			}
 		},
 		//关于我们
 		guanyuwomeng() {
@@ -144,6 +163,14 @@ export default {
 		},
 		//意见反馈
 		yijianFangkui() {
+			if(!hasOpenid()){
+				uni.showToast({
+					title:'请登录账号',
+					duration:2000,
+					icon:'none'
+				})
+				return false
+			}
 			uni.navigateTo({
 				url: '../yijianFangkui/yijianFangkui'
 			});

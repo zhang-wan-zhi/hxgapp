@@ -8,7 +8,7 @@
 				<text class="title">{{ yikaoKechengList_one.aeTitle }}</text>
 				<view class="watch">
 					<image src="../../static/img/firstIcon/watch.png" mode=""></image>
-					<text class="watch-number">{{ yikaoKechengList_one.peopleNum }}人正在观看</text>
+					<text class="watch-number">{{ yikaoKechengList_one.peopleNum }}次观看</text>
 				</view>
 			</view>
 			<!-- 点赞分享 -->

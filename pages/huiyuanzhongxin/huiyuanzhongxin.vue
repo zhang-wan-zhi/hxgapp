@@ -78,7 +78,7 @@
 					</view>
 				</view>
 				<!-- 支付 -->
-				<view class="cost" @click="toCosttwo">支付9.9元</view>
+				<view class="cost" @click="toCostTwo">支付9.9元</view>
 			</view>
 		</view>
 	</view>
@@ -108,6 +108,9 @@ export default {
 		async toCostOne() {
 			// 获取用户openID
 			const oOpenid = uni.getStorageSync('openid');
+			uni.showLoading({
+				title:'请求中'
+			})
 			console.log(oOpenid);
 			// 向后端发送订单数据
 			const res1 = await new Promise((resolve, reject) => {
@@ -121,7 +124,84 @@ export default {
 						money: '0.01'
 					},
 					success: res => {
-						resolve(res);
+						resolve(res.data.wixinPay);
+						console.log(res);
+					},
+					fail: err => {
+						reject(err);
+						console.log(err);
+						uni.hideLoading();
+						uni.showToast({
+							title:'服务器端出错',
+							duration:2000
+						})
+					}
+				});
+			});
+			// 获取后端返回结果
+			console.log(res1);
+			// 获取provider
+			const provider = await new Promise((resolve, reject) => {
+				uni.getProvider({
+					service: 'payment',
+					success(res) {
+						console.log(res);
+						resolve(res.provider[0]);
+					},
+					fail(res) {
+						console.log(res);
+						reject(res);
+					}
+				});
+			});
+			// console.log(provider)
+			// 获取参数信息
+			const timeStamp = res1.timeStamp;
+			const orderInfo = res1.product_id;
+			const nonceStr = res1.nonceStr;
+			const packages = res1.package;
+			const signType = res1.signType;
+			const paySign = res1.paySign;
+			console.log(timeStamp, orderInfo, nonceStr, packages, signType, paySign);
+			// 发起支付
+			uni.hideLoading()
+			uni.requestPayment({
+				provider,
+				timeStamp,
+				nonceStr,
+				signType,
+				paySign,
+				orderInfo,
+				package: packages,
+				success(res) {
+					console.log(res);
+				},
+				fail(res) {
+					console.log(res);
+				}
+			});
+		},
+		// 普通会员充值
+		async toCostTwo() {
+			// 获取用户openID
+			uni.showLoading({
+				title:'请求中'
+			})
+			const oOpenid = uni.getStorageSync('openid');
+			console.log(oOpenid);
+			// 向后端发送订单数据
+			const res1 = await new Promise((resolve, reject) => {
+				uni.request({
+					url: 'https://orangezoom.cn:8091/hxg/pay/orders',  
+					method: 'POST',
+					contentType: 'application/json;charset=UTF-8',
+					data: {
+						oOpenid,
+						oProductid: '2',
+						money: '0.01'
+					},
+					success: res => {
+						resolve(res.data.wixinPay);
 						console.log(res);
 					},
 					fail: err => {
@@ -156,6 +236,7 @@ export default {
 			const paySign = res1.paySign;
 			console.log(timeStamp, orderInfo, nonceStr, packages, signType, paySign);
 			// 发起支付
+			uni.hideLoading()
 			uni.requestPayment({
 				provider,
 				timeStamp,
@@ -282,10 +363,10 @@ export default {
 
 .item {
 	display: flex;
-	width: 100rpx;
+	width: 25%;
 	flex-direction: column;
 	align-items: center;
-	margin: 60rpx 100rpx 0rpx 0rpx;
+	margin-top: 60rpx ;
 }
 
 .item-img {

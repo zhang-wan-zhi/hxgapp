@@ -1,19 +1,5 @@
 <template>
 	<view class="content">
-		<!-- 				<button open-type="getUserInfo" class="buttons" lang="zh_CN" @getuserinfo="wechatLogin" hover-class="none">获取授权</button> -->
-	<!-- 	<view class="getUser">
-			<view class="getUser_top">
-				<view class="getUser_top_title">确认授权登录</view>
-			</view>
-			<view class="getShouquan_title">
-				<view class="getShouquan_title_title">该小程序将获取你的信息</view>
-			</view>
-			<view class="shouquan_button">
-
-				<button class="buttons" @click="wechatLogin">获取授权</button>
-			</view>
-		</view> -->
-		
 		<view class="getUser_content" :style="{height:phoneHeight*0.9+'px;'}">
 			<view class="login_view">
 			  <image src="../../static/img/qzys_logo.png" class="login_logo"></image>
@@ -50,13 +36,6 @@
 		onLoad() {
 			  //获取窗口高度，适配手机
 			this.getWindowHeight();
-			//获取测试接口用户名
-           // this.getInfo();
-		   //定义在app启动首次为横屏,锁定
-		   // //#ifdef APP-PLUS
-		   // plus.screen.lockOrientation('landscape-primary')
-		   // //#endif
-		   
 		},
 		
 		methods: {
@@ -78,11 +57,6 @@
 				   this.title=res[1].data.data[0].username;
 			   })
 			   
-			   // getTest().then((res)=>{
-				  //  console.log(res.data.data);
-				  //  console.log(res.data.data[0].username);
-				  //  this.title=res.data.data[0].username;
-			   // })
            },
 		   //获取窗口高度，适配手机
 		   getWindowHeight(){
@@ -104,53 +78,6 @@
 		         delta: 1
 		       })
 		     },
-		   /**
-		      * 允许登录
-		      */
-		    //  login_allow: function(e) {
-		    //    var that = this;
-		    //    if (!that.data.canIUse) {
-		    //      wx.showToast({
-		    //        title: '请升级微信版本',
-		    //        icon: 'none',
-		    //      })
-		    //      return;
-		    //    }
-		    //    // that.bindGetUserInfo(e);
-			   // that.wechatLogin(e);
-		    //  },
-			 
-			   // bindGetUserInfo: function(e) {
-			   //   var that = this;
-			   //   if (e.detail.userInfo) {
-			   //     //用户按了允许授权按钮
-			   //     let userInfo =getApp().globalData.userInfo;
-			   //     userInfo["avatarUrl"] = e.detail.userInfo.avatarUrl
-			   //     userInfo["city"] = e.detail.userInfo.city
-			   //     userInfo["country"] = e.detail.userInfo.country
-			   //     userInfo["gender"] = e.detail.userInfo.gender
-			   //     userInfo["language"] = e.detail.userInfo.language
-			   //     userInfo["nickName"] = e.detail.userInfo.nickName
-			   //     userInfo["province"] = e.detail.userInfo.province
-			   //     wx.setStorage({
-			   //       data: JSON.stringify(userInfo),
-			   //       key: 'userinfo',
-			   //     })
-			   //     getApp().globalData.userInfo=userInfo;
-			   //     // 登录
-			   //     wx.login({
-			   //       success: res => {
-			   //         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-			   //         console.log(res)
-			   //         //小程序尝试登陆接口
-			   //         that.tryLogin(res.code);
-			   //       }
-			   //     })
-			   //   } else {
-			   //     //用户按了拒绝按钮
-			   //     console.log("拒绝授权")
-			   //   }
-			   // },
 		  
 			//登录授权
 			wechatLogin(){

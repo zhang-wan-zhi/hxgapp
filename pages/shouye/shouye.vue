@@ -85,7 +85,7 @@
 						<view class="class-title">{{ item.aeTitle }}</view>
 						<view class="class-number">
 							<image src="../../static/img/firstIcon/watch.png" ></image>
-							<text>{{ item.peopleNum + '人正在观看' }}</text>
+							<text>{{ item.peopleNum + '次观看' }}</text>
 						</view>
 					</view>
 				</view>

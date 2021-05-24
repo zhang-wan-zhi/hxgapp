@@ -528,3 +528,12 @@ export function TestApi(userId,examId,examTime){
 		})
 	})
 }
+//获取用户openid方法封装
+export function hasOpenid(){
+	const openid= uni.getStorageSync('openid');
+	if(openid===''){
+		return false
+	}else{
+		return openid
+	}
+}
