@@ -1,14 +1,16 @@
 <template>
 	<view class="wenluqu">
 		<view class="wenluqu_top">
-			<view id= "baokao" class="wenluqu_top_left"  @click="changeShow">
-				<!-- <image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image> -->
-				报考
+			<view id= "baokao" class="wenluqu_top_left"  @click="changeShow" :class="isShow==true?'red':''">
+				<image style="width:50rpx;height:50rpx;" :src="isShow==true?'../../static/icon/eidt_1.png':'../../static/icon/eidt_2.png'"></image>
+				<span>报考</span>
 			</view>
-			<view id= "luqu" class="wenluqu_top_right"   @click="changeShow2" >录取</view>
+			<view id= "luqu" class="wenluqu_top_right"   @click="changeShow2" :class="isShow2==true?'red':''">
+				
+				<span>录取</span>
+			</view>
 		</view>
-		<!-- <image style="width:30rpx;height:30rpx;" src="../../static/icon/eidt.png"></image> -->
-		
+		<image style="width:50rpx;height:50rpx;" :src="isShow==true?'../../static/icon/eidt_2.png':'../../static/icon/eidt_1.png'"></image>
 		<view  class="wenluqu_content">
 			<view v-show="isShow" class="wenluqu_content_display">
 				<view  class="wenluqu_content_display_input">
@@ -59,7 +61,6 @@
 								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
 							</picker>
 						</view>
-					
 					</view>
 					<view class="wenluqu_alloption">
 						<view class="subject">
@@ -113,215 +114,157 @@
 						</view>
 					
 					</view>
-				
+					<view class="button_bottom">
+						<button type="warn" style="width: 80%;border-radius: 20px;" @click="wenluqu_luqu">测试</button>
+					</view>
 			
 				</view>
 			</view>
-			<view  v-show="isShow2" class="wenluqu-luqu">
-				恭喜你被录取了
-			</view>
-			<view class="button_bottom">
-				<button type="warn" style="width: 80%;border-radius: 20px;" @click="wenluqu_yuce">测试</button>
-			</view>
-			
-		</view>
-		
-		<!-- <view class="wenluqu_content3">
-			<view class="wenluqu_content3_display">
-				<view class="wenluqu_content3_display_title">
-					<view class="wenluqu_content3_display_title1">成绩信息</view>
-				</view>
-				<view v-for="(item,index) in AllZiduanArr" :key="item.askEgname">
-					<view class="wenluqu_content3_display_input">
-						<view class="wenluqu_content3_display_input_title">{{item.askParm}}</view>
-						<view class="wenluqu_content3_display_input_input">
-						  <input type="text" :placeholder="item.askPrep1" v-if="item.askType==1" @input="getInputs">
-						  <picker @change="bindInfo($event,item.askadmitcontentVos,item.askEgname)"  :range="item.askadmitcontentVos" :range-key="'key'" v-if="item.askType==2">
-						  	<label class="wenluqu_content_display_input_value">{{item.askPrep1}}</label>	
-						  </picker>
+			<view  v-show="isShow2" class="wenluqu_content_display">
+				<view class="wenluqu_content_display_input">
+						<view class="province">
+							<view class="spot"></view>
+							<view class="seclet_province">
+								选择省
+							</view>
 						</view>
-					</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">高考成绩</view>
-					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入高考成绩" @input="getcollegeExamScore">
-					</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">统考成绩</view>
-					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
-					</view>
-				</view>
-				
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">性别</view>
-					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入性别" @input="getchineseScore">
-					</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">语文成绩</view>
-					<view class="wenluqu_content3_display_input_input">
-					  <input type="text" placeholder="请输入语文成绩" @input="getchineseExamination">
-					</view>
-				</view>
-			</view>
-		</view> -->
-		
-	<!-- 	<view class="wenluqu_content3">
-			<view class="wenluqu_content3_display">
-				<view class="wenluqu_content3_display_title">
-					<view class="wenluqu_content3_display_title1">基本信息</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">视力</view>
-					<view class="wenluqu_content3_display_input_input">
-						<picker @change="bindPickerChangeShili" :range="shiliArr">
-							<label class="">{{shili1}}</label>	
-						</picker>
-					</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">身高</view>
-					<view class="wenluqu_content3_display_input_input">
-						<picker @change="bindPickerShengao" :range="shengaoArr">
-							<label class="">{{shengao1}}</label>	
-						</picker>
-						 <input type="text" placeholder="请输入你的身高" @input="getShengao">
-					</view>
-				</view>
-				<view class="wenluqu_content3_display_input">
-					<view class="wenluqu_content3_display_input_title">体重</view>
-					<view class="wenluqu_content3_display_input_input">
-						<picker @change="bindPickerTizhong" :range="tizhongArr">
-							<label class="">{{tizhong1}}</label>	
-						</picker>
-						<input type="text" placeholder="请输入你的体重" @input="gettizhong">
-					</view>
-				</view>
-			</view>
-		</view>
-		
-		<view class="begin_yuce" @click="wenluqu_yuce">开始预测</view>
-		
-		<view class="yuceshuoming_body">
-			<view class="yuceshuoming_body_child">
-				<view class="yuceshuoming_body_child_title">预测说明</view>
-				<view class="yuceshuoming_body_child_content">
-					<view class="yuceshuoming_body_child_content_child">1.免费版，可免费查看预测概率</view>
-				</view>
-			</view>
-		</view> -->
-		
-<!-- 		<view class="wenluqu_center"style="margin-top:250rpx;">
-			<view class="wenluqu_center_child" :style="{height:phoneHeight*0.8+'px;'}">
-				<view class="wenluqu_center_child_child" :style="{height:phoneHeight*0.78+'px;'}">
-					
-					<view class="wenluqu_center_child_child1">
-						<view class="wenluqu_center_child_child1_content">
-						  <picker @change="bindPickerChange" :range="array">
-							<label>省份：</label>
-							<label >{{province}}</label>	
-						  </picker>
+						<view class="sex">
+							<view class="spot"></view>
+							<view class="seclet_sex">性别</view>
 						</view>
-						<view class="wenluqu_center_child_child1_content">
-							<picker @change="bindPickerChange2" :range="sex">
-								<label>分科：</label>
-								<label >{{artAndSciences}}</label>	
+						<view class="picker_province">
+							<picker  @change="onChangeProvince" :range="array">
+								<label class="wenluqu_content_display_input_value">{{luqu_province}}</label>		
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+								
+						</view>
+						<view class="picker_sex">
+							<picker  @change="onChangeSex" :range="sexOption">
+								<label class="wenluqu_content_display_input_value">{{luqu_sex}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;color: #f6b7b0;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">报考院校</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeSchool" :range="schools">
+								<label class="wenluqu_content_display_input_value">{{likeSchool}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
 							</picker>
 						</view>
 					</view>
-					
-					<view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaoyuanxiao_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">报考院校:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你报考的学校" @input="getUniversity">
-							</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">文理分类</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="onChangeSubject" :range="array2">
+								<label class="wenluqu_content_display_input_value">{{luqu_subject}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
 						</view>
 					</view>
-					
-					<view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/gaokaofen_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">高考分:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的高考成绩" @input="getcollegeExamScore">
-							</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">选择专业</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="onChangeMajor" :range="majorArr">
+								<label class="wenluqu_content_display_input_value">{{luqu_major}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
 						</view>
 					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的身高</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="onChangeHeight" :range="HeightOption">
+								<label class="wenluqu_content_display_input_value">{{luqu_height}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
 					
-					<view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/tongkaochengji_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">统考成绩:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的统考成绩" @input="getgeneralExamination" >
-							</view>
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的视力</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="onChangeShili" :range="shiliOption">
+								<label class="wenluqu_content_display_input_value">{{luqu_shili}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的体重</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="onChangeWeight" :range="weightOption">
+								<label class="wenluqu_content_display_input_value">{{luqu_weight}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的特长</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="onChangeSkill" :range="skillOption">
+								<label class="wenluqu_content_display_input_value">{{luqu_skill}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					
+					</view>
+					<view class="button_bottom">
+				<button type="warn" style="width: 80%;border-radius: 20px;" @click="wenluqu_yuce">测试2</button>
+			</view>
+					<!-- <view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">高考成绩</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeHighschoolScore" :range="highschoolScores">
+								<label class="wenluqu_content_display_input_value">{{collegeExamScore}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
 						</view>
 					</view>
-					
-					<view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/baokaozhuaunye_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">报考专业:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<picker @change="bindPickerChangeZhuanye" :range="majorArr">
-									<label class="">{{major1}}</label>	
-								</picker>
-							</view>
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">统考成绩</view>
 						</view>
-					</view>
-					
-					<view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/dankechengji_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">英语成绩:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<input type="text" placeholder="请输入你的英语成绩" @input="getchineseScore">
-							</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeGeneralScore" :range="generalScores">
+								<label class="wenluqu_content_display_input_value">{{generalExamination}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
 						</view>
-					</view>
-					
-					<view class="wenluqu_center_child_child2">
-						<view class="wenluqu_center_child_child2_content">
-							<view class="wenluqu_center_child_child2_content1">
-								<image src="../../static/img/shili_img.png"></image>
-							</view>
-							<view class="wenluqu_center_child_child2_content2">视力:</view>
-							<view class="wenluqu_center_child_child2_content3">
-								<picker @change="bindPickerChangeShili" :range="shiliArr">
-									<label class="">{{shili1}}</label>	
-								</picker>
-							</view>
-						</view>
-					</view>
-					
+					</view> -->
 				</view>
 			</view>
-		</view> -->
-
-		
-<!-- 		<view class="wenluqu_bottom">
-			<view class="wenluqu_bottom_content" @click="wenluqu_yuce">开始预测</view>
-		</view> -->
-		
-		<!-- <view class="wenluqu_bottom">
-			<view class="wenluqu_bottom_content" @click="chongzhi">重置清空</view>
-		</view> -->
+			
+			
+		</view>
 	</view>
 </template>
 
@@ -330,6 +273,10 @@
 	export default {
 		data() {
 			return {
+				isRed1:false,
+				isRed2:false,
+				url1:'../../static/icon/eidt_1.png',
+				url2:'../../static/icon/eidt.png',
 				//显示隐藏
 				isShow:true,
 				isShow2:false,
@@ -339,18 +286,25 @@
 				index:0,
 				//省份
 				province:'请选择',
+				luqu_province:'请选择',
 				array2:['请选择','文科','理科','文理不限'],
+				luqu_subject:'请选择',
 				sexOption:['请选择','男','女'],
 				sex:'请选择',
+				luqu_sex:'请选择',
 				index2:0,
 				//文理分科
 				artAndSciences:'文科',
 				//喜欢的大学,报考院校
-				"likeUniversity": "",
+				//学校列表
+				schools:['请选择','浙江大学','杭州电子科技大学','中国计量大学','浙江师范大学'],
+				"likeSchool": "请选择",
 				//高考分数
-				collegeExamScore:'',
+				highschoolScores:['0-400',"400-450","450-500","550-600","600-650","650-750"],
+				collegeExamScore:'请选择',
 				//统考成绩
-				generalExamination:'',
+				generalScores:['0-400',"400-450","450-500","550-600","600-650","650-750"],
+				generalExamination:'请选择',
 				//校考成绩
 				xiaokaoExamination:'',
 				//外语成绩
@@ -362,25 +316,29 @@
 				indexMajor:0,
 				major1:'请输入你的报考专业',
 				//报考专业的专业数组
-				majorArr:['请先输入你的报考专业','表演','音乐','计算机','会计'],
-				
+				majorArr:['请输入你的报考专业','表演','音乐','计算机','会计'],
+				luqu_major:'请输入你的报考专业',
 				//视力
 				vision:'',
 				shiliOption:["视力<3.0","视力>=3.0"],
 				indexShili:0,
 				shili:'请输入你的视力情况',
+				luqu_shili:'请选择',
 				//身高
 				height:'',
+				luqu_height:'请选择',
 				indexShengao:0,
 				height:'请输入你的身高范围',
 				HeightOption:['0-170','170-200'],
 				//体重
 				weight:'',
+				luqu_weight:'请选择',
 				indexTizhong:0,
 				weight:'请输入你的体重范围',
 				weightOption:['30-50','50-60','60-70','70以上'],
 				skillOption:['体育运动','艺术','其他'],
 				skill:'请输入你的特长',
+				luqu_skill:'请选择',
 				//获取的动态字段
 				AllZiduanArr:[]
 			}
@@ -430,13 +388,6 @@
 			changeShow(){
 				this.isShow = true;
 				this.isShow2 = false;
-				uni.createSelectorQuery().select('#baokao').boundingClientRect(function(e){
-				                console.log(e)
-				                uni.pageScrollTo({
-				                    scrollTop: e.top,
-				                    duration: 800
-				                });
-				            }).exec()
 			},
 			//点击显示录取隐藏报考
 			changeShow2(){
@@ -462,7 +413,7 @@
 			// 	console.log(1111);
 			// 	this.province="";
 			// 	this.artAndSciences="";
-			// 	this.likeUniversity="";
+			// 	this.likeSchool="";
 			// 	this.collegeExamScore="";
 			// 	this.generalExamination="";
 			// 	this.major1="";
@@ -484,7 +435,7 @@
 			},
 			//获取大学名称
 			/* getUniversity(e){
-				this.likeUniversity=e.detail.value;
+				this.likeSchool=e.detail.value;
 				// console.log(e.detail.value);
 				//如果学校为空，对应的专业也为空
 				if(e.detail.value==""){
@@ -505,8 +456,8 @@
 			}, */
 			//专业下拉框
 			bindPickerChangeZhuanye(e){
-				console.log(e.target.value);
-				this.indexMajor = e.target.value			//将数组改变索引赋给定义的index变量
+				// console.log(e.target.value);
+				this.indexMajor = e.target.value;	//将数组改变索引赋给定义的index变量
 				this.major1=this.majorArr[this.indexMajor]		//将array【改变索引】的值赋给定义的jg变量
 			},
 			//视力下拉框
@@ -530,6 +481,7 @@
 				this.indexTizhong=e.target.value;
 				this.skill=this.skillOption[this.indexTizhong]	
 			},
+			
 			//获取高考成绩
 			/* getcollegeExamScore(e){
 				this.collegeExamScore=e.detail.value;
@@ -582,7 +534,7 @@
 				this.weight=e.detail.value;
 			},
 			//下拉框
-			bindPickerChange: function(e) {		//改变的事件名
+			bindPickerChange(e) {		//改变的事件名
 				
 			    // console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
@@ -590,23 +542,83 @@
 				this.province=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
 			},
-			bindPickerChange2: function(e) {		//改变的事件名
-			    // console.log(e.target.value);
+			bindPickerChange2(e) {		//改变的事件名
+			    console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
-				this.index2 = e.target.value;			//将数组改变索引赋给定义的index变量
-				this.artAndSciences=this.array2[this.index2]		//将array【改变索引】的值赋给定义的jg变量
+				this.index = e.target.value;			//将数组改变索引赋给定义的index变量
+				this.artAndSciences=this.array2[this.index]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
 			},
-			bindPickerChangeSex:function(e){
+			bindPickerChangeSex(e){
 				this.indexSex = e.target.value;			//将数组改变索引赋给定义的index变量
 				this.sex=this.sexOption[this.indexSex]
+			},
+			//wenluqu学校报考
+			bindPickerChangeSchool(e){
+				this.indexSchool=e.target.value;
+				this.likeSchool=this.schools[this.indexSchool]	
+			},
+			//wenluqu文理分科
+			onChangeSubject(e){
+				this.indexSubject=e.target.value;
+				this.luqu_subject=this.array2[this.indexSubject]	
+			},
+			//wenluqu选择省
+			onChangeProvince(e){
+				this.indexPro=e.target.value;
+				this.luqu_province=this.array[this.indexPro]
+			},
+			//wenluqu性别
+			onChangeSex(e){
+				this.indexSex2=e.target.value;
+				this.luqu_sex=this.sexOption[this.indexSex2]
+			},
+			
+			//wenluqu选择专业
+			onChangeMajor(e){
+				this.indexMajor=e.target.value;
+				this.luqu_major=this.majorArr[this.indexMajor]	
+			},
+			//wenluqu身高
+			onChangeHeight(e){
+				this.indexHeight2=e.target.value;
+				this.luqu_height=this.HeightOption[this.indexHeight2]
+			},
+			//wenluqu视力
+			onChangeShili(e){
+				this.indexShili2=e.target.value;
+				this.luqu_shili=this.shiliOption[this.indexShili2]
+			},
+			//wenluqu体重
+			onChangeWeight(e){
+				this.indexWeight2=e.target.value;
+				this.luqu_weight=this.weightOption[this.indexWeight2]
+			},
+			//wenluqu特长
+			onChangeSkill(e){
+				this.indexSkill2=e.target.value;
+				this.luqu_skill=this.skillOption[this.indexSkill2]
+			},
+			//高考成绩
+			bindPickerChangeHighschoolScore(e){
+				this.indexHighschoolScore=e.target.value;
+				this.collegeExamScore=this.highschoolScores[this.indexHighschoolScore]	
+			},
+			//统考成绩
+			bindPickerChangeGeneralScore(e){
+				this.indexHighschoolScore=e.target.value;
+				this.generalExamination=this.generalScores[this.indexHighschoolScore]	
+			},
+			//问报考
+			wenluqu_luqu(){
+				
 			},
             //问录取输入结果
 			wenluqu_yuce(){
 				let obj={
 					"userOpenId": "dhsjfsdkfjgjifjdgkdjkgfdkl", 
 					//喜欢的大学,报考院校
-					"likeUniversity": this.likeUniversity,
+					"likeSchool": this.likeSchool,
 					//文理分科
 					"artAndSciences": this.artAndSciences,
 					//省份地区
@@ -643,7 +655,7 @@
 					//性别
 					"sex": this.chineseScore,
 					
-				 //    "likeUniversity": "浙江传媒学院", 
+				 //    "likeSchool": "浙江传媒学院", 
 					// "artAndSciences": "文科", 
 					// "province": "山东", 
 					// "major": "播音与主持艺术", 
@@ -655,7 +667,7 @@
 					// "english": "100"
 					
 					// "userOpenId":"dhsjfsdkfjgjifjdgkdjkgfdkl"
-					// "likeUniversity":"浙江传媒学院",
+					// "likeSchool":"浙江传媒学院",
 					// "artAndSciences":"文科",
 					// "province":"山东",
 					// "major":"戏剧影视文学（桐乡）",
@@ -664,7 +676,7 @@
 				console.log(this.province);
 				console.log(this.artAndSciences);
 				//喜欢的大学
-				console.log(this.likeUniversity);
+				console.log(this.likeSchool);
 				//高考分数
 				console.log(this.collegeExamScore);
 				//统考成绩
@@ -748,67 +760,26 @@
 				height: 80rpx; 
 				line-height: 80rpx; 
 				width: 30%;
-				text-align: center;
-				background-color: #ED5C4D; 
+				background-color: #ECE9E9; 
 				border-radius: 20px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				>image{
+					
+				}
 			}
 			.wenluqu_top_right{
 				height: 80rpx; 
 				line-height: 80rpx; 
 				width: 30%;
-				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 				background-color: #ECE9E9; 
 				border-radius: 20px;
 			}
-			.wenluqu_top_title{
-				width:200rpx;
-				height:70rpx;
-				line-height: 70rpx;
-				text-align: center;
-				// border:1px solid pink;
-				color:#FF6E2F;
-				font-size:40rpx;
-				font-weight: bold;
-			}
-		}
-		.wenluqu_content1{
-			width:100%;
-			height:auto;
-			// border:1px solid red;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top: 20rpx;
-			.wenluqu_content1_display{
-				width:90%;
-				height:115rpx;
-				border-bottom:1px solid #E1DFDF;
-				.wenluqu_content1_display_title{
-					width:100%;
-					height:50rpx;
-					// border:1px solid pink;
-					.wenluqu_content1_display_title1{
-						width: 250rpx;
-						height: 48rpx;
-						color: rgba(16, 16, 16, 100);
-						font-size: 40rpx;
-						text-align: left;
-						font-weight: bold;
-						font-family: SourceHanSansSC-bold;
-					}
-				}
-				.wenluqu_content1_display_input{
-					width:100%;
-					height:60rpx;
-					line-height: 60rpx;
-					margin-top:20rpx;
-					// border:1px solid pink;
-					input{
-						height:60rpx;
-						line-height: 60rpx;
-					}
-				}
-			}
+
 		}
 		.wenluqu_content{
 			width:100%;
@@ -822,7 +793,7 @@
 			.wenluqu_content_display{
 				width:90%;
 				height:auto;
-				// border-bottom:1px solid #E1DFDF;
+				border-bottom:1px solid #E1DFDF;
 				.wenluqu_content_display_input{
 					width:100%;
 					height:70rpx;
@@ -944,217 +915,16 @@
 							height:100%;
 						}
 					}
-				}
-				
-				
-			}
-			.button_bottom{
-				
-				width: 100%;
-				// border:1px solid pink;
-				margin-top: 90%;
-			}
-		}
-		
-		.wenluqu_content3{
-			width:100%;
-			height:auto;
-			// border:1px solid red;
-			margin-top: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			.wenluqu_content3_display{
-				width:90%;
-				height:auto;
-				.wenluqu_content3_display_title{
-					width:100%;
-					height:50rpx;
-					// border:1px solid pink;
-					.wenluqu_content3_display_title1{
-						width: 250rpx;
-						height: 48rpx;
-						color: rgba(16, 16, 16, 100);
-						font-size: 40rpx;
-						text-align: left;
-						font-weight: bold;
-						font-family: SourceHanSansSC-bold;
-					}
-				}
-				.wenluqu_content3_display_input{
-					width:100%;
-					height:60rpx;
-					line-height: 60rpx;
-					margin-top:20rpx;
-					// border:1px solid pink;
-					border-bottom:1px solid #E1DFDF;
-					.wenluqu_content3_display_input_title{
-						width:150rpx;
-						height:60rpx;
-						// border:1px solid red;
-						float:left;
-					
-						color: rgba(153, 153, 153, 100);
-						font-size: 28rpx;
-						font-weight: bold;
-						font-family: SourceHanSansSC-bold;
-					}
-					.wenluqu_content3_display_input_input{
-						width:520rpx;
-						height:60rpx;
-						// border:1px solid red;
-						float:left;
-						input{
-							height:60rpx;
-							line-height: 60rpx;
+					.button_bottom{
 						
-							color: rgba(16, 16, 16, 100);
-							font-size: 24rpx;
-							text-align: left;
-							font-family: SourceHanSansSC-regular;
-						}
-					}
-					
-				}
-			}
-		}
-		.begin_yuce{
-			width: 100%;
-			height: 100rpx;
-			line-height: 100rpx;
-			background-color: rgba(255, 77, 77, 100);
-			text-align: center;
-			border: 1px solid rgba(187, 187, 187, 100);
-			color:#FFFFFF;
-			font-size: 40rpx;
-			font-weight: bold;
-			margin-top: 20rpx;;
-		}
-		.yuceshuoming_body{
-			width: 100%;
-			height: auto;
-			// border:1px solid red;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top:20rpx;
-			margin-bottom:20rpx;
-			.yuceshuoming_body_child{
-				width: 90%;
-				height: auto;
-				// border:1px solid pink;
-				
-				box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.4);
-				border: 1px solid rgba(187, 187, 187, 100);
-				.yuceshuoming_body_child_title{
-					width: 100%;
-					height: 60rpx;
-					line-height: 60rpx;
-					text-align:center;
-					// border:1px solid green;
-					font-weight: bold;
-					
-					color: rgba(16, 16, 16, 100);
-					font-size: 36rpx;
-					font-family: SourceHanSansSC-bold;
-				}
-				.yuceshuoming_body_child_content{
-					width: 100%;
-					height: auto;
-					// border:1px solid blue;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					.yuceshuoming_body_child_content_child{
-						width: 90%;
-						height: auto;
+						width: 100%;
 						// border:1px solid pink;
-						margin-top:10rpx;
-						font-size: 25rpx;
-						font-family: SourceHanSansSC-regular;
 					}
 				}
+				
+				
 			}
-		}
-		.wenluqu_center{
-			width:100%;
-			height:auto;
-			// border:1px solid red;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top:20rpx;
-			.wenluqu_center_child{
-				width:90%;
-				height:auto;
-				border:1px solid #BBBBBB;
-				border-radius: 10rpx;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				.wenluqu_center_child_child{
-					width:90%;
-					height:850rpx;
-					margin-top:20rpx;
-					// border:1px solid blue;
-					.wenluqu_center_child_child1{
-						width:100%;
-						height:70rpx;
-						// border:1px solid yellow;
-						display: flex;
-						justify-content: space-between;
-						margin-top:20rpx;
-						.wenluqu_center_child_child1_content{
-							width:250rpx;
-							height:50rpx;
-							border:1px solid #BBBBBB;
-							float:left;
-							border-radius: 5prx;
-						}
-					}
-					.wenluqu_center_child_child2{
-						width:100%;
-						height:95rpx;
-						// border:1px solid yellow;
-						margin-top:20rpx;
-						.wenluqu_center_child_child2_content{
-							width:100%;
-							height:50rpx;
-							border-bottom:1px solid #BBBBBB;
-							float:left;
-							margin-top:40rpx;
-							.wenluqu_center_child_child2_content1{
-								width:50rpx;
-								height:50rpx;
-								// border:1px solid red;
-								float:left;
-								image{
-									width:100%;
-									height:100%;
-								}
-							}
-							.wenluqu_center_child_child2_content2{
-								width:120rpx;
-								height:50rpx;
-								line-height: 50rpx;
-								font-size:24rpx;
-								// border:1px solid red;
-								float:left;
-								text-align: center;
-								font-weight: bold;
-							}
-							.wenluqu_center_child_child2_content3{
-								width:430rpx;
-								height:50rpx;
-								// border:1px solid red;
-								float:left;
-								font-size: 24rpx;
-								// margin-left:40rpx;
-							}
-						}
-					}
-				}
-			}
+			
 		}
 		.wenluqu_bottom{
 			width:100%;
@@ -1180,6 +950,10 @@
 				border-radius: 10rpx;
 			}
 		}
+	}
+	.red{
+		background-color: #ED5C4D !important; 
+		color:#F0F0F0;
 	}
 
 </style>
