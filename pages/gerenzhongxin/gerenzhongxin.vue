@@ -17,7 +17,7 @@
 
 		<!-- 充值会员 -->
 		<view class="vip-box" >
-			<view class="professional" @click="consume">
+			<view class="professional" @click="consume(0)">
 				<view class="vip-logo-one"><image src="../../static/img/my/special.png"></image></view>
 				<view class="vip-title">
 					<view class="vip-title-top">专业版</view>
@@ -25,7 +25,7 @@
 				</view>
 			</view>
 
-			<view class="members">
+			<view class="members" @click="consume(1)">
 				<view class="vip-logo-two "><image src="../../static/img/my/member.png"></image></view>
 				<view class="vip-title">
 					<view class="vip-title-top">会员版</view>
@@ -125,10 +125,9 @@ export default {
 			});
 		},
 		// 充值会员
-		consume(){
-			console.log(11)
+		consume(index){
 			uni.navigateTo({
-				url: '../huiyuanzhongxin/huiyuanzhongxin'
+				url: '../huiyuanzhongxin/huiyuanzhongxin?key='+index
 			});
 		},
 		// 我的收藏

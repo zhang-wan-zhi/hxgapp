@@ -2,7 +2,7 @@
 	<view class="box">
 		<!-- 轮播图区域 -->
 		<view style="margin: 30rpx 0rpx;">
-			<swiper :current="currentIndex" :duration="500" @change="swierChange" previous-margin="60rpx" next-margin="40rpx" class="swiper-box">
+			<swiper :current="currentIndex" :duration="duration" @change="swierChange" previous-margin="60rpx" next-margin="40rpx" class="swiper-box">
 				<swiper-item>
 					<view class="professional">
 						<view class="user-info">
@@ -39,46 +39,46 @@
 			</swiper>
 		</view>
 		<!-- 特权区域 -->
-		<view class="privilege" >
+		<view class="privilege">
 			<!-- 专业版特权 -->
-			<view class="pro" v-show="currentIndex===0">
+			<view class="pro" v-show="currentIndex === 0">
 				<view class="title">专业版特权</view>
 				<view class="items">
 					<view class="item">
-						<view class="item-img"><image src="../../static/img/my/01_会员信息管理.png" mode=""></image></view>
+						<view class="item-img"><image src="../../static/img/my/apinion.png" mode=""></image></view>
 						<text>优质建议</text>
 					</view>
 					<view class="item">
-						<view class="item-img"><image src="../../static/img/my/c1-特权.png" mode=""></image></view>
+						<view class="item-img"><image src="../../static/img/my/c1.png" mode=""></image></view>
 						<text>专属铭牌</text>
 					</view>
 					<view class="item">
-						<view class="item-img"><image src="../../static/img/my/生日礼物.png" mode=""></image></view>
+						<view class="item-img"><image src="../../static/img/my/mark.png" mode=""></image></view>
 						<text>资源优享</text>
 					</view>
 					<view class="item">
-						<view class="item-img"><image src="../../static/img/my/表情.png" mode=""></image></view>
+						<view class="item-img"><image src="../../static/img/my/face.png" mode=""></image></view>
 						<text>贴心交流</text>
 					</view>
 				</view>
 				<!-- 支付 -->
-				<view class="cost">支付99元</view>
+				<view class="cost" @click="toCostOne">支付99元</view>
 			</view>
 			<!-- 会员版特权 -->
-			<view class="pro" v-show="currentIndex==1">
+			<view class="pro" v-show="currentIndex == 1">
 				<view class="title">会员版特权</view>
 				<view class="items">
 					<view class="item">
-						<view class="item-img"><image src="../../static/img/my/01_会员信息管理.png" mode=""></image></view>
+						<view class="item-img"><image src="../../static/img/my/apinion.png" mode=""></image></view>
 						<text>优质建议</text>
 					</view>
 					<view class="item">
-						<view class="item-img"><image src="../../static/img/my/c1-特权.png" mode=""></image></view>
+						<view class="item-img"><image src="../../static/img/my/c1.png" mode=""></image></view>
 						<text>专属铭牌</text>
 					</view>
 				</view>
 				<!-- 支付 -->
-				<view class="cost">支付9.9元</view>
+				<view class="cost" @click="toCosttwo">支付9.9元</view>
 			</view>
 		</view>
 	</view>
@@ -89,14 +89,88 @@ export default {
 	data() {
 		return {
 			// 索引代表会员类型 0 专业 1 非专业
-			currentIndex:0,
+			currentIndex: 0,
+			duration:0,
 		};
+	},
+	onLoad(res) {
+		console.log(res);
+		this.currentIndex = res.key;
+		this.duration=500
 	},
 	methods: {
 		// 轮播图转动时
-		swierChange(obj){
-			this.currentIndex=obj.detail.current
-			console.log(this.currentIndex)
+		swierChange(obj) {
+			this.currentIndex = obj.detail.current;
+			console.log(this.currentIndex);
+		},
+		//专业会员支付功能
+		async toCostOne() {
+			// 获取用户openID
+			const oOpenid = uni.getStorageSync('openid');
+			console.log(oOpenid);
+			// 向后端发送订单数据
+			const res1 = await new Promise((resolve, reject) => {
+				uni.request({
+					url: 'https://orangezoom.cn:8091/hxg/pay/orders',  
+					method: 'POST',
+					contentType: 'application/json;charset=UTF-8',
+					data: {
+						oOpenid,
+						oProductid: '1',
+						money: '0.01'
+					},
+					success: res => {
+						resolve(res);
+						console.log(res);
+					},
+					fail: err => {
+						reject(err);
+						console.log(err);
+					}
+				});
+			});
+			// 获取后端返回结果
+			console.log(res1);
+			// 获取provider
+			const provider = await new Promise((resolve, reject) => {
+				uni.getProvider({
+					service: 'payment',
+					success(res) {
+						console.log(res);
+						resolve(res.provider[0]);
+					},
+					fail(res) {
+						console.log(res);
+						reject(res);
+					}
+				});
+			});
+			// console.log(provider)
+			// 获取参数信息
+			const timeStamp = res1.timeStamp;
+			const orderInfo = res1.product_id;
+			const nonceStr = res1.nonceStr;
+			const packages = res1.package;
+			const signType = res1.signType;
+			const paySign = res1.paySign;
+			console.log(timeStamp, orderInfo, nonceStr, packages, signType, paySign);
+			// 发起支付
+			uni.requestPayment({
+				provider,
+				timeStamp,
+				nonceStr,
+				signType,
+				paySign,
+				orderInfo,
+				package: packages,
+				success(res) {
+					console.log(res);
+				},
+				fail(res) {
+					console.log(res);
+				}
+			});
 		}
 	}
 };
@@ -198,7 +272,7 @@ export default {
 	line-height: 44rpx;
 	color: #273253;
 }
-.pro{
+.pro {
 	position: relative;
 }
 .items {
@@ -211,7 +285,7 @@ export default {
 	width: 100rpx;
 	flex-direction: column;
 	align-items: center;
-	margin: 60rpx 100rpx 0rpx 0rpx ;
+	margin: 60rpx 100rpx 0rpx 0rpx;
 }
 
 .item-img {
@@ -231,7 +305,6 @@ export default {
 	height: 60rpx;
 }
 .item text {
-	width: 52px;
 	font-size: 24rpx;
 	font-weight: 400;
 	line-height: 40rpx;

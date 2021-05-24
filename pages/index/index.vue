@@ -296,6 +296,7 @@
 					margin-top: 100rpx;
 					width: 100rpx;
 					height: 100rpx;
+					border-radius: 16rpx;
 				}
 				.login_name{
 				    margin-top: 50rpx;
