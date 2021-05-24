@@ -12,7 +12,7 @@
 
 		<!-- 轮播图区域 -->
 		<view class="swiper-box">
-			<swiper :autoplay="true" :current="currentIndex" :circular="true" previous-margin="56rpx" next-margin="56rpx" :interval="3000" :duration="500" @change="swierChange">
+			<swiper :autoplay="false" :current="currentIndex" :circular="true" previous-margin="56rpx" next-margin="56rpx" :interval="3000" :duration="500" @change="swierChange">
 				<swiper-item v-for="(item, i) in swipers" :key="i">
 					<view class="swiper-item-box">
 						<image :src="item.banUrl" @click="inter_lunbo_details(item.banSkipurl)" class="slide-image" :class="currentIndex === i ? 'active' : ''"></image>
@@ -61,7 +61,6 @@
 					<text>题库</text>
 				</view>
 			</view>
-
 			<!-- 艺考动态列表 -->
 			<view class="dynamic-contents" v-show="yikaoDongtaiStatus">
 				<view v-for="(item, index) in yikaoDongtaiList" :key="index">
@@ -353,8 +352,8 @@ export default {
 		},
 		//点击输入框，获得焦点时
 		getFocus() {
-			this.placeholders = '';
-			this.placeholders_styles = '';
+			// this.placeholders = '';
+			// this.placeholders_styles = '';
 			uni.navigateTo({
 				url: '../test_search/test_search'
 			});

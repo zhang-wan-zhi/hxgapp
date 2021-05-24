@@ -15,5 +15,5 @@
 <style>
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
-
+@import 'style/iconfont.css';
 </style>
