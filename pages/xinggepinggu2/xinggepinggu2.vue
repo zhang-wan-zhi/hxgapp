@@ -207,6 +207,8 @@ export default {
 						let curr_index = this.curr_index; //0-第一页
 						if (curr_index < this.question.length) {
 							curr_index += 1; //1-第二页
+						}else{
+							curr_index = this.question.length
 						}
 						// 改变下标来实现页面切换
 						this.curr_index = curr_index;
@@ -214,6 +216,7 @@ export default {
 							/* uni.showLoading({
 								title: "查询结果中..."
 							}) */
+							this.curr_index = this.question.length-1;
 							uni.showToast({
 							title: '提交成功',
 							duration: 2000
