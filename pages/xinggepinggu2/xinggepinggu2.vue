@@ -24,7 +24,7 @@
 		 			<!-- 选项 -->
 		 			<view class="questionOne-cont-chose" v-for="(an,index2) in item.optionsList" :key="index2">
 		 				<!-- <view :class="isShow==true?'questionOne-cont-chose-answer-selected':'questionOne-cont-chose-answer'" :data-val="an.content" ref="dataVal" @click="chose($event)"> -->
-						<view :class="{'questionOne-cont-chose-answer-selected': rSelect.indexOf(index2)!=-1}" :data-val="an.content" ref="dataVal" @click="chose(index2)">
+						<view :class="{'questionOne-cont-chose-answer-selected': rSelect.indexOf(index2)!=-1}" :data-val="an.score" ref="dataVal" @click="chose(index2,$event)">
 							<view class="questionOne-cont-chose-box">{{box}}</view>
 							<view class="questionOne-cont-chose-option">{{an.content}}</view>
 		 				</view>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+	import {getWenxuexiResuleList} from '../../api/api.js';
 export default {
 	components: {},
 	data() {
@@ -80,6 +81,7 @@ export default {
 			paramVal:[],
 			current: 0,
 			rSelect:[],
+			options:[{option:'A'},{option:'B'},{option:'C'},{option:'D'},{option:'E'},{option:'F'}]
 		};
 	},
 	onLoad(ids) {
@@ -172,30 +174,19 @@ export default {
 			this.percent = this.curr_index + '0';
 		},
 		//提交
-		mSubmit(e){
-			this.percent = 100;
-			uni.showToast({
-			title: '提交成功',
-			duration: 2000
-			});
-			this.resultPage();
-		},
+		
 		getSelectedArr(){
 			
 		},
-		chose(e) {
-						this.selectedArr=[];
-						for (var i = 0; i < this.question.length; i++) {
-							
-							// this.selectedArr.push(this.items[i])
-						}
-						console.log(this.selectedArr)
-						
-						if (this.rSelect.indexOf(e) == -1) {
+		chose(index2,e) {
+						let scores=0;
+						this.scores= this.scores + e.currentTarget.dataset.val;
+						// console.log(e)
+						if (this.rSelect.indexOf(index2) == -1) {
 								    	    // console.log(e)//打印下标
-									        this.rSelect.push(e);//选中添加到数组里
+									        this.rSelect.push(index2);//选中添加到数组里
 								        } else {
-									        this.rSelect.splice(this.rSelect.indexOf(e), 1); //取消
+									        this.rSelect.splice(this.rSelect.indexOf(index2), 1); //取消
 									    }
 						/* let curr_index = this.curr_index; //0-第一页
 						if (curr_index < this.question.length) {
@@ -215,53 +206,24 @@ export default {
 							this.curr_index = this.question.length-1;
 							
 						} */
-					},
-					resultPage: function() {
-						
-					},
-					// 结果请求接口
-								/* resultPage: function() {
-									// 我的请求参数是{"questionOne": "N","questionTwo": "N",.......}这种形式，就转换了一下
-									let [questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix] = this.paramVal
-									this.obj = {
-										questionOne,
-										questionTwo,
-										questionThree,
-										questionFour,
-										questionFive,
-										questionSix
-									}
-									console.log(this.obj)
-									this.obj = JSON.stringify((this.obj))
-									uni.request({
-										url: '接口地址',
-										method: 'post',
-										header: {
-											'content-type': 'application/json'
-										},
-										data: this.obj,
-										success(res) {
-											if (res.data.code == 0) {
-												uni.setStorageSync('resultData', res.data.data);
-												setTimeout(() => {
-													uni.hideLoading()
-												}, 300)
-												setTimeout(() => {
-													// 放的跳转页面
-													// uni.redirectTo({
-													// 	url: '../endPage/endPage'
-													// })
-												},500)
-											}else{
-												uni.showToast({
-													title:"执行错误",
-													icon:'none',
-													duration:2000
-												})
-									}
-							}
-						});
-			} */
+		},
+		mSubmit(e){
+			this.percent = 100;
+			let result = this.scores
+			console.log(this.scores)
+			
+			getWenxuexiResuleList(result).then((res)=>{
+				console.log(res.data.data);
+				let objs=res.data.data;
+				uni.setStorage({
+					key:'wenluqulists',
+					data:objs
+				});
+				uni.navigateTo({
+					url:'../wenxuexiBaogao/wenxuexiBaogao'
+				})
+			})
+		},
 	}
 };
 </script>
