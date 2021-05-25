@@ -2,7 +2,7 @@
 	<view class="container">
 		
 		 <view class="bg">
-				<view>{{type}}<span style="margin-left: 15rpx;">第{{nowIndex+1}}/{{total}}题</span></view>
+				<view>{{type}}<span style="margin-left: 15rpx;">第{{curr_index+1}}/{{total}}题</span></view>
 			
 				<view class="progress_1">
 					<progress border-radius="20"  :percent="percent"  stroke-width="7" activeColor="#FBBE4B"  backgroundColor="#E4E4E4"/>
@@ -58,14 +58,14 @@
 			</view> -->
 		<view class="buttonbottom">
 				<view class="btnback" @click="mBack">上一题</view>
-				<view class="btnnext" @click="mNext">下一题</view>
+				<view v-show="isShow2" class="btnnext" @click="mNext">下一题</view>
+				<view v-show="isShow" class="btnnext" @click="mSubmit">提交</view>
 		</view>
 			
 	</view>
 </template>
 
 <script>
-const util = require('../../api/util.js');
 export default {
 	components: {},
 	data() {
@@ -80,11 +80,9 @@ export default {
 			content:'你的身高？',
 			currentArr:[],
 			//百分比进度条
-			percent:10,
+			percent:0,
 			//请求返回数组
 			items: [],
-			//
-			current: null,
 			//选项的分数
 			scores:0,
 			valueArr:[],
@@ -98,9 +96,11 @@ export default {
 			one_Arr:[],
 			list:[1],
 			nowIndex:0,
-			isNext:true,
+			isShow:false,
+			isShow2:true,
 			total:'',
 			paramVal:[],
+			current: 0,
 		};
 	},
 	onLoad(ids) {
@@ -118,11 +118,6 @@ export default {
 		let arrs=uni.getStorageSync('scores1');
 		
 		this.submitArr=this.arrMoretoOne(arrs);
-		this.nowIndex=parseInt(ids.id);
-		for (var i = 0; i < 10; i++) {
-			this.percent = this.nowIndex+this.percent;
-		}
-		console.log("percent"+this.percent);
 		this.question=uni.getStorageSync('lists1');
 		this.total=this.question.length;
 		
@@ -159,57 +154,54 @@ export default {
 			// this.items=currentArr.optionsList;
 		},
 		//下一题
-		mNext:util.throttle(function(e) {
-			this.isNext = true;
-			let currentArr=uni.getStorageSync('lists1');
-			this.list.push(1);
-			console.log("list",this.list);
-			console.log('123',currentArr)
-			this.nowIndex+= 1
-			// let nowIndex = 0;
-			// if (nowIndex < this.currentArr.length) {
-			// 	nowIndex += 1; //1-第二页
-			// }
-			// this.nowIndex = nowIndex;
-			// if (this.nowIndex === this.currentArr.length) {
-			// 	uni.showLoading({
-			// 		title: "查询结果中..."
-			// 	})
-			// 	// this.resultPage();
-			// }
-		}, 600),
-		//上一题
-		mBack:util.throttle(function(e) {
-			this.isNext = false;
-			if(this.nowIndex > 0) {
-				this.nowIndex--;
-				setTimeout(()=>{
-					this.list.splice(-1,1)
-				},600)
+		mNext(e) {
+			let curr_index = this.curr_index; //0-第一页
+			if (curr_index < this.question.length-1) {
+				curr_index += 1; //1-第二页
 			}else{
-				console.log('到底了')
+				curr_index = this.question.length-1
 			}
-		}, 600),
-		// radioChange: function(evt) {
-		// 	let arr=[];
-		// 	this.paramVal.push(evt.currentTarget.dataset.val)
-		// 	let nowIndex = this.nowIndex; //0-第一页
-		// 	if (nowIndex < this.currentArr.length) {
-		// 		nowIndex += 1; //1-第二页
-		// 	}
-			
-		// 	let newArr=arr.push(evt.target.value);
-			
-		// 	this.selectedArr=arr;
-		// 	// console.log(arr);
-		// 	uni.setStorage({
-		// 		key:'submit_value',
-		// 		data:arr
-		// 	})
-		// 	// console.log(arr);
-		// 	console.log(uni.getStorageSync('submit_value'))
-			
-		// },
+			// 改变下标来实现页面切换
+			this.curr_index = curr_index;
+			//控制进度条
+			let percent = this.percent;
+			console.log(this.curr_index)
+			this.percent = this.curr_index + '0';
+			console.log(this.percent)
+			if (this.curr_index === this.question.length-1) {
+				this.isShow =true;
+				this.isShow2 =false; 
+			}	 
+		},
+		//上一题
+		mBack(e) {
+			let curr_index = this.curr_index;
+			console.log(curr_index);
+			if(curr_index<= this.question.length){
+				curr_index = curr_index - 1;
+				this.isShow =false;
+				this.isShow2 =true; 
+			};
+			if(curr_index <= 0){
+				curr_index = 0;
+				uni.showToast({
+				title: '已经到头了',
+				icon:'none',
+				duration: 2000
+				});
+			}
+			this.curr_index = curr_index;
+			this.percent = this.curr_index + '0';
+		},
+		//提交
+		mSubmit(e){
+			this.percent = 100;
+			uni.showToast({
+			title: '提交成功',
+			duration: 2000
+			});
+			this.resultPage();
+		},
 		chose(e) {
 						this.paramVal.push(e.currentTarget.dataset.val)
 						let curr_index = this.curr_index; //0-第一页
@@ -219,11 +211,18 @@ export default {
 						// 改变下标来实现页面切换
 						this.curr_index = curr_index;
 						if (this.curr_index === this.question.length) {
-							uni.showLoading({
+							/* uni.showLoading({
 								title: "查询结果中..."
-							})
+							}) */
+							uni.showToast({
+							title: '提交成功',
+							duration: 2000
+							});
 							this.resultPage();
 						}
+					},
+					resultPage: function() {
+						
 					},
 					// 结果请求接口
 								/* resultPage: function() {
