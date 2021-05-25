@@ -6,32 +6,32 @@
 				<swiper-item>
 					<view class="professional">
 						<view class="user-info">
-							<image src="../../static/icon/gerenzhongxin_icon_active.png" class="img"></image>
+							<image :src="userInfo.avatarUrl" class="img" v-show="memberInfo.type == 1"></image>
 							<view class="detail">
 								<view class="name">
-									百年老字号
-									<image src="../../static/img/my/jiangpaixunzhang1.png"></image>
+									{{ userInfo.nickName }}
+									<image src="../../static/img/my/jiangpaixunzhang1.png" v-show="memberInfo.type==1"></image>
 								</view>
-								<view class="deadline">会员有效期至：2021-06-6</view>
+								<view class="deadline" v-show="memberInfo.type == 1">会员有效期至：{{ memberInfo.deadline }}</view>
 							</view>
 						</view>
-						<view class="renew">立即续费</view>
+						<view class="renew" v-show="memberInfo.type == 1">立即续费</view>
 					</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="members">
 						<view class="user-info">
-							<image src="../../static/icon/gerenzhongxin_icon_active.png" class="img"></image>
+							<image :src="userInfo.avatarUrl" class="img"></image>
 							<view class="detail">
 								<view class="name">
-									百年老字号
-									<image src="../../static/img/my/jiangpaixunzhang.png"></image>
+									{{ userInfo.nickName }}
+									<image src="../../static/img/my/jiangpaixunzhang.png" v-show="memberInfo.type == 2"></image>
 								</view>
-								<view class="deadline">会员有效期至：2021-06-6</view>
+								<view class="deadline" v-show="memberInfo.type == 2">会员有效期至：{{ memberInfo.deadline }}</view>
 							</view>
 						</view>
-						<view class="handle">
-							<view class="renew">立即续费</view>
+						<view class="handle" v-show="memberInfo.type == 2">
+							<view class="renew" v-show="memberInfo.type == 2">立即续费</view>
 							<view class="renew" style="margin-left: 40rpx;">升级会员</view>
 						</view>
 					</view>
@@ -90,32 +90,55 @@ export default {
 		return {
 			// 索引代表会员类型 0 专业 1 非专业
 			currentIndex: 0,
-			duration:0,
+			duration: 0,
+			// 会员信息
+			memberInfo: {},
+			// 用户信息
+			userInfo: {}
 		};
 	},
 	onLoad(res) {
 		console.log(res);
 		this.currentIndex = res.key;
-		this.duration=500
+		this.duration = 500;
+		this.memberInfo = uni.getStorageSync('huiyuan');
+		this.userInfo = uni.getStorageSync('userData').userInfo;
+	},
+	onShow() {
+		setTimeout(() => {
+			this.memberInfo = uni.getStorageSync('huiyuan');
+			this.userInfo = uni.getStorageSync('userData').userInfo;
+		}, 300);
 	},
 	methods: {
 		// 轮播图转动时
 		swierChange(obj) {
 			this.currentIndex = obj.detail.current;
 			console.log(this.currentIndex);
+			this.userInfo = uni.getStorageSync('userData').userInfo;
+			this.userInfo
 		},
 		//专业会员支付功能
 		async toCostOne() {
+			// 判断是否是会员
+			if (this.memberInfo.type== 1 || this.memberInfo.type == 2) {
+				uni.showToast({
+					title: '你已是会员，请勿重复充值',
+					icon: 'none',
+					duration: 2000
+				});
+				return false;
+			}
 			// 获取用户openID
 			const oOpenid = uni.getStorageSync('openid');
 			uni.showLoading({
-				title:'请求中'
-			})
+				title: '请求中'
+			});
 			console.log(oOpenid);
 			// 向后端发送订单数据
 			const res1 = await new Promise((resolve, reject) => {
 				uni.request({
-					url: 'https://orangezoom.cn:8091/hxg/pay/orders',  
+					url: 'https://orangezoom.cn:8091/hxg/pay/orders',
 					method: 'POST',
 					contentType: 'application/json;charset=UTF-8',
 					data: {
@@ -125,16 +148,16 @@ export default {
 					},
 					success: res => {
 						resolve(res.data.wixinPay);
-						console.log(res);
+						// console.log(res);
 					},
 					fail: err => {
 						reject(err);
-						console.log(err);
+						// console.log(err);
 						uni.hideLoading();
 						uni.showToast({
-							title:'服务器端出错',
-							duration:2000
-						})
+							title: '服务器端出错',
+							duration: 2000
+						});
 					}
 				});
 			});
@@ -145,12 +168,17 @@ export default {
 				uni.getProvider({
 					service: 'payment',
 					success(res) {
-						console.log(res);
+						// console.log(res);
 						resolve(res.provider[0]);
 					},
 					fail(res) {
-						console.log(res);
+						// console.log(res);
 						reject(res);
+						uni.hideLoading();
+						uni.showToast({
+							title: '服务器端出错',
+							duration: 2000
+						});
 					}
 				});
 			});
@@ -164,7 +192,7 @@ export default {
 			const paySign = res1.paySign;
 			console.log(timeStamp, orderInfo, nonceStr, packages, signType, paySign);
 			// 发起支付
-			uni.hideLoading()
+			uni.hideLoading();
 			uni.requestPayment({
 				provider,
 				timeStamp,
@@ -174,7 +202,7 @@ export default {
 				orderInfo,
 				package: packages,
 				success(res) {
-					console.log(res);
+					// console.log(res);
 				},
 				fail(res) {
 					console.log(res);
@@ -183,16 +211,25 @@ export default {
 		},
 		// 普通会员充值
 		async toCostTwo() {
+			// 判断是否是会员
+			if (this.memberInfo.type== 1 || this.memberInfo.type == 2) {
+				uni.showToast({
+					title: '你已是会员，请勿重复充值',
+					icon: 'none',
+					duration: 2000
+				});
+				return false;
+			}
 			// 获取用户openID
 			uni.showLoading({
-				title:'请求中'
-			})
+				title: '支付请求中'
+			});
 			const oOpenid = uni.getStorageSync('openid');
 			console.log(oOpenid);
 			// 向后端发送订单数据
 			const res1 = await new Promise((resolve, reject) => {
 				uni.request({
-					url: 'https://orangezoom.cn:8091/hxg/pay/orders',  
+					url: 'https://orangezoom.cn:8091/hxg/pay/orders',
 					method: 'POST',
 					contentType: 'application/json;charset=UTF-8',
 					data: {
@@ -205,8 +242,13 @@ export default {
 						console.log(res);
 					},
 					fail: err => {
+						uni.hideLoading();
+						uni.showToast({
+							title: '服务器端出错',
+							duration: 2000
+						});
 						reject(err);
-						console.log(err);
+						// console.log(err);
 					}
 				});
 			});
@@ -236,7 +278,7 @@ export default {
 			const paySign = res1.paySign;
 			console.log(timeStamp, orderInfo, nonceStr, packages, signType, paySign);
 			// 发起支付
-			uni.hideLoading()
+			uni.hideLoading();
 			uni.requestPayment({
 				provider,
 				timeStamp,
@@ -246,10 +288,41 @@ export default {
 				orderInfo,
 				package: packages,
 				success(res) {
-					console.log(res);
+					// console.log(res);
+					console.log('----------充值会员成功-------------')
+					const openid = uni.getStorageSync('openid');
+					uni.request({
+						url: 'https://orangezoom.cn:8091/hxg/selectUser',
+						method: 'POST',
+						data: {
+							openid
+						},
+						success(res) {
+							const type = res.data.data.prep2;
+							uni.setStorage({
+								key: 'huiyuan',
+								data: type
+							});
+							uni.reLaunch({
+								url: '../huiyuanzhongxin/huiyuanzhongxin?key=' + this.currentIndex
+							});
+						},
+						fail(res) {
+							uni.showToast({
+								title: '获取会员信息失败',
+								duration: 2000
+							});
+							console.log(res);
+						}
+					});
 				},
 				fail(res) {
 					console.log(res);
+					uni.showToast({
+						title: '支付失败',
+						icon: 'none',
+						duration: 2000
+					});
 				}
 			});
 		}
@@ -290,6 +363,8 @@ export default {
 }
 
 .user-info .img {
+	display: block;
+	border-radius: 50%;
 	width: 84rpx;
 	height: 84rpx;
 	margin: 0rpx 40rpx;
@@ -366,7 +441,7 @@ export default {
 	width: 25%;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 60rpx ;
+	margin-top: 60rpx;
 }
 
 .item-img {

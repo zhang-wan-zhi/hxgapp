@@ -202,8 +202,8 @@ export default {
 	},
 	onLoad() {
 		 // 判断会员状态
-		this.status= uni.getStorageSync('huiyuan');
-		console.log(123213)
+		this.status= uni.getStorageSync('huiyuan').type;
+		console.log('status:'+ this.status);
 		//对退出登录校验
 		let openid = uni.getStorageSync('openid');
 		console.log(openid);
@@ -215,8 +215,10 @@ export default {
 	},
 	 onShow() {
 		 // 每次进入页面就会检测会员状态
+		 setTimeout(()=>{
+			  this.status=uni.getStorageSync('huiyuan').type;
+		 },400)
 		 let openid = uni.getStorageSync('openid');
-		 this.status=uni.getStorageSync('huiyuan');
 		 // console.log(openids);
 		 // 检查会员状态
 			  console.log('status:'+ this.status);

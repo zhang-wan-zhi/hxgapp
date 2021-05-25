@@ -13,7 +13,7 @@
 		<!-- 轮播图区域 -->
 		<view class="swiper-box">
 			<swiper :autoplay="false" :current="currentIndex" :circular="true" previous-margin="56rpx" next-margin="56rpx" :interval="3000" :duration="500" @change="swierChange">
-				<swiper-item v-for="(item, i) in swipers" :key="i">
+				<swiper-item v-for="(item, index) in swipers" :key="item.banUrl">
 					<view class="swiper-item-box">
 						<image :src="item.banUrl" @click="inter_lunbo_details(item.banSkipurl)" class="slide-image" :class="currentIndex === i ? 'active' : ''"></image>
 					</view>
@@ -63,7 +63,7 @@
 			</view>
 			<!-- 艺考动态列表 -->
 			<view class="dynamic-contents" v-show="yikaoDongtaiStatus">
-				<view v-for="(item, index) in yikaoDongtaiList" :key="index">
+				<view v-for="(item, index) in yikaoDongtaiList" :key="index+100">
 					<view class="dynamic-content" @click="yikaoDongtai(item.id)">
 						<view class="dynamic-img"><image :src="item.aedMinimg"></image></view>
 						<view class="dynamic-detail">
@@ -78,7 +78,7 @@
 			</view>
 			<!-- 艺考课程列表 -->
 			<view v-show="yikaoKechengStatus">
-			<view class="class-contents"  v-for="(item, index) in yikaoKechengList" :key="index">
+			<view class="class-contents"  v-for="(item, index) in yikaoKechengList" :key="index+60">
 				<view class="class-content" @click="yikaokecheng_click(item.aeId)">
 					<view class="class-img"><image :src="item.aeImgurl"></image></view>
 					<view class="class-detail">
@@ -93,7 +93,7 @@
 			</view>
 			<!-- 艺考题库列表 -->
 			<view v-show="yikaoTikuStatus">
-				<view class="question-content"  v-for="(item, index) in yikaoTikuList" :key="index + 100">
+				<view class="question-content"  v-for="(item, index) in yikaoTikuList" :key="index + 80">
 					<view class="question-img">
 						<image src="../../static/img/firstIcon/tiku.png" mode=""></image>
 					</view>

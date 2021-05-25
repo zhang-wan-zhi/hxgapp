@@ -7,7 +7,7 @@
 			  <view class="login_line"></view>
 			  <view class="login_title">该程序将获取以下授权</view>
 			  <!-- 解码，对空格进行解析 -->
-			  <text class="login_describe" decode="true" space="true">· &ensp;获得您的公开信息(昵称、头像等)</text>
+			  <text class="login_describe" decode="true" space="true">获得您的公开信息(昵称、头像等)</text>
 			  <view class="login_chooise">
 			   <button  style="width:300rpx" class="login_refuse" @click="login_refuse">拒绝</button>
 			    <!--  v-if="canIUse"  -->
@@ -126,11 +126,15 @@
 											openid
 										},
 										success(res) {
-											const type=res.data.data.prep2
+											const type=res.data.data.prep2;
+											const deadline=res.data.data.toTime.slice(0,10);
 											uni.setStorage({
 												key:'huiyuan',
-												data:type
-											})
+												data:{
+													type,
+													deadline
+												}
+											});	
 										},
 										fail(res) {
 											uni.showToast({
@@ -261,14 +265,14 @@
 				}
 				.login_title {
 				  width: 100%;
-				  padding-left: 100rpx;
+				  padding-left: 60rpx;
 				  margin-top: 80rpx;
 				  font-size: 28rpx;
 				  color: #636363;
 				}
 				.login_describe {
 				  width: 100%;
-				  padding-left: 100rpx;
+				  padding-left: 120rpx;
 				  margin-top: 30rpx;
 				  font-size: 24rpx;
 				  color: #9c9c9c;
