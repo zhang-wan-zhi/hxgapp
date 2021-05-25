@@ -116,8 +116,31 @@
 										key:'openid',
 										data:openid
 									})
-								}).then(()=>{
-									uni.switchTab({
+								}).then( async ()=>{
+									// 获取用户会员信息
+									let openid = uni.getStorageSync('openid');
+									await uni.request({
+										url:'https://orangezoom.cn:8091/hxg/selectUser',
+										method:'POST',
+										data:{
+											openid
+										},
+										success(res) {
+											const type=res.data.data.prep2
+											uni.setStorage({
+												key:'huiyuan',
+												data:type
+											})
+										},
+										fail(res) {
+											uni.showToast({
+												title:'获取会员信息失败',
+												duration:2000
+											})
+											console.log(res)
+										}
+									})
+									uni.reLaunch({
 										url:'../gerenzhongxin/gerenzhongxin'
 									})
 								})

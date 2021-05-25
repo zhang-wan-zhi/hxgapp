@@ -7,10 +7,13 @@
 		<!-- 用户信息 -->
 		<view v-show="isExitShow">
 			<view class="user-box">
-				<view class="user-img"><image :src="userData.avatarUrl" mode=""></image></view>
+				<view class="user-img"><image :src="userData.avatarUrl"></image></view>
 				<view class="user-detail">
 					<view class="user-name">{{ userData.nickName }}</view>
-					<view class="user-vip">vip</view>
+					<view class="user-vip" ><image src="../../static/img/tab/putong.png" v-show="status==2"></image>
+					<image src="../../static/img/tab/zhuanye.png" v-show="status==1"></image>
+					<text>{{userData.province}}-{{userData.city}}</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -74,13 +77,15 @@ export default {
 			//适配手机高度
 			phoneHeight: 0,
 			userData: {
-				avatarUrl: '',
-				nickName: ''
+				avatarUrl:'',
+				
 			},
 			//是否显示授权文本
 			isShow: true,
 			//是否显示退出
-			isExitShow: false
+			isExitShow: false,
+			// 会员状态
+			status:0
 		};
 	},
 	methods: {
@@ -108,6 +113,9 @@ export default {
 						console.log('用户点击确定');
 						uni.removeStorage({ key: 'userData' });
 						uni.removeStorage({ key: 'openid' });
+						uni.removeStorage({
+							key:'huiyuan'
+						})
 						//解决退出登录的bug
 						uni.reLaunch({
 							url: '../gerenzhongxin/gerenzhongxin'
@@ -126,6 +134,14 @@ export default {
 		},
 		// 充值会员
 		consume(index){
+			if(!hasOpenid()){
+				uni.showToast({
+					title:'请登录账号',
+					duration:2000,
+					icon:'none'
+				})
+				return false
+			}
 			uni.navigateTo({
 				url: '../huiyuanzhongxin/huiyuanzhongxin?key='+index
 			});
@@ -185,32 +201,39 @@ export default {
 		}
 	},
 	onLoad() {
+		 // 判断会员状态
+		this.status= uni.getStorageSync('huiyuan');
+		console.log(123213)
 		//对退出登录校验
-		let openids = uni.getStorageSync('openid');
-		console.log(openids);
-		if (openids == '') {
+		let openid = uni.getStorageSync('openid');
+		console.log(openid);
+		if (openid == '') {
 			this.isExitShow = false;
 		} else {
 			this.isExitShow = true;
 		}
 	},
-	onShow() {
+	 onShow() {
+		 // 每次进入页面就会检测会员状态
+		 let openid = uni.getStorageSync('openid');
+		 this.status=uni.getStorageSync('huiyuan');
+		 // console.log(openids);
+		 // 检查会员状态
+			  console.log('status:'+ this.status);
 		//对退出登录校验
-		let openids = uni.getStorageSync('openid');
-		console.log(openids);
-		if (openids == '') {
+		if (openid == '') {
 			this.isExitShow = false;
 		} else {
 			this.isExitShow = true;
+			let sting_storage = uni.getStorageSync('userData');
+			// console.log(sting_storage.userInfo);
+			let userData = sting_storage.userInfo;
+			this.userData = userData;
+			if (userData != null) {
+				this.isShow = false;
+			}
 		}
-
-		let sting_storage = uni.getStorageSync('userData');
-		console.log(sting_storage.userInfo);
-		let userData = sting_storage.userInfo;
-		this.userData = userData;
-		if (userData != null) {
-			this.isShow = false;
-		}
+		
 	},
 	onShareAppMessage: function(e) {
 		let title = '掐指艺算';
@@ -275,11 +298,18 @@ export default {
 	color: #0f1826;
 }
 .user-vip {
+	display: flex;
+	align-items: center;
 	height: 40rpx;
 	font-size: 24rpx;
 	font-weight: 400;
 	line-height: 40rpx;
 	color: #0f1826;
+	image{
+		width: 90rpx;
+		height: 36rpx;
+		margin-right: 30rpx;
+	}
 }
 
 // 充值会员

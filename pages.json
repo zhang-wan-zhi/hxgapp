@@ -278,32 +278,21 @@
     "list": [
       {
         "pagePath": "pages/shouye/shouye",
-		"selectedIconPath":"./static/icon/shouye_icon_active.png",
-		"iconPath":"./static/icon/shouye_icon.png",
+		"selectedIconPath":"./static/img/tab/shoye.png",
+		"iconPath":"./static/img/tab/shouye2.png",
 		"text":"首页"
       },
-	  // {
-	  //   "pagePath": "pages/wenxuexi/wenxuexi",
-	  // 		"selectedIconPath":"./static/icon/wenxuexi_icon_active.png",
-	  // 		"iconPath":"./static/icon/wenxuexi_icon.png",
-	  // 		"text":"问学习"
-	  // },
-  //     {
-  //       "pagePath": "pages/wenxiaokao/wenxiaokao",
-		// "selectedIconPath":"./static/icon/wenxiaokao_icon_active.png",
-		// "iconPath":"./static/icon/wenxiaokao_icon.png",
-		// "text":"问校考"
-  //     },
+	 
       {
         "pagePath": "pages/wenluqu/wenluqu",
-		"selectedIconPath":"./static/icon/wenluqu_icon_active.png",
-		"iconPath":"./static/icon/wenluqu_icon.png",
+		"selectedIconPath":"./static/img/tab/wenluqu.png",
+		"iconPath":"./static/img/tab/wenluqu2.png",
 		"text":"问录取"
       },
       {
         "pagePath": "pages/gerenzhongxin/gerenzhongxin",
-		"selectedIconPath":"./static/icon/gerenzhongxin_icon_active.png",
-		"iconPath":"./static/icon/gerenzhongxin_icon.png",
+		"selectedIconPath":"./static/img/tab/wode2.png",
+		"iconPath":"./static/img/tab/wode.png",
 		"text":"我的"
       }
     ]
