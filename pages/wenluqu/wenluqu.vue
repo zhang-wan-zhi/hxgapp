@@ -2,11 +2,14 @@
 	<view class="wenluqu">
 		<view class="wenluqu_top">
 			<view id= "baokao" class="wenluqu_top_left"  @click="changeShow" :class="isShow==true?'red':''">
-				<image style="width:50rpx;height:50rpx;" :src="isShow==true?'../../static/icon/eidt_1.png':'../../static/icon/eidt_2.png'"></image>
+				<!-- <image style="width:50rpx;height:50rpx;" :src="isShow==true?'../../static/icon/edit_1.png':'../../static/icon/edit_2.png'"></image> -->
+				<image style="width:50rpx;height:50rpx;" v-show="isShow==true"   src="../../static/icon/edit_1.png"></image>
+				<image style="width:50rpx;height:50rpx;" v-show="isShow==false"   src="../../static/icon/edit_2.png"></image>
 				<span>报考</span>
 			</view>
 			<view id= "luqu" class="wenluqu_top_right"   @click="changeShow2" :class="isShow2==true?'red':''">
-				
+				<image style="width:50rpx;height:50rpx;" v-show="isShow==false"   src="../../static/icon/edit_1.png"></image>
+				<image style="width:50rpx;height:50rpx;" v-show="isShow==true"   src="../../static/icon/edit_2.png"></image>
 				<span>录取</span>
 			</view>
 		</view>
@@ -145,7 +148,16 @@
 								<image style="width:55rpx;height:65rpx;float: right;color: #f6b7b0;" src="../../static/svg/shengfen_xiala.svg"></image>
 							</picker>
 						</view>
-					<view class="wenluqu_alloption">
+						<view class="wenluqu_alloption">
+							<view class="subject">
+								<view class="spot"></view>
+								<view class="seclet_subject">报考院校:</view>
+							</view>
+							<view class="picker_subject">
+								<input type="text" placeholder="请输入你报考的学校" @input="getUniversity">
+							</view>
+						</view>
+					<!-- <view class="wenluqu_alloption">
 						<view class="subject">
 							<view class="spot"></view>
 							<view class="seclet_subject">报考院校</view>
@@ -156,7 +168,7 @@
 								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
 							</picker>
 						</view>
-					</view>
+					</view> -->
 					<view class="wenluqu_alloption">
 						<view class="subject">
 							<view class="spot"></view>
@@ -184,6 +196,57 @@
 					<view class="wenluqu_alloption">
 						<view class="subject">
 							<view class="spot"></view>
+							<view class="seclet_subject">高考成绩:</view>
+						</view>
+						<view class="picker_subject">
+							<input type="text" placeholder="请输入高考成绩" @input="getcollegeExamScore">
+						</view>
+					</view>
+					<!-- <view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">高考成绩</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeHighschoolScore" :range="highschoolScores">
+								<label class="wenluqu_content_display_input_value">{{collegeExamScore}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					</view> -->
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">统考成绩:</view>
+						</view>
+						<view class="picker_subject">
+							<input type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
+						</view>
+					</view>
+					<!-- <view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">统考成绩</view>
+						</view>
+						<view class="picker_subject">
+							<picker  @change="bindPickerChangeGeneralScore" :range="generalScores">
+								<label class="wenluqu_content_display_input_value">{{generalExamination}}</label>	
+								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
+							</picker>
+						</view>
+					</view> -->
+					<view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
+							<view class="seclet_subject">你的身高:</view>
+						</view>
+						<view class="picker_subject">
+							<input type="text" placeholder="请输入身高(cm)" @input="getheight">
+						</view>
+					</view>
+					<!-- <view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
 							<view class="seclet_subject">你的身高</view>
 						</view>
 						<view class="picker_subject">
@@ -193,7 +256,7 @@
 							</picker>
 						</view>
 					
-					</view>
+					</view> -->
 					<view class="wenluqu_alloption">
 						<view class="subject">
 							<view class="spot"></view>
@@ -210,6 +273,15 @@
 					<view class="wenluqu_alloption">
 						<view class="subject">
 							<view class="spot"></view>
+							<view class="seclet_subject">你的体重:</view>
+						</view>
+						<view class="picker_subject">
+							<input type="text" placeholder="请输入体重(kg)" @input="getweight">
+						</view>
+					</view>
+					<!-- <view class="wenluqu_alloption">
+						<view class="subject">
+							<view class="spot"></view>
 							<view class="seclet_subject">你的体重</view>
 						</view>
 						<view class="picker_subject">
@@ -219,8 +291,8 @@
 							</picker>
 						</view>
 					
-					</view>
-					<view class="wenluqu_alloption">
+					</view> -->
+					<!-- <view class="wenluqu_alloption">
 						<view class="subject">
 							<view class="spot"></view>
 							<view class="seclet_subject">你的特长</view>
@@ -232,34 +304,11 @@
 							</picker>
 						</view>
 					
-					</view>
+					</view> -->
 					<view class="button_bottom">
 				<button type="warn" style="width: 80%;border-radius: 20px;" @click="wenluqu_yuce">测试2</button>
 			</view>
-					<!-- <view class="wenluqu_alloption">
-						<view class="subject">
-							<view class="spot"></view>
-							<view class="seclet_subject">高考成绩</view>
-						</view>
-						<view class="picker_subject">
-							<picker  @change="bindPickerChangeHighschoolScore" :range="highschoolScores">
-								<label class="wenluqu_content_display_input_value">{{collegeExamScore}}</label>	
-								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
-							</picker>
-						</view>
-					</view>
-					<view class="wenluqu_alloption">
-						<view class="subject">
-							<view class="spot"></view>
-							<view class="seclet_subject">统考成绩</view>
-						</view>
-						<view class="picker_subject">
-							<picker  @change="bindPickerChangeGeneralScore" :range="generalScores">
-								<label class="wenluqu_content_display_input_value">{{generalExamination}}</label>	
-								<image style="width:55rpx;height:65rpx;float: right;" src="../../static/svg/shengfen_xiala.svg"></image>
-							</picker>
-						</view>
-					</view> -->
+					
 				</view>
 			</view>
 			
@@ -270,6 +319,7 @@
 
 <script>
 	import {getWenluquList,getWenluquShengfeng,getZhuanhye,getWenluquZiduan} from '../../api/api.js'
+	const util = require('../../api/util.js');
 	export default {
 		data() {
 			return {
@@ -300,10 +350,10 @@
 				schools:['请选择','浙江大学','杭州电子科技大学','中国计量大学','浙江师范大学'],
 				"likeSchool": "请选择",
 				//高考分数
-				highschoolScores:['0-400',"400-450","450-500","550-600","600-650","650-750"],
+				highschoolScores:'',
 				collegeExamScore:'请选择',
 				//统考成绩
-				generalScores:['0-400',"400-450","450-500","550-600","600-650","650-750"],
+				generalScores:'',
 				generalExamination:'请选择',
 				//校考成绩
 				xiaokaoExamination:'',
@@ -320,7 +370,7 @@
 				luqu_major:'请输入你的报考专业',
 				//视力
 				vision:'',
-				shiliOption:["视力<3.0","视力>=3.0"],
+				shiliOption:["无色盲,无色弱","无色盲,有色弱","有色盲,无色弱","有色盲,有色弱"],
 				indexShili:0,
 				shili:'请输入你的视力情况',
 				luqu_shili:'请选择',
@@ -383,7 +433,6 @@
 			
 		},
 		methods: {
-			
 			//点击显示报考隐藏录取
 			changeShow(){
 				this.isShow = true;
@@ -434,16 +483,20 @@
 				})
 			},
 			//获取大学名称
-			/* getUniversity(e){
+			getUniversity:util.throttle(function(e) {
 				this.likeSchool=e.detail.value;
-				// console.log(e.detail.value);
+				console.log(e);
 				//如果学校为空，对应的专业也为空
 				if(e.detail.value==""){
 					this.majorArr=['请先输入你的报考院校'];
+					console.log(2222)
 				}else{
+					console.log(111)
 					//根据学校获取专业
-					getZhuanhye(e.detail.value).then((res)=>{
-						// console.log(res.data.data);
+					getZhuanhye(this.likeSchool).then((res)=>{
+						console.log(222);
+						console.log(res);
+						console.log(res.data.data);
 						let arr=res.data.data;
 						let arr1=[];
 						for(let i=0;i<arr.length;i++){
@@ -453,7 +506,7 @@
 						this.majorArr=arr1;
 					})
 				}			
-			}, */
+			}, 600),
 			//专业下拉框
 			bindPickerChangeZhuanye(e){
 				// console.log(e.target.value);
@@ -483,13 +536,13 @@
 			},
 			
 			//获取高考成绩
-			/* getcollegeExamScore(e){
+			getcollegeExamScore(e){
 				this.collegeExamScore=e.detail.value;
-			}, */
+			},
 			//获取统考成绩
-			/* getgeneralExamination(e){
+			getgeneralExamination(e){
 				this.generalExamination=e.detail.value;
-			}, */
+			},
 			//获取外语成绩
 			/* getenglishExamination(e){
 				this.englishExamination=e.detail.value;
@@ -519,17 +572,17 @@
 			// 	this.vision1=e.detail.value;
 			// },
 			//获取身高
-			// getheight(e){
-			// 	this.height=e.detail.value;
-			// },
+			getheight(e){
+				this.luqu_height=e.detail.value;
+			},
 			//获取身高
-			getShengao(e){
+			getshengao(e){
 				this.height=e.detail.value;
 			},
 			//获取体重
-			// getweight(e){
-			// 	this.weight=e.detail.value;
-			// },
+			getweight(e){
+				this.luqu_weight=e.detail.value;
+			},
 			gettizhong(e){
 				this.weight=e.detail.value;
 			},
@@ -618,11 +671,11 @@
 				let obj={
 					"userOpenId": "dhsjfsdkfjgjifjdgkdjkgfdkl", 
 					//喜欢的大学,报考院校
-					"likeSchool": this.likeSchool,
+					"likeUniversity": '山东艺术学院',
 					//文理分科
-					"artAndSciences": this.artAndSciences,
+					"artAndSciences": this.luqu_subject,
 					//省份地区
-					"province": this.province,
+					"province": this.luqu_province,
 					//报考专业
 					"major": this.major1,
 					//高考成绩
@@ -630,7 +683,7 @@
 					//统考成绩
 					"generalExamination": this.generalExamination,
 					//视力
-					"shili": this.shili,
+					"shili": this.luqu_shili,
 					
 					//文化成绩
 					// "culturalScore": "",
@@ -639,7 +692,7 @@
 					
 					
 					// 身高
-					"height": this.height,
+					"height": '178',
 					
 					
 					//数学成绩
@@ -649,11 +702,11 @@
 					// "userOpenId": "",
 					
 					//体重
-					"weight": this.weight,
+					"weight": "77",
 					
 					//英语成绩
 					//性别
-					"sex": this.chineseScore,
+					"sex": this.luqu_sex,
 					
 				 //    "likeSchool": "浙江传媒学院", 
 					// "artAndSciences": "文科", 
@@ -789,7 +842,6 @@
 			align-items: center;
 			flex-direction: column;
 			justify-content: center;
-			margin-top: 60rpx;
 			.wenluqu_content_display{
 				width:90%;
 				height:auto;
