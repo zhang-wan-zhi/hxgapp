@@ -23,39 +23,16 @@
 		 			</view>
 		 			<!-- 选项 -->
 		 			<view class="questionOne-cont-chose" v-for="(an,index2) in item.optionsList" :key="index2">
-		 				<view class="questionOne-cont-chose-answer" :data-val="an.value" ref="dataVal" @click="chose($event)">
-							<span style="background-color: #FBBE4B;border-radius: 20rpx;height: 40rpx;">{{box}}</span>
-							<text style="margin-left: 20rpx;">{{an.content}}</text>
+		 				<!-- <view :class="isShow==true?'questionOne-cont-chose-answer-selected':'questionOne-cont-chose-answer'" :data-val="an.content" ref="dataVal" @click="chose($event)"> -->
+						<view :class="{'questionOne-cont-chose-answer-selected': rSelect.indexOf(index2)!=-1}" :data-val="an.content" ref="dataVal" @click="chose(index2)">
+							<view class="questionOne-cont-chose-box">{{box}}</view>
+							<view class="questionOne-cont-chose-option">{{an.content}}</view>
 		 				</view>
 		 			</view>
 		 		</view>
 		 	</swiper-item>
 		 	</swiper>
 		 </view>
-			
-		<!-- <view class="card" v-for="(item,index) in list"  :class="{ aniSmall:nowIndex+1 == index && !isNext , aniBig: nowIndex == index && isNext , aniNext:nowIndex-1 == index && isNext , aniBack:nowIndex == index && !isNext }" v-if="nowIndex == index || nowIndex-1 == index || nowIndex+1 == index" :key="index">
-			<view class="cardTop">
-					<view class="question_content">
-						{{content}}
-					</view>
-			</view>
-			<view class="cardBottom">
-				
-				<view class="line">
-					<view class="lineTop">
-						<radio-group @change="radioChange">
-							<label  v-for="(item, index2) in items" :key="index2">
-								<view class="question_option">
-									<radio class="question_optionBox" :value="item.content" :checked="index === current" />
-									<view class="question_options">{{item.content}}</view>
-								</view>
-							</label>
-						</radio-group>
-					</view>
-					<!-- <view class="lineBottom">（tips说明）</view> 
-				</view>
-				
-			</view> -->
 		<view class="buttonbottom">
 				<view class="btnback" @click="mBack">上一题</view>
 				<view v-show="isShow2" class="btnnext" @click="mNext">下一题</view>
@@ -77,6 +54,7 @@ export default {
 			paramVal: [],
 			obj: {},
 			//问题
+			bgcolor:"#FBBE4B",
 			content:'你的身高？',
 			currentArr:[],
 			//百分比进度条
@@ -101,6 +79,7 @@ export default {
 			total:'',
 			paramVal:[],
 			current: 0,
+			rSelect:[],
 		};
 	},
 	onLoad(ids) {
@@ -155,6 +134,8 @@ export default {
 		},
 		//下一题
 		mNext(e) {
+			//清空选项样式
+			this.rSelect = [];
 			let curr_index = this.curr_index; //0-第一页
 			if (curr_index < this.question.length-1) {
 				curr_index += 1; //1-第二页
@@ -164,10 +145,7 @@ export default {
 			// 改变下标来实现页面切换
 			this.curr_index = curr_index;
 			//控制进度条
-			let percent = this.percent;
-			console.log(this.curr_index)
 			this.percent = this.curr_index + '0';
-			console.log(this.percent)
 			if (this.curr_index === this.question.length-1) {
 				this.isShow =true;
 				this.isShow2 =false; 
@@ -202,24 +180,41 @@ export default {
 			});
 			this.resultPage();
 		},
+		getSelectedArr(){
+			
+		},
 		chose(e) {
-						this.paramVal.push(e.currentTarget.dataset.val)
-						let curr_index = this.curr_index; //0-第一页
+						this.selectedArr=[];
+						for (var i = 0; i < this.question.length; i++) {
+							
+							// this.selectedArr.push(this.items[i])
+						}
+						console.log(this.selectedArr)
+						
+						if (this.rSelect.indexOf(e) == -1) {
+								    	    // console.log(e)//打印下标
+									        this.rSelect.push(e);//选中添加到数组里
+								        } else {
+									        this.rSelect.splice(this.rSelect.indexOf(e), 1); //取消
+									    }
+						/* let curr_index = this.curr_index; //0-第一页
 						if (curr_index < this.question.length) {
 							curr_index += 1; //1-第二页
+							this.isShow =false;
+							this.isShow2 =true; 
+						}else{
+							curr_index = this.question.length
 						}
 						// 改变下标来实现页面切换
 						this.curr_index = curr_index;
+						this.percent = this.curr_index + '0';
 						if (this.curr_index === this.question.length) {
 							/* uni.showLoading({
 								title: "查询结果中..."
-							}) */
-							uni.showToast({
-							title: '提交成功',
-							duration: 2000
-							});
-							this.resultPage();
-						}
+							}) 
+							this.curr_index = this.question.length-1;
+							
+						} */
 					},
 					resultPage: function() {
 						
@@ -427,13 +422,42 @@ export default {
 					}
 				}
 				.questionOne-cont-chose{
-					.questionOne-cont-chose-answer{
+					color: #273253;
+					font-family: 'PingFang SC';
+					margin-top: 20rpx;
+					margin-left: 40rpx;
+					
+					.questionOne-cont-chose-box{
+						text-align: center;
+						// background-color: #FBBE4B; 
+						background-color: #E4E4E4;
+						width: 20px;
 						margin-left: 20rpx;
-						margin-top: 20rpx;
+						height: 20px;
+						border-radius: 10px;
+					}
+					.questionOne-cont-chose-option{
+						margin-left: 80rpx;
+						margin-top:  -40rpx;
+					}
+					
+					.questionOne-cont-chose-answer-selected{
 						color: #273253;
 						font-family: 'PingFang SC';
+						margin-top: 20rpx;
+						margin-right: 20rpx;
 						.questionOne-cont-chose-box{
-							
+							text-align: center;
+							margin-left: 20rpx;
+							background-color: #FBBE4B;
+							// background-color: #E4E4E4;
+							width: 20px;
+							height: 20px;
+							border-radius: 10px;
+						}
+						.questionOne-cont-chose-option{
+							margin-left: 80rpx;
+							margin-top:  -40rpx;
 						}
 					}
 				}
