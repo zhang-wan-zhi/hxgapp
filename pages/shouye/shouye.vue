@@ -12,10 +12,10 @@
 
 		<!-- 轮播图区域 -->
 		<view class="swiper-box">
-			<swiper :autoplay="false" :current="currentIndex" :circular="true" previous-margin="56rpx" next-margin="56rpx" :interval="3000" :duration="500" @change="swierChange">
-				<swiper-item v-for="(item, index) in swipers" :key="item.banUrl">
+			<swiper :autoplay="true" :current="currentIndex" :circular="true" previous-margin="56rpx" next-margin="56rpx" :interval="3000" :duration="500" @animationfinish="swierChange">
+				<swiper-item v-for="(item, index) in swipers" :key="index"  @click="handleSwiperClick(item.banType,item.banSkipurl)">
 					<view class="swiper-item-box">
-						<image :src="item.banUrl" @click="inter_lunbo_details(item.banSkipurl)" class="slide-image" :class="currentIndex === i ? 'active' : ''"></image>
+						<image :src="item.banUrl" class="slide-image" :class="currentIndex === i ? 'active' : ''"></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -49,7 +49,7 @@
 		<view class="Shouye_content">
 			<view class="content_title" v-if="isSearch">
 				<view class="dct-title" @click="yikaoDongtai2" :class="isactive ? 'isActive' : ''">
-					<image src="../../static/img/firstIcon/dongtai.png" mode=""></image>
+					<image src="../../static/img/firstIcon/dongtai.png" ></image>
 					<text>动态</text>
 				</view>
 				<view class="dct-title divider-line" @click="yikaoKecheng" :class="isactive1 ? 'isActive' : ''">
@@ -57,13 +57,13 @@
 					<text>课程</text>
 				</view>
 				<view class="dct-title" @click="yikaiTiku" :class="isactive2 ? 'isActive' : ''">
-					<image src="../../static/img/firstIcon/question.png" mode=""></image>
+					<image src="../../static/img/firstIcon/question.png" ></image>
 					<text>题库</text>
 				</view>
 			</view>
 			<!-- 艺考动态列表 -->
 			<view class="dynamic-contents" v-show="yikaoDongtaiStatus">
-				<view v-for="(item, index) in yikaoDongtaiList" :key="index+100">
+				<view v-for="(item, index) in yikaoDongtaiList" :key="index">
 					<view class="dynamic-content" @click="yikaoDongtai(item.id)">
 						<view class="dynamic-img"><image :src="item.aedMinimg"></image></view>
 						<view class="dynamic-detail">
@@ -78,7 +78,7 @@
 			</view>
 			<!-- 艺考课程列表 -->
 			<view v-show="yikaoKechengStatus">
-			<view class="class-contents"  v-for="(item, index) in yikaoKechengList" :key="index+60">
+			<view class="class-contents"  v-for="(item, index) in yikaoKechengList" :key="index">
 				<view class="class-content" @click="yikaokecheng_click(item.aeId)">
 					<view class="class-img"><image :src="item.aeImgurl"></image></view>
 					<view class="class-detail">
@@ -93,7 +93,7 @@
 			</view>
 			<!-- 艺考题库列表 -->
 			<view v-show="yikaoTikuStatus">
-				<view class="question-content"  v-for="(item, index) in yikaoTikuList" :key="index + 80">
+				<view class="question-content"  v-for="(item, index) in yikaoTikuList" :key="index">
 					<view class="question-img">
 						<image src="../../static/img/firstIcon/tiku.png" mode=""></image>
 					</view>
@@ -228,6 +228,17 @@ export default {
 				url: '../yikaoxiangqing_lunbo/yikaoxiangqing_lunbo?ids=' + id
 			});
 		},
+		// 轮播图跳转
+		handleSwiperClick(type,id){
+			console.log(type,id)
+			if(type==1){
+				this.yikaoDongtai(id)
+			}else if(type==2){
+				this.yikaokecheng_click(id)
+			}else {
+				this.zhenti_next(id)
+			}
+		},
 		//获取艺考动态列表数据
 		getyikaoDongtaiLists() {
 			getyikaoDongtaiList().then(res => {
@@ -319,41 +330,12 @@ export default {
 		},
 		//点击查看某一篇的艺考动态信息
 		yikaoDongtai(ids) {
-			console.log(ids);
 			uni.navigateTo({
 				url: '../yikaoxiangqing/yikaoxiangqing?id=' + ids
 			});
 		},
-		//获取输入框的数据
-		getInput(e) {
-			// console.log(e.target.value);
-			this.input_value = e.target.value;
-		},
-		getInput2(e) {
-			console.log(e.target.value);
-			this.inputs_text = e.target.value;
-			let aedTitle = e.target.value;
-			let currentPage = 0;
-			let pageSize = 10;
-			let sousuoTyoe = 1;
-			if (e.target.value == '') {
-				this.isSearch = true;
-				this.getyikaoDongtaiLists();
-			} else {
-				getmoreList1(aedTitle, sousuoTyoe, currentPage, pageSize).then(res => {
-					this.isSearch = false;
-					console.log(res.data.artexamdynamicList);
-					this.yikaoDongtaiList = res.data.artexamdynamicList;
-				});
-			}
-
-			//解决点击搜索时键盘不收回
-			// uni.hideKeyboard();
-		},
 		//点击输入框，获得焦点时
 		getFocus() {
-			// this.placeholders = '';
-			// this.placeholders_styles = '';
 			uni.navigateTo({
 				url: '../test_search/test_search'
 			});

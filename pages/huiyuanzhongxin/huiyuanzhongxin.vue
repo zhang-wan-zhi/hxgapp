@@ -2,7 +2,7 @@
 	<view class="box">
 		<!-- 轮播图区域 -->
 		<view style="margin: 30rpx 0rpx;">
-			<swiper :current="currentIndex" :duration="duration" @change="swierChange" previous-margin="60rpx" next-margin="40rpx" class="swiper-box">
+			<swiper :current="currentIndex" :duration="duration" @animationfinish="swierChange" previous-margin="60rpx" next-margin="40rpx" class="swiper-box" >
 				<swiper-item>
 					<view class="professional">
 						<view class="user-info">
@@ -10,7 +10,7 @@
 							<view class="detail">
 								<view class="name">
 									{{ userInfo.nickName }}
-									<image src="../../static/img/my/jiangpaixunzhang1.png" v-show="memberInfo.type==1"></image>
+									<image src="../../static/img/my/jiangpaixunzhang1.png" v-show="memberInfo.type == 1"></image>
 								</view>
 								<view class="deadline" v-show="memberInfo.type == 1">会员有效期至：{{ memberInfo.deadline }}</view>
 							</view>
@@ -94,7 +94,9 @@ export default {
 			// 会员信息
 			memberInfo: {},
 			// 用户信息
-			userInfo: {}
+			userInfo: {},
+			//禁止轮播图滚动时用户触摸
+			touch:false
 		};
 	},
 	onLoad(res) {
@@ -113,15 +115,16 @@ export default {
 	methods: {
 		// 轮播图转动时
 		swierChange(obj) {
+			this.touch=true
 			this.currentIndex = obj.detail.current;
 			console.log(this.currentIndex);
 			this.userInfo = uni.getStorageSync('userData').userInfo;
-			this.userInfo
+			this.userInfo;
 		},
 		//专业会员支付功能
 		async toCostOne() {
 			// 判断是否是会员
-			if (this.memberInfo.type== 1 || this.memberInfo.type == 2) {
+			if (this.memberInfo.type == 1 || this.memberInfo.type == 2) {
 				uni.showToast({
 					title: '你已是会员，请勿重复充值',
 					icon: 'none',
@@ -201,8 +204,39 @@ export default {
 				paySign,
 				orderInfo,
 				package: packages,
-				success(res) {
-					// console.log(res);
+				async success(res) {
+					console.log('支付成功');
+					// 获取用户会员信息
+					let openid = uni.getStorageSync('openid');
+					await uni.request({
+						url: 'https://orangezoom.cn:8091/hxg/selectUser',
+						method: 'POST',
+						data: {
+							openid
+						},
+						success(res) {
+							const type = res.data.data.prep2;
+							const deadline = res.data.data.toTime.slice(0, 10);
+							uni.setStorage({
+								key: 'huiyuan',
+								data: {
+									type,
+									deadline
+								}
+							});
+							uni.redirectTo({
+							   url: '../huiyuanzhongxin/huiyuanzhongxin?key='+this.currentIndex
+							});
+						},
+						fail(res) {
+							uni.showToast({
+								title: '获取会员信息失败',
+								duration: 2000
+							});
+							console.log(res);
+						}
+					});
+					
 				},
 				fail(res) {
 					console.log(res);
@@ -212,7 +246,7 @@ export default {
 		// 普通会员充值
 		async toCostTwo() {
 			// 判断是否是会员
-			if (this.memberInfo.type== 1 || this.memberInfo.type == 2) {
+			if (this.memberInfo.type == 1 || this.memberInfo.type == 2) {
 				uni.showToast({
 					title: '你已是会员，请勿重复充值',
 					icon: 'none',
@@ -287,11 +321,12 @@ export default {
 				paySign,
 				orderInfo,
 				package: packages,
-				success(res) {
+				async success(res) {
 					// console.log(res);
-					console.log('----------充值会员成功-------------')
-					const openid = uni.getStorageSync('openid');
-					uni.request({
+					console.log('----------充值会员成功-------------');
+					// 获取用户会员信息
+					let openid = uni.getStorageSync('openid');
+					await uni.request({
 						url: 'https://orangezoom.cn:8091/hxg/selectUser',
 						method: 'POST',
 						data: {
@@ -299,12 +334,16 @@ export default {
 						},
 						success(res) {
 							const type = res.data.data.prep2;
+							const deadline = res.data.data.toTime.slice(0, 10);
 							uni.setStorage({
 								key: 'huiyuan',
-								data: type
+								data: {
+									type,
+									deadline
+								}
 							});
-							uni.reLaunch({
-								url: '../huiyuanzhongxin/huiyuanzhongxin?key=' + this.currentIndex
+							uni.redirectTo({
+							   url: '../huiyuanzhongxin/huiyuanzhongxin?key='+this.currentIndex
 							});
 						},
 						fail(res) {

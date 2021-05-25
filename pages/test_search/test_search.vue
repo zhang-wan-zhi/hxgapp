@@ -1,7 +1,7 @@
-<template>
+<template >
 	<view class="box">
 		<!-- 搜索区域 -->
-		<view class="search-box">
+		<view class="search-box" >
 			<text class="iconfont icon-sousuo sousuo"></text>
 			<input style="padding-left: 80rpx;" :placeholder="placeholders" placeholder-style="font-size: 32rpx; color:#A9AFB8;"
 			 v-model="inputValue"
@@ -72,20 +72,31 @@ export default {
 			//适配手机高度
 			phoneHeight: 0,
 			// 提示信息
-			placeholders: '搜索'
+			placeholders: '搜索',
+			// 页面样式
+			
 		};
 	},
 	onLoad() {
-		//获取窗口高度，适配手机
-		this.getWindowHeight();
+		let list= uni.getStorageSync('searchList')
+		if(list){
+			this.searchHistoryList = JSON.parse(list)
+		}
+	},
+	onShow() {  
+		setTimeout(()=>{
+	      let list= uni.getStorageSync('searchList')
+			if(list){
+				this.searchHistoryList =  JSON.parse(list)
+			}
+		},300)
+		
 	},
 	methods: {
 		//获取窗口高度，适配手机
 		getWindowHeight() {
 			uni.getSystemInfo({
 				success: res => {
-					// console.log(res);
-					// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
 					this.phoneHeight = res.windowHeight;
 				}
 			});
@@ -93,7 +104,6 @@ export default {
 		//点击查看某一篇的艺考动态信息
 		yikaoDongtai(ids) {
 			// console.log(ids);
-
 			uni.navigateTo({
 				url: '../yikaoxiangqing/yikaoxiangqing?id=' + ids
 			});
@@ -108,6 +118,7 @@ export default {
 			let sousuoTyoe = 1;
 			getmoreList1(aedTitle, sousuoTyoe, currentPage, pageSize).then(res => {
 				// this.isSearch=false;
+				console.log(res);
 				if (res.data.msg == '暂无数据,请期待哦!') {
 					uni.showModal({
 						title: '暂无数据,请期待哦!'
@@ -115,9 +126,7 @@ export default {
 				} else {
 					// console.log(res.data.artexamdynamicList);
 					this.yikaiDongtaiList = res.data.artexamdynamicList;
-					// console.log(this.yikaiDongtaiList);
 				}
-				// console.log(res.data.artexamdynamicList);
 			});
 		},
 		//取消,清空输入框的数据
@@ -201,17 +210,6 @@ export default {
 			});
 
 			this.searchHistoryList = [];
-		}
-	},
-	async onLoad() {
-		let list = await uni.getStorage({
-			key: 'searchList'
-		});
-
-		// console.log(list[1].data);
-
-		if (list[1].data) {
-			this.searchHistoryList = JSON.parse(list[1].data);
 		}
 	}
 };
@@ -411,6 +409,7 @@ export default {
 
 .box {
 	width: 100%;
+	height: 100%;
 	padding: 30rpx 40rpx;
 	background-color: #FFFFFF;
 }

@@ -1,5 +1,4 @@
 <template>
-
 	<view class="dynamic-detail">
 		<view class="title">
 			{{yikaoDongtaiList_obj.aedTitle}}
@@ -13,7 +12,6 @@
 			<image :src="yikaoDongtaiList_obj.aedMinimg" mode=""></image>
 		</view>
 	</view>
-	
 </template>
 
 <script>
@@ -26,7 +24,7 @@
 			}
 		},
 		onLoad(res) {
-			console.log(res.id);
+			console.log(res);
 			this.getList(res.id);
 		},
 		methods:{
@@ -35,7 +33,6 @@
 				let newLists=[];
 				getyikaoDongtaiList_one(ids).then((res)=>{
 					console.log(res)
-					// console.log(res.data.artexamdynamic.aedContent);
 					this.yikaoDongtaiList_obj=res.data.artexamdynamic;
 					
 				});
