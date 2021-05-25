@@ -153,8 +153,8 @@
 								<view class="spot"></view>
 								<view class="seclet_subject">报考院校:</view>
 							</view>
-							<view class="picker_subject">
-								<input type="text" placeholder="请输入你报考的学校" @input="getUniversity">
+							<view class="input_subject">
+								<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入你报考的学校" @input="getUniversity">
 							</view>
 						</view>
 					<!-- <view class="wenluqu_alloption">
@@ -198,8 +198,8 @@
 							<view class="spot"></view>
 							<view class="seclet_subject">高考成绩:</view>
 						</view>
-						<view class="picker_subject">
-							<input type="text" placeholder="请输入高考成绩" @input="getcollegeExamScore">
+						<view class="input_subject">
+							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入高考成绩" @input="getcollegeExamScore">
 						</view>
 					</view>
 					<!-- <view class="wenluqu_alloption">
@@ -219,8 +219,8 @@
 							<view class="spot"></view>
 							<view class="seclet_subject">统考成绩:</view>
 						</view>
-						<view class="picker_subject">
-							<input type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
+						<view class="input_subject">
+							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
 						</view>
 					</view>
 					<!-- <view class="wenluqu_alloption">
@@ -240,8 +240,8 @@
 							<view class="spot"></view>
 							<view class="seclet_subject">你的身高:</view>
 						</view>
-						<view class="picker_subject">
-							<input type="text" placeholder="请输入身高(cm)" @input="getheight">
+						<view class="input_subject">
+							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入身高(cm)" @input="getheight">
 						</view>
 					</view>
 					<!-- <view class="wenluqu_alloption">
@@ -275,8 +275,8 @@
 							<view class="spot"></view>
 							<view class="seclet_subject">你的体重:</view>
 						</view>
-						<view class="picker_subject">
-							<input type="text" placeholder="请输入体重(kg)" @input="getweight">
+						<view class="input_subject">
+							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入体重(kg)" @input="getweight">
 						</view>
 					</view>
 					<!-- <view class="wenluqu_alloption">
@@ -948,6 +948,12 @@
 							// border:1px solid pink;
 						
 					}
+					.input_subject{
+						width: 50%;
+						margin-top: 10rpx;
+						height: 70rpx;
+						line-height: 70rpx;
+					}
 					.wenluqu_content_display_input_title{
 						width:150rpx;
 						height:65rpx;
@@ -960,6 +966,8 @@
 					.wenluqu_content_display_input_value{
 						width:450rpx;
 						height:65rpx;
+						color: #A9AFB8;
+						line-height: 65rpx;
 						// border:1px solid pink;
 						// margin-left:30rpx;
 					}
