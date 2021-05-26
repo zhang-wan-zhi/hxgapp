@@ -59,7 +59,7 @@
 		<!-- 评论 -->
 		<uni-popup ref="popup" type="bottom" class="popup-comment">
 			<view class="pinglun">
-				<view class="comment-num">{{commentLength + '条评论'}}</view>
+				<view class="comment-num">{{commentLength == 0 ? '快来评论吧~' : commentLength + '条评论'}}</view>
 				<scroll-view scroll-y="true" style="height: 600rpx;">
 					<view class="comment-item-main" v-for="item in commentLists" :key="item.id" :id="item.id">
 						<view class="comment-item">
