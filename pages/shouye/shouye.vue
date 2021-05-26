@@ -3,20 +3,23 @@
 		<!-- 搜索区域 -->
 		<view class="Search_content" @click="getFocus">
 			<text class="iconfont icon-sousuo sousuo"></text>
-			<input
-				:disabled="true"
-				:placeholder="placeholders"
-				placeholder-style=" margin-left:300rpx; font-size: 32rpx; color:#A9AFB8;"
-			/>
+			<input :disabled="true" :placeholder="placeholders" placeholder-style=" margin-left:300rpx; font-size: 32rpx; color:#A9AFB8;" />
 		</view>
 
 		<!-- 轮播图区域 -->
 		<view class="swiper-box">
-			<swiper :autoplay="true" :current="currentIndex" :circular="true" previous-margin="56rpx" next-margin="56rpx" :interval="3000" :duration="500" @animationfinish="swierChange">
-				<swiper-item v-for="(item, index) in swipers" :key="index"  @click="handleSwiperClick(item.banType,item.banSkipurl)">
-					<view class="swiper-item-box">
-						<image :src="item.banUrl" class="slide-image" :class="currentIndex === i ? 'active' : ''"></image>
-					</view>
+			<swiper
+				:autoplay="true"
+				:current="currentIndex"
+				:circular="true"
+				previous-margin="56rpx"
+				next-margin="56rpx"
+				:interval="3000"
+				:duration="500"
+				@animationfinish="swierChange"
+			>
+				<swiper-item v-for="(item, index) in swipers" :key="index" @click="handleSwiperClick(item.banType, item.banSkipurl)">
+					<view class="swiper-item-box"><image :src="item.banUrl" class="slide-image" :class="currentIndex === index ? 'active' : ''"></image></view>
 				</swiper-item>
 			</swiper>
 			<view class="dots-container">
@@ -33,15 +36,15 @@
 					<view class="test-title-bottom">答题评测</view>
 				</view>
 			</view>
-			
-			<button  class="to-service" open-type="contact">
-			<view class="accurate">
-				<view class="test-logo-two "><image src="../../static/img/firstIcon/accurate.png" mode=""></image></view>
-				<view class="test-title">
-					<view class="test-title-top">精准测评</view>
-					<view class="test-title-bottom">一对一评测</view>
+
+			<button class="to-service" open-type="contact">
+				<view class="accurate">
+					<view class="test-logo-two "><image src="../../static/img/firstIcon/accurate.png" mode=""></image></view>
+					<view class="test-title">
+						<view class="test-title-top">精准测评</view>
+						<view class="test-title-bottom">一对一评测</view>
+					</view>
 				</view>
-			</view>
 			</button>
 		</view>
 
@@ -49,7 +52,7 @@
 		<view class="Shouye_content">
 			<view class="content_title" v-if="isSearch">
 				<view class="dct-title" @click="yikaoDongtai2" :class="isactive ? 'isActive' : ''">
-					<image src="../../static/img/firstIcon/dongtai.png" ></image>
+					<image src="../../static/img/firstIcon/dongtai.png"></image>
 					<text>动态</text>
 				</view>
 				<view class="dct-title divider-line" @click="yikaoKecheng" :class="isactive1 ? 'isActive' : ''">
@@ -57,7 +60,7 @@
 					<text>课程</text>
 				</view>
 				<view class="dct-title" @click="yikaiTiku" :class="isactive2 ? 'isActive' : ''">
-					<image src="../../static/img/firstIcon/question.png" ></image>
+					<image src="../../static/img/firstIcon/question.png"></image>
 					<text>题库</text>
 				</view>
 			</view>
@@ -78,26 +81,24 @@
 			</view>
 			<!-- 艺考课程列表 -->
 			<view v-show="yikaoKechengStatus">
-			<view class="class-contents"  v-for="(item, index) in yikaoKechengList" :key="index">
-				<view class="class-content" @click="yikaokecheng_click(item.aeId)">
-					<view class="class-img"><image :src="item.aeImgurl"></image></view>
-					<view class="class-detail">
-						<view class="class-title">{{ item.aeTitle }}</view>
-						<view class="class-number">
-							<image src="../../static/img/firstIcon/watch.png" ></image>
-							<text>{{ item.peopleNum + '次观看' }}</text>
+				<view class="class-contents" v-for="(item, index) in yikaoKechengList" :key="index">
+					<view class="class-content" @click="yikaokecheng_click(item.aeId)">
+						<view class="class-img"><image :src="item.aeImgurl"></image></view>
+						<view class="class-detail">
+							<view class="class-title">{{ item.aeTitle }}</view>
+							<view class="class-number">
+								<image src="../../static/img/firstIcon/watch.png"></image>
+								<text>{{ item.peopleNum + '次观看' }}</text>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			</view>
 			<!-- 艺考题库列表 -->
 			<view v-show="yikaoTikuStatus">
-				<view class="question-content"  v-for="(item, index) in yikaoTikuList" :key="index">
-					<view class="question-img">
-						<image src="../../static/img/firstIcon/tiku.png" mode=""></image>
-					</view>
-					<view  @click="zhenti_next(item.id)">{{ item.title.length>20?item.title.substring(0,20)+'...':item.title }}</view>
+				<view class="question-content" v-for="(item, index) in yikaoTikuList" :key="index">
+					<view class="question-img"><image src="../../static/img/firstIcon/tiku.png" mode=""></image></view>
+					<view @click="zhenti_next(item.id)">{{ item.title.length > 20 ? item.title.substring(0, 20) + '...' : item.title }}</view>
 				</view>
 			</view>
 			<!-- <yikaoDongtai></yikaoDongtai> -->
@@ -110,7 +111,7 @@
 <script>
 import { yikaoDongtai } from '../../components/index/yikaoDongtai.vue';
 import { yikaoKecheng } from '../../components/index/yikaoKecheng.vue';
-import {getWenxuexiTestList} from '../../api/api.js';
+import { getWenxuexiTestList } from '../../api/api.js';
 import {
 	getLunboList,
 	getyikaoDongtaiList,
@@ -221,22 +222,15 @@ export default {
 			this.currentDotIndex = e.detail.current;
 			this.currentIndex = e.detail.current;
 		},
-		//进入查看每项轮播图
-		inter_lunbo_details(id) {
-			console.log(id);
-			uni.navigateTo({
-				url: '../yikaoxiangqing_lunbo/yikaoxiangqing_lunbo?ids=' + id
-			});
-		},
 		// 轮播图跳转
-		handleSwiperClick(type,id){
-			console.log(type,id)
-			if(type==1){
-				this.yikaoDongtai(id)
-			}else if(type==2){
-				this.yikaokecheng_click(id)
-			}else {
-				this.zhenti_next(id)
+		handleSwiperClick(type, id) {
+			console.log(type, id);
+			if (type == 1) {
+				this.yikaoDongtai(id);
+			} else if (type == 2) {
+				this.yikaokecheng_click(id);
+			} else {
+				this.zhenti_next(id);
 			}
 		},
 		//获取艺考动态列表数据
@@ -280,9 +274,12 @@ export default {
 		},
 		//点击向右箭头触发，打开题库,打开为id的试卷
 		zhenti_next(id) {
-			// console.log(id);
+			console.log(id);
+			// uni.navigateTo({
+			// 	url: '../xinggepinggu/xinggepinggu?ids=' + id
+			// });
 			uni.navigateTo({
-				url: '../xinggepinggu/xinggepinggu?ids=' + id
+				url: '../question/question?id=' + id
 			});
 		},
 		//点击艺考题库触发
@@ -341,32 +338,33 @@ export default {
 			});
 		},
 		//点击进入性格评估
-		xinggepinggu(){
-			let ids=0;
-			getWenxuexiTestList(ids).then((res)=>{
-				console.log(res.data.data);
-				let arr=res.data.data;
-				let newArr=[];
-				//去除没有达到一项的数据
-				for(let i=0;i<arr.length;i++){
-					// console.log(arr[i]);
-					if(arr[i].optionsList.length>1){
-						newArr.push(arr[i]);
+		xinggepinggu() {
+			let ids = 0;
+			getWenxuexiTestList(ids)
+				.then(res => {
+					console.log(res.data.data);
+					let arr = res.data.data;
+					let newArr = [];
+					//去除没有达到一项的数据
+					for (let i = 0; i < arr.length; i++) {
+						// console.log(arr[i]);
+						if (arr[i].optionsList.length > 1) {
+							newArr.push(arr[i]);
+						}
 					}
-				}
-				
-				uni.setStorage({
-					key:'lists1',
-					data:newArr
-				});
-				console.log(newArr);
-				
-			}).then(()=>{
-				let valueArr=[];
-				uni.navigateTo({
-					url:'../xinggepinggu2/xinggepinggu2?id='+ids+'&valueArr='+valueArr
+
+					uni.setStorage({
+						key: 'lists1',
+						data: newArr
+					});
+					console.log(newArr);
 				})
-			})
+				.then(() => {
+					let valueArr = [];
+					uni.navigateTo({
+						url: '../xinggepinggu2/xinggepinggu2?id=' + ids + '&valueArr=' + valueArr
+					});
+				});
 		}
 	}
 };
@@ -434,15 +432,15 @@ export default {
 	align-items: center;
 	margin: 28rpx 0rpx;
 }
-.to-service{
+.to-service {
 	width: 320rpx;
 	height: 140rpx;
 	margin: 0rpx;
 	padding: 0rpx;
 	border-width: 0px;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 }
-.to-service::after{
+.to-service::after {
 	border-width: 0rpx;
 }
 .test-box .online,
@@ -460,17 +458,17 @@ export default {
 	height: 90rpx;
 	margin: 0rpx 30rpx;
 }
-.test-box .test-logo-two  {
+.test-box .test-logo-two {
 	width: 80rpx;
 	height: 80rpx;
 	margin: 0rpx 30rpx;
 }
 
-.test-box .test-logo-one image,.test-box .test-logo-two image {
+.test-box .test-logo-one image,
+.test-box .test-logo-two image {
 	width: 100%;
 	height: 100%;
 }
-
 
 .test-box .test-title {
 	width: 160rpx;
@@ -632,11 +630,10 @@ export default {
 			color: #a9afb8;
 			display: flex;
 			align-items: center;
-			image{
+			image {
 				width: 36rpx;
 				height: 36rpx;
-				margin-right: 10rpx
-				
+				margin-right: 10rpx;
 			}
 		}
 		// 艺考题库样式
@@ -650,13 +647,13 @@ export default {
 			border-radius: 14rpx;
 			font-size: 28rpx;
 			font-weight: 700;
-			color: #0F1826;
+			color: #0f1826;
 		}
-		.question-img{
+		.question-img {
 			width: 40rpx;
 			height: 40rpx;
 			margin: 0rpx 30rpx;
-			image{
+			image {
 				width: 100%;
 				height: 100%;
 			}
