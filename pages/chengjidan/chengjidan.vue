@@ -20,22 +20,26 @@
 						综合得分
 					</view>
 					<view class="content_center_inner_score">
-						85
+
+						{{score}}
 					</view>
 					<view class="content_center_inner_tip">
 						继续努力呀~
 					</view>
 					<view class="content_center_inner_box">
 						<view class="true">
-							<view class="t_num">4</view>
+
+							<view class="t_num">{{turenum}}</view>
 							<view class="t_text">正确</view>
 						</view>
 						<view class="false">
-							<view class="f_num">6</view>
+							<view class="f_num">{{falsenum}}</view>
 							<view class="f_text">错误</view>
 						</view>
 						<view class="falsequestions">
-							<view class="cuoti_num">6</view>
+							<view class="cuoti_num">
+								<image src="../../static/icon/edit.png"></image>
+							</view>
 							<view class="cuoti_text">错题</view>
 						</view>
 					</view>
@@ -75,20 +79,24 @@
 				// 微信头像
 				bgurl:'',
 				//微信名字
-				nickName:''
+
+				nickName:'',
+				turenum:'4',
+				falsenum:'6',
+				score:'0'
 			}
 		},
 		onLoad(objs) {
-			let arrs=uni.getStorageSync('wenluqu_lists');
+
 			 console.log(objs);
-			this.Objs=arrs[0];
-		    this.Objs.stableProp=this.Objs.stableProp.toFixed(2);
 			// console.log(this.Objs.acCode);
 			let userData=uni.getStorageSync('userData');
-			console.log(userData);
+			this.score = objs.score;
+			this.turenum = objs.turenum;
+			this.falsenum = objs.error;
 			this.bgurl = userData.userInfo.avatarUrl;
 			this.nickName = userData.userInfo.nickName;
-			console.log(this.bgurl);
+
 			this.getWindowHeight();
 			
 		},
@@ -283,14 +291,13 @@
 							text-align: center;
 							margin-left: 152rpx;
 							.cuoti_num{
-								height: 50rpx;
-								width: 100%;
-								text-align: center;
-								font-size: 36rpx;
-								font-family: '.PingFang SC';
-								font-weight: 400;
-								line-height: 44rpx;
-								color: #57B5ED;
+								height: 44rpx;
+								width: 44rpx;
+								overflow: hidden;
+									image {
+										width: 100%;
+										height: 100%;
+									}
 							}
 							.cuoti_text{
 								width: 68rpx;
