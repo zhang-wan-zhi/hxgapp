@@ -6,22 +6,22 @@
 // let urls="http://192.168.3.247:8091"
 
 //线上地址
-let urls="https://orangezoom.cn:8091";
+let urls = "https://orangezoom.cn:8091";
 
 //授权，通过wxcode获取appid
-export function getWxcode(wxcode){
-	return new Promise((resolve,reject)=>{
+export function getWxcode(wxcode) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/grant',
+			url: urls + '/hxg/grant',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
+			data: {
 				"WxCode": wxcode,
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -29,14 +29,13 @@ export function getWxcode(wxcode){
 }
 
 //保存用户信息到数据库
-export function getUser_openid_Info(openid,province,sex,userImg,userName){
-	return new Promise((resolve,reject)=>{
+export function getUser_openid_Info(openid, province, sex, userImg, userName) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/hxgaddUser',
+			url: urls + '/hxg/hxgaddUser',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:
-			{
+			data: {
 				"avatarUrl": userImg,
 				"city": "",
 				"country": "",
@@ -47,10 +46,10 @@ export function getUser_openid_Info(openid,province,sex,userImg,userName){
 				"province": province,
 				"wxCode": ""
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -59,16 +58,16 @@ export function getUser_openid_Info(openid,province,sex,userImg,userName){
 
 //GET
 //获取轮播图接口数据
-export function getLunboList(){
-	return new Promise((resolve,reject)=>{
+export function getLunboList() {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getIndexBanner',
+			url: urls + '/hxg/getIndexBanner',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -76,20 +75,20 @@ export function getLunboList(){
 }
 
 //查看轮播图的每一项
-export function getLunboList_one(banSkipurl,banType){
-	return new Promise((resolve,reject)=>{
+export function getLunboList_one(banSkipurl, banType) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/bannerSkip',
+			url: urls + '/hxg/bannerSkip',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
+			data: {
 				banSkipurl,
 				banType
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -97,16 +96,16 @@ export function getLunboList_one(banSkipurl,banType){
 }
 
 //获取艺考动态列表数据
-export function getyikaoDongtaiList(){
-	return new Promise((resolve,reject)=>{
+export function getyikaoDongtaiList() {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getIndexArtexamdynamic',
+			url: urls + '/hxg/getIndexArtexamdynamic',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -114,16 +113,16 @@ export function getyikaoDongtaiList(){
 }
 
 //获取艺考课程列表数据
-export function getyikaoKechengList(){
-	return new Promise((resolve,reject)=>{
+export function getyikaoKechengList() {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getArtExams',
+			url: urls + '/hxg/getArtExams',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -131,19 +130,19 @@ export function getyikaoKechengList(){
 }
 
 //获取艺考课程列表数据
-export function getyikaoKechengList_one(id){
-	return new Promise((resolve,reject)=>{
+export function getyikaoKechengList_one(id) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getArtExamDetail',
+			url: urls + '/hxg/getArtExamDetail',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
-				id:id
+			data: {
+				id: id
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -151,16 +150,16 @@ export function getyikaoKechengList_one(id){
 }
 
 //获取艺考题库列表数据
-export function getyikaoTikuList(){
-	return new Promise((resolve,reject)=>{
+export function getyikaoTikuList() {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/exam/list',
+			url: urls + '/hxg/exam/list',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -168,20 +167,20 @@ export function getyikaoTikuList(){
 }
 
 //获取艺考题库列表数据,创建考试试卷
-export function getyikaoTikuList_one(id){
-	return new Promise((resolve,reject)=>{
+export function getyikaoTikuList_one(id) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/exam/create',
+			url: urls + '/hxg/exam/create',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
-				paperId:id,
-				userId:1
+			data: {
+				paperId: id,
+				userId: 1
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -189,20 +188,20 @@ export function getyikaoTikuList_one(id){
 }
 
 //获取试卷id，获取考试所有题目
-export function getyikaoTikuList_one_all(paper_id){
-	return new Promise((resolve,reject)=>{
+export function getyikaoTikuList_one_all(paper_id) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/qu/'+paper_id,
+			url: urls + '/hxg/qu/' + paper_id,
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			// data:{
 			// 	paperId:id,
 			// 	userId:1
 			// },
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -210,20 +209,20 @@ export function getyikaoTikuList_one_all(paper_id){
 }
 
 //获取艺考题库列表数据,创建考试试卷,获取下一题
-export function getyikaoTikuList_one_one(quId){
-	return new Promise((resolve,reject)=>{
+export function getyikaoTikuList_one_one(quId) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/qu/'+quId,
+			url: urls + '/hxg/qu/' + quId,
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			// data:{
 			// 	paperId:id,
 			// 	userId:1
 			// },
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -249,21 +248,21 @@ export function getyikaoTikuList_one_one(quId){
 
 
 //艺考动态列表查看更多
-export function getmoreList(sousuoTyoe,currentPage,pageSize){
-	return new Promise((resolve,reject)=>{
+export function getmoreList(sousuoTyoe, currentPage, pageSize) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getArtexamdynamicList',
+			url: urls + '/hxg/getArtexamdynamicList',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
-				"sousuoTyoe":sousuoTyoe,
+			data: {
+				"sousuoTyoe": sousuoTyoe,
 				"currentPage": currentPage,
 				"pageSize": pageSize,
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -271,22 +270,22 @@ export function getmoreList(sousuoTyoe,currentPage,pageSize){
 }
 
 //艺考动态列表搜索
-export function getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize){
-	return new Promise((resolve,reject)=>{
+export function getmoreList1(aedTitle, sousuoTyoe, currentPage, pageSize) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getArtexamdynamicList',
+			url: urls + '/hxg/getArtexamdynamicList',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
+			data: {
 				"ssTile": aedTitle,
-				"sousuoTyoe":sousuoTyoe,
+				"sousuoTyoe": sousuoTyoe,
 				"currentPage": currentPage,
 				"pageSize": pageSize
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -294,19 +293,19 @@ export function getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize){
 }
 
 //艺考动态列表,点击艺考动态列表的某一项
-export function getyikaoDongtaiList_one(id){
-	return new Promise((resolve,reject)=>{
+export function getyikaoDongtaiList_one(id) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getArtexamdynamic',
+			url: urls + '/hxg/getArtexamdynamic',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
+			data: {
 				"id": id,
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -314,17 +313,17 @@ export function getyikaoDongtaiList_one(id){
 }
 
 //获取问学习，测试题
-export function getWenxuexiTestList(id){
+export function getWenxuexiTestList(id) {
 
-	return new Promise((resolve,reject)=>{
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/qlearn/'+id,
+			url: urls + '/hxg/qlearn/' + id,
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -332,36 +331,35 @@ export function getWenxuexiTestList(id){
 }
 
 //获取问学习，获取测试结果
-export function getWenxuexiResuleList(scores){
-	return new Promise((resolve,reject)=>{
+export function getWenxuexiResuleList(scores) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/qlearn/getResult',
+			url: urls + '/hxg/qlearn/getResult',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
-				"optionsList": [
-					{
-						"score": scores, 
+			data: {
+				"optionsList": [{
+						"score": scores,
 						"testType": 1
-					}, 
+					},
 					{
-						"score": 10, 
+						"score": 10,
 						"testType": 2
-					}, 
+					},
 					{
-						"score": 10, 
+						"score": 10,
 						"testType": 3
-					}, 
+					},
 					{
-						"score": 10, 
+						"score": 10,
 						"testType": 4
 					}
 				]
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -369,17 +367,17 @@ export function getWenxuexiResuleList(scores){
 }
 
 //获取问录取字段
-export function getWenluquZiduan(){
-	return new Promise((resolve,reject)=>{
+export function getWenluquZiduan() {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getAskAdmit',
+			url: urls + '/hxg/getAskAdmit',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			// data:datas,
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -387,17 +385,17 @@ export function getWenluquZiduan(){
 }
 
 //问录取，查询省份
-export function getWenluquShengfeng(){
-	return new Promise((resolve,reject)=>{
+export function getWenluquShengfeng() {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getProvinces',
+			url: urls + '/hxg/getProvinces',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			// data:datas,
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -405,17 +403,35 @@ export function getWenluquShengfeng(){
 }
 
 //问录取，通过输入学校获取专业
-export function getZhuanhye(acName){
-	return new Promise((resolve,reject)=>{
+export function getZhuanhye(acName) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getAcademys?acName='+acName,
+			url: urls + '/hxg/getAcademys?acName=' + acName,
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			// data:datas,
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 查询用户课程评论列表
+export function getCountComment(artexamId, userId) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/comment/list?artexamId=' + artexamId + '&userId=' + userId,
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:datas,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -423,17 +439,107 @@ export function getZhuanhye(acName){
 }
 
 //问录取，输入出概率结果
-export function getWenluquList(datas){
-	return new Promise((resolve,reject)=>{
+export function getWenluquList(datas) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getProbability3',
+			url: urls + '/hxg/getProbability3',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:datas,
-			success: res=>{
+			data: datas,
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 艺考课程点赞(需要传用户openid与艺考课程id)
+export function getLikeCountAdd(datas) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/likeArtExam',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: datas,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 评论点赞 传入用户openid(字段likecount)与评论id(commentId)
+export function addCommentLike(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/comment/likeComment',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 艺考课程收藏(需要传用户openid与艺考课程id)
+export function addCollect(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/collArtExam',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 查看该课程该用户是否点赞收藏过
+export function getLikeInfo(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/getUserIslikeAadColl',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 新增用户课程评论
+export function addCourseComment(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/comment',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -441,24 +547,24 @@ export function getWenluquList(datas){
 }
 
 //意见反馈接口
-export function Yijianfankui(openid,opContent){
-	return new Promise((resolve,reject)=>{
+export function Yijianfankui(openid, opContent) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/opinionFeedback',
+			url: urls + '/hxg/opinionFeedback',
 			method: 'POST',
 			// contentType: 'application/json;charset=UTF-8',
 			header: {
-			   "Content-Type": "application/x-www-form-urlencoded"
+				"Content-Type": "application/x-www-form-urlencoded"
 			}, // 请求头
-			data:{
+			data: {
 				openid,
 				opContent
 			},
 			dataType: 'json', // 返回数据格式
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -466,10 +572,11 @@ export function Yijianfankui(openid,opContent){
 }
 
 //测试做题接口
-export function TestApi(userId,examId,examTime){
-	return new Promise((resolve,reject)=>{
+export function TestApi(userId, examId, examTime) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/exam/submit?userId='+userId+'&examId='+examId+'&examTime='+examTime,
+			url: urls + '/hxg/exam/submit?userId=' + userId + '&examId=' + examId + '&examTime=' +
+				examTime,
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			// header: {
@@ -479,50 +586,48 @@ export function TestApi(userId,examId,examTime){
 				// userId,
 				// examId,
 				// examTime,
-				[
-				    {
-				        "quId": 1, 
-				        "answerId": 1, 
-				        "isRight": 0, 
-				        "score": 5
-				    }, 
-				    {
-				        "quId": 2, 
-				        "answerId": 2, 
-				        "isRight": 1, 
-				        "score": 5
-				    }, 
-				    {
-				        "quId": 3, 
-				        "answerId": 2, 
-				        "isRight": 0, 
-				        "score": 5
-				    }, 
-				    {
-				        "quId": 5, 
-				        "answerId": 1, 
-				        "isRight": 0, 
-				        "score": 5
-				    }, 
-				    {
-				        "quId": 6, 
-				        "answerId": 1, 
-				        "isRight": 0, 
-				        "score": 5
-				    }, 
-				    {
-				        "quId": 7, 
-				        "answerId": 1, 
-				        "isRight": 0, 
-				        "score": 5
-				    }
-				]
-			,
+				[{
+						"quId": 1,
+						"answerId": 1,
+						"isRight": 0,
+						"score": 5
+					},
+					{
+						"quId": 2,
+						"answerId": 2,
+						"isRight": 1,
+						"score": 5
+					},
+					{
+						"quId": 3,
+						"answerId": 2,
+						"isRight": 0,
+						"score": 5
+					},
+					{
+						"quId": 5,
+						"answerId": 1,
+						"isRight": 0,
+						"score": 5
+					},
+					{
+						"quId": 6,
+						"answerId": 1,
+						"isRight": 0,
+						"score": 5
+					},
+					{
+						"quId": 7,
+						"answerId": 1,
+						"isRight": 0,
+						"score": 5
+					}
+				],
 			// dataType: 'json', // 返回数据格式
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
