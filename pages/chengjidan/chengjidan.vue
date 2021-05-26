@@ -2,8 +2,9 @@
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
 		
 		<view class="content_top">
-			<view style="background:url({{bgurl}});" class="portrait" >
-			</view>
+			<view class="user-img"><image :src="bgurl"></image></view>
+			<!-- <view style="background:url({{bgurl}});" class="portrait" >
+			</view> -->
 			<view class="university">
 				<text>{{nickName}}的成绩单</text>
 			</view>
@@ -131,12 +132,17 @@
 			display: flex;
 			background-color: #f6f7fb;
 			align-items: center;
-			.portrait{
-				height: 40px;
-				width: 40px;
-				margin-right: 24rpx;
-				margin-left: 72rpx;
-				border-radius: 20px;
+			.user-img {
+				width: 104rpx;
+				height: 104rpx;
+				margin-right: 32rpx;
+				border: 4rpx solid #ed5c4d;
+				border-radius: 50%;
+				overflow: hidden;
+				image {
+					width: 100%;
+					height: 100%;
+				}
 			}
 			.university{
 				color:#273253 ;
