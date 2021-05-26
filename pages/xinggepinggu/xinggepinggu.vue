@@ -167,11 +167,6 @@
 </template>
 
 <script>
-	/*
-	*
-	*  需要二次开发或项目外包的请加QQ 271478027 或 微信 jialongvip  
-	* 
-	*/
    import {getyikaoTikuList_one_all} from '../../api/api.js'
 	export default {
 		data() {

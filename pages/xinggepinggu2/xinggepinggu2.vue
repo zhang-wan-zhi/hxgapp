@@ -1,500 +1,197 @@
 <template>
-	<view class="container">
-		
-		 <view class="bg">
-				<view>{{type}}<span style="margin-left: 15rpx;">第{{curr_index+1}}/{{total}}题</span></view>
-			
-				<view class="progress_1">
-					<progress border-radius="20"  :percent="percent"  stroke-width="7" activeColor="#FBBE4B"  backgroundColor="#E4E4E4"/>
-				</view>
-		 </view>
-		 <view class="xuanxiang">
-		 	<swiper  style="height:280px;min-height:50%vh;" :interval="1000" :duration="500" :current="curr_index" :disable-touch="true">
-		 		<swiper-item class="questionOne" v-for="(item,index1) in question" :key="index1">
-		 		<view class="questionOne-cont" >
-		 			<!-- No.1图片 -->
-		 			<!-- <view class="questionOne-cont-pic">
-		 			</view> -->
-		 			<!-- 问题 -->
-		 			<view class="questionOne-cont-top">
-		 				<view class="questionOne-cont-top-text">
-		 					<text>{{item.content}}</text>
-		 				</view>
-		 			</view>
-		 			<!-- 选项 -->
-		 			<view class="questionOne-cont-chose" v-for="(an,index2) in item.optionsList" :key="index2">
-		 				<!-- <view :class="isShow==true?'questionOne-cont-chose-answer-selected':'questionOne-cont-chose-answer'" :data-val="an.content" ref="dataVal" @click="chose($event)"> -->
-						<view :class="{'questionOne-cont-chose-answer-selected': rSelect.indexOf(index2)!=-1}" :data-val="an.score" ref="dataVal" @click="chose(index2,$event)">
-							<view class="questionOne-cont-chose-box">{{box}}</view>
-							<view class="questionOne-cont-chose-option">{{an.content}}</view>
-		 				</view>
-		 			</view>
-		 		</view>
-		 	</swiper-item>
-		 	</swiper>
-		 </view>
-		<view class="buttonbottom">
-				<view class="btnback" @click="mBack">上一题</view>
-				<view v-show="isShow2" class="btnnext" @click="mNext">下一题</view>
-				<view v-show="isShow" class="btnnext" @click="mSubmit">提交</view>
+	<view class="box">
+		<view class="type">
+			<text v-show="questionList[currentIndex].type == 1">单选题</text>
+			<text v-show="questionList[currentIndex].type == 2">多选题</text>
+			<text></text>
+			<text>{{ ' ' + (currentIndex + 1) + '/' + questionList.length }}</text>
 		</view>
-			
+		<view class="questions-box">
+			<view class="list-box" :style="{ top: -currentIndex * 960 + 'rpx' }">
+				<view class="list" v-for="(item1, index1) in questionList" :key="index1">
+					<!-- 如果是单选题 -->
+					<view v-if="item1.type == 1">
+						<view class="title" v-html="item1.title"></view>
+						<view class="options">
+							<view class="option " :class="{ checked: index2 === item1.checkedIndex }" v-for="(item2, index2) in item1.options" @click="danxuan(index2)">
+								<rich-text :nodes="item2"></rich-text>
+							</view>
+						</view>
+					</view>
+					<!-- 如果是多选题 -->
+					<view v-else-if="item1.type == 2">
+						<view class="title">{{ item1.title }}</view>
+						<view class="options">
+							<view class="option " :class="{ checked: item1.checkedIndex.indexOf(index2) != -1 }" v-for="(item2, index2) in item1.options" @click="duoxuan(index2)">
+								<rich-text :nodes="item2"></rich-text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="control">
+			<view class="last" @click="last">上一题</view>
+			<view class="next" @click="next" v-show="!(currentIndex == questionList.length - 1)">下一题</view>
+			<view class="submit" @click="submit" v-show="currentIndex == questionList.length - 1">提交</view>
+		</view>
 	</view>
 </template>
 
 <script>
-	import {getWenxuexiResuleList} from '../../api/api.js';
+import { getyikaoTikuList_one_all } from '../../api/api.js';
 export default {
-	components: {},
 	data() {
 		return {
-			type:'单选题',
-			box:'A',
-			question: [],
-			curr_index: 0,
-			paramVal: [],
-			obj: {},
-			//问题
-			bgcolor:"#FBBE4B",
-			content:'你的身高？',
-			currentArr:[],
-			//百分比进度条
-			percent:0,
-			//请求返回数组
-			items: [],
-			//选项的分数
-			scores:0,
-			valueArr:[],
-			// //提交的前八项数组
-			submitArr:[],
-			// //选择的题目数组
-			selectedArr:[],
-			selectedArr1:[],
-			selected1:'',
-			//多个合成一个数组
-			one_Arr:[],
-			list:[1],
-			nowIndex:0,
-			isShow:false,
-			isShow2:true,
-			total:'',
-			paramVal:[],
-			current: 0,
-			rSelect:[],
-			options:[{option:'A'},{option:'B'},{option:'C'},{option:'D'},{option:'E'},{option:'F'}]
+			questionList: [],
+			// 当前题目索引
+			currentIndex: 0,
+			// 原list
+			list:[]
 		};
 	},
-	onLoad(ids) {
-		console.log(ids);
-		this.valueArr=[ids.valueArr];
-		console.log(this.valueArr);
-		let NewArr=[ids.valueArr];
-		let scoresArr=[parseInt(ids.scores)];
-		if(NewArr[0]!=""&& ids.id!=0){
-			suni.setStorage({
-				key:'scores1',
-				data:[uni.getStorageSync('scores1')].concat(scoresArr)
-			})
-		};
-		let arrs=uni.getStorageSync('scores1');
-		
-		this.submitArr=this.arrMoretoOne(arrs);
-		this.question=uni.getStorageSync('lists1');
-		this.total=this.question.length;
-		
-		// let list = currentArr.push()
-		let lists=this.question[parseInt(ids.id)];
-		
-		// console.log(lists);
-		this.content=lists.content;
-		this.items=lists.optionsList;
-		//循环card卡片渲染每个选项
-		this.getOption();
+	onLoad() {
+		this.list=uni.getStorageSync('lists1');
+		console.log(this.list);
+		this.list.forEach((item,index)=>{
+			let obj = {};
+			obj.title = item.content;
+			obj.options = [];
+			obj.type = 1;
+			obj.checkedIndex = -1;
+			item.optionsList.forEach((item, index) => {
+				obj.options.push(item.content);
+			});
+			this.questionList.push(obj);
+		})
+		console.log(this.questionList);
 	},
 	methods: {
-		//将多层嵌套数组转为一层数组
-		// let one_Arr=[];
-		arrMoretoOne(arr){
-			for(let key of arr){
-				if(Array.isArray(key)){
-					this.arrMoretoOne(key)
-				}else{
-					this.one_Arr.push(key)
-				}
+		// 单选题逻辑
+		danxuan(index) {
+			this.questionList[this.currentIndex].checkedIndex = index;
+		},
+		// 多选题逻辑
+		duoxuan(index) {
+			// 判断是否已经选定
+			let arr = this.questionList[this.currentIndex].checkedIndex;
+			let isCheck = arr.indexOf(index);
+			// 如果没有被选定
+			if (isCheck == -1) {
+				arr.unshift(index);
+			} else {
+				// 如果被选定
+				arr.splice(isCheck, 1);
 			}
-			return this.one_Arr
 		},
-		getOption(){
-			let currentArr=uni.getStorageSync('lists1');
-			this.total=currentArr.length;
-			// let list = currentArr.push()
-			
-			console.log("list",this.list);
-			// // console.log(lists);
-			// this.content=currentArr.content;
-			// this.items=currentArr.optionsList;
-		},
-		//下一题
-		mNext(e) {
-			//清空选项样式
-			this.rSelect = [];
-			let curr_index = this.curr_index; //0-第一页
-			if (curr_index < this.question.length-1) {
-				curr_index += 1; //1-第二页
-			}else{
-				curr_index = this.question.length-1
-			}
-			// 改变下标来实现页面切换
-			this.curr_index = curr_index;
-			//控制进度条
-			this.percent = this.curr_index + '0';
-			if (this.curr_index === this.question.length-1) {
-				this.isShow =true;
-				this.isShow2 =false; 
-			}	 
-		},
-		//上一题
-		mBack(e) {
-			let curr_index = this.curr_index;
-			console.log(curr_index);
-			if(curr_index<= this.question.length){
-				curr_index = curr_index - 1;
-				this.isShow =false;
-				this.isShow2 =true; 
-			};
-			if(curr_index <= 0){
-				curr_index = 0;
+		// 上一题
+		last() {
+			if (this.currentIndex <= 0) {
 				uni.showToast({
-				title: '已经到头了',
-				icon:'none',
-				duration: 2000
+					title: '已经到第一题了',
+					icon: 'none',
+					duration: 1500
 				});
+				return false;
 			}
-			this.curr_index = curr_index;
-			this.percent = this.curr_index + '0';
+			this.currentIndex--;
 		},
-		//提交
-		
-		getSelectedArr(){
-			
+		// 下一题
+		next() {
+			this.currentIndex++;
 		},
-		chose(index2,e) {
-						let scores=0;
-						this.scores= this.scores + e.currentTarget.dataset.val;
-						// console.log(e)
-						if (this.rSelect.indexOf(index2) == -1) {
-								    	    // console.log(e)//打印下标
-									        this.rSelect.push(index2);//选中添加到数组里
-								        } else {
-									        this.rSelect.splice(this.rSelect.indexOf(index2), 1); //取消
-									    }
-						/* let curr_index = this.curr_index; //0-第一页
-						if (curr_index < this.question.length) {
-							curr_index += 1; //1-第二页
-							this.isShow =false;
-							this.isShow2 =true; 
-						}else{
-							curr_index = this.question.length
-						}
-						// 改变下标来实现页面切换
-						this.curr_index = curr_index;
-						this.percent = this.curr_index + '0';
-						if (this.curr_index === this.question.length) {
-							/* uni.showLoading({
-								title: "查询结果中..."
-							}) 
-							this.curr_index = this.question.length-1;
-							
-						} */
-		},
-		mSubmit(e){
-			this.percent = 100;
-			let result = this.scores
-			console.log(this.scores)
-			
-			getWenxuexiResuleList(result).then((res)=>{
-				console.log(res.data.data);
-				let objs=res.data.data;
-				uni.setStorage({
-					key:'wenluqulists',
-					data:objs
-				});
-				uni.navigateTo({
-					url:'../wenxuexiBaogao/wenxuexiBaogao'
-				})
+		// 提交
+		submit() {
+			// 判断是否有题目未作答
+			let flag=false;
+			this.questionList.forEach((item,index)=>{
+				if(item.checkedIndex==-1){
+					flag=true;
+				}
 			})
-		},
+			if(flag){
+				uni.showToast({
+					title:'您有题目未作答',
+					duration:2000,
+					icon:'none'
+				})
+				return false
+			}
+	          // 计算总分
+			let allScore=0;
+			this.questionList.forEach((item, index) => {
+				// console.log(this.list[index].optionsList[item.checkedIndex].score)
+				allScore+=this.list[index].optionsList[item.checkedIndex].score;
+			})
+			console.log(allScore)
+		}
 	}
 };
 </script>
 
-<style lang="scss">
-
-
-	/* .aniSmall{
-		animation: aniSmall .6s both;
-	}
-	@keyframes aniSmall {
-		0%{
-			transform: scale(1);
-		}
-		95%{
-			transform:  scale(0.8);
-		}
-	}
-	.aniBig{
-		animation: aniBig .6s both;
-	}
-	@keyframes aniBig {
-		0%{
-			transform: scale(.8);
-		}
-		99%{
-			transform:  scale(1);
-		}
-		100%{
-			transform: scale(1) ;
-		}
-	}
-	.aniBack{
-		animation: aniBack .6s both;
-	}
-	@keyframes aniBack {
-		0%{
-			z-index: 999;
-			transform: translate(-120%,50%) scale(.8) rotate(-30deg);
-		}
-		95%{
-			z-index: 999;
-			transform: translate(0,0) scale(1) rotate(0);
-		}
-		96%{
-			z-index: 999;
-			transform: translate(0,0) scale(1) rotate(0);
-		}
-		100%{
-			z-index: 999;
-			transform: translate(0,0) scale(1) rotate(0);
-		}
-	}
-	.aniNext{
-		animation: aniNext .6s both;
-	}
-	@keyframes aniNext {
-		0%{
-			z-index: 999;
-			transform: translate(0,0) scale(1) rotate(0);
-		}
-		95%{
-			z-index: 999;
-			transform: translate(-120%,50%) scale(.8) rotate(-30deg);
-		}
-		100%{
-			z-index: 999;
-			transform: translate(-120%,50%) scale(.8) rotate(-30deg);
-		}
-	} */
-.back {
-	left: 78rpx;
+<style scoped>
+.box {
+	width: 100%;
+	padding: 40rpx;
 }
-.next {
-	right: 78rpx;
+.type {
+	height: 50rpx;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 25px;
+	color: #a9afb8;
 }
-.buttonbottom{
-	height: 120rpx;
-	margin-top: 50%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	// border-top: 1px solid #888888;
-	box-shadow: 0px -2px 3px #888888;
-	.btnback{
-		background-color: #FBBE4B;
-		width: 150rpx;
-		border-radius: 30rpx;
-		text-align: center;
-		height: 60rpx;
-		line-height: 60rpx;
-		font-size: 21rpx;
-		font-weight: bold;
-		color: #FFFFFF;
-	}
-	.btnnext{
-		background-color: #FBBE4B;
-		width: 150rpx;
-		margin-left: 30rpx;
-		margin-right: 30rpx;
-		border-radius: 30rpx;
-		text-align: center;
-		height: 60rpx;
-		line-height: 60rpx;
-		font-size: 21rpx;
-		font-weight: bold;
-		color: #FFFFFF;
-	}
+.questions-box {
+	position: relative;
+	width: 100%;
+	height: 960rpx;
+	margin-top: 50rpx;
+	overflow: hidden;
 }
-/* .btn {
-	background-color: #FBBE4B;
-	width: 150rpx;
+.list-box {
+	position: absolute;
+	left: 0rpx;
+	width: 100%;
+}
+.list {
+	height: 960rpx;
+	width: 100%;
+}
+.title {
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 50rpx;
+	color: #242448;
+}
+.option {
+	min-width: 200rpx;
 	height: 60rpx;
-	border-radius: 30rpx;
+	margin-top: 30rpx;
+	padding-left: 30rpx;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 60rpx;
+	color: #273253;
+	border-radius: 60rpx;
+	background-color: #FFFFFF;
+}
+.checked {
+	background-color: #fbbe4b;
+}
+.control {
 	display: flex;
+	justify-content: space-around;
 	align-items: center;
-	justify-content: end;
-	font-size: 21rpx;
-	font-weight: bold;
-	color: #FFFFFF;
-} */
-.container {
-	.bg {
-		z-index: 9;
-		top: 0;
-		padding-top: 10rpx;
-		margin-left: 35rpx;
-		color: #A9AFB8;
-		left: 0;
-		font-family: 'Microsoft YaHei';
-		font-size: 35rpx;
-		font-weight: bold;
-		width: 100vw;
-		height: 13vh;
-		.progress_1{
-			width: 90%;
-			margin-top: 20rpx;
-		}
-		// display: flex;
-		// align-items: center;
-		// justify-content: flex-start;
-	}
-	.xuanxiang{
-		.questionOne{
-			.questionOne-cont{ 
-				.questionOne-cont-top{
-					padding-top: 30rpx;
-					margin-left: 20rpx;
-					font-size: 29rpx;
-					color: #273253; 
-					font-weight: bold;
-					height: 38rpx;
-					display: flex;
-					align-items: center;
-					justify-content: flex-start;
-					.questionOne-cont-top-text{
-						padding-bottom: 30rpx;
-					}
-				}
-				.questionOne-cont-chose{
-					color: #273253;
-					font-family: 'PingFang SC';
-					margin-top: 20rpx;
-					margin-left: 40rpx;
-					
-					.questionOne-cont-chose-box{
-						text-align: center;
-						// background-color: #FBBE4B; 
-						background-color: #E4E4E4;
-						width: 20px;
-						margin-left: 20rpx;
-						height: 20px;
-						border-radius: 10px;
-					}
-					.questionOne-cont-chose-option{
-						margin-left: 80rpx;
-						margin-top:  -40rpx;
-					}
-					
-					.questionOne-cont-chose-answer-selected{
-						color: #273253;
-						font-family: 'PingFang SC';
-						margin-top: 20rpx;
-						margin-right: 20rpx;
-						.questionOne-cont-chose-box{
-							text-align: center;
-							margin-left: 20rpx;
-							background-color: #FBBE4B;
-							// background-color: #E4E4E4;
-							width: 20px;
-							height: 20px;
-							border-radius: 10px;
-						}
-						.questionOne-cont-chose-option{
-							margin-left: 80rpx;
-							margin-top:  -40rpx;
-						}
-					}
-				}
-			}
-		}
-	}
-	.card {
-		.cardBottom {
-			padding-top: 20rpx;
-			.question_content{
-				margin-left: 20rpx;
-				color: #273253;
-				font-family: 'PingFang SC';
-				
-			}
-			.line {
-				padding-top: 60rpx;
-				width: 87%;
-				position: relative;
-				margin: auto;
-				.lineBottom {
-					font-size: 20rpx;
-					color: #727272;
-					padding-left: 72rpx;
-				}
-				.lineTop {
-					.question_option {
-						padding-left: 15rpx;
-						margin-top: 15rpx;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						.question_optionBox{
-							
-						}
-						.question_options {
-							padding-left: 30rpx;
-						}
-						
-					}
-					display: flex;
-					align-items: flex-start;
-					justify-content: flex-start;
-				}
-			}
-		}
-		.cardTop {
-			padding-top: 30rpx;
-			margin-left: 20rpx;
-			font-size: 29rpx;
-			color: #273253;
-			font-weight: bold;
-			height: 10vh;
-			display: flex;
-			align-items: center;
-			justify-content: flex-start;
-		}
-		width: 90vw;
-		position: absolute;
-		top: 10vh;
-		left: 0;
-		right: 0;
-		margin: auto;
-		z-index: 10;
-		min-height: 82vh;
-		transition: .6s;
-		overflow: hidden;
-		transform: scale(.8);
-		box-shadow: 0rpx 0rpx 17rpx 0rpx rgba(35, 36, 37, 0.25);
-		background: rgba(254, 254, 254, 1);
-		border-radius: 10rpx;
-	}
-	width: 100vw;
-	height: 100vh;
-	left: 0;
-	top: 0;
+}
+.last,
+.next,
+.submit {
+	width: 172rpx;
+	height: 56rpx;
+	text-align: center;
+	line-height: 56rpx;
+	background: #fbbe4b;
+	border-radius: 56rpx;
+	color: #ffffff;
 }
 </style>
