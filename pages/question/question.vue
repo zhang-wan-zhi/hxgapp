@@ -49,21 +49,24 @@ export default {
 					options: ['王勃', '张九龄', '张若虚', '卢照邻'],
 					checkedIndex: -1,
 					rightIndex: 0,
-					type: 1
+					type: 1,
+					score: 10
 				},
 				{
 					title: '下面选项中不属于晚清四大谴责小说的是？',
-					options: ['吴趼人《二十年目睹之怪现状》', '关汉卿《窦娥冤》	', '李宝嘉《官场现形记》','刘鹗《老残游记》'],
+					options: ['吴趼人《二十年目睹之怪现状》', '关汉卿《窦娥冤》	', '李宝嘉《官场现形记》', '刘鹗《老残游记》'],
 					checkedIndex: -1,
 					rightIndex: 1,
-					type: 1
+					type: 1,
+					score: 10
 				},
 				{
 					title: '选出欧美三大短篇小说大师',
 					options: ['（法）莫泊桑', '（俄）契科夫', '（英）狄更斯', '（美）欧亨利'],
 					checkedIndex: [],
 					rightIndex: [0, 1, 3],
-					type: 2
+					type: 2,
+					score: 10
 				}
 			],
 			// 当前题目索引
@@ -79,6 +82,7 @@ export default {
 				obj.options = [];
 				obj.rightIndex = '';
 				obj.type = 1;
+				obj.score = 10;
 				obj.checkedIndex = -1;
 				item.answers.forEach((item, index) => {
 					obj.options.push(item.content);
@@ -130,49 +134,49 @@ export default {
 			console.log(this.questionList);
 
 			// 判断是否有题目未作答
-			let flag=false;
-			this.questionList.forEach((item,index)=>{
-				if(item.checkedIndex==-1){
-					flag=true;
+			let flag = false;
+			this.questionList.forEach((item, index) => {
+				if (item.checkedIndex == -1) {
+					flag = true;
 				}
-			})
-			if(flag){
+			});
+			if (flag) {
 				uni.showToast({
-					title:'您有题目未作答',
-					duration:2000,
-					icon:'none'
-				})
-				return false
+					title: '您有题目未作答',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
 			}
 			// 计算表示正确数，错误数
 			let right = 0;
 			let error = 0;
+			let score = 0;
 			this.questionList.forEach((item, index) => {
 				// 如果是多选题
 				if (item.checkedIndex instanceof Array) {
 					item.checkedIndex.sort();
 					// console.log(item.checkedIndex);
 					if (JSON.stringify(item.checkedIndex) == JSON.stringify(item.rightIndex)) {
-
 						right++;
-					}
-					else{
-						error++
+						score = score + 10;
+					} else {
+						error++;
 					}
 				} else {
 					// 如果是单选或者判断题
 					if (item.checkedIndex == item.rightIndex) {
-
 						right++;
-					}else{
+						score = score + 10;
+					} else {
 						error++;
 					}
 				}
 			});
+			console.log(score, right, error);
 			uni.navigateTo({
-				url:'../chengjidan/chengjidan'
-			})
-			console.log(a);
+				url: '../chengjidan/chengjidan?score=' + score + '&right=' + right + '&error=' + error
+			});
 		}
 	}
 };
@@ -203,12 +207,10 @@ export default {
 	width: 100%;
 }
 .list {
-
 	height: 800rpx;
 	width: 100%;
 }
 .title {
-
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 50rpx;
@@ -227,7 +229,7 @@ export default {
 	color: #273253;
 
 	border-radius: 80rpx;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 }
 .checked {
 	background-color: #fbbe4b;

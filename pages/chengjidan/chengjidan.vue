@@ -80,7 +80,7 @@
 		},
 		onLoad(objs) {
 			let arrs=uni.getStorageSync('wenluqu_lists');
-			// console.log(arrs);
+			 console.log(objs);
 			this.Objs=arrs[0];
 		    this.Objs.stableProp=this.Objs.stableProp.toFixed(2);
 			// console.log(this.Objs.acCode);
