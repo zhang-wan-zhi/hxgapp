@@ -278,15 +278,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/chengjidan/chengjidan",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "成绩单",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+		       
     ],   
 "tabBar": {
     "color": "#7A7E83",
