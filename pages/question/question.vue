@@ -128,6 +128,7 @@ export default {
 		// 提交
 		submit() {
 			console.log(this.questionList);
+
 			// 判断是否有题目未作答
 			let flag=false;
 			this.questionList.forEach((item,index)=>{
@@ -152,6 +153,7 @@ export default {
 					item.checkedIndex.sort();
 					// console.log(item.checkedIndex);
 					if (JSON.stringify(item.checkedIndex) == JSON.stringify(item.rightIndex)) {
+
 						right++;
 					}
 					else{
@@ -160,13 +162,17 @@ export default {
 				} else {
 					// 如果是单选或者判断题
 					if (item.checkedIndex == item.rightIndex) {
+
 						right++;
 					}else{
 						error++;
 					}
 				}
 			});
-			console.log('right',right,'error',error);
+			uni.navigateTo({
+				url:'../chengjidan/chengjidan'
+			})
+			console.log(a);
 		}
 	}
 };
@@ -197,10 +203,12 @@ export default {
 	width: 100%;
 }
 .list {
+
 	height: 800rpx;
 	width: 100%;
 }
 .title {
+
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 50rpx;
@@ -208,13 +216,16 @@ export default {
 }
 .option {
 	min-width: 200rpx;
+
 	height: 80rpx;
 	margin-top: 50rpx;
 	padding-left: 30rpx;
 	font-size: 14px;
 	font-weight: 400;
+
 	line-height: 80rpx;
 	color: #273253;
+
 	border-radius: 80rpx;
 	background-color: #FFFFFF;
 }
@@ -230,10 +241,13 @@ export default {
 .next,
 .submit {
 	width: 172rpx;
+
 	height: 60rpx;
 	text-align: center;
+
 	line-height: 60rpx;
 	background: #fbbe4b;
+
 	border-radius: 60rpx;
 	color: #ffffff;
 }

@@ -85,12 +85,7 @@
 			// console.log(this.Objs.stableProp);
 			this.getWindowHeight();
 		},
-		methods:{
-			//点击体验版触发
-			click_tiyan(){
-				console.log(111);
-				this.isTiyan=true;
-			},
+		methods:{	
 			//获取窗口高度，适配手机
 			getWindowHeight(){
 				uni.getSystemInfo({
