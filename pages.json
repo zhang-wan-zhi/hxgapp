@@ -277,6 +277,14 @@
                 "enablePullDownRefresh": false
             }
             
+        },{
+            "path" : "pages/wenbaokao/wenbaokao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问报考",
+                "enablePullDownRefresh": false
+            }
+            
         }
 		       
     ],   
