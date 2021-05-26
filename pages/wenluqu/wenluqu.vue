@@ -664,7 +664,12 @@
 			},
 			//问报考
 			wenluqu_luqu(){
+				uni.navigateTo({
+				            // url: 'test?id=1&name=uniapp'  c传递参数
 				
+				            url:"/pages/wenbaokao/wenbaokao"
+				
+				        })
 			},
             //问录取输入结果
 			wenluqu_yuce(){
@@ -674,17 +679,22 @@
 					"likeUniversity": '山东艺术学院',
 					//文理分科
 					"artAndSciences": this.luqu_subject,
+					// "artAndSciences": '文科',
 					//省份地区
 					"province": this.luqu_province,
+					// "province": '北京市',
 					//报考专业
 					"major": this.major1,
+					// "major": '广播电视编导',
 					//高考成绩
 					"collegeExamScore": this.collegeExamScore,
+					// "collegeExamScore": '600',
 					//统考成绩
 					"generalExamination": this.generalExamination,
+					// "generalExamination": '600',
 					//视力
 					"shili": this.luqu_shili,
-					
+					// "shili": '无色盲,无色弱',
 					//文化成绩
 					// "culturalScore": "",
 					//外语成绩
@@ -692,7 +702,8 @@
 					
 					
 					// 身高
-					"height": '178',
+					"height": this.luqu_height,
+					// "height": '178',
 					
 					
 					//数学成绩
@@ -702,11 +713,13 @@
 					// "userOpenId": "",
 					
 					//体重
-					"weight": "77",
+					"weight": this.luqu_weight,
+					// "weight": "77",
 					
 					//英语成绩
 					//性别
 					"sex": this.luqu_sex,
+					// "sex": '男',
 					
 				 //    "likeSchool": "浙江传媒学院", 
 					// "artAndSciences": "文科", 
@@ -746,7 +759,7 @@
 				// console.log(this.tizhong1);
 				console.log(obj);
 				getWenluquList(obj).then((res)=>{
-					console.log(res);
+					// console.log(res);
 					// console.log(res.data.data.academies[0]);
 					let resArr=res.data.data.academies;
 					console.log(resArr);
