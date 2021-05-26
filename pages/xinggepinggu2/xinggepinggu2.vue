@@ -40,6 +40,7 @@
 
 <script>
 import { getyikaoTikuList_one_all } from '../../api/api.js';
+import { getWenxuexiResuleList } from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -124,6 +125,17 @@ export default {
 				allScore+=this.list[index].optionsList[item.checkedIndex].score;
 			})
 			console.log(allScore)
+			getWenxuexiResuleList(allScore).then((res)=>{
+							// console.log(res.data.data);
+							let objs=res.data.data;
+							uni.setStorage({
+								key:'wenluqulists',
+								data:objs
+							});
+							uni.navigateTo({
+								url:'../wenxuexiBaogao/wenxuexiBaogao'
+							})
+						})
 		}
 	}
 };
