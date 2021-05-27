@@ -13,7 +13,6 @@
 				<span>录取</span>
 			</view>
 		</view>
-		<image style="width:50rpx;height:50rpx;" :src="isShow==true?'../../static/icon/eidt_2.png':'../../static/icon/eidt_1.png'"></image>
 		<view  class="wenluqu_content">
 			<!-- 问报考 -->
 			<view v-show="isShow" class="wenluqu_content_display">
@@ -85,7 +84,7 @@
 						</view>
 					</view>
 
-					<view class="button_bottom">
+					<view class="button_bottom1">
 						<button type="warn" style="width: 80%;border-radius: 20px;" @click="wenluqu_luqu">测试</button>
 					</view>
 			
@@ -231,7 +230,7 @@
 				isShow2:false,
 				//动态属性的下拉数组
 				arrs:['1','2'],
-				array:['请选择','浙江省','山东省'],
+				array:['请选择','浙江','山东'],
 				index:0,
 				//省份
 				province:'请选择',
@@ -265,7 +264,7 @@
 				indexMajor:0,
 				major1:'请输入你的报考专业',
 				//报考专业的专业数组
-				majorArr:['请输入你的报考专业','表演','音乐','摄影','计算机','会计'],
+				majorArr:['请输入你的报考专业','美术','文学编导','音乐','舞蹈','摄影','书法','影视戏剧表演','服装表演','播音主持','其他'],
 				luqu_major:'请输入你的报考专业',
 				//视力
 				vision:'',
@@ -386,20 +385,17 @@
 				})
 			},
 			//获取大学名称
-			getUniversity:util.throttle(function(e) {
+			getUniversity:util.debounce(function(e) {
 				this.likeSchool=e.detail.value;
-				console.log(e);
+				// console.log(e);
 				//如果学校为空，对应的专业也为空
 				if(e.detail.value==""){
 					this.majorArr=['请先输入你的报考院校'];
-					console.log(2222)
 				}else{
-					console.log(111)
 					//根据学校获取专业
 					getZhuanhye(this.likeSchool).then((res)=>{
-						console.log(222);
 						console.log(res);
-						console.log(res.data.data);
+						console.log(111,res.data.data);
 						let arr=res.data.data;
 						let arr1=[];
 						for(let i=0;i<arr.length;i++){
@@ -409,7 +405,7 @@
 						this.majorArr=arr1;
 					})
 				}			
-			}, 600),
+			}, 1500),
 			//专业下拉框
 			bindPickerChangeZhuanye(e){
 				// console.log(e.target.value);
@@ -624,7 +620,7 @@
 				let obj={
 					"userOpenId": "dhsjfsdkfjgjifjdgkdjkgfdkl", 
 					//喜欢的大学,报考院校
-					"likeUniversity": '山东艺术学院',
+					"likeUniversity": this.likeSchool,
 					//文理分科
 					"artAndSciences": this.luqu_subject,
 					// "artAndSciences": '文科',
@@ -769,7 +765,8 @@
 			display: flex;
 			align-items: center;
 			justify-content:space-around;
-			margin-top: 60rpx;
+			margin-top: 30rpx;
+			margin-bottom: 30rpx;
 			.wenluqu_top_left{
 				height: 80rpx; 
 				line-height: 80rpx; 
@@ -876,8 +873,7 @@
 						color: #273253;
 						display: flex;
 						font-size: 30rpx;
-						margin-bottom: 40rpx;
-						margin-bottom: 20rpx;
+						margin-bottom: 10rpx;
 						border-bottom:1px solid #ECE9E9;
 						.subject{
 							width: 50%;
@@ -942,8 +938,13 @@
 							height:100%;
 						}
 					}
-					.button_bottom{
+					.button_bottom1{
+						width: 100%;
+					    margin-top: 368rpx;
 						
+					}
+					.button_bottom{
+						margin-top: 10rpx;
 						width: 100%;
 						// border:1px solid pink;
 					}
