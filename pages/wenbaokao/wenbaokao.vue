@@ -3,7 +3,7 @@
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
 		
 		<view class="content_top">
-			<view class="user-img"><image :src="bgurl"></image></view>
+			<view class="user-img"><image src="../../static/img/sisuan.jpg"></image></view>
 			<view class="university">
 				<text>报考推荐</text>
 			</view>
@@ -16,6 +16,7 @@
 			<view class="content_center_top">
 				<view class="content_center_3">
 					<view class="portrait">
+						<image src="../../static/img/hubeimeishu.jpg" mode=""></image>
 					</view>
 					<view class="university">
 						{{university1}}
@@ -25,6 +26,7 @@
 						{{major1}}
 					</view>
 					<view class="portrait">
+						<image src="../../static/img/zhongguomeishu.jpg" mode=""></image>
 					</view>
 					<view class="university">
 						{{university2}}
@@ -33,6 +35,7 @@
 						{{major2}}
 					</view>
 					<view class="portrait">
+						<image src="../../static/img/zhongyangmeishu.jpg" mode=""></image>
 					</view>
 					<view class="university">
 						{{university3}}
@@ -45,7 +48,7 @@
 			<view class="content_center_bottom">
 				<view class="content_center_bottom_foot">
 					升级会员查看更多
-					<hr style=" margin-left:-78rpx; width: 590rpx; height:2rpx;border:none;border-top:1px dotted #DADBDD;" />
+					<hr style=" margin-left:40rpx; width: 590rpx; height:2rpx;border:none;border-top:1px dotted #DADBDD;" />
 				</view>
 				<view class="leftsemicircle">
 				</view>
@@ -88,12 +91,12 @@
 			console.log(333,arrs);
 			// console.log(this.Objs.acCode);
 			// console.log(this.Objs.stableProp);
-			this.university1 = arrs.bao[0].acName;
-			this.major1=arrs.bao[0].acMajor;
-			this.university2 = arrs.qita[0].acName;
-			this.major2=arrs.qita[0].acMajor;
-			this.university3 = arrs.qita[1].acName;
-			this.major3=arrs.qita[1].acMajor;
+			this.university1 = arrs.qita[0].acName;
+			this.major1=arrs.qita[0].acMajor;
+			this.university2 = arrs.qita[1].acName;
+			this.major2=arrs.qita[1].acMajor;
+			this.university3 = arrs.qita[2].acName;
+			this.major3=arrs.qita[2].acMajor;
 			let userData=uni.getStorageSync('userData');
 			this.bgurl = userData.userInfo.avatarUrl;
 			this.getWindowHeight();
@@ -154,6 +157,7 @@
 		.content_top{
 			width: 670rpx;
 			height: 152rpx;
+			padding-left: 40rpx;
 			display: flex;
 			background-color: #f6f7fb;
 			justify-content: center;
@@ -162,7 +166,7 @@
 				width: 80rpx;
 				height: 80rpx;
 				margin-right: 32rpx;
-				border: 2rpx solid #ed5c4d;
+				// border: 2rpx solid #ed5c4d;
 				border-radius: 50%;
 				overflow: hidden;
 				image {
@@ -203,6 +207,10 @@
 						background-color:#2a17ff ;
 						height: 40px;
 						width: 40px;
+						image {
+							width: 100%;
+							height: 100%;
+						}
 						// border-radius: 20px;
 					}
 					.university{
@@ -241,6 +249,7 @@
 				.content_center_bottom_foot{
 					width: 100%;
 					height: 44rpx ;
+					text-align: center;
 					font-size: 32rpx;
 					font-family: '.PingFang SC';
 					font-weight: 400;

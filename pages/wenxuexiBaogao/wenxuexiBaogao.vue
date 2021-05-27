@@ -133,6 +133,7 @@
 			width: 800rpx;
 			height: 152rpx;
 			display: flex;
+			padding-left: 170rpx;
 			background-color: #f6f7fb;
 			align-items: center;
 			.user-img {

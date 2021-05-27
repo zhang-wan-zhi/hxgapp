@@ -2,7 +2,9 @@
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
 		
 		<view class="content_top">
-			<view class="user-img"><image :src="bgurl"></image></view>
+			<view class="user-img">
+				<image src="../../static/img/hubeimeishu.jpg"></image>
+				</view>
 			<view class="university">
 				<text>{{Objs.acName}}</text>
 			</view>
@@ -144,11 +146,12 @@
 			justify-content: center;
 			align-items: center;
 			.user-img {
-				width: 104rpx;
-				height: 104rpx;
+				width: 80rpx;
+				height: 80rpx;
 				margin-right: 32rpx;
-				border: 4rpx solid #ed5c4d;
-				border-radius: 50%;
+				margin-left: 191rpx;
+				// border: 2rpx solid #ed5c4d;
+				border-radius: 40rpx;
 				overflow: hidden;
 				image {
 					width: 100%;
