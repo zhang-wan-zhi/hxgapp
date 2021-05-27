@@ -124,16 +124,16 @@ export default {
 				// console.log(this.list[index].optionsList[item.checkedIndex].score)
 				allScore+=this.list[index].optionsList[item.checkedIndex].score;
 			})
-			console.log(allScore)
+			// console.log(allScore)
 			getWenxuexiResuleList(allScore).then((res)=>{
-							// console.log(res.data.data);
+							// console.log(111,res.data.data);
 							let objs=res.data.data;
 							uni.setStorage({
 								key:'wenluqulists',
 								data:objs
 							});
 							uni.navigateTo({
-								url:'../wenxuexiBaogao/wenxuexiBaogao'
+								url:'../wenxuexiBaogao/wenxuexiBaogao?allScore=' + allScore
 							})
 						})
 		}

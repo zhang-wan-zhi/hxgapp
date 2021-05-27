@@ -92,7 +92,7 @@
 			// console.log(this.Objs.acCode);
 			let userData=uni.getStorageSync('userData');
 			this.score = objs.score;
-			this.turenum = objs.turenum;
+			this.turenum = objs.right;
 			this.falsenum = objs.error;
 			this.bgurl = userData.userInfo.avatarUrl;
 			this.nickName = userData.userInfo.nickName;
