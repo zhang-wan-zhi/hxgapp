@@ -132,7 +132,7 @@ export default {
 								key:'wenluqulists',
 								data:objs
 							});
-							uni.navigateTo({
+							uni.redirectTo({
 								url:'../wenxuexiBaogao/wenxuexiBaogao?allScore=' + allScore
 							})
 						})

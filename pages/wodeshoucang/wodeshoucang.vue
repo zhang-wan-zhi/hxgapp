@@ -1,15 +1,14 @@
 <template>
 	<view class="box">
-		<!-- 艺考动态列表 -->
 		<view class="dynamic-contents">
-			<view v-for="(item, index) in saveList" :key="index">
+			<view v-for="(item, index) in saveList" :key="index" @click="toPage(item.artexam.aeId)">
 				<view class="dynamic-content">
 					<view class="dynamic-img"><image :src="item.artexam.aeImgurl"></image></view>
 					<view class="dynamic-detail">
 						<view class="dynamic-title">{{ item.artexam.aeTitle }}</view>
 						<view class="dynamic-pub">
 							<text>{{ item.artexam.aeCreatetime }}</text>
-							<image src="../../static/icon/kecheng/shoucang2.png" @click="cancelSave(item.artexam.aeId)"></image>
+							<image src="../../static/icon/kecheng/shoucang2.png" @click.stop="cancelSave(item.artexam.aeId)"></image>
 						</view>
 					</view>
 				</view>
@@ -47,7 +46,45 @@ export default {
 			console.log('this', this.saveList)
 		})
 	},
-	methods: {}
+	methods: {
+	cancelSave(id){
+		let openid=uni.getStorageSync('openid');
+		new Promise((resolve,rej)=>{
+			uni.showModal({
+			    title: '确定取消收藏',
+			    success: function (res) {
+			        if (res.confirm) {
+			           resolve()
+			        } 
+			    }
+			})
+		}).then(()=>{
+			uni.request({
+				url:'https://orangezoom.cn:8091/hxg/collArtExam',
+				method:'POST',
+				data:{
+					collOpenid:openid,
+					collArtexamid:id
+				},
+				success(result) {
+					console.log(result)
+					uni.redirectTo({
+						url:'../wodeshoucang/wodeshoucang'
+					})
+				},
+				fail(result) {
+					console.log(result)
+				}
+			})
+		})
+	},
+	toPage(id){
+		uni.navigateTo({
+			url: '../yikaokecheng_item/yikaokecheng_item?ids=' + id
+		});
+	}
+	
+	}
 };
 </script>
 

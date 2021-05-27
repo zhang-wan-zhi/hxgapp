@@ -128,7 +128,7 @@ export default {
 		},
 		//登录授权
 		click_shouquan() {
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '../index/index'
 			});
 		},
@@ -246,20 +246,10 @@ export default {
 		 // 每次进入页面就会检测会员状态
 		 setTimeout(()=>{
 			  this.status=uni.getStorageSync('huiyuan').type;
-			   console.log(1)
-		 },400)
+		 },300)
 		
 		setTimeout(()=>{
 					  this.status=uni.getStorageSync('huiyuan').type;
-					   console.log(1)
-		},1000)
-		setTimeout(()=>{
-					  this.status=uni.getStorageSync('huiyuan').type;
-					   console.log(1)
-		},2000)
-		setTimeout(()=>{
-					  this.status=uni.getStorageSync('huiyuan').type;
-					   console.log(1)
 		},3000)
 		 let openid = uni.getStorageSync('openid');
 		 // console.log(openids);

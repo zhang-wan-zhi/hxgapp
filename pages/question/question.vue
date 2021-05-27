@@ -175,7 +175,7 @@ export default {
 				}
 			});
 			console.log(score, right, error);
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '../chengjidan/chengjidan?score=' + score + '&right=' + right + '&error=' + error
 			});
 		}
