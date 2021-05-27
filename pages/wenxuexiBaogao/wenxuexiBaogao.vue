@@ -53,7 +53,7 @@
 				
 			</view>
 			<view class="content_bottom">
-				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="upgrade">升级查看更多</button>
+				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="upgrade">返回</button>
 			</view>
 		</view>
 		
@@ -68,7 +68,7 @@
 				//适配手机高度
 				phoneHeight:0,
 				//测试的结果对象
-				pingce:{},
+				pingce:[],
 				// 体验版的状态
 				isTiyan:false,
 				// 微信头像
@@ -88,9 +88,10 @@
 			// this.falsenum = objs.error;
 			this.bgurl = userData.userInfo.avatarUrl;
 			this.nickName = userData.userInfo.nickName;
-			this.pingce=uni.getStorageSync('wenluqulists');
+			let pingce=uni.getStorageSync('wenluqulists');
+			this.pingce = pingce;
 			this.score = objs.allScore;
-			console.log(pingce)
+			console.log(this.pingce)
 			this.getWindowHeight();
 			
 		},
@@ -124,7 +125,7 @@
 	.wenluqu_submited{
 		width:750rpx;
 		height:1454rpx;
-		padding-top:92rpx;
+		padding-top:30px;
 		padding-left:40rpx;
 		padding-right: 40rpx;
 		background-color: #F0F0F0;
@@ -178,7 +179,7 @@
 			
 		}
 		.content_center{
-			height: 1010rpx;
+			height: 830rpx;
 			width: 670rpx;
 			background-color:#FFFFFF ;
 			.content_center_top{
@@ -186,7 +187,7 @@
 				
 				.content_center_inner{
 					width: 670rpx;
-					height: 840rpx;
+					height: 700rpx;
 					color: #273253;
 					display: flex;
 					flex-direction: column;
@@ -249,7 +250,7 @@
 						}
 						.wenxuexi_baogao_bottom_content_right{
 							width: 580rpx;
-							height: 92rpx;
+							height: 44rpx;
 							font-size: 28rpx;
 							font-family: '.PingFang SC';
 							margin-top: 12rpx;
@@ -285,7 +286,6 @@
 				.content_center_bottom_share{
 					width: 240rpx;
 					height: 60px;
-					margin-top: 20rpx;
 					
 				}
 				.leftsemicircle{
@@ -295,8 +295,8 @@
 					height: 20px;
 					width: 20px;
 					border-radius: 10px;
+					margin-top: -150rpx;
 					margin-left: 668rpx;
-					margin-top: -165rpx;
 				}
 				.rightsemicircle{
 					position: absolute;
@@ -304,12 +304,11 @@
 					height: 20px;
 					width: 20px;
 					border-radius: 10px;
-					margin-top: -165rpx;
+					margin-top: -150rpx;
 					margin-left: -668rpx;
 				}
 			}
 			.content_bottom{
-				margin-top: 86rpx;
 			}
 		}
 	}
