@@ -2,8 +2,7 @@
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
 		
 		<view class="content_top">
-			<view class="portrait">
-			</view>
+			<view class="user-img"><image :src="bgurl"></image></view>
 			<view class="university">
 				<text>{{Objs.acName}}</text>
 			</view>
@@ -62,12 +61,17 @@
 				//测试的结果对象
 				Objs:{},
 				// 体验版的状态
-				isTiyan:false
+				isTiyan:false,
+				nickName:'',
+				bgurl:''
 			}
 		},
 		onLoad(objs) {
 			let arrs=uni.getStorageSync('wenluqu_lists');
 			// console.log(arrs);
+			let userData=uni.getStorageSync('userData');
+			this.bgurl = userData.userInfo.avatarUrl;
+			this.nickName = userData.userInfo.nickName;
 			this.Objs=arrs[0];
 		    this.Objs.stableProp=this.Objs.stableProp.toFixed(2);
 			// console.log(this.Objs.acCode);
@@ -139,12 +143,17 @@
 			background-color: #f6f7fb;
 			justify-content: center;
 			align-items: center;
-			.portrait{
-				background-color:#2a17ff ;
-				height: 40px;
-				width: 40px;
-				margin-right: 42rpx;
-				border-radius: 20px;
+			.user-img {
+				width: 104rpx;
+				height: 104rpx;
+				margin-right: 32rpx;
+				border: 4rpx solid #ed5c4d;
+				border-radius: 50%;
+				overflow: hidden;
+				image {
+					width: 100%;
+					height: 100%;
+				}
 			}
 			.university{
 				color:#273253 ;

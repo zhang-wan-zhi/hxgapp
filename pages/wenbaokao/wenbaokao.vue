@@ -2,8 +2,7 @@
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
 		
 		<view class="content_top">
-			<view class="portrait">
-			</view>
+			<view class="user-img"><image :src="bgurl"></image></view>
 			<view class="university">
 				<text>报考推荐</text>
 			</view>
@@ -73,7 +72,8 @@
 				//测试的结果对象
 				Objs:{},
 				// 体验版的状态
-				isTiyan:false
+				isTiyan:false,
+				bgurl:''
 			}
 		},
 		onLoad(objs) {
@@ -83,6 +83,8 @@
 		    this.Objs.stableProp=this.Objs.stableProp.toFixed(2);
 			// console.log(this.Objs.acCode);
 			// console.log(this.Objs.stableProp);
+			let userData=uni.getStorageSync('userData');
+			this.bgurl = userData.userInfo.avatarUrl;
 			this.getWindowHeight();
 		},
 		methods:{	
@@ -145,12 +147,17 @@
 			background-color: #f6f7fb;
 			justify-content: center;
 			align-items: center;
-			.portrait{
-				background-color:#2a17ff ;
-				height: 40px;
-				width: 40px;
-				margin-right: 42rpx;
-				border-radius: 20px;
+			.user-img {
+				width: 80rpx;
+				height: 80rpx;
+				margin-right: 32rpx;
+				border: 2rpx solid #ed5c4d;
+				border-radius: 50%;
+				overflow: hidden;
+				image {
+					width: 100%;
+					height: 100%;
+				}
 			}
 			.university{
 				color:#273253 ;
