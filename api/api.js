@@ -437,7 +437,23 @@ export function getCountComment(artexamId, userId) {
 		})
 	})
 }
-
+//问报考 推荐学校名称
+export function getWenbaokaoList(datas) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/getLuQuBaoKaoAcademy',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: datas,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
 //问录取，输入出概率结果
 export function getWenluquList(datas) {
 	return new Promise((resolve, reject) => {

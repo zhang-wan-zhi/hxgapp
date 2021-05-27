@@ -157,7 +157,7 @@
 			}
 			.university{
 				color:#273253 ;
-				width:230rpx;
+				width:100%;
 				height: 40rpx;
 				font-size: 36rpx;
 				font-weight: bold;

@@ -1,3 +1,4 @@
+<!-- 问录取的问报考提交页面 -->
 <template>
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
 		
@@ -17,33 +18,33 @@
 					<view class="portrait">
 					</view>
 					<view class="university">
-						中国美术学院
+						{{university1}}
 					</view>
 					
 					<view class="major">
-						造型艺术专业
+						{{major1}}
 					</view>
 					<view class="portrait">
 					</view>
 					<view class="university">
-						广州美术学院
+						{{university2}}
 					</view>
 					<view class="major">
-						造型艺术专业
+						{{major2}}
 					</view>
 					<view class="portrait">
 					</view>
 					<view class="university">
-						天津美术学院
+						{{university3}}
 					</view>
 					<view class="major">
-						造型艺术专业
+						{{major3}}
 					</view>
 				</view>
 			</view>
 			<view class="content_center_bottom">
 				<view class="content_center_bottom_foot">
-					升级专业立即一对一名师交流
+					升级会员查看更多
 					<hr style=" margin-left:-78rpx; width: 590rpx; height:2rpx;border:none;border-top:1px dotted #DADBDD;" />
 				</view>
 				<view class="leftsemicircle">
@@ -73,16 +74,26 @@
 				Objs:{},
 				// 体验版的状态
 				isTiyan:false,
-				bgurl:''
+				bgurl:'',
+				university1:'',
+				university2:'',
+				university3:'',
+				major1:'',
+				major2:'',
+				major3:'',
 			}
 		},
-		onLoad(objs) {
-			let arrs=uni.getStorageSync('wenluqu_lists');
-			// console.log(arrs);
-			this.Objs=arrs[0];
-		    this.Objs.stableProp=this.Objs.stableProp.toFixed(2);
+		onLoad() {
+			let arrs=uni.getStorageSync('wenbaokao_lists');
+			console.log(333,arrs);
 			// console.log(this.Objs.acCode);
 			// console.log(this.Objs.stableProp);
+			this.university1 = arrs.bao[0].acName;
+			this.major1=arrs.bao[0].acMajor;
+			this.university2 = arrs.qita[0].acName;
+			this.major2=arrs.qita[0].acMajor;
+			this.university3 = arrs.qita[1].acName;
+			this.major3=arrs.qita[1].acMajor;
 			let userData=uni.getStorageSync('userData');
 			this.bgurl = userData.userInfo.avatarUrl;
 			this.getWindowHeight();
@@ -228,7 +239,7 @@
 				align-items: center;
 				// border: 1px solid red;
 				.content_center_bottom_foot{
-					width: 432rpx ;
+					width: 100%;
 					height: 44rpx ;
 					font-size: 32rpx;
 					font-family: '.PingFang SC';
