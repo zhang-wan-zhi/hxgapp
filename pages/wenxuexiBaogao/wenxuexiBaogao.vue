@@ -53,7 +53,7 @@
 				
 			</view>
 			<view class="content_bottom">
-				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="upgrade">升级查看更多</button>
+				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="upgrade">返回</button>
 			</view>
 		</view>
 		
