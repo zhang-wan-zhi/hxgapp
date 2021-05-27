@@ -201,12 +201,41 @@ export default {
 		}
 	},
 	onLoad() {
+		// 发送会员请求
+		let openid = uni.getStorageSync('openid');
+		if(openid !=''){
+			// 发送请求
+			uni.request({
+				url: 'https://orangezoom.cn:8091/hxg/selectUser',
+				method: 'POST',
+				data: {
+					openid
+				},
+				success(res) {
+					console.log(res)
+					const type = res.data.data.prep2;
+					const deadline = res.data.data.toTime.slice(0, 10);
+					uni.setStorage({
+						key: 'huiyuan',
+						data: {
+							type,
+							deadline
+						}
+					});
+				},
+				fail(res) {
+					uni.showToast({
+						title: '获取会员信息失败',
+						duration: 2000
+					});
+					console.log(res);
+				}
+			});
+		}
 		 // 判断会员状态
 		this.status= uni.getStorageSync('huiyuan').type;
 		console.log('status:'+ this.status);
 		//对退出登录校验
-		let openid = uni.getStorageSync('openid');
-		console.log(openid);
 		if (openid == '') {
 			this.isExitShow = false;
 		} else {
@@ -217,7 +246,21 @@ export default {
 		 // 每次进入页面就会检测会员状态
 		 setTimeout(()=>{
 			  this.status=uni.getStorageSync('huiyuan').type;
+			   console.log(1)
 		 },400)
+		
+		setTimeout(()=>{
+					  this.status=uni.getStorageSync('huiyuan').type;
+					   console.log(1)
+		},1000)
+		setTimeout(()=>{
+					  this.status=uni.getStorageSync('huiyuan').type;
+					   console.log(1)
+		},2000)
+		setTimeout(()=>{
+					  this.status=uni.getStorageSync('huiyuan').type;
+					   console.log(1)
+		},3000)
 		 let openid = uni.getStorageSync('openid');
 		 // console.log(openids);
 		 // 检查会员状态

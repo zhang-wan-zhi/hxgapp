@@ -76,6 +76,7 @@ export default {
 	onLoad(id) {
 		console.log(id);
 		getyikaoTikuList_one_all(id.id).then(res => {
+			console.log(res.data.data);
 			res.data.data.forEach((item, index) => {
 				let obj = {};
 				obj.title = item.content;

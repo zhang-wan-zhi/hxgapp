@@ -7,7 +7,7 @@
 			<text>{{ ' ' + (currentIndex + 1) + '/' + questionList.length }}</text>
 		</view>
 		<view class="questions-box">
-			<view class="list-box" :style="{ top: -currentIndex * 960 + 'rpx' }">
+			<view class="list-box" :style="{ top: -currentIndex * 900 + 'rpx' }">
 				<view class="list" v-for="(item1, index1) in questionList" :key="index1">
 					<!-- 如果是单选题 -->
 					<view v-if="item1.type == 1">
@@ -156,7 +156,7 @@ export default {
 .questions-box {
 	position: relative;
 	width: 100%;
-	height: 960rpx;
+	height: 900rpx;
 	margin-top: 50rpx;
 	overflow: hidden;
 }
@@ -166,7 +166,7 @@ export default {
 	width: 100%;
 }
 .list {
-	height: 960rpx;
+	height: 900rpx;
 	width: 100%;
 }
 .title {

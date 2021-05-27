@@ -30,7 +30,7 @@ export default {
 		//获取收藏的课程
 		new Promise((res,rej)=>{
 			uni.request({
-				url:'http://192.168.3.215:8091/hxg/getColls',
+				url:'https://orangezoom.cn:8091/hxg/getColls',
 				method:'POST',
 				data:{
 					openid

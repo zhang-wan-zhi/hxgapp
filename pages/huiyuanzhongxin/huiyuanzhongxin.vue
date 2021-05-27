@@ -111,6 +111,23 @@ export default {
 			this.memberInfo = uni.getStorageSync('huiyuan');
 			this.userInfo = uni.getStorageSync('userData').userInfo;
 		}, 300);
+		setTimeout(()=>{
+			  this.memberInfo=uni.getStorageSync('huiyuan');
+			  console.log(1)
+		 },400)
+		
+		setTimeout(()=>{
+					  this.memberInfo=uni.getStorageSync('huiyuan');
+					   console.log(1)
+		},1000)
+		setTimeout(()=>{
+					  this.memberInfo=uni.getStorageSync('huiyuan');
+					   console.log(1)
+		},2000)
+		setTimeout(()=>{
+					  this.memberInfo=uni.getStorageSync('huiyuan');
+					   console.log(1)
+		},3000)
 	},
 	methods: {
 		// 轮播图转动时
