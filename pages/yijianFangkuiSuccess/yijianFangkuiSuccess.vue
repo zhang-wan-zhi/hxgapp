@@ -1,6 +1,7 @@
 <template>
 	<view class="success" :style="[{height:phoneHeight+'px'}]">
 		<view class="center">
+			<image src="../../static/img/submitsuccess.png" mode=""></image>
 			<view class="title-one">提交成功</view>
 			<view class="title-two">感谢您的建议和反馈</view>
 		</view>
@@ -56,6 +57,11 @@ export default {
 	transform: translate(-50%, -50%);
 	left: 50%;
 	top: 50%;
+}
+.center image{
+	width: 200rpx;
+	height: 200rpx;
+	margin-bottom: 30rpx;
 }
 .title-one {
 	margin-bottom: 20rpx;

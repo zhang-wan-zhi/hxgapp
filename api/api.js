@@ -563,7 +563,7 @@ export function addCourseComment(data) {
 }
 
 //意见反馈接口
-export function Yijianfankui(openid, opContent) {
+export function Yijianfankui(openid, opContent,opType) {
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/opinionFeedback',
@@ -574,7 +574,8 @@ export function Yijianfankui(openid, opContent) {
 			}, // 请求头
 			data: {
 				openid,
-				opContent
+				opContent,
+				opType
 			},
 			dataType: 'json', // 返回数据格式
 			success: res => {
@@ -657,4 +658,24 @@ export function hasOpenid(){
 	}else{
 		return openid
 	}
+}
+//查询用户信息
+
+export function getMemberInfo(){
+	const openid= uni.getStorageSync('openid');
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url: 'https://orangezoom.cn:8091/hxg/selectUser',
+			method:'POST',
+			data:{
+				openid
+			},
+			success(res) {
+				resolve(res)
+			},
+			fail(res) {
+				 console.log(res);
+			}
+		})
+	})
 }

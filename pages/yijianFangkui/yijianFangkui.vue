@@ -11,6 +11,7 @@
 				@success="uploadSuccess"
 				@fail="fail"
 				@delete="deleteImg"
+				limit='3'
 				:image-styles="imageStyles"
 			/>
 		</view>
@@ -52,23 +53,23 @@ export default {
 			checkedType: '',
 			typeList: [
 				{
-					value: 'bug',
+					value: 1,
 					name: '程序bug'
 				},
 				{
-					value: 'opinion',
+					value: 2,
 					name: '内容意见'
 				},
 				{
-					value: 'function',
+					value: 3,
 					name: '功能意见'
 				},
 				{
-					value: 'report',
+					value: 4,
 					name: '举报'
 				},
 				{
-					value: 'other',
+					value: 5,
 					name: '其他'
 				}
 			]
@@ -76,8 +77,10 @@ export default {
 	},
 	methods: {
 		submits() {
+			console.log(this.imageValue);
 			let openids = uni.getStorageSync('openid');
 			let opContent = this.textAreaValue;
+			let opType=this.checkedType;
 			//如果没有登录
 			if (!openids) {
 				uni.showToast({
@@ -87,14 +90,15 @@ export default {
 				});
 			} else {
 				//如果输入的意见为空
-				if (opContent.trim() === '') {
+				if (opContent.trim() === ''|| opType=='') {
 					uni.showToast({
-						title: '请先输入意见',
+						title: '未输入意见或选择类型',
 						icon: 'none',
 						duration: 2000
 					});
+					 
 				} else {
-					Yijianfankui(openids, opContent).then(res => {
+					Yijianfankui(openids, opContent,opType).then(res => {
 						 console.log(res.data.code);
 						if (res.data.code == 200) {
 							uni.navigateTo({
@@ -116,7 +120,6 @@ export default {
 		// 图片上传成功时
 		uploadSuccess(e) {
 			console.log('e', e);
-			console.log(this.imageValue);
 		},
 		// 删除图片时
 		deleteImg(e) {
