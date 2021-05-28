@@ -1,16 +1,15 @@
 <template>
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
-		
+		<view class="leftsemicircle">
+		</view>
+		<view class="rightsemicircle">
+		</view>
 		<view class="content_top">
 			<view class="user-img">
 				<image src="../../static/img/hubeimeishu.jpg"></image>
 				</view>
 			<view class="university">
 				<text>{{Objs.acName}}</text>
-			</view>
-			<view class="leftsemicircle">
-			</view>
-			<view class="rightsemicircle">
 			</view>
 		</view>
 		<view class="content_center">
@@ -126,8 +125,8 @@
 			height: 20px;
 			width: 20px;
 			border-radius: 10px;
-			margin-left: 668rpx;
-			margin-top: 154rpx;
+			margin-left: 650rpx;
+			margin-top: 130rpx;
 		}
 		.rightsemicircle{
 			position: absolute;
@@ -135,8 +134,8 @@
 			height: 20px;
 			width: 20px;
 			border-radius: 10px;
-			margin-top: 154rpx;
-			margin-left: -668rpx;
+			margin-top: 130rpx;
+			margin-left: -20rpx;
 		}
 		.content_top{
 			width: 670rpx;
@@ -164,6 +163,7 @@
 				font-weight: bold;
 				line-height: 40rpx;
 			}
+			
 			
 			
 		}
