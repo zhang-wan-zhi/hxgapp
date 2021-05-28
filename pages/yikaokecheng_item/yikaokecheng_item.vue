@@ -178,16 +178,8 @@ export default {
 		//艺考课程
 		yikaokecheng_click(id) {
 			// console.log(id);
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '../yikaokecheng_item/yikaokecheng_item?ids=' + id
-			});
-		},
-		//获取窗口高度，适配手机
-		getWindowHeight() {
-			uni.getSystemInfo({
-				success: res => {
-					this.phoneHeight = res.windowHeight;
-				}
 			});
 		},
 		// 展开、收起
@@ -430,9 +422,6 @@ export default {
 		}
 	},
 	async onLoad(id) {
-		//获取窗口高度，适配手机
-		this.getWindowHeight();
-		console.log('onload');
 		//获取指定艺考课程的数据
 		await getyikaoKechengList_one(id.ids).then(res => {
 			console.log('页面数据', res.data.hxgArtexam);

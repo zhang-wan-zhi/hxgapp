@@ -232,22 +232,6 @@ export function getyikaoTikuList_one_one(quId) {
 	})
 }
 
-//获取艺考课程列表数据
-// export function getyikaoKechengList(){
-// 	return new Promise((resolve,reject)=>{
-// 		uni.request({
-// 			url:urls+'/hxg/getArtExams',
-// 			method: 'GET',
-// 			contentType: 'application/json;charset=UTF-8',
-// 			success: res=>{
-// 				resolve(res)
-// 			},
-// 			fail: err=>{
-// 				reject(err)
-// 			},
-// 		})
-// 	})
-// }
 
 
 //艺考动态列表查看更多
@@ -272,28 +256,6 @@ export function getmoreList(sousuoTyoe, currentPage, pageSize) {
 	})
 }
 
-//艺考动态列表搜索
-export function getmoreList1(aedTitle, sousuoTyoe, currentPage, pageSize) {
-	return new Promise((resolve, reject) => {
-		uni.request({
-			url: urls + '/hxg/getArtexamdynamicList',
-			method: 'POST',
-			contentType: 'application/json;charset=UTF-8',
-			data: {
-				"ssTile": aedTitle,
-				"sousuoTyoe": sousuoTyoe,
-				"currentPage": currentPage,
-				"pageSize": pageSize
-			},
-			success: res => {
-				resolve(res)
-			},
-			fail: err => {
-				reject(err)
-			},
-		})
-	})
-}
 
 //艺考动态列表,点击艺考动态列表的某一项
 export function getyikaoDongtaiList_one(id) {

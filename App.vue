@@ -16,4 +16,8 @@
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
 @import 'style/iconfont.css';
+
+@font-face {
+  font-family: mFont;
+}
 </style>
