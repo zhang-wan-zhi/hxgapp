@@ -47,7 +47,7 @@
 			</view>
 			<view class="content_center_bottom">
 				<view class="content_center_bottom_foot">
-					<hr style=" margin-left:-78rpx; width: 590rpx; height:2rpx;border:none;border-top:1px dotted #DADBDD;" />
+					<hr style=" margin-left:-78rpx;margin-top: 45rpx; width: 590rpx; height:2rpx;border:none;border-top:1px dotted #DADBDD;" />
 				</view>
 				<view class="leftsemicircle">
 				</view>
@@ -139,6 +139,7 @@
 			height: 152rpx;
 			display: flex;
 			background-color: #f6f7fb;
+			justify-content: center;
 			align-items: center;
 			.user-img {
 				width: 104rpx;
@@ -154,7 +155,6 @@
 			}
 			.university{
 				color:#273253 ;
-				width:342rpx;
 				height: 50rpx;
 				font-size: 36rpx;
 				font-weight: bold;
@@ -168,7 +168,7 @@
 				height: 20px;
 				width: 20px;
 				border-radius: 10px;
-				margin-left: 650rpx;
+				margin-left: 665rpx;
 				margin-top: 154rpx;
 			}
 			.rightsemicircle{
@@ -178,7 +178,7 @@
 				width: 20px;
 				border-radius: 10px;
 				margin-top: 154rpx;
-				margin-left: -20rpx;
+				margin-left: -665rpx;;
 			}
 			
 			

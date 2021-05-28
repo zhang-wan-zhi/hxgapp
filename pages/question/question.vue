@@ -133,7 +133,25 @@ export default {
 		// 提交
 		submit() {
 			console.log(this.questionList);
-
+			// 判断是否登录
+						let openid = uni.getStorageSync('openid')
+						if(openid == ''){
+							uni.showModal({
+							    title: '提示',
+							    content: '请您先去登录，然后开始测试',
+							    success: function (res) {
+										if (res.confirm) {
+											console.log('用户点击确定');
+											uni.reLaunch({
+											            url:"../gerenzhongxin/gerenzhongxin"
+											        })
+										} else if (res.cancel) {
+											console.log('用户点击取消');
+										}
+									}
+							});
+							return false;
+						};
 			// 判断是否有题目未作答
 			let flag = false;
 			this.questionList.forEach((item, index) => {
