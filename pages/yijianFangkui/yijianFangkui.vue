@@ -3,15 +3,13 @@
 		<view class="opinion">
 			<textarea type="text" :placeholder="placeholders" v-model="textAreaValue" class="content" @focus="getFocus" @blur="getBlur" placeholder-style="color:#bbb;"></textarea>
 			<uni-file-picker
-				v-model="imageValue"
 				fileMediatype="image"
 				mode="grid"
-				@select="select"
 				@progress="progress"
 				@success="uploadSuccess"
 				@fail="fail"
 				@delete="deleteImg"
-				limit='3'
+				limit="3"
 				:image-styles="imageStyles"
 			/>
 		</view>
@@ -37,7 +35,8 @@ export default {
 			placeholders: '请输入您想反馈的问题....',
 			textAreaValue: '',
 			// 图片列表
-			imageValue: [],
+			imageList: [],
+			uploadImg:['','',''],
 			imageStyles: {
 				width: 100,
 				height: 100,
@@ -77,7 +76,13 @@ export default {
 	},
 	methods: {
 		submits() {
-			console.log(this.imageValue);
+			// 把图片取出来
+			this.imageList.forEach((item,index)=>{
+				this.uploadImg[index]=item.url;
+			})
+			let img1=this.uploadImg[0];
+			let img2=this.uploadImg[1];
+			let img3=this.uploadImg[2];
 			let openids = uni.getStorageSync('openid');
 			let opContent = this.textAreaValue;
 			let opType=this.checkedType;
@@ -96,12 +101,12 @@ export default {
 						icon: 'none',
 						duration: 2000
 					});
-					 
+
 				} else {
-					Yijianfankui(openids, opContent,opType).then(res => {
+					Yijianfankui(openids, opContent,opType,img1,img2,img3).then(res => {
 						 console.log(res.data.code);
 						if (res.data.code == 200) {
-							uni.navigateTo({
+							uni.redirectTo({
 								url: '../yijianFangkuiSuccess/yijianFangkuiSuccess'
 							});
 						}
@@ -119,19 +124,47 @@ export default {
 		},
 		// 图片上传成功时
 		uploadSuccess(e) {
-			console.log('e', e);
+			console.log('e:',e)
+			const filePaths = e.tempFiles[0].image.location;
+			const fileName = e.tempFiles[0].name;
+			      new Promise((reslove,reject)=>{
+						uni.uploadFile({
+						    url: 'https://orangezoom.cn:8091/hxg/upFile',
+						    filePath: filePaths,
+						    name: 'file',
+						    success: (res) => {
+						        reslove(res)
+						    },
+							fail(res) {
+							 reject(res)
+							}
+						})
+					})
+					.then((res)=>{
+					 res=JSON.parse(res.data)
+					 console.log(res);
+					 let obj={};
+					 obj.url=res.path;
+					 obj.name=fileName;
+					 this.imageList.push(obj);
+					 console.log(this.imageList)
+					})
 		},
 		// 删除图片时
 		deleteImg(e) {
-			console.log('e', e);
-			console.log(this.imageValue);
+			let name=e.tempFile.name;
+			let index=this.imageList.findIndex((item,index)=>{
+				return item.fileName=name;
+			})
+			// console.log(index)
+			this.imageList.splice(index,1);
 		},
 		// 点击选择类型时
 		check(index) {
 			this.currentIndex = index;
 			this.checkedType = this.typeList[index].value;
 			console.log(this.checkedType);
-		}
+		},
 	}
 };
 </script>
@@ -200,7 +233,7 @@ export default {
 	border-radius: 24px;
 	font-size: 18px;
 	font-weight: 400;
-	color: #FFFFFF;
+	color: #ffffff;
 	letter-spacing: 5px;
 }
 </style>

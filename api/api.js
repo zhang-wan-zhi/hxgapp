@@ -563,19 +563,18 @@ export function addCourseComment(data) {
 }
 
 //意见反馈接口
-export function Yijianfankui(openid, opContent,opType) {
+export function Yijianfankui(openid, opContent,opType,opImg1,opImg2,opImg3) {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/hxg/opinionFeedback',
+			url: urls + '/hxg/opinionFeedbackAndtupian',
 			method: 'POST',
-			// contentType: 'application/json;charset=UTF-8',
-			header: {
-				"Content-Type": "application/x-www-form-urlencoded"
-			}, // 请求头
 			data: {
 				openid,
 				opContent,
-				opType
+				opType,
+				opImg1,
+				opImg2,
+				opImg3
 			},
 			dataType: 'json', // 返回数据格式
 			success: res => {

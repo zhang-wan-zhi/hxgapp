@@ -190,19 +190,11 @@ export default {
 		let currentPage = this.currentPage;
 		let pageSize = 4;
 		currentPage = currentPage + 1;
-		uni.showLoading({
-			title: '加载更多中'
-		});
 		getmoreList(sousuoTyoe, currentPage, pageSize).then(res => {
 			console.log(res.data.artexamdynamicList);
 			// console.log(res.data.msg);
 			if (res.data.msg == '页码超出了哦!') {
-				uni.showToast({
-					title: '页码超出了哦!',
-					icon: 'none',
-					duration: 2000
-				});
-				// return res.data.msg;
+				return false
 			} else {
 				this.yikaoDongtaiList = this.yikaoDongtaiList.concat(res.data.artexamdynamicList);
 				this.currentPage = currentPage;
@@ -212,9 +204,6 @@ export default {
 				});
 			}
 		});
-		setTimeout(function() {
-			uni.hideLoading();
-		}, 2000);
 	},
 	methods: {
 		swierChange(e) {
