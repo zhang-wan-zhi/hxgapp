@@ -8,6 +8,9 @@
 //线上地址
 let urls = "https://orangezoom.cn:8091";
 
+// 垃圾张泽森的接口
+/* let urls="http://192.168.3.215:8091"; */
+
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
 	return new Promise((resolve, reject) => {
@@ -421,13 +424,31 @@ export function getZhuanhye(acName) {
 }
 
 // 查询用户课程评论列表
-export function getCountComment(artexamId, userId) {
+export function getCountComment(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/hxg/comment/list?artexamId=' + artexamId + '&userId=' + userId,
-			method: 'GET',
+			url: urls + '/ht/comment/parent',
+			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			// data:datas,
+			data:data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 查询二级评论
+export function getCommentChildren(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/ht/comment/children',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:data,
 			success: res => {
 				resolve(res)
 			},
@@ -532,7 +553,7 @@ export function getLikeInfo(data) {
 export function addCourseComment(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/hxg/comment',
+			url: urls + '/ht/comment',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data: data,
