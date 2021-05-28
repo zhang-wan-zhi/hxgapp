@@ -9,7 +9,7 @@
 let urls = "https://orangezoom.cn:8091";
 
 // 垃圾张泽森的接口
-/* let urls="http://192.168.3.215:8091"; */
+/* let urls="http://192.168.3.215:8091"; */ 
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
@@ -109,6 +109,29 @@ export function getyikaoDongtaiList() {
 				resolve(res)
 			},
 			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+//艺考动态列表搜索
+export function getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getArtexamdynamicList',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				"ssTile": aedTitle,
+				"sousuoTyoe":sousuoTyoe,
+				"currentPage": currentPage,
+				"pageSize": pageSize
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
 				reject(err)
 			},
 		})

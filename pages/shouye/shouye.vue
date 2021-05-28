@@ -37,7 +37,7 @@
 				</view>
 			</view>
 
-			<button class="to-service" open-type="contact">
+			<button class="to-service" open-type="contact" >
 				<view class="accurate">
 					<view class="test-logo-two "><image src="../../static/img/firstIcon/accurate.png" mode=""></image></view>
 					<view class="test-title">
@@ -187,7 +187,7 @@ export default {
 		let sousuoType = this.sousuoType;
 		let currentPage = this.currentPage;
 		let pageSize = 4;
-		currentPage = currentPage + 1;
+		currentPage++;
 		getmoreList(sousuoType, currentPage, pageSize).then(res => {
 			console.log(res);
 			if (res.data.code===200) {
@@ -215,6 +215,7 @@ export default {
 				this.zhenti_next(id);
 			}
 		},
+		
 		//获取艺考动态列表数据
 		getyikaoDongtaiLists() {
 			getyikaoDongtaiList().then(res => {
