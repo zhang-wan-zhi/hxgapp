@@ -57,11 +57,11 @@
 				</view>
 				<view class="dct-title divider-line" @click="yikaoKecheng" :class="isactive1 ? 'isActive' : ''">
 					<image src="../../static/img/firstIcon/class.png" mode=""></image>
-					<text>课程</text>
+					<text>视频</text>
 				</view>
 				<view class="dct-title" @click="yikaiTiku" :class="isactive2 ? 'isActive' : ''">
 					<image src="../../static/img/firstIcon/question.png"></image>
-					<text>题库</text>
+					<text>测试</text>
 				</view>
 			</view>
 			<!-- 艺考动态列表 -->
