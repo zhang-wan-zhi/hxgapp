@@ -31,7 +31,7 @@
 							</view>
 						</view>
 						<view class="handle" v-show="memberInfo.type == 1">
-							<view class="renew" v-show="memberInfo.type == 1">立即续费</view>
+							<view class="renew" v-show="memberInfo.type == 1" @click="delayTwo">立即续费</view>
 							<view class="renew" style="margin-left: 40rpx;" v-show="false">升级会员</view>
 						</view>
 					</view>
@@ -85,7 +85,8 @@
 </template>
 
 <script>
-import { getMemberInfo } from '../../api/api.js';
+import { getMemberInfo} from '../../api/api.js';
+import { charge,renewal,getProviderInfo} from '../../api/member.js';
 export default {
 	data() {
 		return {
@@ -150,16 +151,14 @@ export default {
 		setTimeout(() => {
 			this.memberInfo = uni.getStorageSync('huiyuan');
 			this.userInfo = uni.getStorageSync('userData').userInfo;
-		}, 300);
+		}, 500);
 	},
 	methods: {
 		// 轮播图转动时
 		swierChange(obj) {
 			this.touch = true;
 			this.currentIndex = obj.detail.current;
-			console.log(this.currentIndex);
-			this.userInfo = uni.getStorageSync('userData').userInfo;
-			this.userInfo;
+			// console.log(this.currentIndex);
 		},
 		//专业会员支付功能
 		async toCostOne() {
@@ -172,68 +171,18 @@ export default {
 				});
 				return false;
 			}
-			// 获取用户openID
-			const oOpenid = uni.getStorageSync('openid');
-			uni.showLoading({
-				title: '请求中'
-			});
-			console.log(oOpenid);
-			// 向后端发送订单数据
-			const res1 = await new Promise((resolve, reject) => {
-				uni.request({
-					url: 'https://orangezoom.cn:8091/hxg/pay/orders',
-					method: 'POST',
-					contentType: 'application/json;charset=UTF-8',
-					data: {
-						oOpenid,
-						oProductid: '2',
-						money: '0.02'
-					},
-					success: res => {
-						resolve(res.data.wixinPay);
-						// console.log(res);
-					},
-					fail: err => {
-						reject(err);
-						// console.log(err);
-						uni.hideLoading();
-						uni.showToast({
-							title: '服务器端出错',
-							duration: 2000
-						});
-					}
-				});
-			});
-			// 获取provider
-			const provider = await new Promise((resolve, reject) => {
-				uni.getProvider({
-					service: 'payment',
-					success(res) {
-						// console.log(res);
-						resolve(res.provider[0]);
-					},
-					fail(res) {
-						// console.log(res);
-						reject(res);
-						uni.hideLoading();
-						uni.showToast({
-							title: '服务器端出错',
-							duration: 2000
-						});
-					}
-				});
-			});
-			// console.log(provider)
-			// 获取参数信息
-			const timeStamp = res1.timeStamp;
-			const orderInfo = res1.product_id;
-			const nonceStr = res1.nonceStr;
-			const packages = res1.package;
-			const signType = res1.signType;
-			const paySign = res1.paySign;
-			console.log(timeStamp, orderInfo, nonceStr, packages, signType, paySign);
-			// 发起支付
-			uni.hideLoading();
+			// 获取充值信息
+			let res=await charge(2,0.02);
+			console.log(res)
+			let timeStamp = res.timeStamp;
+			let orderInfo = res.product_id;
+			let nonceStr = res.nonceStr;
+			let packages = res.package;
+			let signType = res.signType;
+			let paySign = res.paySign;
+			//获取provider
+			let provider= await getProviderInfo();
+			// 调用支付接口
 			uni.requestPayment({
 				provider,
 				timeStamp,
@@ -263,65 +212,83 @@ export default {
 				});
 				return false;
 			}
-			// 获取用户openID
-			uni.showLoading({
-				title: '支付请求中'
+			// 获取充值信息
+			let res=await renewal(1,0.01);
+			// console.log(res)
+			let timeStamp = res.timeStamp;
+			let orderInfo = res.product_id;
+			let nonceStr = res.nonceStr;
+			let packages = res.package;
+			let signType = res.signType;
+			let paySign = res.paySign;
+			//获取provider
+			let provider= await getProviderInfo();
+			// 调用支付接口
+			uni.requestPayment({
+				provider,
+				timeStamp,
+				nonceStr,
+				signType,
+				paySign,
+				orderInfo,
+				package: packages,
+				success(res) {
+					uni.redirectTo({
+						url: '../huiyuanzhongxin/huiyuanzhongxin?key=0'
+					});
+				},
+				fail(res) {
+					console.log(res);
+				}
 			});
-			const oOpenid = uni.getStorageSync('openid');
-			console.log(oOpenid);
-			// 向后端发送订单数据
-			const res1 = await new Promise((resolve, reject) => {
-				uni.request({
-					url: 'https://orangezoom.cn:8091/hxg/pay/orders',
-					method: 'POST',
-					contentType: 'application/json;charset=UTF-8',
-					data: {
-						oOpenid,
-						oProductid: '1',
-						money: '0.01'
-					},
-					success: res => {
-						resolve(res.data.wixinPay);
-						console.log(res);
-					},
-					fail: err => {
-						uni.hideLoading();
-						uni.showToast({
-							title: '服务器端出错',
-							duration: 2000
-						});
-						reject(err);
-						// console.log(err);
-					}
-				});
+			
+		},
+		// 专业会员续费
+		async delayOne() {
+			// 获取充值信息
+			let res=await renewal(2,0.02);
+			// console.log(res)
+			let timeStamp = res.timeStamp;
+			let orderInfo = res.product_id;
+			let nonceStr = res.nonceStr;
+			let packages = res.package;
+			let signType = res.signType;
+			let paySign = res.paySign;
+			//获取provider
+			let provider= await getProviderInfo();
+			// 调用支付接口
+			uni.requestPayment({
+				provider,
+				timeStamp,
+				nonceStr,
+				signType,
+				paySign,
+				orderInfo,
+				package: packages,
+				success(res) {
+					uni.redirectTo({
+						url: '../huiyuanzhongxin/huiyuanzhongxin?key=0'
+					});
+				},
+				fail(res) {
+					console.log(res);
+				}
 			});
-			// 获取后端返回结果
-			console.log(res1);
-			// 获取provider
-			const provider = await new Promise((resolve, reject) => {
-				uni.getProvider({
-					service: 'payment',
-					success(res) {
-						console.log(res);
-						resolve(res.provider[0]);
-					},
-					fail(res) {
-						console.log(res);
-						reject(res);
-					}
-				});
-			});
-			// console.log(provider)
-			// 获取参数信息
-			const timeStamp = res1.timeStamp;
-			const orderInfo = res1.product_id;
-			const nonceStr = res1.nonceStr;
-			const packages = res1.package;
-			const signType = res1.signType;
-			const paySign = res1.paySign;
-			console.log(timeStamp, orderInfo, nonceStr, packages, signType, paySign);
-			// 发起支付
-			uni.hideLoading();
+		},
+		// 普通会员续费
+		async delayTwo(){
+			// 获取充值信息
+		    let res=await renewal(1,0.01);
+			// console.log(res)
+			let timeStamp = res.timeStamp;
+			let orderInfo = res.product_id;
+			let nonceStr = res.nonceStr;
+			let packages = res.package;
+			let signType = res.signType;
+			let paySign = res.paySign;
+			//获取provider
+			let provider= await getProviderInfo();
+			// 调用支付接口
 			uni.requestPayment({
 				provider,
 				timeStamp,
@@ -337,106 +304,8 @@ export default {
 				},
 				fail(res) {
 					console.log(res);
-					uni.showToast({
-						title: '支付失败',
-						icon: 'none',
-						duration: 2000
-					});
 				}
 			});
-		},
-		// 专业会员续费
-		delayOne() {
-			// 获取用户openid
-			const oOpenid = uni.getStorageSync('openid');
-			uni.showLoading({
-				title: '请求中'
-			});
-			// 获取provider
-			let provider = null;
-			new Promise((resolve, reject) => {
-				uni.getProvider({
-					service: 'payment',
-					success(res) {
-						// console.log(res);
-						resolve(res.provider[0]);
-					},
-					fail(res) {
-						// console.log(res);
-						reject(res);
-						uni.hideLoading();
-						uni.showToast({
-							title: '服务器端出错',
-							duration: 2000
-						});
-					}
-				});
-			}).then(res => {
-				provider = res;
-			});
-			// 向后端发送请求数据
-			new Promise((resolve, reject) => {
-				uni.request({
-					url: 'https://orangezoom.cn:8091/hxg/pay/ordersForContinue',
-					method: 'POST',
-					contentType: 'application/json;charset=UTF-8',
-					data: {
-						oOpenid,
-						oProductid: '2',
-						money: '0.02'
-					},
-					success: res => {
-						resolve(res.data.wixinPay);
-						// console.log(res);
-					},
-					fail: err => {
-						reject(err);
-						// console.log(err);
-						uni.hideLoading();
-						uni.showToast({
-							title: '服务器端出错',
-							duration: 2000
-						});
-					}
-				});
-			})
-				.then(res => {
-					const timeStamp = res.timeStamp;
-					const orderInfo = res.product_id;
-					const nonceStr = res.nonceStr;
-					const packages = res.package;
-					const signType = res.signType;
-					const paySign = res.paySign;
-					uni.hideLoading();
-					// 发起支付
-					return new Promise((resolve, reject) => {
-						uni.requestPayment({
-							provider,
-							timeStamp,
-							nonceStr,
-							signType,
-							paySign,
-							orderInfo,
-							package: packages,
-							success(res) {
-								resolve(res);
-							},
-							fail(res) {
-								reject();
-								uni.showToast({
-									title: '支付失败',
-									icon: 'none',
-									duration: 2000
-								});
-							}
-						});
-					});
-				})
-				.then(res => {
-					uni.redirectTo({
-						url: '../huiyuanzhongxin/huiyuanzhongxin?key=0'
-					});
-				});
 		}
 	}
 };
