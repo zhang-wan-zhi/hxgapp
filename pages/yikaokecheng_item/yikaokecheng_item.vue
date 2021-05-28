@@ -29,6 +29,8 @@
 				</view>
 				<view>
 					<image src="../../static/icon/kecheng/fenxiang.png" mode=""></image>
+					<!-- <text>分享</text> -->
+					<button open-type="share" class="share-btn">分享</button>
 					<text>分享</text>
 				</view>
 			</view>
@@ -59,57 +61,57 @@
 		<!-- 评论 -->
 		<uni-popup ref="popup" type="bottom" class="popup-comment">
 			<view class="pinglun">
-				<view class="comment-num">{{commentLength == 0 ? '快来评论吧~' : commentLength + '条评论'}}</view>
-				<scroll-view scroll-y="true" style="height: 600rpx;">
-					<view class="comment-item-main" v-for="item in commentLists" :key="item.id" :id="item.id">
+				<view class="comment-num">{{ commentLength == 0 ? '快来评论吧~' : commentLength + '条评论' }}</view>
+				<scroll-view scroll-y="true" style="height: 660rpx;" @scrolltolower="lower">
+					<view class="comment-item-main" v-for="(item, index) in commentLists" :key="item.id" :id="index">
 						<view class="comment-item">
-							<view class="left"><image :src="item.userImg" class="img"></image></view>
+							<view class="left"><image :src="item.avatar" class="img"></image></view>
 							<view class="content">
-								<view class="title-name">{{ item.userNickName }}</view>
+								<view class="title-name">{{ item.nickname }}</view>
 								<view class="content-text">
-									<text>{{ item.commentContent }}</text>
+									<text>{{ item.content }}</text>
 								</view>
 								<view class="content-btm">
-									<text>{{item.addTime}}</text>
-									<text class="btm-back" @click="replyComment(item.userNickName, item.id, 'second')">回复</text>
+									<text>{{ item.addTime }}</text>
+									<text class="btm-back" @click="replyComment(item.nickname, item.id, 'second', index)">回复</text>
 								</view>
 							</view>
 							<view class="right">
-								<view class="img-like" @click="commentLike(item.id)">
+								<view class="img-like" @click="commentLike(item)">
 									<image src="../../static/icon/kecheng/aixin.png" v-if="item.isLike == 0"></image>
 									<image src="../../static/icon/kecheng/aixin3.png" v-else></image>
-									<text class="comment-like-num">{{ item.likeCount == 0 ? '' : item.likeCount }}</text>
+									<text class="comment-like-num">{{ item.likeNums == 0 || item.likeNums == null ? '' : item.likeNums }}</text>
 								</view>
 							</view>
 						</view>
 						<view v-if="showReplyList.indexOf(item.id) !== -1">
 							<view class="comment-item items" v-for="reply in item.children" :key="reply.id">
-								<view class="left"><image :src="reply.userImg" class="img"></image></view>
+								<view class="left"><image :src="reply.avatar" class="img"></image></view>
 								<view class="content">
 									<view class="title-name">
-										<view>{{ reply.userNickName }}</view>
-										<view v-if="reply.rootCommentId">回复</view>
-										<view v-if="reply.rootCommentId">{{ reply.superUserId }}</view>
+										<view>{{ reply.nickname }}</view>
+										<view v-if="reply.rootId">回复</view>
+										<view v-if="reply.rootId">{{ reply.rootId }}</view>
 									</view>
 									<view class="content-text">
-										<text>{{ reply.commentContent }}</text>
+										<text>{{ reply.content }}</text>
 									</view>
 									<view class="content-btm">
-										<text>{{reply.addTime}}</text>
-										<text class="btm-back" @click="replyComment(reply.userNickName, item.id, 'third')">回复</text>
+										<text>{{ reply.addTime }}</text>
+										<text class="btm-back" @click="replyComment(reply.nickname, reply.parentId, 'third', index)">回复</text>
 									</view>
 								</view>
 								<view class="right">
-									<view class="img-like" @click="commentLike(reply.id)">
-										<image src="../../static/icon/kecheng/aixin.png" v-if="reply.isLike == 0"></image>
+									<view class="img-like" @click="commentLike2(reply)">
+										<image src="../../static/icon/kecheng/aixin.png" v-if="reply.isLike == 0 || reply.isLike == null"></image>
 										<image src="../../static/icon/kecheng/aixin3.png" v-else></image>
-										<text class="comment-like-num">{{ reply.likeCount == 0 ? '' : reply.likeCount }}</text>
+										<text class="comment-like-num">{{ reply.likeNums == 0 || reply.likeNums == null ? '' : reply.likeNums }}</text>
 									</view>
 								</view>
 							</view>
 						</view>
-						<view class="spread" v-if="item.children.length > 0" @click="isShowReply(item.id)">
-							<text>{{ showReplyList.indexOf(item.id) !== -1 ? '收起' : '展开' + item.children.length + '条回复' }}</text>
+						<view class="spread" v-if="item.nums > 0" @click="isShowReply(item.id, index)">
+							<text>{{ showReplyList.indexOf(item.id) !== -1 ? '收起' : '展开' + item.nums + '条回复' }}</text>
 							<text :class="showReplyList.indexOf(item.id) !== -1 ? 'up' : 'down'"></text>
 						</view>
 					</view>
@@ -124,7 +126,17 @@
 </template>
 
 <script>
-import { getyikaoKechengList_one, getyikaoKechengList, getLikeCountAdd, addCourseComment, getLikeInfo, addCollect, getCountComment, addCommentLike } from '../../api/api.js';
+import {
+	getyikaoKechengList_one,
+	getyikaoKechengList,
+	getLikeCountAdd,
+	addCourseComment,
+	getLikeInfo,
+	addCollect,
+	getCountComment,
+	addCommentLike,
+	getCommentChildren,
+} from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -154,7 +166,11 @@ export default {
 			showReplyComment: '',
 			tier: null,
 			showReplyList: [],
-			commentLength: ''
+			commentLength: '',
+			currentPage: 1,
+			isLower: false,
+			CommentIndex: '',
+			isLogin: false
 		};
 	},
 
@@ -175,9 +191,17 @@ export default {
 			});
 		},
 		// 展开、收起
-		isShowReply(id) {
+		isShowReply(id, index) {
 			if (this.showReplyList.indexOf(id) == -1) {
-				this.showReplyList.push(id);
+				let data = {
+					artexamId: this.yikaoKechengList_one.aeId,
+					parentId: id
+				};
+				getCommentChildren(data).then(res => {
+					console.log(res);
+					this.commentLists[index].children = res.data.data;
+					this.showReplyList.push(id);
+				});
 			} else {
 				let index = this.showReplyList.indexOf(id);
 				this.showReplyList.splice(index, 1);
@@ -185,6 +209,14 @@ export default {
 		},
 		//点击收藏图标触发
 		click_shouchang() {
+			if (!this.isLogin) {
+				uni.showToast({
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return;
+			}
 			this.isShouchang = !this.isShouchang;
 			let data = {
 				collArtexamid: this.yikaoKechengList_one.aeId,
@@ -196,6 +228,14 @@ export default {
 		},
 		//点击点赞图标触发
 		click_dianzan() {
+			if (!this.isLogin) {
+				uni.showToast({
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return;
+			}
 			this.isDianzan = !this.isDianzan;
 			console.log(this.yikaoKechengList_one.aeId);
 			let data = {
@@ -207,115 +247,172 @@ export default {
 				this.likeCount = res.data.artLike.likeCount;
 			});
 		},
-		commentLike(id) {
+		commentLike(item) {
+			console.log('item', item);
 			let data = {
 				likecount: uni.getStorageSync('openid'),
-				commentId: id
+				commentId: item.id
 			};
 			addCommentLike(data).then(res => {
 				console.log('评论点赞', res);
-				this.open();
+				if (item.isLike == 1) {
+					item.isLike = 0;
+					item.likeNums = item.likeNums - 1;
+					console.log('item取消赞', item);
+				} else {
+					item.isLike = 1;
+					item.likeNums = item.likeNums + 1;
+					console.log('item加赞', item);
+				}
 			});
 		},
-		// 评论
-		open() {
-			// 通过组件定义的ref调用uni-popup方法 ,如果传入参数 ，type 属性将失效 ，仅支持 ['top','left','bottom','right','center']
-			let id = this.yikaoKechengList_one.aeId;
-			let userId = uni.getStorageSync('openid');
-			getCountComment(id,userId).then(res => {
-				console.log('返回数据',res);
-				this.commentLength = res.data.rows.length
-				/* this.commentLists = res.data.rows; */
-				this.commentLists = this.invertTree(res.data.rows);
-				console.log('更改数组', this.commentLists);
-				this.$refs.popup.open('bottom');
-				
+		commentLike2(item) {
+			let data = {
+				likecount: uni.getStorageSync('openid'),
+				commentId: item.id
+			};
+			addCommentLike(data).then(res => {
+				if (item.isLike == 1) {
+					item.isLike = 0;
+					item.likeNums = item.likeNums - 1;
+					this.$forceUpdate();
+				} else {
+					item.isLike = 1;
+					item.likeNums = item.likeNums + 1;
+					this.$forceUpdate();
+				}
 			});
+		},
+		// 获取评论列表
+		getCommentList() {
+			return new Promise((resolve, reject) => {
+				let data = {
+					artexamId: this.yikaoKechengList_one.aeId,
+					openId: uni.getStorageSync('openid'),
+					pageSize: 20,
+					pageNum: this.currentPage
+				};
+				getCountComment(data).then(res => {
+					resolve(res);
+				});
+			});
+		},
+		// 点击评论
+		async open() {
+			this.currentPage = 1;
+			this.isLower = false;
+			this.showReplyList = [];
+			// 初始化数据结束
+			this.$refs.popup.open('bottom');
+			console.log('打开页面111');
+			let res = await this.getCommentList();
+			console.log('返回数据2222', res);
+			this.commentLength = res.data.total;
+			this.commentLists = res.data.row;
+		},
+		async lower() {
+			if (this.isLower) {
+				return;
+			} else {
+				this.currentPage = this.currentPage + 1;
+				let res = await this.getCommentList();
+				console.log('无语了', res);
+				if (res.data.code == 204) {
+					this.isLower = true;
+				}
+			}
 		},
 		// 回复评论
-		replyComment(userNickName, id, tier) {
+		replyComment(userNickName, id, tier, index) {
+			console.log('index', index);
 			this.iptFocus = true;
 			this.placeholderComment = '回复@' + userNickName;
 			this.CommentId = id;
 			this.superUserId = userNickName;
 			this.tier = tier;
+			this.CommentIndex = index;
 		},
 		// 发送评论
-		sendCourseComment(id, superUserId, tier) {
-			var myDate = new Date();
-			console.log('当前时间', myDate);
+		async sendCourseComment(id, superUserId, tier) {
+			if (!this.isLogin) {
+				uni.showToast({
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return;
+			}
+			let myDate = new Date();
+			let { avatarUrl, nickName } = uni.getStorageSync('userData').userInfo;
 			if (tier == 'second') {
-				var data = {
-					addTime: myDate,
+				let data = {
+					avatar: avatarUrl,
+					nickname: nickName,
 					artexamId: this.yikaoKechengList_one.aeId,
-					commentContent: this.commentText,
-					userId: uni.getStorageSync('openid'),
-					superCommentId: id ? id : null,
-					superUserId: superUserId ? superUserId : null
+					content: this.commentText,
+					nickId: uni.getStorageSync('openid'),
+					parentId: id
 				};
+				let res = await this.sendCommentRequest(data);
+				console.log('获取res', res);
+				this.commentLists[this.CommentIndex].nums = this.commentLists[this.CommentIndex].nums + 1;
+				this.showReplyList.push(id);
+				if (!this.commentLists[this.CommentIndex].children) {
+					this.commentLists[this.CommentIndex].children = new Array();
+				}
+				this.commentLists[this.CommentIndex].children.push(res.data.data);
+				this.clearCommentData();
+				/* this.commentLists[this.CommentIndex].children.push(res.data);
+				this.commentLength = this.commentLength + 1;
+				this.clearCommentData(); */
 			} else if (tier == 'third') {
 				var data = {
-					addTime: myDate,
+					avatar: avatarUrl,
+					nickname: nickName,
 					artexamId: this.yikaoKechengList_one.aeId,
-					commentContent: this.commentText,
-					userId: uni.getStorageSync('openid'),
-					rootCommentId: id ? id : null,
-					superCommentId: id ? id : null,
-					superUserId: superUserId ? superUserId : null
+					content: this.commentText,
+					nickId: uni.getStorageSync('openid'),
+					rootId: superUserId,
+					parentId: id
 				};
+				let res = await this.sendCommentRequest(data);
+				console.log('获取res', res);
+				this.commentLists[this.CommentIndex].nums = this.commentLists[this.CommentIndex].nums + 1;
+				this.showReplyList.push(id);
+				if (!this.commentLists[this.CommentIndex].children) {
+					this.commentLists[this.CommentIndex].children = new Array();
+				}
+				this.commentLists[this.CommentIndex].children.push(res.data.data);
+				this.clearCommentData();
 			} else {
 				var data = {
-					addTime: myDate,
+					avatar: avatarUrl,
+					nickname: nickName,
 					artexamId: this.yikaoKechengList_one.aeId,
-					commentContent: this.commentText,
-					userId: uni.getStorageSync('openid')
+					content: this.commentText,
+					nickId: uni.getStorageSync('openid')
 				};
+				let res = await this.sendCommentRequest(data);
+				console.log('获取res', res);
+				this.commentLists.unshift(res.data.data);
+				console.log('加入', this.commentLists);
+				this.clearCommentData();
 			}
-			addCourseComment(data).then(res => {
-				console.log('添加评论成功', res);
-				this.commentText = '';
-				this.CommentId = null;
-				this.superUserId = null;
-				this.open();
-			});
 		},
-
-		// 数组处理
-		invertTree(sourceArr) {
-			// 筛选pid === 0的节点，为根节点
-			const result = sourceArr.filter(item => item.superCommentId === null);
-
-			// 根据层级去递归，根节点遍历数组生成children
-			// 同时收集到二级节点，再递归二级节点生成children，以此类推
-			function insertChildren(levelArr) {
-				let nextLevelObj = null;
-				for (let i = 0; i < levelArr.length; i++) {
-					// 初始化children属性
-					levelArr[i].children = levelArr[i].children || [];
-					// 闭包，访问外层的sourceArr
-					for (let j = 0; j < sourceArr.length; j++) {
-						if (sourceArr[j].superCommentId === levelArr[i].id) {
-							levelArr[i].children.push(sourceArr[j]);
-							// 收集下一层级都哪些节点，使用对象防止重复收集
-							nextLevelObj = nextLevelObj || {};
-							nextLevelObj[sourceArr[j].id] = sourceArr[j];
-						}
-					}
-				}
-				// 对象转换为数组，递归
-				if (nextLevelObj) {
-					const nextLevelArr = [];
-					for (let id in nextLevelObj) {
-						nextLevelArr.push(nextLevelObj[id]);
-					}
-					insertChildren(nextLevelArr);
-				}
-			}
-
-			// 传入根节点，开始递归
-			insertChildren(result);
-
-			return result;
+		// 清除数据
+		clearCommentData() {
+			this.commentText = '';
+			this.CommentId = null;
+			this.superUserId = null;
+			this.placeholderComment = '发条评论吧~';
+			this.CommentIndex = '';
+		},
+		sendCommentRequest(data) {
+			return new Promise((resolve, reject) => {
+				addCourseComment(data).then(res => {
+					resolve(res);
+				});
+			});
 		}
 	},
 	async onLoad(id) {
@@ -341,11 +438,16 @@ export default {
 			liOpenid: uni.getStorageSync('openid'),
 			liArtexamid: this.yikaoKechengList_one.aeId
 		};
-		getLikeInfo(likeInfoData).then(res => {
-			console.log('是否点赞收藏', res);
-			res.data.data.isLike == 0 ? (this.isDianzan = false) : (this.isDianzan = true);
-			res.data.data.isColl == 0 ? (this.isShouchang = false) : (this.isShouchang = true);
-		});
+		
+		// 判断是否登入
+		if (uni.getStorageSync('openid')) {
+			this.isLogin = true;
+			getLikeInfo(likeInfoData).then(res => {
+				console.log('是否点赞收藏', res);
+				res.data.data.isLike == 0 ? (this.isDianzan = false) : (this.isDianzan = true);
+				res.data.data.isColl == 0 ? (this.isShouchang = false) : (this.isShouchang = true);
+			});
+		}
 	},
 	onUnload() {
 		console.log('onback');
@@ -485,9 +587,7 @@ export default {
 	}
 }
 // 评论样式
-.popup-comment {
-	position: relative;
-}
+
 .pinglun {
 	height: 700rpx;
 	width: 100%;
@@ -497,6 +597,7 @@ export default {
 .pinglun .comment-num {
 	text-align: center;
 	color: #c1c6cc;
+	height: 40rpx;
 	margin-top: 10rpx;
 }
 .comment-item-main {
@@ -590,7 +691,7 @@ export default {
 	height: 100rpx;
 	width: 100%;
 	display: flex;
-	position: absolute;
+	/* position: absolute; */
 	bottom: 0;
 	background-color: #fff;
 	border-top: 2rpx solid #e0e0e0;
@@ -612,5 +713,10 @@ export default {
 	display: inline-block;
 	width: 50rpx;
 	text-align: center;
+}
+
+.share-btn {
+	opacity: 0;
+	position: absolute;
 }
 </style>
