@@ -53,7 +53,7 @@
 				
 			</view>
 			<view class="content_bottom">
-				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="upgrade">返回</button>
+				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="backTo">返回</button>
 			</view>
 		</view>
 		
@@ -109,8 +109,8 @@
 					}
 				})
 			},
-			upgrade(){
-				uni.navigateTo({
+			backTo(){
+				uni.reLaunch({
 				            // url: 'test?id=1&name=uniapp'  c传递参数
 				
 				            url:"../shouye/shouye"

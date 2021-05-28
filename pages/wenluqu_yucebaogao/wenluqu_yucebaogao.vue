@@ -100,7 +100,7 @@
 				})
 			},
 			backTo(){
-				uni.navigateTo({
+				uni.reLaunch({
 				            // url: 'test?id=1&name=uniapp'  c传递参数
 				
 				            url:"/pages/shouye/shouye"
