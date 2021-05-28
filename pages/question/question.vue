@@ -7,7 +7,7 @@
 			<text>{{ ' ' + (currentIndex + 1) + '/' + questionList.length }}</text>
 		</view>
 		<view class="questions-box">
-			<view class="list-box" :style="{ top: -currentIndex * 600 + 'rpx' }">
+			<view class="list-box" :style="{ top: -currentIndex * 800 + 'rpx' }">
 				<view class="list" v-for="(item1, index1) in questionList" :key="index1">
 					<!-- 如果是单选题 -->
 					<view v-if="item1.type == 1">
@@ -49,21 +49,24 @@ export default {
 					options: ['王勃', '张九龄', '张若虚', '卢照邻'],
 					checkedIndex: -1,
 					rightIndex: 0,
-					type: 1
+					type: 1,
+					score: 10
 				},
 				{
 					title: '下面选项中不属于晚清四大谴责小说的是？',
-					options: ['吴趼人《二十年目睹之怪现状》', '关汉卿《窦娥冤》	', '李宝嘉《官场现形记》','刘鹗《老残游记》'],
+					options: ['吴趼人《二十年目睹之怪现状》', '关汉卿《窦娥冤》	', '李宝嘉《官场现形记》', '刘鹗《老残游记》'],
 					checkedIndex: -1,
 					rightIndex: 1,
-					type: 1
+					type: 1,
+					score: 10
 				},
 				{
 					title: '选出欧美三大短篇小说大师',
 					options: ['（法）莫泊桑', '（俄）契科夫', '（英）狄更斯', '（美）欧亨利'],
 					checkedIndex: [],
 					rightIndex: [0, 1, 3],
-					type: 2
+					type: 2,
+					score: 10
 				}
 			],
 			// 当前题目索引
@@ -73,12 +76,14 @@ export default {
 	onLoad(id) {
 		console.log(id);
 		getyikaoTikuList_one_all(id.id).then(res => {
+			console.log(res.data.data);
 			res.data.data.forEach((item, index) => {
 				let obj = {};
 				obj.title = item.content;
 				obj.options = [];
 				obj.rightIndex = '';
 				obj.type = 1;
+				obj.score = 10;
 				obj.checkedIndex = -1;
 				item.answers.forEach((item, index) => {
 					obj.options.push(item.content);
@@ -128,25 +133,51 @@ export default {
 		// 提交
 		submit() {
 			console.log(this.questionList);
-			// a表示正确数,b表示错误数
-			let a = 0;
-			let b = 0;
+
+			// 判断是否有题目未作答
+			let flag = false;
+			this.questionList.forEach((item, index) => {
+				if (item.checkedIndex == -1) {
+					flag = true;
+				}
+			});
+			if (flag) {
+				uni.showToast({
+					title: '您有题目未作答',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
+			}
+			// 计算表示正确数，错误数
+			let right = 0;
+			let error = 0;
+			let score = 0;
 			this.questionList.forEach((item, index) => {
 				// 如果是多选题
 				if (item.checkedIndex instanceof Array) {
 					item.checkedIndex.sort();
 					// console.log(item.checkedIndex);
 					if (JSON.stringify(item.checkedIndex) == JSON.stringify(item.rightIndex)) {
-						a++;
+						right++;
+						score = score + 10;
+					} else {
+						error++;
 					}
 				} else {
 					// 如果是单选或者判断题
 					if (item.checkedIndex == item.rightIndex) {
-						a++;
+						right++;
+						score = score + 10;
+					} else {
+						error++;
 					}
 				}
 			});
-			console.log(a);
+			console.log(score, right, error);
+			uni.redirectTo({
+				url: '../chengjidan/chengjidan?score=' + score + '&right=' + right + '&error=' + error
+			});
 		}
 	}
 };
@@ -167,8 +198,8 @@ export default {
 .questions-box {
 	position: relative;
 	width: 100%;
-	height: 600rpx;
-	margin-top: 20rpx;
+	height: 800rpx;
+	margin-top: 50rpx;
 	overflow: hidden;
 }
 .list-box {
@@ -177,11 +208,10 @@ export default {
 	width: 100%;
 }
 .list {
-	height: 600rpx;
+	height: 800rpx;
 	width: 100%;
 }
 .title {
-	height: 50rpx;
 	font-size: 18px;
 	font-weight: 400;
 	line-height: 50rpx;
@@ -189,14 +219,18 @@ export default {
 }
 .option {
 	min-width: 200rpx;
-	height: 60rpx;
+
+	height: 80rpx;
 	margin-top: 50rpx;
 	padding-left: 30rpx;
 	font-size: 14px;
 	font-weight: 400;
-	line-height: 60rpx;
+
+	line-height: 80rpx;
 	color: #273253;
-	border-radius: 10rpx;
+
+	border-radius: 80rpx;
+	background-color: #ffffff;
 }
 .checked {
 	background-color: #fbbe4b;
@@ -210,11 +244,14 @@ export default {
 .next,
 .submit {
 	width: 172rpx;
-	height: 56rpx;
+
+	height: 60rpx;
 	text-align: center;
-	line-height: 56rpx;
+
+	line-height: 60rpx;
 	background: #fbbe4b;
-	border-radius: 10rpx;
+
+	border-radius: 60rpx;
 	color: #ffffff;
 }
 </style>

@@ -10,8 +10,8 @@
 				<view class="user-img"><image :src="userData.avatarUrl"></image></view>
 				<view class="user-detail">
 					<view class="user-name">{{ userData.nickName }}</view>
-					<view class="user-vip" ><image src="../../static/img/tab/putong.png" v-show="status==2"></image>
-					<image src="../../static/img/tab/zhuanye.png" v-show="status==1"></image>
+					<view class="user-vip" ><image src="../../static/img/tab/putong.png" v-show="status==1"></image>
+					<image src="../../static/img/tab/zhuanye.png" v-show="status==2"></image>
 					<text>{{userData.province}}-{{userData.city}}</text>
 					</view>
 				</view>
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { TestApi,hasOpenid } from '../../api/api.js';
+import { TestApi,hasOpenid,getMemberInfo } from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -87,6 +87,55 @@ export default {
 			// 会员状态
 			status:0
 		};
+	},
+	onLoad() {
+		// 发送会员请求
+		let openid = uni.getStorageSync('openid');
+		console.log(openid)
+		if(openid !=''){
+			// 发送请求
+			// 储存会员信息
+			getMemberInfo().then(res => {
+				// console.log(res);
+				const type = res.data.data.prep2;
+				const deadline = res.data.data.toTime.slice(0, 10);
+				this.status=res.data.data.prep2
+				uni.setStorage({
+					key: 'huiyuan',
+					data: {
+						type,
+						deadline
+					}
+				});
+			});
+		}
+		//对退出登录校验
+		if (openid == '') {
+			this.isExitShow = false;
+		} else {
+			this.isExitShow = true;
+		}
+	},
+	 onShow() {
+		 // 每次进入页面就会检测会员状态
+		 setTimeout(()=>{
+			  this.status=uni.getStorageSync('huiyuan').type;
+		 },300)
+		 let openid = uni.getStorageSync('openid');
+		//对退出登录校验
+		if (openid == '') {
+			this.isExitShow = false;
+		} else {
+			this.isExitShow = true;
+			let sting_storage = uni.getStorageSync('userData');
+			// console.log(sting_storage.userInfo);
+			let userData = sting_storage.userInfo;
+			this.userData = userData;
+			if (userData != null) {
+				this.isShow = false;
+			}
+		}
+		
 	},
 	methods: {
 		test() {
@@ -128,7 +177,7 @@ export default {
 		},
 		//登录授权
 		click_shouquan() {
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '../index/index'
 			});
 		},
@@ -199,43 +248,6 @@ export default {
 			});
 			//console.log(111);
 		}
-	},
-	onLoad() {
-		 // 判断会员状态
-		this.status= uni.getStorageSync('huiyuan').type;
-		console.log('status:'+ this.status);
-		//对退出登录校验
-		let openid = uni.getStorageSync('openid');
-		console.log(openid);
-		if (openid == '') {
-			this.isExitShow = false;
-		} else {
-			this.isExitShow = true;
-		}
-	},
-	 onShow() {
-		 // 每次进入页面就会检测会员状态
-		 setTimeout(()=>{
-			  this.status=uni.getStorageSync('huiyuan').type;
-		 },400)
-		 let openid = uni.getStorageSync('openid');
-		 // console.log(openids);
-		 // 检查会员状态
-			  console.log('status:'+ this.status);
-		//对退出登录校验
-		if (openid == '') {
-			this.isExitShow = false;
-		} else {
-			this.isExitShow = true;
-			let sting_storage = uni.getStorageSync('userData');
-			// console.log(sting_storage.userInfo);
-			let userData = sting_storage.userInfo;
-			this.userData = userData;
-			if (userData != null) {
-				this.isShow = false;
-			}
-		}
-		
 	},
 	onShareAppMessage: function(e) {
 		let title = '掐指艺算';

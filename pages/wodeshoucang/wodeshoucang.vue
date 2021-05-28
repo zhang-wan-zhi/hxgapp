@@ -1,15 +1,14 @@
 <template>
 	<view class="box">
-		<!-- 艺考动态列表 -->
 		<view class="dynamic-contents">
-			<view v-for="(item, index) in saveList" :key="index">
-				<view class="dynamic-content" @click="yikaoDongtai(item.id)">
-					<view class="dynamic-img"><image :src="item.aedMinimg"></image></view>
+			<view v-for="(item, index) in saveList" :key="index" @click="toPage(item.artexam.aeId)">
+				<view class="dynamic-content">
+					<view class="dynamic-img"><image :src="item.artexam.aeImgurl"></image></view>
 					<view class="dynamic-detail">
-						<view class="dynamic-title">{{ item.aedTitle }}</view>
+						<view class="dynamic-title">{{ item.artexam.aeTitle }}</view>
 						<view class="dynamic-pub">
-							<text>{{ item.aedPublisheder }}</text>
-							<image src="../../static/icon/kecheng/shoucang2.png" mode=""></image>
+							<text>{{ item.artexam.aeCreatetime }}</text>
+							<image src="../../static/icon/kecheng/shoucang2.png" @click.stop="cancelSave(item.artexam.aeId)"></image>
 						</view>
 					</view>
 				</view>
@@ -22,35 +21,70 @@
 export default {
 	data() {
 		return {
-			saveList: [
-				{
-					aedContent: null,
-					aedCreateby: 'admin',
-					aedCreatetime: '2021-04-26',
-					aedIntro: '春江花月夜----张若虚',
-					aedIsvisible: null,
-					aedMinimg: 'http://hxg.fastrhino.com.cn/5d98e674aee54e74a8423283c71ef42e.jpg',
-					aedPublisheder: '清华大学',
-					aedPubtime: '2021-04-19',
-					aedState: null,
-					aedTitle: '春江花月夜'
-				},
-				{
-					aedContent: null,
-					aedCreateby: 'admin',
-					aedCreatetime: '2021-04-26',
-					aedIntro: '春江花月夜----张若虚',
-					aedIsvisible: null,
-					aedMinimg: 'http://hxg.fastrhino.com.cn/5d98e674aee54e74a8423283c71ef42e.jpg',
-					aedPublisheder: '清华大学',
-					aedPubtime: '2021-04-19',
-					aedState: null,
-					aedTitle: '春江花月夜'
-				}
-			]
+			saveList: []
 		};
 	},
-	methods: {}
+	onLoad() {
+		let openid=uni.getStorageSync('openid');
+		//获取收藏的课程
+		new Promise((res,rej)=>{
+			uni.request({
+				url:'https://orangezoom.cn:8091/hxg/getColls',
+				method:'POST',
+				data:{
+					openid
+				},
+				success(result) {
+					res(result)
+				},
+				fail(result) {
+					console.log(result)
+				}
+			})
+		}).then((res)=>{
+			this.saveList=res.data.data
+			console.log('this', this.saveList)
+		})
+	},
+	methods: {
+	cancelSave(id){
+		let openid=uni.getStorageSync('openid');
+		new Promise((resolve,rej)=>{
+			uni.showModal({
+			    title: '确定取消收藏',
+			    success: function (res) {
+			        if (res.confirm) {
+			           resolve()
+			        } 
+			    }
+			})
+		}).then(()=>{
+			uni.request({
+				url:'https://orangezoom.cn:8091/hxg/collArtExam',
+				method:'POST',
+				data:{
+					collOpenid:openid,
+					collArtexamid:id
+				},
+				success(result) {
+					console.log(result)
+					uni.redirectTo({
+						url:'../wodeshoucang/wodeshoucang'
+					})
+				},
+				fail(result) {
+					console.log(result)
+				}
+			})
+		})
+	},
+	toPage(id){
+		uni.navigateTo({
+			url: '../yikaokecheng_item/yikaokecheng_item?ids=' + id
+		});
+	}
+	
+	}
 };
 </script>
 
