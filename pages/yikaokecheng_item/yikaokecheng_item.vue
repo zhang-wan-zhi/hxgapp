@@ -78,7 +78,7 @@
 							</view>
 							<view class="right">
 								<view class="img-like" @click="commentLike(item)">
-									<image src="../../static/icon/kecheng/aixin.png" v-if="item.isLike == 0"></image>
+									<image src="../../static/icon/kecheng/aixin.png" v-if="item.isLike == 0 || item.isLike == null"></image>
 									<image src="../../static/icon/kecheng/aixin3.png" v-else></image>
 									<text class="comment-like-num">{{ item.likeNums == 0 || item.likeNums == null ? '' : item.likeNums }}</text>
 								</view>
@@ -162,7 +162,7 @@ export default {
 			superUserId: null,
 			iptFocus: false,
 			placeholderComment: '发条评论吧~',
-			commentLists: null,
+			commentLists: [],
 			showReplyComment: '',
 			tier: null,
 			showReplyList: [],
@@ -247,8 +247,9 @@ export default {
 				this.likeCount = res.data.artLike.likeCount;
 			});
 		},
+		// 一级评论点赞
 		commentLike(item) {
-			console.log('item', item);
+			console.log('item', item.id);
 			let data = {
 				likecount: uni.getStorageSync('openid'),
 				commentId: item.id
@@ -266,6 +267,7 @@ export default {
 				}
 			});
 		},
+		// 二级评论点赞
 		commentLike2(item) {
 			let data = {
 				likecount: uni.getStorageSync('openid'),
@@ -342,6 +344,14 @@ export default {
 				});
 				return;
 			}
+			if(!this.commentText) {
+				uni.showToast({
+					title: '内容为空！',
+					duration: 2000,
+					icon: 'none'
+				});
+				return;
+			}
 			let myDate = new Date();
 			let { avatarUrl, nickName } = uni.getStorageSync('userData').userInfo;
 			if (tier == 'second') {
@@ -393,7 +403,11 @@ export default {
 					nickId: uni.getStorageSync('openid')
 				};
 				let res = await this.sendCommentRequest(data);
-				console.log('获取res', res);
+				console.log('刚刚发的评论', res.data.data);
+				console.log(this.commentLists);
+				if(!this.commentLists) {
+					this.commentLists = []
+				}
 				this.commentLists.unshift(res.data.data);
 				console.log('加入', this.commentLists);
 				this.clearCommentData();
@@ -422,10 +436,8 @@ export default {
 		//获取指定艺考课程的数据
 		await getyikaoKechengList_one(id.ids).then(res => {
 			console.log('页面数据', res.data.hxgArtexam);
-			let oldStr = res.data.hxgArtexam.aeCreatetime;
 			this.yikaoKechengList_one = res.data.hxgArtexam;
 			//对时间进行处理
-			this.yikaoKechengList_one.aeCreatetime = oldStr.split('-').join('/');
 			this.likeCount = res.data.hxgArtexam.likeCount;
 		});
 		//获取艺考课程列表
@@ -438,10 +450,10 @@ export default {
 			liOpenid: uni.getStorageSync('openid'),
 			liArtexamid: this.yikaoKechengList_one.aeId
 		};
-		
 		// 判断是否登入
 		if (uni.getStorageSync('openid')) {
 			this.isLogin = true;
+			console.log('登陆了',this.isLogin)
 			getLikeInfo(likeInfoData).then(res => {
 				console.log('是否点赞收藏', res);
 				res.data.data.isLike == 0 ? (this.isDianzan = false) : (this.isDianzan = true);
