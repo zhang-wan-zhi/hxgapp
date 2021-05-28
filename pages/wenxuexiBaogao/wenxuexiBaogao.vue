@@ -1,6 +1,9 @@
 <template>
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
-		
+		<view class="leftsemicircle">
+		</view>
+		<view class="rightsemicircle">
+		</view>
 		<view class="content_top">
 			<view class="user-img"><image :src="bgurl"></image></view>
 			<!-- <view style="background:url({{bgurl}});" class="portrait" >
@@ -8,11 +11,8 @@
 			<view class="university">
 				<text>{{nickName}}的性格评估</text>
 			</view>
-			<view class="leftsemicircle">
-			</view>
-			<view class="rightsemicircle">
-			</view>
 		</view>
+		
 		<view class="content_center">
 			<view class="content_center_top">
 				<view class="content_center_inner">
@@ -53,7 +53,7 @@
 				
 			</view>
 			<view class="content_bottom">
-				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="upgrade">返回</button>
+				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="backTo">返回</button>
 			</view>
 		</view>
 		
@@ -109,8 +109,8 @@
 					}
 				})
 			},
-			upgrade(){
-				uni.navigateTo({
+			backTo(){
+				uni.reLaunch({
 				            // url: 'test?id=1&name=uniapp'  c传递参数
 				
 				            url:"../shouye/shouye"
@@ -129,18 +129,39 @@
 		padding-left:40rpx;
 		padding-right: 40rpx;
 		background-color: #F0F0F0;
+		.leftsemicircle{
+			// background-color: #F0F0F0;
+			position: absolute;
+			
+			background-color: #F0F0F0;
+			height: 20px;
+			width: 20px;
+			border-radius: 10px;
+			margin-left: 650rpx;
+			margin-top: 130rpx;
+		}
+		.rightsemicircle{
+			position: absolute;
+			background-color: #F0F0F0;
+			height: 20px;
+			width: 20px;
+			border-radius: 10px;
+			margin-top: 130rpx;
+			margin-left: -20rpx;
+		}
 		.content_top{
-			width: 800rpx;
+			width: 670rpx;
 			height: 152rpx;
 			display: flex;
-			padding-left: 170rpx;
+			// padding-left: 170rpx;
+			justify-content: center;
 			background-color: #f6f7fb;
 			align-items: center;
 			.user-img {
 				width: 104rpx;
 				height: 104rpx;
 				margin-right: 32rpx;
-				border: 4rpx solid #ed5c4d;
+				// border: 4rpx solid #ed5c4d;
 				border-radius: 50%;
 				overflow: hidden;
 				image {
@@ -150,32 +171,12 @@
 			}
 			.university{
 				color:#273253 ;
-				width:100%;
 				height: 50rpx;
 				font-size: 36rpx;
 				font-weight: bold;
 				line-height: 40rpx;
 			}
-			.leftsemicircle{
-				// background-color: #F0F0F0;
-				position: absolute;
-				
-				background-color: #F0F0F0;
-				height: 20px;
-				width: 20px;
-				border-radius: 10px;
-				margin-left: 650rpx;
-				margin-top: 154rpx;
-			}
-			.rightsemicircle{
-				position: absolute;
-				background-color: #F0F0F0;
-				height: 20px;
-				width: 20px;
-				border-radius: 10px;
-				margin-top: 154rpx;
-				margin-left: -20rpx;
-			}
+			
 			
 			
 		}
@@ -296,7 +297,7 @@
 					height: 20px;
 					width: 20px;
 					border-radius: 10px;
-					margin-top: -150rpx;
+					margin-top: -155rpx;
 					margin-left: 668rpx;
 				}
 				.rightsemicircle{
@@ -305,7 +306,7 @@
 					height: 20px;
 					width: 20px;
 					border-radius: 10px;
-					margin-top: -150rpx;
+					margin-top: -155rpx;
 					margin-left: -668rpx;
 				}
 			}

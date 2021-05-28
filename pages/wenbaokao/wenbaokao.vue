@@ -116,7 +116,7 @@
 				})
 			},
 			backTo(){
-				uni.navigateTo({
+				uni.reLaunch({
 				            // url: 'test?id=1&name=uniapp'  c传递参数
 				
 				            url:"../shouye/shouye"
@@ -157,7 +157,6 @@
 		.content_top{
 			width: 670rpx;
 			height: 152rpx;
-			padding-left: 40rpx;
 			display: flex;
 			background-color: #f6f7fb;
 			justify-content: center;
@@ -176,7 +175,6 @@
 			}
 			.university{
 				color:#273253 ;
-				width:230rpx;
 				height: 40rpx;
 				font-size: 36rpx;
 				font-weight: bold;
