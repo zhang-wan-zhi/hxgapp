@@ -656,6 +656,18 @@
 						        })
 					}
 					
+				}).catch((err)=>{
+					uni.showModal({
+					    title: '提示',
+					    content: '您输入的内容有误，请重新输入',
+					    success: function (res) {
+					        if (res.confirm) {
+					            console.log('用户点击确定');
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
 				})
 				
 			},
