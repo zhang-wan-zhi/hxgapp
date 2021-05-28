@@ -344,6 +344,14 @@ export default {
 				});
 				return;
 			}
+			if(!this.commentText) {
+				uni.showToast({
+					title: '内容为空！',
+					duration: 2000,
+					icon: 'none'
+				});
+				return;
+			}
 			let myDate = new Date();
 			let { avatarUrl, nickName } = uni.getStorageSync('userData').userInfo;
 			if (tier == 'second') {
