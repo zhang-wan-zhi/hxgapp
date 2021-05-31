@@ -155,7 +155,7 @@
 							<view class="seclet_subject">高考成绩:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入高考成绩" @input="getcollegeExamScore">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入高考成绩" @input="getcollegeExamScore">
 						</view>
 					</view>
 					
@@ -165,7 +165,7 @@
 							<view class="seclet_subject">统考成绩:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入统考成绩" @input="getgeneralExamination">
 						</view>
 					</view>
 				
@@ -175,7 +175,7 @@
 							<view class="seclet_subject">你的身高:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入身高(cm)" @input="getheight">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入身高(cm)" @input="getheight">
 						</view>
 					</view>
 					
@@ -198,7 +198,7 @@
 							<view class="seclet_subject">你的体重:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入体重(kg)" @input="getweight">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入体重(kg)" @input="getweight">
 						</view>
 					</view>
 					
