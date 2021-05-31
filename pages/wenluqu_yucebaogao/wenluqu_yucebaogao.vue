@@ -36,9 +36,9 @@
 					升级专业立即一对一名师交流
 					<hr style=" margin-left:-78rpx; width: 590rpx; height:2rpx;border:none;border-top:1px dotted #DADBDD;" />
 				</view>
-				<view class="leftsemicircle">
+				<view class="leftsemicircle1">
 				</view>
-				<view class="rightsemicircle">
+				<view class="rightsemicircle1">
 				</view>
 				<view class="content_center_bottom_share">
 					<button style="height: 60rpx;width: 240rpx;line-height: 60rpx; color: #FFFFFF;background-color: #57B5ED;border-radius:20px ;" type="default">分享</button>
@@ -231,7 +231,7 @@
 					margin-top: 52rpx;
 					
 				}
-				.leftsemicircle{
+				.leftsemicircle1{
 					// background-color: #F0F0F0;
 					position: absolute;
 					background-color: #F0F0F0;
@@ -241,7 +241,7 @@
 					margin-left: 668rpx;
 					margin-top: 170rpx;
 				}
-				.rightsemicircle{
+				.rightsemicircle1{
 					position: absolute;
 					background-color: #F0F0F0;
 					height: 40rpx;
