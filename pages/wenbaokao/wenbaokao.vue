@@ -139,18 +139,18 @@
 			// background-color: #F0F0F0;
 			position: absolute;
 			background-color: #F0F0F0;
-			height: 20px;
-			width: 20px;
-			border-radius: 10px;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
 			margin-left: 668rpx;
 			margin-top: 154rpx;
 		}
 		.rightsemicircle{
 			position: absolute;
 			background-color: #F0F0F0;
-			height: 20px;
-			width: 20px;
-			border-radius: 10px;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
 			margin-top: 154rpx;
 			margin-left: -668rpx;
 		}
@@ -262,20 +262,19 @@
 				}
 				.leftsemicircle{
 					// background-color: #F0F0F0;
-					position: absolute;
 					background-color: #F0F0F0;
-					height: 20px;
-					width: 20px;
-					border-radius: 10px;
+					height: 40rpx;
+					width: 40rpx;
+					border-radius: 20rpx;
 					margin-left: 668rpx;
 					margin-top: -126rpx;
 				}
 				.rightsemicircle{
 					position: absolute;
 					background-color: #F0F0F0;
-					height: 20px;
-					width: 20px;
-					border-radius: 10px;
+					height: 40rpx;
+					width: 40rpx;
+					border-radius: 20rpx;
 					margin-top: -126rpx;
 					margin-left: -668rpx;
 				}

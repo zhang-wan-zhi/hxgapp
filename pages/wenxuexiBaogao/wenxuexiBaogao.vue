@@ -43,10 +43,7 @@
 				<view class="content_center_bottom_foot">
 					<hr style=" margin-left:-78rpx; width: 590rpx; height:2rpx;border:none;border-top:1px dotted #DADBDD;" />
 				</view>
-				<view class="leftsemicircle">
-				</view>
-				<view class="rightsemicircle">
-				</view>
+				
 				<view class="content_center_bottom_share">
 					<button style="height: 60rpx;width: 240rpx;line-height: 60rpx; color: #FFFFFF;background-color: #57B5ED;border-radius:20px ;" type="default">分享</button>
 				</view>	
@@ -55,6 +52,10 @@
 			<view class="content_bottom">
 				<button style="width: 654rpx;height: 88rpx;background: #FBBE4B;opacity: 1;border-radius: 24px;color: #FFFFFF;" @click="backTo">返回</button>
 			</view>
+		</view>
+		<view class="leftsemicircle1">
+		</view>
+		<view class="rightsemicircle1">
 		</view>
 		
 	</view>
@@ -132,20 +133,19 @@
 		.leftsemicircle{
 			// background-color: #F0F0F0;
 			position: absolute;
-			
 			background-color: #F0F0F0;
-			height: 20px;
-			width: 20px;
-			border-radius: 10px;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
 			margin-left: 650rpx;
 			margin-top: 130rpx;
 		}
 		.rightsemicircle{
 			position: absolute;
 			background-color: #F0F0F0;
-			height: 20px;
-			width: 20px;
-			border-radius: 10px;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
 			margin-top: 130rpx;
 			margin-left: -20rpx;
 		}
@@ -290,28 +290,30 @@
 					height: 60px;
 					
 				}
-				.leftsemicircle{
-					// background-color: #F0F0F0;
-					position: absolute;
-					background-color: #F0F0F0;
-					height: 20px;
-					width: 20px;
-					border-radius: 10px;
-					margin-top: -155rpx;
-					margin-left: 668rpx;
-				}
-				.rightsemicircle{
-					position: absolute;
-					background-color: #F0F0F0;
-					height: 20px;
-					width: 20px;
-					border-radius: 10px;
-					margin-top: -155rpx;
-					margin-left: -668rpx;
-				}
+				
 			}
+			
 			.content_bottom{
 			}
+		}
+		.leftsemicircle1{
+			// background-color: #F0F0F0;
+			position: absolute;
+			background-color: #F0F0F0;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
+			margin-top: -150rpx;
+			margin-left: 650rpx;
+		}
+		.rightsemicircle1{
+			position: absolute;
+			background-color: #F0F0F0;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
+			margin-top: -150rpx;
+			margin-left: -20rpx;
 		}
 	}
 	
