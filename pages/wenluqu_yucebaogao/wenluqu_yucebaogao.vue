@@ -122,18 +122,18 @@
 			// background-color: #F0F0F0;
 			position: absolute;
 			background-color: #F0F0F0;
-			height: 20px;
-			width: 20px;
-			border-radius: 10px;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
 			margin-left: 650rpx;
 			margin-top: 130rpx;
 		}
 		.rightsemicircle{
 			position: absolute;
 			background-color: #F0F0F0;
-			height: 20px;
-			width: 20px;
-			border-radius: 10px;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
 			margin-top: 130rpx;
 			margin-left: -20rpx;
 		}
@@ -235,18 +235,18 @@
 					// background-color: #F0F0F0;
 					position: absolute;
 					background-color: #F0F0F0;
-					height: 20px;
-					width: 20px;
-					border-radius: 10px;
+					height: 40rpx;
+					width: 40rpx;
+					border-radius: 20rpx;
 					margin-left: 668rpx;
 					margin-top: 170rpx;
 				}
 				.rightsemicircle{
 					position: absolute;
 					background-color: #F0F0F0;
-					height: 20px;
-					width: 20px;
-					border-radius: 10px;
+					height: 40rpx;
+					width: 40rpx;
+					border-radius: 20rpx;
 					margin-top: 170rpx;
 					margin-left: -668rpx;
 				}
