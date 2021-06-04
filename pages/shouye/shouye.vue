@@ -194,7 +194,7 @@ export default {
 			console.log(res.data.artexamdynamicList);
 			// console.log(res.data.msg);
 			if (res.data.msg == '页码超出了哦!') {
-				return false
+				return false;
 			} else {
 				this.yikaoDongtaiList = this.yikaoDongtaiList.concat(res.data.artexamdynamicList);
 				this.currentPage = currentPage;
@@ -328,32 +328,10 @@ export default {
 		},
 		//点击进入性格评估
 		xinggepinggu() {
-			let ids = 0;
-			getWenxuexiTestList(ids)
-				.then(res => {
-					console.log(res.data.data);
-					let arr = res.data.data;
-					let newArr = [];
-					//去除没有达到一项的数据
-					for (let i = 0; i < arr.length; i++) {
-						// console.log(arr[i]);
-						if (arr[i].optionsList.length > 1) {
-							newArr.push(arr[i]);
-						}
-					}
-
-					uni.setStorage({
-						key: 'lists1',
-						data: newArr
-					});
-					console.log(newArr);
-				})
-				.then(() => {
-					let valueArr = [];
-					uni.navigateTo({
-						url: '../xinggepinggu2/xinggepinggu2?id=' + ids + '&valueArr=' + valueArr
-					});
-				});
+			uni.navigateTo({
+				url: '../xinggepinggu2/xinggepinggu2'
+				/* url: '../wenxuexiBaogao/wenxuexiBaogao' */
+			});
 		}
 	}
 };

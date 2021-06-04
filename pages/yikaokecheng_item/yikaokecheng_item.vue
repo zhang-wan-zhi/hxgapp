@@ -668,8 +668,12 @@ export default {
 			color: #bbbbbb;
 			/* display: inline-block; */
 			view {
+				max-width: 150rpx;
 				display: inline-block;
 				margin-right: 20rpx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
 			}
 		}
 		.content-text {

@@ -1,46 +1,52 @@
 <template>
 	<view class="box">
-		<view class="type">
-			<text v-show="questionList[currentIndex].type == 1">单选题</text>
-			<text v-show="questionList[currentIndex].type == 2">多选题</text>
-			<text></text>
-			<text>{{ ' ' + (currentIndex + 1) + '/' + questionList.length }}</text>
-		</view>
-		<view class="questions-box">
-			<view class="list-box" :style="{ top: -currentIndex * 900 + 'rpx' }">
-				<view class="list" v-for="(item1, index1) in questionList" :key="index1">
-					<!-- 如果是单选题 -->
-					<view v-if="item1.type == 1">
-						<view class="title" v-html="item1.title"></view>
-						<view class="options">
-							<view class="option " :class="{ checked: index2 === item1.checkedIndex }" v-for="(item2, index2) in item1.options" @click="danxuan(index2)">
-								<rich-text :nodes="item2"></rich-text>
-							</view>
-						</view>
-					</view>
-					<!-- 如果是多选题 -->
-					<view v-else-if="item1.type == 2">
-						<view class="title">{{ item1.title }}</view>
-						<view class="options">
-							<view class="option " :class="{ checked: item1.checkedIndex.indexOf(index2) != -1 }" v-for="(item2, index2) in item1.options" @click="duoxuan(index2)">
-								<rich-text :nodes="item2"></rich-text>
-							</view>
-						</view>
-					</view>
+		<!-- 选择 -->
+		<uni-popup ref="popup" type="top">
+			<scroll-view scroll-y="true" style="height: 660rpx;">
+				<view class="selects">
+					<view :class="['circle-nums',{checkselect: item != null}]" v-for="(item, index) in hightItem" :key="index">{{ index + 1 }}</view>
+					<view class="circle-nums-em" v-for="(item, index) in 7 - (hightItem.length % 7)" :key="index"></view>
 				</view>
-			</view>
+			</scroll-view>
+		</uni-popup>
+		<!-- 选择结束 -->
+		<view class="questions-box">
+			<swiper :indicator-dots="false" :autoplay="false" :duration="50" :current="indexNums">
+				<swiper-item v-for="(item1, index1) in questionList" :key="index1">
+					<view class="type" @click="openSelect">
+						<text v-show="item1.asType == 1">填空题</text>
+						<text v-show="item1.asType == 2">单选题</text>
+						<text v-show="item1.asType == 3">多选题</text>
+						<text>{{ ' ' + (index1 + 1) + '/' + questionList.length }}</text>
+					</view>
+					<view class="list">
+						<view class="title" v-html="item1.asChinaname"></view>
+						<view class="options" v-if="item1.asType === 2 || 3">
+							<view
+								:class="['option', { checked: index2 === hightItem[index1] }]"
+								v-for="(item2, index2) in item1.askstudytovalues"
+								@click="handleOption(index1, index2, item1, item2)"
+								:key="index2"
+							>
+								<text>{{ item2.astvName }}</text>
+							</view>
+						</view>
+
+						<view class="gap__filling" v-if="item1.asType === 1"><textarea value="" placeholder="请输入答案..." /></view>
+					</view>
+				</swiper-item>
+			</swiper>
 		</view>
 		<view class="control">
 			<view class="last" @click="last">上一题</view>
-			<view class="next" @click="next" v-show="!(currentIndex == questionList.length - 1)">下一题</view>
-			<view class="submit" @click="submit" v-show="currentIndex == questionList.length - 1">提交</view>
+			<view class="next" @click="next" v-show="!(indexNums == questionList.length - 1)">下一题</view>
+			<view class="submit" @click="submit" v-show="indexNums == questionList.length - 1">提交</view>
 		</view>
 	</view>
 </template>
 
 <script>
-import { getyikaoTikuList_one_all } from '../../api/api.js';
-import { getWenxuexiResuleList } from '../../api/api.js';
+import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList } from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -48,46 +54,54 @@ export default {
 			// 当前题目索引
 			currentIndex: 0,
 			// 原list
-			list:[]
+			list: [],
+			indexNums: 0,
+			style: 'checked',
+			hightItem: [],
+			askstudies: []
 		};
 	},
 	onLoad() {
-		this.list=uni.getStorageSync('lists1');
-		console.log(this.list);
-		this.list.forEach((item,index)=>{
-			let obj = {};
-			obj.title = item.content;
-			obj.options = [];
-			obj.type = 1;
-			obj.checkedIndex = -1;
-			item.optionsList.forEach((item, index) => {
-				obj.options.push(item.content);
-			});
-			this.questionList.push(obj);
-		})
-		console.log(this.questionList);
+		// 获取问题
+		getAskStudy().then(res => {
+			this.questionList = res.data.data;
+			this.hightItem = new Array(res.data.data.length)
+			console.log('questionList', this.questionList);
+		});
 	},
 	methods: {
-		// 单选题逻辑
-		danxuan(index) {
-			this.questionList[this.currentIndex].checkedIndex = index;
-		},
-		// 多选题逻辑
-		duoxuan(index) {
-			// 判断是否已经选定
-			let arr = this.questionList[this.currentIndex].checkedIndex;
-			let isCheck = arr.indexOf(index);
-			// 如果没有被选定
-			if (isCheck == -1) {
-				arr.unshift(index);
+		handleOption(index1, index2, item1, item2) {
+			if (this.hightItem[index1] === index2) {
+				this.hightItem.splice(index1, 1, null);
+				console.log(this.hightItem);
 			} else {
-				// 如果被选定
-				arr.splice(isCheck, 1);
+				this.$set(this.hightItem, index1, index2);
+				if (this.indexNums < this.questionList.length - 1) {
+					this.indexNums++;
+				}
+
+				console.log('this.indexNums', this.indexNums);
+				console.log(this.hightItem);
 			}
+
+			let itemScore = item1.asScore * (item2.astvPercent / 100);
+			/* this.askstudies[index1] = {
+				id: item1.id,
+				asTocatalogid: item1.asTocatalogid,
+				itemScore: itemScore + '',
+				selectItem: item2.astvName
+			}; */
+			let data = {
+				id: item1.id,
+				asTocatalogid: item1.asTocatalogid,
+				itemScore: itemScore + '',
+				selectItem: item2.astvName
+			};
+			this.askstudies.push(data);
 		},
 		// 上一题
 		last() {
-			if (this.currentIndex <= 0) {
+			if (this.indexNums <= 0) {
 				uni.showToast({
 					title: '已经到第一题了',
 					icon: 'none',
@@ -95,84 +109,65 @@ export default {
 				});
 				return false;
 			}
-			this.currentIndex--;
+			this.indexNums--;
 		},
 		// 下一题
 		next() {
-			this.currentIndex++;
+			this.indexNums++;
 		},
 		// 提交
 		submit() {
-			// 判断是否有题目未作答
-			let flag=false;
-			this.questionList.forEach((item,index)=>{
-				if(item.checkedIndex==-1){
-					flag=true;
-				}
-			})
-			if(flag){
-				uni.showToast({
-					title:'您有题目未作答',
-					duration:2000,
-					icon:'none'
-				})
-				return false
-			}
-	          // 计算总分
-			let allScore=0;
-			this.questionList.forEach((item, index) => {
-				// console.log(this.list[index].optionsList[item.checkedIndex].score)
-				allScore+=this.list[index].optionsList[item.checkedIndex].score;
-			})
-			// console.log(allScore)
-			getWenxuexiResuleList(allScore).then((res)=>{
-							// console.log(111,res.data.data);
-							let objs=res.data.data;
-							uni.setStorage({
-								key:'wenluqulists',
-								data:objs
-							});
-							uni.redirectTo({
-								url:'../wenxuexiBaogao/wenxuexiBaogao?allScore=' + allScore
-							})
-						})
+			let data = {
+				userOpenid: uni.getStorageSync('openid'),
+				askstudies: this.askstudies
+			};
+			getWenxuexiResuleList(data).then(res => {
+				console.log(111, res);
+				uni.navigateTo({
+					url: '../wenxuexiBaogao/wenxuexiBaogao'
+				});
+				uni.$on('need', () => {
+					uni.$emit('baogao', {
+						haomai: res.data.haomai,
+						overAllScore: res.data.overAllScore,
+						xuexiao: res.data.xuexiao
+					});
+				});
+				console.log('发射成功');
+			});
+		},
+		openSelect() {
+			this.$refs.popup.open('');
 		}
 	}
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .box {
 	width: 100%;
-	padding: 40rpx;
+	height: 100vh;
+	padding: 2.5vh;
 }
 .type {
-	height: 50rpx;
-	font-size: 18px;
+	height: 100rpx;
+	font-size: 35rpx;
 	font-weight: 400;
-	line-height: 25px;
 	color: #a9afb8;
+	line-height: 100rpx;
 }
 .questions-box {
 	position: relative;
 	width: 100%;
-	height: 900rpx;
-	margin-top: 50rpx;
 	overflow: hidden;
-}
-.list-box {
-	position: absolute;
-	left: 0rpx;
-	width: 100%;
-}
-.list {
-	height: 900rpx;
-	width: 100%;
+	swiper {
+		height: 80vh;
+	}
 }
 .title {
 	font-size: 18px;
 	font-weight: 400;
-	line-height: 50rpx;
+	line-height: 18px;
 	color: #242448;
 }
 .option {
@@ -185,7 +180,21 @@ export default {
 	line-height: 60rpx;
 	color: #273253;
 	border-radius: 60rpx;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
+}
+.gap__filling {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 35rpx;
+	textarea {
+		width: 643rpx;
+		height: 365rpx;
+		background: #ffffff;
+		border: 2rpx solid #fbbe4b;
+		border-radius: 15rpx;
+		padding: 22rpx 34rpx;
+	}
 }
 .checked {
 	background-color: #fbbe4b;
@@ -194,6 +203,7 @@ export default {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	height: 5vh;
 }
 .last,
 .next,
@@ -205,5 +215,37 @@ export default {
 	background: #fbbe4b;
 	border-radius: 56rpx;
 	color: #ffffff;
+}
+// 选择
+
+.selects {
+	width: 100vw;
+	min-height: 660rpx;
+	background-color: #ffffff;
+	padding: 20rpx;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	.circle-nums {
+		width: 80rpx;
+		height: 80rpx;
+		margin-right: 20rpx;
+		margin-bottom: 20rpx;
+		border-radius: 50%;
+		border: 1px solid #fbbe4b;
+		text-align: center;
+		line-height: 80rpx;
+	}
+	.circle-nums-em {
+		width: 80rpx;
+		height: 80rpx;
+		margin-right: 20rpx;
+		margin-bottom: 20rpx;
+	}
+	.checkselect {
+		background-color: #fbbe4b;
+		color: #FFFFFF;
+	}
 }
 </style>

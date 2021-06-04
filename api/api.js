@@ -6,10 +6,10 @@
 // let urls="http://192.168.3.247:8091"
 
 //线上地址
-let urls = "https://orangezoom.cn:8091";
+/* let urls = "https://orangezoom.cn:8091"; */
 
 // 垃圾张泽森的接口
-/* let urls="http://192.168.3.215:8091"; */
+let urls="http://192.168.3.215:8091";
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
@@ -334,31 +334,13 @@ export function getWenxuexiTestList(id) {
 }
 
 //获取问学习，获取测试结果
-export function getWenxuexiResuleList(scores) {
+export function getWenxuexiResuleList(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/hxg/qlearn/getResult',
+			url: urls + '/hxg/askStudy/getReportByAskStudy',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data: {
-				"optionsList": [{
-						"score": scores,
-						"testType": 1
-					},
-					{
-						"score": 10,
-						"testType": 2
-					},
-					{
-						"score": 10,
-						"testType": 3
-					},
-					{
-						"score": 10,
-						"testType": 4
-					}
-				]
-			},
+			data: data,
 			success: res => {
 				resolve(res)
 			},
@@ -696,6 +678,23 @@ export function getMemberInfo(){
 			fail(res) {
 				 console.log(res);
 			}
+		})
+	})
+}
+
+// 问学习
+export function getAskStudy() {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askStudy/getAskStudy',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
 		})
 	})
 }
