@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="again"><text>重新答题</text></view>
+		<view class="again" @click="resetAnswer"><text>重新答题</text></view>
 		<view class="reportplus" v-if="plus === 'plus'">
 			<view class="content_top">
 				<view class="leftsemicircle"></view>
@@ -25,12 +25,12 @@
 				<!-- 学习建议 -->
 				<view class="study-suggest">
 					<view class="default-title">学习建议</view>
-					<view class="study-suggest-item" v-for="item in studySuggests" :key="item.id">{{item.asdsName}}</view>
+					<view class="study-suggest-item" v-for="item in studySuggests" :key="item.id">{{ item.asdsName }}</view>
 				</view>
 				<!-- 条件分享 -->
 				<view class="suggest">
 					<view class="suggest-item" v-for="item in suggestList" :key="item.id">
-						<view class="suggest-item-title" @click="showText(item.id)">{{ item.asdcTitle }}</view>
+						<view :class="['suggest-item-title', { 'suggest-item-check': showTextList.indexOf(item.id) !== -1 }]" @click="showText(item.id)">{{ item.asdcTitle }}</view>
 						<view v-show="showTextList.indexOf(item.id) !== -1">
 							<view class="suggest-item-text" v-for="text in item.askstudydiatoselects" :key="text.id">{{ text.asdsName }}</view>
 						</view>
@@ -49,9 +49,7 @@
 								</view>
 							</view>
 						</view>
-						<view class="school-item" v-else>
-							没有可以匹配的学校哦~
-						</view>
+						<view class="school-item" v-else>没有可以匹配的学校哦~</view>
 					</view>
 					<view :class="['school-list', { 'school-list-check': showWeng }]" @click="this.showWeng = !this.showWeng">重点学校</view>
 					<view v-if="showWeng">
@@ -64,9 +62,7 @@
 								</view>
 							</view>
 						</view>
-						<view class="school-item" v-else>
-							没有可以匹配的学校哦~
-						</view>
+						<view class="school-item" v-else>没有可以匹配的学校哦~</view>
 					</view>
 					<view :class="['school-list', { 'school-list-check': showBao }]" @click="this.showBao = !this.showBao">保底学校</view>
 					<view v-if="showBao">
@@ -79,9 +75,7 @@
 								</view>
 							</view>
 						</view>
-						<view class="school-item" v-else>
-							没有可以匹配的学校哦~
-						</view>
+						<view class="school-item" v-else>没有可以匹配的学校哦~</view>
 					</view>
 				</view>
 				<!-- 分享 -->
@@ -147,37 +141,8 @@ export default {
 			falsenum: '6',
 			score: '0',
 			plus: 'plus',
-			reportData: [
-				{
-					title: '专业基础',
-					data: '18%'
-				},
-				{
-					title: '专业基础',
-					data: '18%'
-				},
-				{
-					title: '专业基础',
-					data: '18%'
-				},
-				{
-					title: '专业基础',
-					data: '18%'
-				},
-				{
-					title: '专业基础',
-					data: '18%'
-				}
-			],
-			chartsData: {
-				categories: ['维度1', '维度2', '维度3', '维度4', '维度5'],
-				series: [
-					{
-						name: '',
-						data: [1000, 1000, 1000, 1000, 1000]
-					}
-				]
-			},
+			reportData: [],
+			chartsData: {},
 			baogaoinfo: '',
 			showChong: false,
 			showWeng: false,
@@ -191,10 +156,23 @@ export default {
 		uni.$on('baogao', res => {
 			this.baogaoinfo = res;
 			this.suggestList = res.haomai[1].childAskstudydiagnosiscatalogs;
-			this.studySuggests = res.haomai[0].childAskstudydiagnosiscatalogs[0].askstudydiatoselects
+			this.studySuggests = res.haomai[0].childAskstudydiagnosiscatalogs[0].askstudydiatoselects;
+			this.chartsData = res.chartsData;
 			console.log('接受成功', res);
 		});
 		uni.$emit('need');
+		// 数据显示
+		for (let i = 0; i < this.chartsData.categories.length; i++) {
+			this.reportData.push({
+				title: this.chartsData.categories[i],
+				data: this.chartsData.series[0].data[i] / 10
+			});
+		}
+		// 获取用户信息
+		let userinfo = uni.getStorageSync('userData').userInfo;
+		this.bgurl = userinfo.avatarUrl;
+		this.nickName = userinfo.nickName;
+		// 获取页面高度
 		this.getWindowHeight();
 	},
 	/* onUnload() {
@@ -221,6 +199,10 @@ export default {
 
 				url: '../shouye/shouye'
 			});
+		},
+		resetAnswer() {
+			uni.navigateBack();
+			console.log('resetAnswer')
 		},
 		showText(id) {
 			if (this.showTextList.indexOf(id) === -1) {
@@ -321,6 +303,9 @@ export default {
 					font-size: 31rpx;
 					color: #57b5ed;
 					font-weight: 400;
+				}
+				.suggest-item-check {
+					color: #b0b5bd;
 				}
 				.suggest-item-text {
 					padding: 20rpx 0;
@@ -555,5 +540,4 @@ export default {
 		border-radius: 46rpx;
 	}
 }
-
 </style>
