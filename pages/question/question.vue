@@ -67,7 +67,7 @@ export default {
 					rightIndex: [0, 1, 3],
 					type: 2,
 					score: 10
-				}
+				},
 			],
 			// 当前题目索引
 			currentIndex: 0
@@ -232,7 +232,8 @@ export default {
 .title {
 	font-size: 18px;
 	font-weight: 400;
-	line-height: 50rpx;
+	height: 60rpx;
+	line-height: 60rpx;
 	color: #242448;
 }
 .option {

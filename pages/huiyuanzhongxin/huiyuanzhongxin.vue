@@ -213,7 +213,7 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await renewal(1,0.01);
+			let res=await charge(1,0.01);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
