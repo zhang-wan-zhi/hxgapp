@@ -16,7 +16,7 @@
 				</view>
 			</view>
 		</view>
-	</view>  
+	</view>
 </template>
 
 <script>
@@ -26,11 +26,8 @@ export default {
 	data() {
 		return {
 			userInfo: [],
-			//判断小程序的API，回调，参数，组件等是否在当前版本可用。
-			// canIUse: uni.canIUse('button.open-type.getUserInfo'),
 			//适配手机高度
 			phoneHeight: 0
-			// openid:''
 		};
 	},
 	onLoad() {
@@ -52,7 +49,6 @@ export default {
 				contentType: 'application/json;charset=UTF-8'
 			}).then(res => {
 				console.log(res);
-				console.log(res[1].data.data[0].username);
 				this.title = res[1].data.data[0].username;
 			});
 		},
@@ -60,12 +56,7 @@ export default {
 		getWindowHeight() {
 			uni.getSystemInfo({
 				success: res => {
-					// console.log(res);
-					// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
 					this.phoneHeight = res.windowHeight;
-					// console.log(res.windowHeight);
-					// console.log(this.phoneHeight);
-					// this.$store.commit('set_window_height',res.windowHeight*2);
 				}
 			});
 		},
@@ -79,8 +70,6 @@ export default {
 
 		//登录授权
 		wechatLogin() {
-			var that = this;
-
 			uni.getUserProfile({
 				desc: '登录',
 				lang: 'zh_CN',
@@ -89,17 +78,15 @@ export default {
 					//存储用户信息到缓存中
 					let userinfo = infoRes.userInfo;
 					uni.setStorage({
-						key: 'userData',
-						data: infoRes
+						key: 'userinfo',
+						data: userinfo
 					});
-
 					uni.login({
 						provider: 'weixin',
 						success: function(loginRes) {
 							console.log(loginRes.code);
 							getWxcode(loginRes.code).then(res => {
 								//获取到用户的openid
-								// console.log(res.data.data.openid);
 								let openid = res.data.data.openid;
 								console.log(userinfo);
 								let province = userinfo.province;
@@ -107,48 +94,15 @@ export default {
 								let userImg = userinfo.avatarUrl;
 								let userName = userinfo.nickName;
 								//将用户信息存入数据库后，将openid存入缓存中
-								getUser_openid_Info(openid, province, sex, userImg, userName)
-									.then(res => {
-										console.log(res);
-									})
-									.then(res => {
-										uni.setStorage({
-											key: 'openid',
-											data: openid
-										});
-									})
-									.then(async () => {
-										// 获取用户会员信息
-										let openid = uni.getStorageSync('openid');
-										await uni.request({
-											url: 'https://orangezoom.cn:8091/hxg/selectUser',
-											method: 'POST',
-											data: {
-												openid
-											},
-											success(res) {
-												const type = res.data.data.prep2;
-												const deadline = res.data.data.toTime.slice(0, 10);
-												uni.setStorage({
-													key: 'huiyuan',
-													data: {
-														type,
-														deadline
-													}
-												});
-											},
-											fail(res) {
-												uni.showToast({
-													title: '获取会员信息失败',
-													duration: 2000
-												});
-												console.log(res);
-											}
-										});
-										uni.reLaunch({
-											url: '../gerenzhongxin/gerenzhongxin'
-										});
+								getUser_openid_Info(openid, province, sex, userImg, userName).then(res => {
+									uni.setStorage({
+										key: 'openid',
+										data: openid
 									});
+									uni.reLaunch({
+										url: '../gerenzhongxin/gerenzhongxin'
+									});
+								});
 							});
 						}
 					});

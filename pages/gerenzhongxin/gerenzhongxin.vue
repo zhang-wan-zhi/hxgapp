@@ -10,16 +10,17 @@
 				<view class="user-img"><image :src="userData.avatarUrl"></image></view>
 				<view class="user-detail">
 					<view class="user-name">{{ userData.nickName }}</view>
-					<view class="user-vip" ><image src="../../static/img/tab/putong.png" v-show="status==1"></image>
-					<image src="../../static/img/tab/zhuanye.png" v-show="status==2"></image>
-					<text>{{userData.province}}-{{userData.city}}</text>
+					<view class="user-vip">
+						<image src="../../static/img/tab/putong.png" v-show="status == 1"></image>
+						<image src="../../static/img/tab/zhuanye.png" v-show="status == 2"></image>
+						<text>{{ userData.province }}-{{ userData.city }}</text>
 					</view>
 				</view>
 			</view>
 		</view>
 
 		<!-- 充值会员 -->
-		<view class="vip-box" >
+		<view class="vip-box">
 			<view class="professional" @click="consume(0)">
 				<view class="vip-logo-one"><image src="../../static/img/my/special.png"></image></view>
 				<view class="vip-title">
@@ -38,68 +39,68 @@
 		</view>
 
 		<!-- 分享收藏部分 -->
-		
+
 		<view class="uer-handle">
 			<!-- 我的收藏 -->
 			<view class="item" @click="toSave">
-				<image src="../../static/img/my/save.png" ></image>
+				<image src="../../static/img/my/save.png"></image>
 				<text class="title">我的收藏</text>
 			</view>
 			<view class="item">
 				<button open-type="share" class="share-btn" @click="share">
-					<image src="../../static/img/my/share.png" ></image>
+					<image src="../../static/img/my/share.png"></image>
 					<text class="title">分享</text>
 				</button>
 			</view>
 			<view class="item" @click="yijianFangkui">
-				<image src="../../static/img/my/opinion.png" ></image>
+				<image src="../../static/img/my/opinion.png"></image>
 				<text class="title">意见反馈</text>
 			</view>
 			<view class="item" @click="guanyuwomeng">
-				<image src="../../static/img/my/about.png" ></image>
+				<image src="../../static/img/my/about.png"></image>
 				<text class="title">关于我们</text>
 			</view>
 		</view>
-		
-<!-- 退出登录 -->
-	<view class="out-login" v-show="isExitShow" @click="exitLogin">
-		退出登录
-	</view>
+
+		<!-- 退出登录 -->
+		<view class="out-login" v-show="isExitShow" @click="exitLogin">退出登录</view>
 	</view>
 </template>
 
 <script>
-import { TestApi,hasOpenid,getMemberInfo } from '../../api/api.js';
+import { hasOpenid, getMemberInfo } from '../../api/api.js';
 export default {
 	data() {
 		return {
-			imgArr: [`../../static/img/touxiang_img.png`],
 			//适配手机高度
 			phoneHeight: 0,
-			userData: {
-				avatarUrl:'',
-				
-			},
-			//是否显示授权文本
-			isShow: true,
+			userData: {},
 			//是否显示退出
 			isExitShow: false,
 			// 会员状态
-			status:0
+			status: 0
 		};
 	},
 	onLoad() {
-		// 发送会员请求
 		let openid = uni.getStorageSync('openid');
-		console.log(openid)
-		if(openid !=''){
-			// 发送请求
+		//对退出登录校验
+		if (openid == '') {
+			this.isExitShow = false;
+		} else {
+			this.isExitShow = true;
+		}
+		// 获取用户信息
+		this.userData = uni.getStorageSync('userinfo');
+	},
+	onShow() {
+		let openid = uni.getStorageSync('openid');
+		if (openid) {
 			// 储存会员信息
 			getMemberInfo().then(res => {
-				// console.log(res);
-				const type = res.data.data.prep2;
-				const deadline = res.data.data.toTime.slice(0, 10);
-				this.status=res.data.data.prep2
+				const type = res.data.prep2;
+				const deadline = res.data.toTime.slice(0, 10);
+				this.status = type;
+				console.log(1)
 				uni.setStorage({
 					key: 'huiyuan',
 					data: {
@@ -115,27 +116,6 @@ export default {
 		} else {
 			this.isExitShow = true;
 		}
-	},
-	 onShow() {
-		 // 每次进入页面就会检测会员状态
-		 setTimeout(()=>{
-			  this.status=uni.getStorageSync('huiyuan').type;
-		 },300)
-		 let openid = uni.getStorageSync('openid');
-		//对退出登录校验
-		if (openid == '') {
-			this.isExitShow = false;
-		} else {
-			this.isExitShow = true;
-			let sting_storage = uni.getStorageSync('userData');
-			// console.log(sting_storage.userInfo);
-			let userData = sting_storage.userInfo;
-			this.userData = userData;
-			if (userData != null) {
-				this.isShow = false;
-			}
-		}
-		
 	},
 	methods: {
 		test() {
@@ -160,11 +140,11 @@ export default {
 				success: function(res) {
 					if (res.confirm) {
 						console.log('用户点击确定');
-						uni.removeStorage({ key: 'userData' });
+						uni.removeStorage({ key: 'userinfo' });
 						uni.removeStorage({ key: 'openid' });
 						uni.removeStorage({
-							key:'huiyuan'
-						})
+							key: 'huiyuan'
+						});
 						//解决退出登录的bug
 						uni.reLaunch({
 							url: '../gerenzhongxin/gerenzhongxin'
@@ -177,47 +157,47 @@ export default {
 		},
 		//登录授权
 		click_shouquan() {
-			uni.redirectTo({
+			uni.navigateTo({
 				url: '../index/index'
 			});
 		},
 		// 充值会员
-		consume(index){
-			if(!hasOpenid()){
+		consume(index) {
+			if (!hasOpenid()) {
 				uni.showToast({
-					title:'请登录账号',
-					duration:2000,
-					icon:'none'
-				})
-				return false
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
 			}
 			uni.navigateTo({
-				url: '../huiyuanzhongxin/huiyuanzhongxin?key='+index
+				url: '../huiyuanzhongxin/huiyuanzhongxin?key=' + index
 			});
 		},
 		// 我的收藏
-		 toSave(){
-			if(!hasOpenid()){
+		toSave() {
+			if (!hasOpenid()) {
 				uni.showToast({
-					title:'请登录账号',
-					duration:2000,
-					icon:'none'
-				})
-				return false
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
 			}
 			uni.navigateTo({
 				url: '../wodeshoucang/wodeshoucang'
 			});
 		},
 		// 分享
-		share(){
-			if(!hasOpenid()){
+		share() {
+			if (!hasOpenid()) {
 				uni.showToast({
-					title:'请登录账号',
-					duration:2000,
-					icon:'none'
-				})
-				return false
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
 			}
 		},
 		//关于我们
@@ -228,37 +208,18 @@ export default {
 		},
 		//意见反馈
 		yijianFangkui() {
-			if(!hasOpenid()){
+			if (!hasOpenid()) {
 				uni.showToast({
-					title:'请登录账号',
-					duration:2000,
-					icon:'none'
-				})
-				return false
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
 			}
 			uni.navigateTo({
 				url: '../yijianFangkui/yijianFangkui'
 			});
-		},
-		//点击修改触发
-		xiugai() {
-			//跳转到个人信息修改页面
-			uni.navigateTo({
-				url: '../gerenzhongxin_update/gerenzhongxin_update'
-			});
-			//console.log(111);
 		}
-	},
-	onShareAppMessage: function(e) {
-		let title = '掐指艺算';
-		let openids = uni.getStorageSync('openid');
-
-		//同步获取图像名称
-		let sting_storage = uni.getStorageSync('login_info');
-		return {
-			title: title,
-			path: 'pages/shouye/shouye'
-		};
 	}
 };
 </script>
@@ -319,7 +280,7 @@ export default {
 	font-weight: 400;
 	line-height: 40rpx;
 	color: #0f1826;
-	image{
+	image {
 		width: 90rpx;
 		height: 36rpx;
 		margin-right: 30rpx;
@@ -344,11 +305,11 @@ export default {
 	display: flex;
 	align-items: center;
 }
-.professional{
+.professional {
 	background: url(../../static/img/my/huiyuan1.png) no-repeat 0px 0px;
 	background-size: 320rpx 140rpx;
 }
-.members{
+.members {
 	background: url(../../static/img/my/huiyuan2.png) no-repeat 0px 0px;
 	background-size: 320rpx 140rpx;
 }
@@ -391,62 +352,55 @@ export default {
 	font-size: 12px;
 	font-weight: 400;
 	line-height: 17px;
-	color: #FFFFFF;
+	color: #ffffff;
 }
-
-
-
-
 
 // 分享收藏样式
 
-
-.uer-handle{
+.uer-handle {
 	width: 100%;
 }
 
-
-.uer-handle .item,.share-btn{
+.uer-handle .item,
+.share-btn {
 	overflow: hidden;
 	display: flex;
 	align-items: center;
 	width: 100%;
 	height: 96rpx;
 	margin-top: 12rpx;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 	border-radius: 16rpx;
 	border-width: 0rpx;
 	font-size: 28rpx;
-	image{
+	image {
 		width: 34rpx;
 		height: 34rpx;
 		margin: 0rpx 20rpx;
 	}
 }
 
-.share-btn{
+.share-btn {
 	margin: 0px;
 	padding: 0px;
 	border-width: 0rpx;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 }
 
-.share-btn::after{
+.share-btn::after {
 	border: none;
 }
 
 // 退出登录样式
 
-.out-login{
+.out-login {
 	width: 260rpx;
 	height: 80rpx;
 	margin: 200rpx auto 0rpx;
 	border-radius: 12rpx;
 	text-align: center;
 	line-height: 80rpx;
-	background-color: #ED5C4D;
-	color: #FFFFFF;
+	background-color: #ed5c4d;
+	color: #ffffff;
 }
-
-
 </style>

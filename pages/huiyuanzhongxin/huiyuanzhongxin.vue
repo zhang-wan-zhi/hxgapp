@@ -86,7 +86,7 @@
 
 <script>
 import { getMemberInfo} from '../../api/api.js';
-import { charge,renewal,getProviderInfo} from '../../api/member.js';
+import { charge,renewal,getProviderInfo,getCharges} from '../../api/member.js';
 export default {
 	data() {
 		return {
@@ -112,11 +112,13 @@ export default {
 	onLoad(res) {
 		this.currentIndex = res.key;
 		this.duration = 500;
+		// 获取用户信息
+		this.userInfo = uni.getStorageSync('userinfo');
 		// 储存会员信息
 		getMemberInfo().then(res => {
 			// console.log(res);
-			const type = res.data.data.prep2;
-			const deadline = res.data.data.toTime.slice(0, 10);
+			const type = res.data.prep2;
+			const deadline = res.data.toTime.slice(0, 10);
 			this.memberInfo.type=type;
 			this.memberInfo.deadline=deadline;
 			uni.setStorage({
@@ -128,30 +130,14 @@ export default {
 			});
 		});
 		// 查询会员信息
-		new Promise((resolve, reject) => {
-			uni.request({
-				url: 'https://orangezoom.cn:8091/hxg/getCharges',
-				method: 'GET',
-				success(res) {
-					resolve(res);
-				}
-			});
-		}).then(res => {
-			this.zhuanyeId = res.data.data[1].id;
-			this.zhuanyeMoney = res.data.data[1].cMoney;
-			this.putongId = res.data.data[0].id;
-			this.putongMoney = res.data.data[0].cMoney;
-			console.log(this.zhuanyeId, this.zhuanyeMoney, this.putongId, this.putongMoney);
+		getCharges()
+		.then(res => {
+			this.zhuanyeId = res.data[1].id;
+			this.zhuanyeMoney = res.data[1].cMoney;
+			this.putongId = res.data[0].id;
+			this.putongMoney = res.data[0].cMoney;
 		});
 
-		this.memberInfo = uni.getStorageSync('huiyuan');
-		this.userInfo = uni.getStorageSync('userData').userInfo;
-	},
-	onShow() {
-		setTimeout(() => {
-			this.memberInfo = uni.getStorageSync('huiyuan');
-			this.userInfo = uni.getStorageSync('userData').userInfo;
-		}, 500);
 	},
 	methods: {
 		// 轮播图转动时
@@ -234,7 +220,7 @@ export default {
 				package: packages,
 				success(res) {
 					uni.redirectTo({
-						url: '../huiyuanzhongxin/huiyuanzhongxin?key=0'
+						url: '../huiyuanzhongxin/huiyuanzhongxin?key=1'
 					});
 				},
 				fail(res) {
