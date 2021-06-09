@@ -22,26 +22,33 @@
 		<view class="questions-box">
 			<swiper :indicator-dots="false" :autoplay="false" :duration="50" :current="indexNums" @change="intervalChange">
 				<swiper-item v-for="(item1, index1) in questionList" :key="index1">
-					<view class="type" @click="openSelect">
+					<view class="type">
 						<text v-show="item1.asType == 1">填空题</text>
 						<text v-show="item1.asType == 2">单选题</text>
 						<text v-show="item1.asType == 3">多选题</text>
 						<text>{{ ' ' + (index1 + 1) + '/' + questionList.length }}</text>
+						<text class="all-question iconfont" @click="openSelect">查看全部</text>
 					</view>
+					
 					<view class="list">
 						<view class="title" v-html="item1.asContent"></view>
+						<!-- 如果是选择题 -->
 						<view class="options" v-if="item1.asType === 2 || 3">
+							<scroll-view scroll-y="true" class="scroll-list">
 							<view
-								:class="['option', { checked: index2 === hightItem[index1] }]"
+								:class="['option', { checked: item2.astvName == askstudies[index1].selectItem }]"
 								v-for="(item2, index2) in item1.askstudytovalues"
 								@click="handleOption(index1, index2, item1, item2)"
 								:key="index2"
 							>
 								<text>{{ item2.astvName }}</text>
 							</view>
+							</scroll-view>
 						</view>
-
+						<!-- 如果是填空题 -->
 						<view class="gap__filling" v-if="item1.asType === 1"><textarea v-model="askstudies[index1].selectItem" placeholder="请输入答案..." /></view>
+						<!-- 如果是时间选择 -->
+						<uni-datetime-picker type="date" v-model="askstudies[index1].selectItem" start="2010-6-10 08:30:30" end="2021-6-10 08:30:30">1111111</uni-datetime-picker>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -55,7 +62,7 @@
 </template>
 
 <script>
-import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList } from '../../api/api.js';
+import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList, getAskStudyRecord } from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -67,60 +74,81 @@ export default {
 			indexNums: 0,
 			style: 'checked',
 			hightItem: [],
-			askstudies: []
+			askstudies: [],
+			submiting: false
 		};
 	},
 	onLoad() {
-		// 获取问题
-		getAskStudy().then(res => {
+		let openid = uni.getStorageSync('openid');
+		if (!openid) {
+			this.click_shouquan();
+		}
+		// 获取问题和答题记录
+		this.getAnswerArr();
+	},
+	methods: {
+		//登录授权
+		click_shouquan() {
+			uni.redirectTo({
+				url: '../index/index'
+			});
+		},
+		async getAnswerArr() {
+			// 获取答案记录
+			let useropenid = {
+				userOpenid: uni.getStorageSync('openid')
+			};
+			let answers = await getAskStudyRecord(useropenid);
+			let answerArr = answers.data.data.ascbuContentArray;
+			// 获取题目
+			let res = await getAskStudy();
 			this.questionList = res.data.data;
 			this.hightItem = new Array(res.data.data.length);
 			console.log('questionList', this.questionList);
-			// 新建答案容器数组
-			for (let i = 0; i < res.data.data.length; i++) {
-				this.askstudies.push({
-					id: res.data.data[i].id,
-					asTocatalogid: res.data.data[i].asTocatalogid,
-					itemScore: 0,
-					selectItem: ''
-				});
+			if (answerArr) {
+				// 如果有答题记录
+				this.askstudies = answerArr;
+				this.indexNums = answerArr.length - 1;
+			} else {
+				// 新建答案容器数组
+				for (let i = 0; i < res.data.data.length; i++) {
+					this.askstudies.push({
+						id: res.data.data[i].id,
+						asTocatalogid: res.data.data[i].asTocatalogid,
+						itemScore: 0,
+						selectItem: ''
+					});
+				}
 			}
-			console.log(this.askstudies);
-		});
-		// 获取用户信息
-		console.log('userinfo',uni.getStorageSync('userData'))
-	},
-	methods: {
+			console.log('this.askstudies', this.askstudies);
+		},
 		// 选中答案触发事件
 		handleOption(index1, index2, item1, item2) {
 			// 计入高亮答案项
-			if (this.hightItem[index1] === index2) {
-				this.hightItem.splice(index1, 1, null);
-				this.askstudies[index1] = {
+			if (this.askstudies[index1].selectItem === item2.astvName) {
+				// 如果已经选择一个答案，则取消选中
+				this.askstudies.splice(index1, 1, {
 					id: item1.id,
 					asTocatalogid: item1.asTocatalogid,
 					itemScore: 0,
 					selectItem: ''
-				};
-				console.log(this.hightItem);
+				});
 				console.log('this.askstudies取消', this.askstudies);
 				return;
 			} else {
-				this.$set(this.hightItem, index1, index2);
+				// 第一次选择或者重新选择
+				let itemScore = item1.asScore * item2.astvPercent;
+				console.log('itemScore', itemScore);
+				this.$set(this.askstudies, index1, {
+					id: item1.id,
+					asTocatalogid: item1.asTocatalogid,
+					itemScore: itemScore + '',
+					selectItem: item2.astvName
+				});
 				if (this.indexNums < this.questionList.length - 1) {
 					this.indexNums++;
 				}
-				console.log('this.indexNums', this.indexNums);
-				console.log(this.hightItem);
 			}
-			// 将答案加入答案列表
-			let itemScore = item1.asScore * (item2.astvPercent / 100);
-			this.askstudies[index1] = {
-				id: item1.id,
-				asTocatalogid: item1.asTocatalogid,
-				itemScore: itemScore + '',
-				selectItem: item2.astvName
-			};
 			console.log('this.askstudies', this.askstudies);
 		},
 		// 上一题
@@ -139,11 +167,31 @@ export default {
 		next() {
 			this.indexNums++;
 		},
+		// 节流
+		throttle(fn, delay) {
+			let valid = true;
+			return function() {
+				if (!valid) {
+					//休息时间 暂不接客
+					return false;
+				}
+				// 工作时间，执行函数并且在间隔期内把状态位设为无效
+				valid = false;
+				setTimeout(() => {
+					fn();
+					valid = true;
+				}, delay);
+			};
+		},
 		// 提交
 		dialogConfirm() {
 			this.$refs.popup.open('top');
 		},
 		submit() {
+			if (this.submiting) {
+				console.log('111111')
+				return
+			}
 			// 判断是否有哪一题没回答
 			let emy = false;
 			this.askstudies.forEach(item => {
@@ -159,20 +207,28 @@ export default {
 				userOpenid: uni.getStorageSync('openid'),
 				askstudies: this.askstudies
 			};
+			this.submiting = true
 			getWenxuexiResuleList(data).then(res => {
 				console.log(111, res);
-				uni.navigateTo({
-					url: '../wenxuexiBaogao/wenxuexiBaogao'
-				});
-				uni.$on('need', () => {
-					uni.$emit('baogao', {
-						haomai: res.data.haomai,
-						overAllScore: res.data.overAllScore,
-						xuexiao: res.data.xuexiao,
-						chartsData: res.data.chartsData
+				if (res.data.code == 200) {
+					// 跳转页面，并发射数据
+					uni.navigateTo({
+						url: '../wenxuexiBaogao/wenxuexiBaogao'
 					});
-				});
-				console.log('发射成功');
+					uni.$on('need', () => {
+						uni.$emit('baogao', {
+							haomai: res.data.haomai,
+							overAllScore: res.data.overAllScore,
+							xuexiao: res.data.xuexiao,
+							chartsData: res.data.chartsData,
+							suitAbleMajor: res.data.suitAbleMajor
+						});
+					});
+					console.log('发射成功');
+					setTimeout(()=> {
+						this.submiting = false
+					},500)
+				}
 			});
 		},
 		openSelect() {
@@ -196,12 +252,21 @@ export default {
 	height: 100vh;
 	padding: 2.5vh;
 }
+.all-question {
+	float: right;
+	font-size: 30rpx;
+	font-weight: 400;
+	color: #57b5ed;
+}
 .type {
 	height: 100rpx;
 	font-size: 35rpx;
 	font-weight: 400;
 	color: #a9afb8;
 	line-height: 100rpx;
+}
+.scroll-list {
+	max-height: 70vh;
 }
 .questions-box {
 	position: relative;
@@ -216,11 +281,12 @@ export default {
 	font-weight: 400;
 	line-height: 18px;
 	color: #242448;
+	margin-bottom: 30rpx;
 }
 .option {
 	min-width: 200rpx;
 	height: 60rpx;
-	margin-top: 30rpx;
+	margin-bottom: 30rpx;
 	padding-left: 30rpx;
 	font-size: 14px;
 	font-weight: 400;

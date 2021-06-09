@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="again" @click="resetAnswer"><text>重新答题</text></view>
-		<view class="reportplus" v-if="plus === 'plus'">
+		<view class="reportplus" v-if="permissions === '2'">
 			<view class="content_top">
 				<view class="leftsemicircle"></view>
 				<view class="rightsemicircle"></view>
@@ -15,7 +15,11 @@
 			<view class="content-plus">
 				<text class="plus-title">综合得分</text>
 				<view class="charts-box">
-					<qiun-data-charts type="radar" :opts="{ legend: { show: false }, extra: { radar: { gridType: 'circle' } } }" :chartData="chartsData" />
+					<qiun-data-charts
+						type="radar"
+						:opts="{ legend: { show: false }, extra: { radar: { gridType: 'circle', max: 10000 }, tooltip: { showBox: false } } }"
+						:chartData="chartsData"
+					/>
 					<view class="charts-data" v-for="item in reportData" :key="item.title">
 						<view class="minicircle"></view>
 						<view class="data-title">{{ item.title + ':' }}</view>
@@ -26,6 +30,11 @@
 				<view class="study-suggest">
 					<view class="default-title">学习建议</view>
 					<view class="study-suggest-item" v-for="item in studySuggests" :key="item.id">{{ item.asdsName }}</view>
+				</view>
+				<!-- 专业建议 -->
+				<view class="study-suggest">
+					<view class="default-title">专业建议</view>
+					<view class="study-suggest-item" v-for="item in suitAbleMajor" :key="item.id">{{ item }}</view>
 				</view>
 				<!-- 条件分享 -->
 				<view class="suggest">
@@ -102,7 +111,7 @@
 				<view class="reportpro__content__title">综合得分</view>
 				<view class="reportpro__content__nums">{{ baogaoinfo.overAllScore }}</view>
 				<view class="reportpro__content__text">继续努力呀~</view>
-				<view class="reportpro__content__sug" v-if="plus == 'pro'">
+				<view class="reportpro__content__sug" v-if="permissions === '1'">
 					<view class="sug-title">学习时机</view>
 					<view class="sug-text">国庆节起</view>
 					<view class="sug-title">整体印象</view>
@@ -117,7 +126,7 @@
 			</view>
 			<!-- more -->
 			<view class="reportpro__more">
-				<button type="default">{{ plus == 'pro' ? '升级专业版查看更多' : '升级查看更多' }}</button>
+				<button type="default">{{ permissions == '1' ? '升级专业版查看更多' : '升级查看更多' }}</button>
 			</view>
 		</view>
 	</view>
@@ -140,7 +149,7 @@ export default {
 			turenum: '4',
 			falsenum: '6',
 			score: '0',
-			plus: 'plus',
+			permissions: '',
 			reportData: [],
 			chartsData: {},
 			baogaoinfo: '',
@@ -149,29 +158,39 @@ export default {
 			showBao: false,
 			showTextList: [],
 			suggestList: '',
-			studySuggests: ''
+			studySuggests: '',
+			// 专业建议
+			suitAbleMajor: ''
 		};
 	},
-	onLoad(objs) {
+	onLoad() {
+		// 查看用户身份0普通，1会员，2专业会员
+		/* this.permissions = uni.getStorageSync('huiyuan').type + '' */
+		this.permissions = '2';
+		// 获取上一个页面的信息
 		uni.$on('baogao', res => {
 			this.baogaoinfo = res;
 			this.suggestList = res.haomai[1].childAskstudydiagnosiscatalogs;
 			this.studySuggests = res.haomai[0].childAskstudydiagnosiscatalogs[0].askstudydiatoselects;
 			this.chartsData = res.chartsData;
+			this.suitAbleMajor = res.suitAbleMajor;
 			console.log('接受成功', res);
 		});
 		uni.$emit('need');
 		// 数据显示
+
 		for (let i = 0; i < this.chartsData.categories.length; i++) {
+			let dataNums = this.chartsData.series[0].data[i] / 100;
 			this.reportData.push({
 				title: this.chartsData.categories[i],
-				data: this.chartsData.series[0].data[i] / 10
+				data: Math.round(dataNums * 100) / 100
 			});
 		}
 		// 获取用户信息
 		let userinfo = uni.getStorageSync('userData').userInfo;
 		this.bgurl = userinfo.avatarUrl;
 		this.nickName = userinfo.nickName;
+
 		// 获取页面高度
 		this.getWindowHeight();
 	},
@@ -202,7 +221,7 @@ export default {
 		},
 		resetAnswer() {
 			uni.navigateBack();
-			console.log('resetAnswer')
+			console.log('resetAnswer');
 		},
 		showText(id) {
 			if (this.showTextList.indexOf(id) === -1) {
@@ -427,6 +446,25 @@ export default {
 				color: #273253;
 				letter-spacing: 3rpx;
 			}
+		}
+		.leftsemicircle1 {
+			// background-color: #F0F0F0;
+			position: absolute;
+			background-color: #f0f0f0;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
+			margin-top: -150rpx;
+			margin-left: 650rpx;
+		}
+		.rightsemicircle1 {
+			position: absolute;
+			background-color: #f0f0f0;
+			height: 40rpx;
+			width: 40rpx;
+			border-radius: 20rpx;
+			margin-top: -150rpx;
+			margin-left: -20rpx;
 		}
 	}
 	&__more {

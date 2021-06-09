@@ -121,7 +121,7 @@ export default {
 										// 获取用户会员信息
 										let openid = uni.getStorageSync('openid');
 										await uni.request({
-											url: 'https://orangezoom.cn:8091/hxg/selectUser',
+											url: 'https://www.qzys.art/ruoyi-admin/hxg/selectUser',
 											method: 'POST',
 											data: {
 												openid

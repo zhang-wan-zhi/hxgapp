@@ -129,7 +129,7 @@ export default {
 			const fileName = e.tempFiles[0].name;
 			      new Promise((reslove,reject)=>{
 						uni.uploadFile({
-						    url: 'https://orangezoom.cn:8091/hxg/upFile',
+						    url: 'https://www.qzys.art/ruoyi-admin/hxg/upFile',
 						    filePath: filePaths,
 						    name: 'file',
 						    success: (res) => {

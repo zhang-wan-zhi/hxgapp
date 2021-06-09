@@ -6,10 +6,10 @@
 // let urls="http://192.168.3.247:8091"
 
 //线上地址
-/* let urls = "https://orangezoom.cn:8091"; */
+let urls = "https://www.qzys.art/ruoyi-admin";
 
 // 垃圾张泽森的接口
-let urls="http://192.168.3.215:8091";
+/* let urls="http://192.168.3.215:8091"; */
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
@@ -109,6 +109,29 @@ export function getyikaoDongtaiList() {
 				resolve(res)
 			},
 			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+//艺考动态列表搜索
+export function getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url:urls+'/hxg/getArtexamdynamicList',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data:{
+				"ssTile": aedTitle,
+				"sousuoTyoe":sousuoTyoe,
+				"currentPage": currentPage,
+				"pageSize": pageSize
+			},
+			success: res=>{
+				resolve(res)
+			},
+			fail: err=>{
 				reject(err)
 			},
 		})
@@ -232,22 +255,6 @@ export function getyikaoTikuList_one_one(quId) {
 	})
 }
 
-//获取艺考课程列表数据
-// export function getyikaoKechengList(){
-// 	return new Promise((resolve,reject)=>{
-// 		uni.request({
-// 			url:urls+'/hxg/getArtExams',
-// 			method: 'GET',
-// 			contentType: 'application/json;charset=UTF-8',
-// 			success: res=>{
-// 				resolve(res)
-// 			},
-// 			fail: err=>{
-// 				reject(err)
-// 			},
-// 		})
-// 	})
-// }
 
 
 //艺考动态列表查看更多
@@ -272,28 +279,6 @@ export function getmoreList(sousuoTyoe, currentPage, pageSize) {
 	})
 }
 
-//艺考动态列表搜索
-export function getmoreList1(aedTitle, sousuoTyoe, currentPage, pageSize) {
-	return new Promise((resolve, reject) => {
-		uni.request({
-			url: urls + '/hxg/getArtexamdynamicList',
-			method: 'POST',
-			contentType: 'application/json;charset=UTF-8',
-			data: {
-				"ssTile": aedTitle,
-				"sousuoTyoe": sousuoTyoe,
-				"currentPage": currentPage,
-				"pageSize": pageSize
-			},
-			success: res => {
-				resolve(res)
-			},
-			fail: err => {
-				reject(err)
-			},
-		})
-	})
-}
 
 //艺考动态列表,点击艺考动态列表的某一项
 export function getyikaoDongtaiList_one(id) {
@@ -667,7 +652,7 @@ export function getMemberInfo(){
 	const openid= uni.getStorageSync('openid');
 	return new Promise((resolve,reject)=>{
 		uni.request({
-			url: 'https://orangezoom.cn:8091/hxg/selectUser',
+			url: urls + '/hxg/selectUser',
 			method:'POST',
 			data:{
 				openid
@@ -688,6 +673,24 @@ export function getAskStudy() {
 		uni.request({
 			url: urls + '/hxg/askStudy/getAskStudy',
 			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 获取答题纪律
+export function getAskStudyRecord(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askStudy/getAskStudyRecord',
+			method: 'POST',
+			data: data,
 			contentType: 'application/json;charset=UTF-8',
 			success: res => {
 				resolve(res)

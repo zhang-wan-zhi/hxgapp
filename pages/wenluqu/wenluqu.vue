@@ -71,7 +71,7 @@
 							<view class="seclet_subject">专业分数</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入数字(num)" @input="getmajorScore">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入专业分数" @input="getmajorScore">
 						</view>
 					</view>
 					<view class="wenluqu_alloption">
@@ -80,7 +80,7 @@
 							<view class="seclet_subject">文化分数</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入数字(num)" @input="getculScore">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入文化分数" @input="getculScore">
 						</view>
 					</view>
 
@@ -155,7 +155,7 @@
 							<view class="seclet_subject">高考成绩:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入高考成绩" @input="getcollegeExamScore">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入高考成绩" @input="getcollegeExamScore">
 						</view>
 					</view>
 					
@@ -165,7 +165,7 @@
 							<view class="seclet_subject">统考成绩:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入统考成绩" @input="getgeneralExamination">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入统考成绩" @input="getgeneralExamination">
 						</view>
 					</view>
 				
@@ -175,7 +175,7 @@
 							<view class="seclet_subject">你的身高:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入身高(cm)" @input="getheight">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入身高(cm)" @input="getheight">
 						</view>
 					</view>
 					
@@ -198,7 +198,7 @@
 							<view class="seclet_subject">你的体重:</view>
 						</view>
 						<view class="input_subject">
-							<input placeholder-style="color:#A9AFB8" type="text" placeholder="请输入体重(kg)" @input="getweight">
+							<input placeholder-style="color:#A9AFB8" type="number" placeholder="请输入体重(kg)" @input="getweight">
 						</view>
 					</view>
 					
@@ -221,15 +221,10 @@
 	export default {
 		data() {
 			return {
-				isRed1:false,
-				isRed2:false,
-				url1:'../../static/icon/eidt_1.png',
-				url2:'../../static/icon/eidt.png',
 				//显示隐藏
 				isShow:true,
 				isShow2:false,
 				//动态属性的下拉数组
-				arrs:['1','2'],
 				array:['请选择','浙江','山东'],
 				index:0,
 				//省份
@@ -240,7 +235,6 @@
 				sexOption:['请选择','男','女'],
 				sex:'请选择',
 				luqu_sex:'请选择',
-				index2:0,
 				//文理分科
 				artAndSciences:'请选择',
 				//喜欢的大学,报考院校
@@ -255,10 +249,6 @@
 				generalExamination:'请选择',
 				//校考成绩
 				xiaokaoExamination:'',
-				//外语成绩
-				englishExamination:'',
-				//单科成绩,以语文成绩为例
-				chineseScore:'',
 				//报考专业
 				major:'',
 				indexMajor:0,
@@ -267,7 +257,6 @@
 				majorArr:['请输入你的报考专业','美术','文学编导','音乐','舞蹈','摄影','书法','影视戏剧表演','服装表演','播音主持','其他'],
 				luqu_major:'请输入你的报考专业',
 				//视力
-				vision:'',
 				shiliOption:["无色盲,无色弱","无色盲,有色弱","有色盲,无色弱","有色盲,有色弱"],
 				indexShili:0,
 				shili:'请输入你的视力情况',
@@ -297,8 +286,6 @@
 		},
 		onLoad() {
 			//获取视力下拉框数据
-			
-			
 			//获取窗口高度，适配手机
 			this.getWindowHeight()
 			//获取问录取字段
@@ -344,20 +331,6 @@
 			changeShow2(){
 				this.isShow = false;
 				this.isShow2 = true;
-			},
-			
-			getInputs(e){
-				console.log(e.detail.value);
-			},
-			//下拉框动态获取
-			bindInfo(e,list,value){
-				console.log(e);
-				console.log(list);
-				console.log(value);
-				value=list[e.detail.value].key;
-				console.log(value);
-				// this.index = e.target.value
-				// this.pickerData = storage[this.index]
 			},
 			//重置清空
 			// chongzhi(){
@@ -437,10 +410,24 @@
 			//获取高考成绩
 			getcollegeExamScore(e){
 				this.collegeExamScore=e.detail.value;
+				let num = this.collegeExamScore.charAt(this.collegeExamScore.length-1)
+						var reg=new RegExp("^[0-9]*$")
+						if(!reg.test(num)) {
+							return this.collegeExamScore.slice(0,-10)
+						} else {
+							return this.collegeExamScore
+						}
 			},
 			//获取统考成绩
 			getgeneralExamination(e){
 				this.generalExamination=e.detail.value;
+				let num = this.generalExamination.charAt(this.generalExamination.length-1)
+						var reg=new RegExp("^[0-9]*$")
+						if(!reg.test(num)) {
+							return this.generalExamination.slice(0,-10)
+						} else {
+							return this.generalExamination
+						}
 			},
 			//获取外语成绩
 			/* getenglishExamination(e){
@@ -466,34 +453,55 @@
 			getchineseScore(e){
 				this.chineseScore=e.detail.value;
 			},
-			//获取视力
-			// getvision(e){
-			// 	this.vision1=e.detail.value;
-			// },
 			//获取身高
 			getheight(e){
 				this.luqu_height=e.detail.value;
+				let num = this.luqu_height.charAt(this.luqu_height.length-1)
+						var reg=new RegExp("^[0-9]*$")
+						if(!reg.test(num)) {
+							return this.luqu_height.slice(0,-10)
+						} else {
+							return this.luqu_height
+						}
 			},
 			//获取专业分数
 			getmajorScore(e){
 				this.majorScore=e.detail.value;
+				let num = this.majorScore.charAt(this.majorScore.length-1)
+						var reg=new RegExp("^[0-9]*$")
+						if(!reg.test(num)) {
+							return this.majorScore.slice(0,-10)
+						} else {
+							return this.majorScore
+						}
+				
 			},
 			//获取文化分数
 			getculScore(e){
 				this.culScore=e.detail.value;
-			},
-			//获取身高
-			getshengao(e){
-				this.height=e.detail.value;
+				let num = this.culScore.charAt(this.culScore.length-1)
+						var reg=new RegExp("^[0-9]*$")
+						if(!reg.test(num)) {
+							return this.culScore.slice(0,-10)
+						} else {
+							return this.culScore
+						}
 			},
 			//获取体重
 			getweight(e){
 				this.luqu_weight=e.detail.value;
+				let num = this.luqu_weight.charAt(this.luqu_weight.length-1)
+						var reg=new RegExp("^[0-9]*$")
+						if(!reg.test(num)) {
+							return this.luqu_weight.slice(0,-10)
+						} else {
+							return this.luqu_weight
+						}
 			},
-			gettizhong(e){
-				this.weight=e.detail.value;
-			},
-			//下拉框
+			/* 
+			 * 问报考
+					*/
+			//省份
 			bindPickerChange(e) {		//改变的事件名
 				
 			    // console.log(e.target.value);
@@ -502,6 +510,7 @@
 				this.province=this.array[this.index]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
 			},
+			// 文理分科
 			bindPickerChange2(e) {		//改变的事件名
 			    console.log(e.target.value);
 				//console.log('picker发送选择改变，携带值为', e.target.value)   用于输出改变索引值
@@ -509,6 +518,7 @@
 				this.artAndSciences=this.array2[this.index]		//将array【改变索引】的值赋给定义的jg变量
 			//	console.log("籍贯为：",this.jg)		//输出获取的籍贯值，例如：中国
 			},
+			// 性别
 			bindPickerChangeSex(e){
 				this.indexSex = e.target.value;			//将数组改变索引赋给定义的index变量
 				this.sex=this.sexOption[this.indexSex]
@@ -559,12 +569,12 @@
 				this.indexSkill2=e.target.value;
 				this.luqu_skill=this.skillOption[this.indexSkill2]
 			},
-			//高考成绩
+			//wenluqu高考成绩
 			bindPickerChangeHighschoolScore(e){
 				this.indexHighschoolScore=e.target.value;
 				this.collegeExamScore=this.highschoolScores[this.indexHighschoolScore]	
 			},
-			//统考成绩
+			//wenluqu统考成绩
 			bindPickerChangeGeneralScore(e){
 				this.indexHighschoolScore=e.target.value;
 				this.generalExamination=this.generalScores[this.indexHighschoolScore]	
@@ -580,6 +590,40 @@
 					//问报考文化分数
 					culScore:this.culScore,
 					};
+					let openid = uni.getStorageSync('openid')
+					if(openid == ''){
+						uni.showModal({
+						    title: '提示',
+						    content: '请您先去登录，然后开始测试',
+						    success: function (res) {
+									if (res.confirm) {
+										console.log('用户点击确定');
+										uni.reLaunch({
+										            url:"../gerenzhongxin/gerenzhongxin"
+										        })
+									} else if (res.cancel) {
+										console.log('用户点击取消');
+									}
+								}
+						});
+						return false;
+					};
+					if(this.majorScore<0 || this.majorScore>300){
+						uni.showModal({
+						    title: '提示',
+						    content: '您输入的内容有误(专业：0-300)',
+						   
+						});
+						return false;
+					};
+							if(this.culScore<0 || this.culScore>750){
+								uni.showModal({
+								    title: '提示',
+								    content: '您输入的内容有误(专业：0-750)',
+								
+								});
+								return false;
+							};
 				getWenbaokaoList(obj).then((res)=>{
 					// console.log(res);
 					// console.log(111,res.data);
@@ -612,6 +656,18 @@
 						        })
 					}
 					
+				}).catch((err)=>{
+					uni.showModal({
+					    title: '提示',
+					    content: '您输入的内容有误，请重新输入',
+					    success: function (res) {
+					        if (res.confirm) {
+					            console.log('用户点击确定');
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
 				})
 				
 			},
@@ -623,85 +679,80 @@
 					"likeUniversity": this.likeSchool,
 					//文理分科
 					"artAndSciences": this.luqu_subject,
-					// "artAndSciences": '文科',
 					//省份地区
 					"province": this.luqu_province,
-					// "province": '北京市',
 					//报考专业
 					"major": this.luqu_major,
-					// "major": '广播电视编导',
 					//高考成绩
 					"collegeExamScore": this.collegeExamScore,
-					// "collegeExamScore": '600',
 					//统考成绩
 					"generalExamination": this.generalExamination,
-					// "generalExamination": '600',
 					//视力
 					"shili": this.luqu_shili,
-					// "shili": '无色盲,无色弱',
-					//文化成绩
-					// "culturalScore": "",
-					//外语成绩
-					// "foreignScore": this.englishExamination,
-					
-					
 					// 身高
 					"height": this.luqu_height,
-					// "height": '178',
-					
-					
-					//数学成绩
-					// "mathScore": "",
-					
 					//用户openid
 					// "userOpenId": "",
-					
 					//体重
 					"weight": this.luqu_weight,
-					// "weight": "77",
-					
-					//英语成绩
 					//性别
 					"sex": this.luqu_sex,
-					// "sex": '男',
-					
-				 //    "likeSchool": "浙江传媒学院", 
-					// "artAndSciences": "文科", 
-					// "province": "山东", 
-					// "major": "播音与主持艺术", 
-					// "collegeExamScore": "299", 
-					// "generalExamination": "90", 
-					// "eyesight": "0.0<视力<=3.0", 
-					// "weight": "120<体重<140", 
-					// "height": "170<身高", 
-					// "english": "100"
-					
-					// "userOpenId":"dhsjfsdkfjgjifjdgkdjkgfdkl"
-					// "likeSchool":"浙江传媒学院",
-					// "artAndSciences":"文科",
-					// "province":"山东",
-					// "major":"戏剧影视文学（桐乡）",
-					// "collegeExamScore":440
 				};
-				console.log(this.province);
-				console.log(this.artAndSciences);
-				//喜欢的大学
-				console.log(this.likeSchool);
-				//高考分数
-				console.log(this.collegeExamScore);
-				//统考成绩
-				console.log(this.generalExamination);
-				//报考专业
-				console.log(this.major1);
-				//单科成绩,以语文成绩为例
-				console.log(this.chineseScore);
-				//视力
-				console.log(this.shili1);
-				//身高
-				// console.log(this.shengao1);
-				//体重
-				// console.log(this.tizhong1);
+				let openid = uni.getStorageSync('openid')
+				if(openid == ''){
+					uni.showModal({
+					    title: '提示',
+					    content: '请您先去登录，然后开始测试',
+					    success: function (res) {
+								if (res.confirm) {
+									console.log('用户点击确定');
+									uni.reLaunch({
+									            url:"../gerenzhongxin/gerenzhongxin"
+									        })
+								} else if (res.cancel) {
+									console.log('用户点击取消');
+								}
+							}
+					});
+					return false;
+				};
+				// 判断身高
+				if(this.luqu_weight<50 || this.luqu_weight>280){
+					uni.showModal({
+					    title: '提示',
+					    content: '您输入的内容有误(身高：0-280)',
+					   
+					});
+					return false;
+				};
+				// 判断体重
+				if(this.luqu_weight<0 || this.luqu_weight>725){
+					uni.showModal({
+					    title: '提示',
+					    content: '您输入的内容有误(体重：0-725)',
+					   
+					});
+					return false;
+				};
 				console.log(obj);
+				//判断高考分数
+				if(this.collegeExamScore<0 || this.majorScore>750){
+					uni.showModal({
+					    title: '提示',
+					    content: '您输入的内容有误(专业：0-750)',
+					   
+					});
+					return false;
+				};
+				// 判断统考分数
+				if(this.generalExamination<0 || this.generalExamination>750){
+						uni.showModal({
+							title: '提示',
+							content: '您输入的内容有误(专业：0-750)',
+						
+						});
+						return false;
+				};
 				getWenluquList(obj).then((res)=>{
 					// console.log(res);
 					// console.log(res.data.data.academies[0]);
@@ -715,7 +766,7 @@
 					if(resArr.length==0){
 						uni.showModal({
 						    title: '提示',
-						    content: '您输入的内容在数据库中不存在',
+						    content: '您输入的内容为空，请输入。',
 						    success: function (res) {
 						        if (res.confirm) {
 						            console.log('用户点击确定');
@@ -735,7 +786,7 @@
 				.catch((err)=>{
 					uni.showModal({
 					    title: '提示',
-					    content: '您输入的内容在数据库中不存在',
+					    content: '您输入的内容有误，请重新输入',
 					    success: function (res) {
 					        if (res.confirm) {
 					            console.log('用户点击确定');
@@ -745,11 +796,6 @@
 					    }
 					});
 				})
-				
-				// uni.navigateTo({
-				// 	url:'../wenluqu_yucebaogao/wenluqu_yucebaogao'
-				// })
-				
 			}
 		}
 	}

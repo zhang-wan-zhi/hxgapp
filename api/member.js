@@ -1,4 +1,4 @@
-let urls = "https://orangezoom.cn:8091";
+let urls = "https://www.qzys.art/ruoyi-admin";
 
 export function charge(oProductid,money) {
 	const oOpenid= uni.getStorageSync('openid');

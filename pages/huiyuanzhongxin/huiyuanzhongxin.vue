@@ -130,7 +130,7 @@ export default {
 		// 查询会员信息
 		new Promise((resolve, reject) => {
 			uni.request({
-				url: 'https://orangezoom.cn:8091/hxg/getCharges',
+				url: 'https://www.qzys.art/ruoyi-admin/hxg/getCharges',
 				method: 'GET',
 				success(res) {
 					resolve(res);
@@ -213,7 +213,7 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await renewal(1,0.01);
+			let res=await charge(1,0.01);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;

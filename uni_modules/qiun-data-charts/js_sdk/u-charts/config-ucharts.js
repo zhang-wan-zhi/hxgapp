@@ -352,12 +352,9 @@ module.exports = {
   	"extra": {
   		"bar": {
   			"type": "group",
-  			"width": 30,
-  			"meterBorde": 1,
-  			"meterFillColor": "#FFFFFF",
-  			"activeBgColor": "#000000",
-  			"activeBgOpacity": 0.08
-  		},
+					
+					
+					},
   	}
   },
 	"area":{
@@ -398,7 +395,7 @@ module.exports = {
 				"gridColor": "#CCCCCC",
 				"gridCount": 3,
 				"opacity": 0.2,
-				"max": 200
+				"max": 1000
 			},
 		}
 	},

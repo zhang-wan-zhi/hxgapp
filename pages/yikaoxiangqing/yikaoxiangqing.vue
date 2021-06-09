@@ -24,20 +24,11 @@
 			}
 		},
 		onLoad(res) {
-			console.log(res);
-			this.getList(res.id);
-		},
-		methods:{
-			getList(ids){
-				let yikaoDongtaiLists=uni.getStorageSync('yikaoDongtaiList');
-				let newLists=[];
-				getyikaoDongtaiList_one(ids).then((res)=>{
+			getyikaoDongtaiList_one(res.id).then((res)=>{
 					console.log(res)
 					this.yikaoDongtaiList_obj=res.data.artexamdynamic;
-					
 				});
-			}
-		}
+		}  
 	}
 </script>
 

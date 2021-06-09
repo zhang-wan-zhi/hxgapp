@@ -67,7 +67,7 @@ export default {
 					rightIndex: [0, 1, 3],
 					type: 2,
 					score: 10
-				}
+				},
 			],
 			// 当前题目索引
 			currentIndex: 0
@@ -133,7 +133,25 @@ export default {
 		// 提交
 		submit() {
 			console.log(this.questionList);
-
+			// 判断是否登录
+						let openid = uni.getStorageSync('openid')
+						if(openid == ''){
+							uni.showModal({
+							    title: '提示',
+							    content: '请您先去登录，然后开始测试',
+							    success: function (res) {
+										if (res.confirm) {
+											console.log('用户点击确定');
+											uni.reLaunch({
+											            url:"../gerenzhongxin/gerenzhongxin"
+											        })
+										} else if (res.cancel) {
+											console.log('用户点击取消');
+										}
+									}
+							});
+							return false;
+						};
 			// 判断是否有题目未作答
 			let flag = false;
 			this.questionList.forEach((item, index) => {
@@ -214,7 +232,8 @@ export default {
 .title {
 	font-size: 18px;
 	font-weight: 400;
-	line-height: 50rpx;
+	height: 60rpx;
+	line-height: 60rpx;
 	color: #242448;
 }
 .option {

@@ -112,16 +112,7 @@
 import { yikaoDongtai } from '../../components/index/yikaoDongtai.vue';
 import { yikaoKecheng } from '../../components/index/yikaoKecheng.vue';
 import { getWenxuexiTestList } from '../../api/api.js';
-import {
-	getLunboList,
-	getyikaoDongtaiList,
-	getmoreList,
-	getmoreList1,
-	getyikaoDongtaiList_one,
-	getyikaoKechengList,
-	getyikaoTikuList,
-	getyikaoTikuList_one
-} from '../../api/api.js';
+import { getLunboList, getyikaoDongtaiList, getmoreList, getyikaoDongtaiList_one, getyikaoKechengList, getyikaoTikuList, getyikaoTikuList_one } from '../../api/api.js';
 export default {
 	components: {
 		yikaoDongtai,
@@ -163,20 +154,22 @@ export default {
 			//艺考题库列表数据
 			yikaoTikuList: [],
 			//艺考动态目前的页码
-			currentPage: 1,
+			dongtaiCurrentPage: 1,
+			kechengCurentPage: 1,
+			tikuCurrentpage: 1,
 			isSearch: true,
 			//默认状态为艺考动态的
-			sousuoTyoe: 1
+			sousuoType: 1
 		};
 	},
+	onShow() {
+		// 刷新艺考课程
+		getyikaoKechengList().then(res => {
+			console.log(res.data.artexams);
+			this.yikaoKechengList = res.data.artexams;
+		});
+	},
 	onLoad() {
-		//模拟ajax获取数据，uni.request({...});注意回调的this指向
-		// this.swipers=['../../static/img/lunbo1.jpg',
-		// "../../static/img/lunbo2.jpg",
-		// "../../static/img/lunbo3.jpg"
-		// ];
-		//获取窗口高度，适配手机
-		this.getWindowHeight();
 		//获取轮播图数据
 		this.getLunboLists();
 		//获取艺考动态列表数据
@@ -184,10 +177,10 @@ export default {
 	},
 	//下拉触底的时候触发
 	onReachBottom() {
-		// console.log(222);
 		//1为艺考动态，2为艺考课程，3为艺考题库
-		let sousuoTyoe = this.sousuoTyoe;
-		let currentPage = this.currentPage;
+		console.log(this.yikaoDongtaiList);
+		console.log(this.sousuoType);
+		let sousuoType = this.sousuoType;
 		let pageSize = 4;
 		currentPage = currentPage + 1;
 		getmoreList(sousuoTyoe, currentPage, pageSize).then(res => {
@@ -222,15 +215,12 @@ export default {
 				this.zhenti_next(id);
 			}
 		},
+
 		//获取艺考动态列表数据
 		getyikaoDongtaiLists() {
 			getyikaoDongtaiList().then(res => {
 				// console.log(res.data.artexamdynamicList);
 				this.yikaoDongtaiList = res.data.artexamdynamicList;
-				uni.setStorage({
-					key: 'yikaoDongtaiList',
-					data: this.yikaoDongtaiList
-				});
 			});
 		},
 		//获取轮播图数据
@@ -239,19 +229,6 @@ export default {
 			getLunboList().then(res => {
 				console.log(res.data.banners);
 				this.swipers = res.data.banners;
-			});
-		},
-		//获取窗口高度，适配手机
-		getWindowHeight() {
-			uni.getSystemInfo({
-				success: res => {
-					// console.log(res);
-					// console.log("手机可用高度:"+res.windowHeight*2+"rpx");
-					this.phoneHeight = res.windowHeight;
-					// console.log(res.windowHeight);
-					// console.log(this.phoneHeight);
-					// this.$store.commit('set_window_height',res.windowHeight*2);
-				}
 			});
 		},
 		//艺考课程
@@ -264,9 +241,6 @@ export default {
 		//点击向右箭头触发，打开题库,打开为id的试卷
 		zhenti_next(id) {
 			console.log(id);
-			// uni.navigateTo({
-			// 	url: '../xinggepinggu/xinggepinggu?ids=' + id
-			// });
 			uni.navigateTo({
 				url: '../question/question?id=' + id
 			});
@@ -281,10 +255,10 @@ export default {
 			this.yikaoTikuStatus = true;
 			//获取艺考题库列表
 			getyikaoTikuList().then(res => {
-				console.log(res.data.rows);
+				// console.log(res.data.rows);
 				this.yikaoTikuList = res.data.rows;
 			});
-			this.sousuoTyoe = 3;
+			this.sousuoType = 3;
 		},
 		//点击艺考课程触发
 		yikaoKecheng() {
@@ -300,7 +274,7 @@ export default {
 				console.log(res.data.artexams);
 				this.yikaoKechengList = res.data.artexams;
 			});
-			this.sousuoTyoe = 2;
+			this.sousuoType = 2;
 		},
 		//点击艺考动态触发
 		yikaoDongtai2() {
@@ -313,6 +287,7 @@ export default {
 			this.yikaoTikuStatus = false;
 
 			console.log(this.yikaoDongtaiList);
+			this.sousuoType = 1;
 		},
 		//点击查看某一篇的艺考动态信息
 		yikaoDongtai(ids) {
