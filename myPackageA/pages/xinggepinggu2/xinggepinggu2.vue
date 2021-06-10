@@ -6,6 +6,9 @@
 			<uni-popup ref="alertDialog" type="dialog">
 				<uni-popup-dialog type="warn" title="提示" content="还有没有回答的题目!" @confirm="dialogConfirm"></uni-popup-dialog>
 			</uni-popup>
+
+			<!-- 提示信息弹窗 -->
+			<uni-popup ref="message" type="message"><uni-popup-message type="error" message="提交失败!" :duration="2000"></uni-popup-message></uni-popup>
 		</view>
 		<!-- 选择 -->
 		<uni-popup ref="popup" type="top">
@@ -89,9 +92,13 @@ export default {
 			hightItem: [],
 			askstudies: [],
 			submiting: false
+			//加载中组件数据
 		};
 	},
 	onLoad() {
+		uni.showLoading({
+			title: '加载中'
+		});
 		this.getAnswerArr();
 	},
 	methods: {
@@ -109,6 +116,8 @@ export default {
 			// 获取题目
 			let res = await getAskStudy();
 			this.questionList = res.data.data;
+			// 隐藏加载中...
+			uni.hideLoading();
 			this.hightItem = new Array(res.data.data.length);
 			console.log('questionList', this.questionList);
 			if (answerArr) {
@@ -235,6 +244,9 @@ export default {
 					setTimeout(() => {
 						this.submiting = false;
 					}, 500);
+				} else {
+					this.submiting = false;
+					this.$refs.message.open();
 				}
 			});
 		},

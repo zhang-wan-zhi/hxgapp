@@ -344,11 +344,13 @@ export default {
 			border-bottom: 2px dotted #dadbdd;
 			.study-suggest-item {
 				color: #273253;
+				width: 541rpx;
 				font-size: 31rpx;
 				font-weight: 400;
 				margin-right: 31rpx;
 				margin-top: 30rpx;
 				margin-left: 60rpx;
+				letter-spacing: 3rpx;
 			}
 		}
 		// 条件分享
