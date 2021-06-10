@@ -575,68 +575,6 @@ export function Yijianfankui(openid, opContent,opType,opImg1,opImg2,opImg3) {
 	})
 }
 
-//测试做题接口
-export function TestApi(userId, examId, examTime) {
-	return new Promise((resolve, reject) => {
-		uni.request({
-			url: urls + '/hxg/exam/submit?userId=' + userId + '&examId=' + examId + '&examTime=' +
-				examTime,
-			method: 'POST',
-			contentType: 'application/json;charset=UTF-8',
-			// header: {
-			//    "Content-Type": "application/x-www-form-urlencoded"
-			// }, // 请求头
-			data:
-				// userId,
-				// examId,
-				// examTime,
-				[{
-						"quId": 1,
-						"answerId": 1,
-						"isRight": 0,
-						"score": 5
-					},
-					{
-						"quId": 2,
-						"answerId": 2,
-						"isRight": 1,
-						"score": 5
-					},
-					{
-						"quId": 3,
-						"answerId": 2,
-						"isRight": 0,
-						"score": 5
-					},
-					{
-						"quId": 5,
-						"answerId": 1,
-						"isRight": 0,
-						"score": 5
-					},
-					{
-						"quId": 6,
-						"answerId": 1,
-						"isRight": 0,
-						"score": 5
-					},
-					{
-						"quId": 7,
-						"answerId": 1,
-						"isRight": 0,
-						"score": 5
-					}
-				],
-			// dataType: 'json', // 返回数据格式
-			success: res => {
-				resolve(res)
-			},
-			fail: err => {
-				reject(err)
-			},
-		})
-	})
-}
 //获取用户openid方法封装
 export function hasOpenid(){
 	const openid= uni.getStorageSync('openid');
@@ -658,7 +596,7 @@ export function getMemberInfo(){
 				openid
 			},
 			success(res) {
-				resolve(res)
+				resolve(res.data)
 			},
 			fail(res) {
 				 console.log(res);
@@ -689,6 +627,42 @@ export function getAskStudyRecord(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/askStudy/getAskStudyRecord',
+			method: 'POST',
+			data: data,
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+//上传图片接口
+
+export function uploadPicture(filePath){
+	return new Promise((resolve,reject)=>{
+		uni.uploadFile({
+		    url: urls +  '/hxg/upFile',
+		    filePath,
+		    name: 'file',
+		    success: (res) => {
+		        reslove(res)
+		    },
+			fail(res) {
+			 reject(res)
+			}
+		})
+	})
+}
+
+// 折线图
+export function getReportByAskStudyCurve(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askStudy/getReportByAskStudyCurve',
 			method: 'POST',
 			data: data,
 			contentType: 'application/json;charset=UTF-8',

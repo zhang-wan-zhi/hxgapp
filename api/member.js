@@ -1,5 +1,7 @@
 let urls = "https://www.qzys.art/ruoyi-admin";
 
+
+// 充值会员
 export function charge(oProductid,money) {
 	const oOpenid= uni.getStorageSync('openid');
 	return new Promise((resolve, reject) => {
@@ -21,6 +23,8 @@ export function charge(oProductid,money) {
 	})
 }
 
+
+// 续费会员
 export function renewal(oProductid,money) {
 	const oOpenid= uni.getStorageSync('openid');
 	return new Promise((resolve, reject) => {
@@ -42,7 +46,7 @@ export function renewal(oProductid,money) {
 	})
 }
 
-
+// 查询provider信息
 export function getProviderInfo() {
 	return new Promise((resolve, reject) => {
 		uni.getProvider({
@@ -55,4 +59,22 @@ export function getProviderInfo() {
 			}
 		})
 	})
+}
+
+// 查询会员钱数id信息
+
+export function getCharges() {
+	return new Promise((resolve, reject) => {
+			uni.request({
+				url:  urls +  '/hxg/getCharges',
+				method: 'GET',
+				success(res) {
+					resolve(res.data);
+				},
+				fail(res) {
+					reject(res);
+				}
+			});
+		})
+	
 }

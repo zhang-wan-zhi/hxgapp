@@ -303,10 +303,17 @@ export default {
 		},
 		//点击进入性格评估
 		xinggepinggu() {
-			uni.navigateTo({
-				url: '../xinggepinggu2/xinggepinggu2'
-				/* url: '../wenxuexiBaogao/wenxuexiBaogao' */
-			});
+			let openid = uni.getStorageSync('openid');
+			if (!openid) {
+				uni.redirectTo({
+					url: '../index/index'
+				});
+			} else {
+				uni.navigateTo({
+					url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2'
+					/* url: '../wenxuexiBaogao/wenxuexiBaogao' */
+				});
+			}
 		}
 	}
 };

@@ -14,6 +14,7 @@
 			</view>
 			<view class="content-plus">
 				<text class="plus-title">综合得分</text>
+				<view class="nums">{{ Math.round(baogaoinfo.overAllScore) }}</view>
 				<view class="charts-box">
 					<qiun-data-charts
 						type="radar"
@@ -25,6 +26,20 @@
 						<view class="data-title">{{ item.title + ':' }}</view>
 						<view class="data-num">{{ item.data }}</view>
 					</view>
+				</view>
+				<!-- 折线图 -->
+				<view class="study-suggest">
+					<view class="default-title">成绩趋势</view>
+					<qiun-data-charts
+					    type="line"
+					    :chartData="studyCurveChartsData"
+					    background="none"
+					  />
+				</view>
+				<!-- 心理测试结果 -->
+				<view class="study-suggest">
+					<view class="default-title">心理测试结果</view>
+					<view class="study-suggest-item" v-for="item in psychologicalTest" :key="item.id">{{ item.asdsName }}</view>
 				</view>
 				<!-- 学习建议 -->
 				<view class="study-suggest">
@@ -91,7 +106,7 @@
 				<view class="share-report">
 					<view class="leftsemicircle"></view>
 					<view class="rightsemicircle"></view>
-					<button type="default">分享</button>
+					<button type="default" open-type="share">分享</button>
 				</view>
 			</view>
 		</view>
@@ -109,7 +124,7 @@
 			<!-- content -->
 			<view class="reportpro__content">
 				<view class="reportpro__content__title">综合得分</view>
-				<view class="reportpro__content__nums">{{ baogaoinfo.overAllScore }}</view>
+				<view class="reportpro__content__nums">{{ Math.round(baogaoinfo.overAllScore) }}</view>
 				<view class="reportpro__content__text">继续努力呀~</view>
 				<view class="reportpro__content__sug" v-if="permissions === '1'">
 					<view class="sug-title">学习时机</view>
@@ -122,7 +137,7 @@
 			<view class="share-report">
 				<view class="leftsemicircle"></view>
 				<view class="rightsemicircle"></view>
-				<button type="default">分享</button>
+				<button type="default" open-type="share">分享</button>
 			</view>
 			<!-- more -->
 			<view class="reportpro__more">
@@ -133,6 +148,7 @@
 </template>
 
 <script>
+	import {getReportByAskStudyCurve} from '../../../api/api.js'
 export default {
 	data() {
 		return {
@@ -160,10 +176,16 @@ export default {
 			suggestList: '',
 			studySuggests: '',
 			// 专业建议
-			suitAbleMajor: ''
+			suitAbleMajor: '',
+			// 心理测试
+			psychologicalTest: '',
+			// 学习曲线图
+			studyCurveChartsData: '',
+			postData: ''
 		};
 	},
 	onLoad() {
+		
 		// 查看用户身份0普通，1会员，2专业会员
 		/* this.permissions = uni.getStorageSync('huiyuan').type + '' */
 		this.permissions = '2';
@@ -174,11 +196,19 @@ export default {
 			this.studySuggests = res.haomai[0].childAskstudydiagnosiscatalogs[0].askstudydiatoselects;
 			this.chartsData = res.chartsData;
 			this.suitAbleMajor = res.suitAbleMajor;
+			this.psychologicalTest = res.haomai[5].childAskstudydiagnosiscatalogs[0].askstudydiatoselects
+			this.postData = res.postData;
 			console.log('接受成功', res);
+			console.log('this.postData',this.postData)
 		});
 		uni.$emit('need');
+		// 折线图数据
+		console.log('发送请求了')
+		getReportByAskStudyCurve(this.postData).then(res => {
+			console.log('zzslj',res)
+			this.studyCurveChartsData = res.data.studyCurveChartsData
+		})
 		// 数据显示
-
 		for (let i = 0; i < this.chartsData.categories.length; i++) {
 			let dataNums = this.chartsData.series[0].data[i] / 100;
 			this.reportData.push({
@@ -187,7 +217,8 @@ export default {
 			});
 		}
 		// 获取用户信息
-		let userinfo = uni.getStorageSync('userData').userInfo;
+		let userinfo = uni.getStorageSync('userinfo');
+		console.log('userinfo',userinfo)
 		this.bgurl = userinfo.avatarUrl;
 		this.nickName = userinfo.nickName;
 
@@ -269,6 +300,16 @@ export default {
 			font-size: 35rpx;
 			margin: 30rpx 0;
 		}
+		.nums {
+			width: 507rpx;
+			height: 177rpx;
+			font-size: 173rpx;
+			text-align: center;
+			font-weight: 400;
+			line-height: 177rpx;
+			color: #fbbe4b;
+			letter-spacing: 7rpx;
+		}
 		.charts-box {
 			width: 100%;
 			border-bottom: 2px dotted #dadbdd;
@@ -305,6 +346,7 @@ export default {
 				color: #273253;
 				font-size: 31rpx;
 				font-weight: 400;
+				margin-right: 31rpx;
 				margin-top: 30rpx;
 				margin-left: 60rpx;
 			}

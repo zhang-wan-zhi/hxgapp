@@ -97,7 +97,7 @@
 		    
 		},
 		
-		{
+		/* {
 		    "path" : "pages/wenxuexiBaogao/wenxuexiBaogao",
 		    "style" :                                                                                    
 		    {
@@ -107,8 +107,8 @@
 				"navigationBarBackgroundColor":"#ED5C4D"
 		    }
 		    
-		}
-        ,{
+		}, */
+        {
             "path" : "pages/wenxiaokao/wenxiaokao",
             "style" :                                                                                    
             {
@@ -222,7 +222,7 @@
 		    }
 		    
 		},
-		{
+		/* {
 		    "path" : "pages/xinggepinggu2/xinggepinggu2",
 		    "style" :                                                                                    
 		    {
@@ -233,7 +233,7 @@
 				// "navigationStyle":"custom"
 		    }
 		    
-		},
+		}, */
 		{
 		    "path" : "pages/test_search/test_search",
 		    "style" :                                                                                    
@@ -296,7 +296,35 @@
 		    
 		}
 		       
-    ],   
+    ],
+"subPackages": [{
+	"root":"myPackageA",
+	"pages":[
+		{
+		    "path" : "pages/xinggepinggu2/xinggepinggu2",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "性格评估",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#ED5C4D"
+				// "navigationStyle":"custom"
+		    }
+		    
+		},
+		{
+		    "path" : "pages/wenxuexiBaogao/wenxuexiBaogao",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "问学习报告",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#ED5C4D"
+		    }
+		    
+		}
+	]
+}],
 "tabBar": {
     "color": "#7A7E83",
     "selectedColor": "#F37372",

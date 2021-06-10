@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { Yijianfankui } from '../../api/api.js';
+import { Yijianfankui,uploadPicture } from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -127,19 +127,7 @@ export default {
 			console.log('e:',e)
 			const filePaths = e.tempFiles[0].image.location;
 			const fileName = e.tempFiles[0].name;
-			      new Promise((reslove,reject)=>{
-						uni.uploadFile({
-						    url: 'https://www.qzys.art/ruoyi-admin/hxg/upFile',
-						    filePath: filePaths,
-						    name: 'file',
-						    success: (res) => {
-						        reslove(res)
-						    },
-							fail(res) {
-							 reject(res)
-							}
-						})
-					})
+			      uploadPicture(filePaths)
 					.then((res)=>{
 					 res=JSON.parse(res.data)
 					 console.log(res);
@@ -148,6 +136,12 @@ export default {
 					 obj.name=fileName;
 					 this.imageList.push(obj);
 					 console.log(this.imageList)
+					}).catch(res=>{
+						uni.showToast({
+							title: '图片上传失败',
+							icon: 'none',
+							duration: 2000
+						});
 					})
 		},
 		// 删除图片时

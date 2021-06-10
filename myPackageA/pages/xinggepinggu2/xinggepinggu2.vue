@@ -29,26 +29,35 @@
 						<text>{{ ' ' + (index1 + 1) + '/' + questionList.length }}</text>
 						<text class="all-question iconfont" @click="openSelect">查看全部</text>
 					</view>
-					
+
 					<view class="list">
 						<view class="title" v-html="item1.asContent"></view>
 						<!-- 如果是选择题 -->
 						<view class="options" v-if="item1.asType === 2 || 3">
 							<scroll-view scroll-y="true" class="scroll-list">
-							<view
-								:class="['option', { checked: item2.astvName == askstudies[index1].selectItem }]"
-								v-for="(item2, index2) in item1.askstudytovalues"
-								@click="handleOption(index1, index2, item1, item2)"
-								:key="index2"
-							>
-								<text>{{ item2.astvName }}</text>
-							</view>
+								<view
+									:class="['option', { checked: item2.astvName == askstudies[index1].selectItem }]"
+									v-for="(item2, index2) in item1.askstudytovalues"
+									@click="handleOption(index1, index2, item1, item2)"
+									:key="index2"
+								>
+									<text>{{ item2.astvName }}</text>
+								</view>
 							</scroll-view>
 						</view>
-						<!-- 如果是填空题 -->
+						<!-- 如果是填空题1 -->
 						<view class="gap__filling" v-if="item1.asType === 1"><textarea v-model="askstudies[index1].selectItem" placeholder="请输入答案..." /></view>
-						<!-- 如果是时间选择 -->
-						<uni-datetime-picker type="date" v-model="askstudies[index1].selectItem" start="2010-6-10 08:30:30" end="2021-6-10 08:30:30">1111111</uni-datetime-picker>
+						<!-- 如果是时间选择4 -->
+						<div class="item" v-if="item1.asType === 4">
+							<dyDatePicker
+								timeType="month"
+								@getData="getData"
+								placeholder="请选择日期"
+								minSelect="1921/01/01"
+								maxSelect="2025/12/31"
+								:childValue="askstudies[index1].selectItem"
+							></dyDatePicker>
+						</div>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -56,14 +65,18 @@
 		<view class="control">
 			<view class="last" @click="last">上一题</view>
 			<view class="next" @click="next" v-show="!(indexNums == questionList.length - 1)">下一题</view>
-			<view class="submit" @click="submit" v-show="indexNums == questionList.length - 1">提交</view>
+			<view class="submit" @click="submit" v-show="indexNums == questionList.length - 1">{{ submiting ? '提交中' : '提交' }}</view>
 		</view>
 	</view>
 </template>
 
 <script>
-import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList, getAskStudyRecord } from '../../api/api.js';
+import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList, getAskStudyRecord } from '../../../api/api.js';
+import dyDatePicker from '../../../components/dy-Date/dy-Date.vue';
 export default {
+	components: {
+		dyDatePicker
+	},
 	data() {
 		return {
 			questionList: [],
@@ -79,19 +92,12 @@ export default {
 		};
 	},
 	onLoad() {
-		let openid = uni.getStorageSync('openid');
-		if (!openid) {
-			this.click_shouquan();
-		}
-		// 获取问题和答题记录
 		this.getAnswerArr();
 	},
 	methods: {
-		//登录授权
-		click_shouquan() {
-			uni.redirectTo({
-				url: '../index/index'
-			});
+		getData(time) {
+			console.log('getData', time);
+			this.askstudies[this.indexNums].selectItem = time;
 		},
 		async getAnswerArr() {
 			// 获取答案记录
@@ -189,8 +195,8 @@ export default {
 		},
 		submit() {
 			if (this.submiting) {
-				console.log('111111')
-				return
+				console.log('111111');
+				return;
 			}
 			// 判断是否有哪一题没回答
 			let emy = false;
@@ -207,7 +213,7 @@ export default {
 				userOpenid: uni.getStorageSync('openid'),
 				askstudies: this.askstudies
 			};
-			this.submiting = true
+			this.submiting = true;
 			getWenxuexiResuleList(data).then(res => {
 				console.log(111, res);
 				if (res.data.code == 200) {
@@ -221,13 +227,14 @@ export default {
 							overAllScore: res.data.overAllScore,
 							xuexiao: res.data.xuexiao,
 							chartsData: res.data.chartsData,
-							suitAbleMajor: res.data.suitAbleMajor
+							suitAbleMajor: res.data.suitAbleMajor,
+							postData: data
 						});
 					});
 					console.log('发射成功');
-					setTimeout(()=> {
-						this.submiting = false
-					},500)
+					setTimeout(() => {
+						this.submiting = false;
+					}, 500);
 				}
 			});
 		},
