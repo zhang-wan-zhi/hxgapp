@@ -100,7 +100,6 @@ export default {
 				const type = res.data.prep2;
 				const deadline = res.data.toTime.slice(0, 10);
 				this.status = type;
-				console.log(1)
 				uni.setStorage({
 					key: 'huiyuan',
 					data: {
