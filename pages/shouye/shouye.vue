@@ -176,6 +176,7 @@ export default {
 			console.log(res.data.artexams);
 			this.yikaoKechengList = res.data.artexams;
 		});
+		this.getyikaoDongtaiLists()
 	},
 	onLoad() {
 		//获取轮播图数据
@@ -184,7 +185,7 @@ export default {
 		this.getyikaoDongtaiLists();
 	},
 	//下拉触底的时候触发
-	onReachBottom() {
+	onReachBottom() { 
 		//1为艺考动态，2为艺考课程，3为艺考题库
 		console.log(this.yikaoDongtaiList);
 		console.log(this.sousuoType);

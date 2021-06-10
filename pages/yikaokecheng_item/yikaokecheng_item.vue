@@ -5,7 +5,9 @@
 			<view class="class-video"><video :src="yikaoKechengList_one.aeVideourl" objectFit="cover"></video></view>
 			<!-- 视频详情 -->
 			<view class="detail">
-				<text class="title">{{ yikaoKechengList_one.aeTitle }}</text>
+				<view >
+					<text class="title">{{ yikaoKechengList_one.aeTitle }}</text>
+				</view>
 				<view class="watch">
 					<image src="../../static/img/firstIcon/watch.png" mode=""></image>
 					<text class="watch-number">{{ yikaoKechengList_one.peopleNum }}次观看</text>
@@ -472,6 +474,7 @@ export default {
 }
 
 .title {
+	width: 100%;
 	font-size: 18px;
 	font-weight: 400;
 	color: #0f1826;
