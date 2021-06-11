@@ -22,5 +22,6 @@ export default {
 }
 page{
 	height: 100%;
+	padding-top: 20rpx;
 }
 </style>

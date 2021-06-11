@@ -135,8 +135,6 @@ export default {
 			inputs_text: '',
 			//输入框默认的值
 			placeholders: '搜索',
-			//输入框默认的样式
-			// placeholders_styles:'iconfont icon-sousuo',
 			//轮播图的数组地址
 			swipers: [],
 			// 当前显示的指示点
@@ -147,8 +145,6 @@ export default {
 			isactive1: false,
 			//艺考题库标题栏的切换
 			isactive2: false,
-			//适配手机高度
-			phoneHeight: 0,
 			//艺考动态显示隐藏的状态
 			yikaoDongtaiStatus: true,
 			//艺考课程显示隐藏的状态
@@ -286,7 +282,6 @@ export default {
 		},
 		//点击艺考课程触发
 		yikaoKecheng() {
-			// console.log(1111);
 			this.isactive = false;
 			this.isactive1 = true;
 			this.isactive2 = false;
