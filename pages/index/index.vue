@@ -74,13 +74,11 @@ export default {
 				desc: '登录',
 				lang: 'zh_CN',
 				success: function(infoRes) {
-					console.log(infoRes);
+					uni.showLoading({
+					    title: '登录中'
+					});
 					//存储用户信息到缓存中
 					let userinfo = infoRes.userInfo;
-					uni.setStorage({
-						key: 'userinfo',
-						data: userinfo
-					});
 					uni.login({
 						provider: 'weixin',
 						success: function(loginRes) {
@@ -92,6 +90,10 @@ export default {
 									key: 'openid',
 									data: openid
 								});
+								uni.setStorage({
+									key: 'userinfo',
+									data: userinfo
+								});
 								console.log(userinfo);
 								let province = userinfo.province;
 								let sex = userinfo.gender;
@@ -99,16 +101,21 @@ export default {
 								let userName = userinfo.nickName;
 								//将用户信息存入数据库后，将openid存入缓存中
 								getUser_openid_Info(openid, province, sex, userImg, userName).then(res => {
+									uni.hideLoading();
 									uni.reLaunch({
 										url: '../gerenzhongxin/gerenzhongxin'
 									});
 								});
 							});
+						},
+						fail() {
+							uni.hideLoading();
+							uni.showToast({
+							    title: '服务器开小差了',
+							    duration: 2000
+							});
 						}
 					});
-				},
-				fail: function(res) {
-					console.log(res);
 				}
 			});
 		}

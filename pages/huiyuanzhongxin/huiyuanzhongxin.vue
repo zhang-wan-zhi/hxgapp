@@ -32,7 +32,7 @@
 						</view>
 						<view class="handle" v-show="memberInfo.type == 1">
 							<view class="renew" v-show="memberInfo.type == 1" @click="delayTwo">立即续费</view>
-							<view class="renew" style="margin-left: 40rpx;" v-show="false">升级会员</view>
+							<view class="renew" style="margin-left: 40rpx;" v-show="memberInfo.type == 1" @click="upgrade()">升级会员</view>
 						</view>
 					</view>
 				</swiper-item>
@@ -148,6 +148,10 @@ export default {
 		},
 		//专业会员支付功能
 		async toCostOne() {
+			// 获取充值信息
+			let money=this.zhuanyeMoney;
+			let id=this.zhuanyeId;
+			
 			// 判断是否是会员
 			if (this.memberInfo.type == 1 || this.memberInfo.type == 2) {
 				uni.showToast({
@@ -158,7 +162,7 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await charge(2,0.02);
+			let res=await charge(id,money);
 			console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -189,6 +193,9 @@ export default {
 		},
 		// 普通会员充值
 		async toCostTwo() {
+			// 获取充值信息
+			let money=this.putongMoney;
+			let id=this.putongId;
 			// 判断是否是会员
 			if (this.memberInfo.type == 1 || this.memberInfo.type == 2) {
 				uni.showToast({
@@ -199,7 +206,7 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await charge(1,0.01);
+			let res=await charge(id,money);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -231,8 +238,10 @@ export default {
 		},
 		// 专业会员续费
 		async delayOne() {
+			let money=this.zhuanyeMoney;
+			let id=this.zhuanyeId;
 			// 获取充值信息
-			let res=await renewal(2,0.02);
+			let res=await renewal(id,money);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -263,8 +272,10 @@ export default {
 		},
 		// 普通会员续费
 		async delayTwo(){
+			let money=this.putongMoney;
+			let id=this.putongId;
 			// 获取充值信息
-		    let res=await renewal(1,0.01);
+		    let res=await renewal(id,money);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -286,6 +297,39 @@ export default {
 				success(res) {
 					uni.redirectTo({
 						url: '../huiyuanzhongxin/huiyuanzhongxin?key=1'
+					});
+				},
+				fail(res) {
+					console.log(res);
+				}
+			});
+		},
+		//普通会员升级
+		async upgrade(){
+			let money=this.zhuanyeMoney;
+			let id=this.zhuanyeId;
+			
+			let res=await charge(id,money);
+			let timeStamp = res.timeStamp;
+			let orderInfo = res.product_id;
+			let nonceStr = res.nonceStr;
+			let packages = res.package;
+			let signType = res.signType;
+			let paySign = res.paySign;
+			//获取provider
+			let provider= await getProviderInfo();
+			// 调用支付接口
+			uni.requestPayment({
+				provider,
+				timeStamp,
+				nonceStr,
+				signType,
+				paySign,
+				orderInfo,
+				package: packages,
+				success(res) {
+					uni.redirectTo({
+						url: '../huiyuanzhongxin/huiyuanzhongxin?key=0'
 					});
 				},
 				fail(res) {
@@ -355,7 +399,7 @@ export default {
 .name image {
 	width: 36rpx;
 	height: 36rpx;
-	margin: 0rpx 0rpx 4rpx 10rpx;
+	margin-left: 20rpx;
 	vertical-align: middle;
 }
 

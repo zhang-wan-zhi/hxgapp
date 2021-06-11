@@ -37,7 +37,7 @@
 				</view>
 			</view>
 
-			<button class="to-service" open-type="contact" >
+			<button class="to-service" open-type="contact">
 				<view class="accurate">
 					<view class="test-logo-two "><image src="../../static/img/firstIcon/accurate.png" mode=""></image></view>
 					<view class="test-title">
@@ -112,15 +112,7 @@
 import { yikaoDongtai } from '../../components/index/yikaoDongtai.vue';
 import { yikaoKecheng } from '../../components/index/yikaoKecheng.vue';
 import { getWenxuexiTestList } from '../../api/api.js';
-import {
-	getLunboList,
-	getyikaoDongtaiList,
-	getmoreList,
-	getyikaoDongtaiList_one,
-	getyikaoKechengList,
-	getyikaoTikuList,
-	getyikaoTikuList_one
-} from '../../api/api.js';
+import { getLunboList, getyikaoDongtaiList, getmoreList, getyikaoDongtaiList_one, getyikaoKechengList, getyikaoTikuList, getyikaoTikuList_one } from '../../api/api.js';
 export default {
 	components: {
 		yikaoDongtai,
@@ -159,8 +151,8 @@ export default {
 			yikaoTikuList: [],
 			//艺考动态目前的页码
 			dongtaiCurrentPage: 1,
-			kechengCurentPage:1,
-			tikuCurrentpage:1,
+			kechengCurentPage: 1,
+			tikuCurrentpage: 1,
 			isSearch: true,
 			//默认状态为艺考动态的
 			sousuoType: 1
@@ -172,30 +164,31 @@ export default {
 			console.log(res.data.artexams);
 			this.yikaoKechengList = res.data.artexams;
 		});
-		this.getyikaoDongtaiLists()
 	},
 	onLoad() {
 		//获取轮播图数据
 		this.getLunboLists();
 		//获取艺考动态列表数据
 		this.getyikaoDongtaiLists();
+		this.dongtaiCurrentPage = 1;
 	},
 	//下拉触底的时候触发
-	onReachBottom() { 
+	onReachBottom() {
 		//1为艺考动态，2为艺考课程，3为艺考题库
 		console.log(this.yikaoDongtaiList);
 		console.log(this.sousuoType);
 		let sousuoType = this.sousuoType;
 		let pageSize = 4;
-		if(sousuoType==1){
-			let currentPage=this.dongtaiCurrentPage+1;
+		if (sousuoType == 1) {
+			let currentPage = this.dongtaiCurrentPage + 1;
+			console.log(currentPage);
 			getmoreList(sousuoType, currentPage, pageSize).then(res => {
 				console.log(res);
-				if (res.data.code===200) {
+				if (res.data.code === 200) {
 					this.yikaoDongtaiList = this.yikaoDongtaiList.concat(res.data.artexamdynamicList);
 					this.dongtaiCurrentPage++;
-				} 
-			})
+				}
+			});
 		}
 		// else if(sousuoType==2){
 		// 	let currentPage=this.kechengCurentPage+1;
@@ -204,7 +197,7 @@ export default {
 		// 		if (res.data.code===200) {
 		// 			this.yikaoKechengList = this.yikaoKechengList.concat(res.data.artexamdynamicList);
 		// 			this.kechengCurentPage++;
-		// 		} 
+		// 		}
 		// 	})
 		// }else{
 		// 	let currentPage=this.tikuCurrentpage+1;
@@ -213,9 +206,9 @@ export default {
 		// 		if (res.data.code===200) {
 		// 			this.yikaoTikuList = this.yikaoTikuList.concat(res.data.artexamdynamicList);
 		// 			this.yikaoTikuList++;
-		// 		} 
+		// 		}
 		// 	})
-			
+
 		// }
 	},
 	methods: {
@@ -235,7 +228,7 @@ export default {
 				this.zhenti_next(id);
 			}
 		},
-		
+
 		//获取艺考动态列表数据
 		getyikaoDongtaiLists() {
 			getyikaoDongtaiList().then(res => {
