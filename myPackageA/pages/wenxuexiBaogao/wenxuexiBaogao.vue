@@ -66,7 +66,7 @@
 					<view v-if="showChong">
 						<view v-if="baogaoinfo.xuexiao.cong.length > 0">
 							<view class="school-item" v-for="item in baogaoinfo.xuexiao.cong" :key="item.id">
-								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
 									<view class="item-main-top">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
@@ -79,7 +79,7 @@
 					<view v-if="showWeng">
 						<view v-if="baogaoinfo.xuexiao.weng.length > 0">
 							<view class="school-item" v-for="item in baogaoinfo.xuexiao.weng" :key="item.id">
-								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
 									<view class="item-main-top">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
@@ -92,7 +92,7 @@
 					<view v-if="showBao">
 						<view v-if="baogaoinfo.xuexiao.bao.length > 0">
 							<view class="school-item" v-for="item in baogaoinfo.xuexiao.bao" :key="item.id">
-								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
 									<view class="item-main-top">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
@@ -141,7 +141,7 @@
 			</view>
 			<!-- more -->
 			<view class="reportpro__more">
-				<button type="default">{{ permissions == '1' ? '升级专业版查看更多' : '升级查看更多' }}</button>
+				<button type="default" @click="upgrade">{{ permissions == '1' ? '升级专业版查看更多' : '升级查看更多' }}</button>
 			</view>
 		</view>
 	</view>
@@ -187,8 +187,8 @@ export default {
 	onLoad() {
 		
 		// 查看用户身份0普通，1会员，2专业会员
-		/* this.permissions = uni.getStorageSync('huiyuan').type + '' */
-		this.permissions = '2';
+		this.permissions = uni.getStorageSync('huiyuan').type + ''
+		/* this.permissions = '2'; */
 		// 获取上一个页面的信息
 		uni.$on('baogao', res => {
 			this.baogaoinfo = res;
@@ -242,6 +242,11 @@ export default {
 					// this.$store.commit('set_window_height',res.windowHeight*2);
 				}
 			});
+		},
+		upgrade() {
+			uni.redirectTo({
+				url: '../../../pages/huiyuanzhongxin/huiyuanzhongxin'
+			})
 		},
 		backTo() {
 			uni.reLaunch({
@@ -430,6 +435,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	padding-bottom: 40rpx;
 	&__content {
 		display: flex;
 		flex-direction: column;

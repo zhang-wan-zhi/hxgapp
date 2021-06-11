@@ -15,9 +15,10 @@ export default {
 <style>
 @import 'colorui/main.css';
 @import 'colorui/icon.css';
-@import 'style/iconfont.css';
-
-@font-face {
-	font-family: mFont;
+@import 'style/webfont.css';
+page{
+	height: 100%;
+	font-family: "webfont" !important;
+	font-style: normal;
 }
 </style>

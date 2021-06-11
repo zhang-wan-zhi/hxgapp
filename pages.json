@@ -273,6 +273,15 @@
 					"navigationBarBackgroundColor": "#ED5C4D"
 				}
 
+			}, {
+				"path": "pages/wenbaokaonew/wenbaokaonew",
+				"style": {
+					"navigationBarTitleText": "问报考",
+					"enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ED5C4D"
+				}
+
 			}
 		]
 	}],

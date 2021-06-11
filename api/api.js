@@ -551,13 +551,13 @@ export function addCourseComment(data) {
 }
 
 //意见反馈接口
-export function Yijianfankui(openid, opContent,opType,opImg1,opImg2,opImg3) {
+export function Yijianfankui(opOpenid, opContent,opType,opImg1,opImg2,opImg3) {
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/opinionFeedbackAndtupian',
 			method: 'POST',
 			data: {
-				openid,
+				opOpenid,
 				opContent,
 				opType,
 				opImg1,
@@ -649,7 +649,7 @@ export function uploadPicture(filePath){
 		    filePath,
 		    name: 'file',
 		    success: (res) => {
-		        reslove(res)
+		        resolve(res)
 		    },
 			fail(res) {
 			 reject(res)

@@ -83,11 +83,11 @@ export default {
 			let img1=this.uploadImg[0];
 			let img2=this.uploadImg[1];
 			let img3=this.uploadImg[2];
-			let openids = uni.getStorageSync('openid');
+			let opOpenid = uni.getStorageSync('openid');
 			let opContent = this.textAreaValue;
 			let opType=this.checkedType;
 			//如果没有登录
-			if (!openids) {
+			if (!opOpenid) {
 				uni.showToast({
 					title: '请先登录!',
 					icon: 'none',
@@ -103,7 +103,7 @@ export default {
 					});
 
 				} else {
-					Yijianfankui(openids, opContent,opType,img1,img2,img3).then(res => {
+					Yijianfankui(opOpenid, opContent,opType,img1,img2,img3).then(res => {
 						 console.log(res.data.code);
 						if (res.data.code == 200) {
 							uni.redirectTo({

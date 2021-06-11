@@ -100,7 +100,6 @@ export default {
 				const type = res.data.prep2;
 				const deadline = res.data.toTime.slice(0, 10);
 				this.status = type;
-				console.log(1)
 				uni.setStorage({
 					key: 'huiyuan',
 					data: {
@@ -396,7 +395,11 @@ export default {
 .out-login {
 	width: 260rpx;
 	height: 80rpx;
-	margin: 200rpx auto 0rpx;
+	// margin: 200rpx auto 0rpx;
+	position: fixed;
+	bottom: 100rpx;
+	left: 50%;
+	transform: translateX(-50%);
 	border-radius: 12rpx;
 	text-align: center;
 	line-height: 80rpx;

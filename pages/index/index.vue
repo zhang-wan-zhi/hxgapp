@@ -88,6 +88,10 @@ export default {
 							getWxcode(loginRes.code).then(res => {
 								//获取到用户的openid
 								let openid = res.data.data.openid;
+								uni.setStorage({
+									key: 'openid',
+									data: openid
+								});
 								console.log(userinfo);
 								let province = userinfo.province;
 								let sex = userinfo.gender;
@@ -95,10 +99,6 @@ export default {
 								let userName = userinfo.nickName;
 								//将用户信息存入数据库后，将openid存入缓存中
 								getUser_openid_Info(openid, province, sex, userImg, userName).then(res => {
-									uni.setStorage({
-										key: 'openid',
-										data: openid
-									});
 									uni.reLaunch({
 										url: '../gerenzhongxin/gerenzhongxin'
 									});
@@ -117,10 +117,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @font-face{
-// 	font-family:'SourceHanSansSC-bold';
-// 	src:url('~@/static/fonts/SOURCEHANSANSSC-BOLD.OTF');
-// }
 .content {
 	display: flex;
 	flex-direction: column;

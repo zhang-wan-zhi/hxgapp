@@ -12,7 +12,7 @@
 		</view>
 		<!-- 选择 -->
 		<uni-popup ref="popup" type="top">
-			<scroll-view scroll-y="true" style="height: 660rpx;">
+			<scroll-view scroll-y="true" style="height: 620rpx;">
 				<view class="selects">
 					<view :class="['circle-nums', { checkselect: item.selectItem != '' }]" v-for="(item, index) in askstudies" :key="index" @click="selected(index)">
 						{{ index + 1 }}
@@ -352,7 +352,7 @@ export default {
 
 .selects {
 	width: 100vw;
-	min-height: 660rpx;
+	min-height: 620rpx;
 	background-color: #ffffff;
 	padding: 20rpx;
 	display: flex;
