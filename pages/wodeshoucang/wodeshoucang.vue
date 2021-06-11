@@ -29,7 +29,7 @@ export default {
 		//获取收藏的课程
 		new Promise((res,rej)=>{
 			uni.request({
-				url:'https://orangezoom.cn:8091/hxg/getColls',
+				url:'https://www.qzys.art/ruoyi-admin/hxg/getColls',
 				method:'POST',
 				data:{
 					openid
@@ -60,7 +60,7 @@ export default {
 			})
 		}).then(()=>{
 			uni.request({
-				url:'https://orangezoom.cn:8091/hxg/collArtExam',
+				url:'https://www.qzys.art/ruoyi-admin/hxg/collArtExam',
 				method:'POST',
 				data:{
 					collOpenid:openid,

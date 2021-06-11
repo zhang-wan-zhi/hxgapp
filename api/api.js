@@ -6,11 +6,10 @@
 // let urls="http://192.168.3.247:8091"
 
 //线上地址
-// let urls = "https://orangezoom.cn:8091";
- let urls = "https://www.qzys.art/ruoyi-admin";
+let urls = "https://www.qzys.art/ruoyi-admin";
 
 // 垃圾张泽森的接口
-/* let urls="http://192.168.3.215:8091"; */ 
+/* let urls="http://192.168.3.215:8091"; */
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
@@ -320,31 +319,13 @@ export function getWenxuexiTestList(id) {
 }
 
 //获取问学习，获取测试结果
-export function getWenxuexiResuleList(scores) {
+export function getWenxuexiResuleList(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/hxg/qlearn/getResult',
+			url: urls + '/hxg/askStudy/getReportByAskStudy',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data: {
-				"optionsList": [{
-						"score": scores,
-						"testType": 1
-					},
-					{
-						"score": 10,
-						"testType": 2
-					},
-					{
-						"score": 10,
-						"testType": 3
-					},
-					{
-						"score": 10,
-						"testType": 4
-					}
-				]
-			},
+			data: data,
 			success: res => {
 				resolve(res)
 			},
@@ -609,7 +590,7 @@ export function getMemberInfo(){
 	const openid= uni.getStorageSync('openid');
 	return new Promise((resolve,reject)=>{
 		uni.request({
-			url:  urls + '/hxg/selectUser',
+			url: urls + '/hxg/selectUser',
 			method:'POST',
 			data:{
 				openid
@@ -624,6 +605,40 @@ export function getMemberInfo(){
 	})
 }
 
+// 问学习
+export function getAskStudy() {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askStudy/getAskStudy',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 获取答题纪律
+export function getAskStudyRecord(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askStudy/getAskStudyRecord',
+			method: 'POST',
+			data: data,
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
 
 //上传图片接口
 
@@ -639,6 +654,24 @@ export function uploadPicture(filePath){
 			fail(res) {
 			 reject(res)
 			}
+		})
+	})
+}
+
+// 折线图
+export function getReportByAskStudyCurve(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askStudy/getReportByAskStudyCurve',
+			method: 'POST',
+			data: data,
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
 		})
 	})
 }

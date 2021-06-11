@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import { getMemberInfo} from '../../api/api.js';
-import { charge,renewal,getProviderInfo,getCharges} from '../../api/member.js';
+import { getMemberInfo } from '../../api/api.js';
+import { charge, renewal, getProviderInfo, getCharges } from '../../api/member.js';
 export default {
 	data() {
 		return {
@@ -110,17 +110,19 @@ export default {
 		};
 	},
 	onLoad(res) {
+		console.log(1);
 		this.currentIndex = res.key;
 		this.duration = 500;
 		// 获取用户信息
+		this.memberInfo = uni.getStorageSync('huiyuan');
 		this.userInfo = uni.getStorageSync('userinfo');
 		// 储存会员信息
 		getMemberInfo().then(res => {
 			// console.log(res);
 			const type = res.data.prep2;
 			const deadline = res.data.toTime.slice(0, 10);
-			this.memberInfo.type=type;
-			this.memberInfo.deadline=deadline;
+			this.memberInfo.type = type;
+			this.memberInfo.deadline = deadline;
 			uni.setStorage({
 				key: 'huiyuan',
 				data: {
@@ -130,14 +132,15 @@ export default {
 			});
 		});
 		// 查询会员信息
-		getCharges()
-		.then(res => {
+		getCharges().then(res => {
 			this.zhuanyeId = res.data[1].id;
 			this.zhuanyeMoney = res.data[1].cMoney;
 			this.putongId = res.data[0].id;
 			this.putongMoney = res.data[0].cMoney;
 		});
-
+	},
+	onShow() {
+		console.log(this.memberInfo);
 	},
 	methods: {
 		// 轮播图转动时
@@ -149,9 +152,9 @@ export default {
 		//专业会员支付功能
 		async toCostOne() {
 			// 获取充值信息
-			let money=this.zhuanyeMoney;
-			let id=this.zhuanyeId;
-			
+			let money = this.zhuanyeMoney;
+			let id = this.zhuanyeId;
+
 			// 判断是否是会员
 			if (this.memberInfo.type == 1 || this.memberInfo.type == 2) {
 				uni.showToast({
@@ -162,8 +165,8 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await charge(id,money);
-			console.log(res)
+			let res = await charge(id, money);
+			console.log(res);
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
 			let nonceStr = res.nonceStr;
@@ -171,7 +174,7 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
 			uni.requestPayment({
 				provider,
@@ -194,8 +197,8 @@ export default {
 		// 普通会员充值
 		async toCostTwo() {
 			// 获取充值信息
-			let money=this.putongMoney;
-			let id=this.putongId;
+			let money = this.putongMoney;
+			let id = this.putongId;
 			// 判断是否是会员
 			if (this.memberInfo.type == 1 || this.memberInfo.type == 2) {
 				uni.showToast({
@@ -206,7 +209,7 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await charge(id,money);
+			let res = await charge(id, money);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -215,7 +218,7 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
 			uni.requestPayment({
 				provider,
@@ -234,14 +237,13 @@ export default {
 					console.log(res);
 				}
 			});
-			
 		},
 		// 专业会员续费
 		async delayOne() {
-			let money=this.zhuanyeMoney;
-			let id=this.zhuanyeId;
+			let money = this.zhuanyeMoney;
+			let id = this.zhuanyeId;
 			// 获取充值信息
-			let res=await renewal(id,money);
+			let res = await renewal(id, money);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -250,7 +252,7 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
 			uni.requestPayment({
 				provider,
@@ -271,11 +273,11 @@ export default {
 			});
 		},
 		// 普通会员续费
-		async delayTwo(){
-			let money=this.putongMoney;
-			let id=this.putongId;
+		async delayTwo() {
+			let money = this.putongMoney;
+			let id = this.putongId;
 			// 获取充值信息
-		    let res=await renewal(id,money);
+			let res = await renewal(id, money);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -284,7 +286,7 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
 			uni.requestPayment({
 				provider,
@@ -305,11 +307,11 @@ export default {
 			});
 		},
 		//普通会员升级
-		async upgrade(){
-			let money=this.zhuanyeMoney;
-			let id=this.zhuanyeId;
-			
-			let res=await charge(id,money);
+		async upgrade() {
+			let money = this.zhuanyeMoney;
+			let id = this.zhuanyeId;
+
+			let res = await charge(id, money);
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
 			let nonceStr = res.nonceStr;
@@ -317,7 +319,7 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
 			uni.requestPayment({
 				provider,
@@ -390,6 +392,9 @@ export default {
 }
 
 .name {
+	display: flex;
+	align-items: center;
+
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 44rpx;
@@ -400,7 +405,6 @@ export default {
 	width: 36rpx;
 	height: 36rpx;
 	margin-left: 20rpx;
-	vertical-align: middle;
 }
 
 .deadline {

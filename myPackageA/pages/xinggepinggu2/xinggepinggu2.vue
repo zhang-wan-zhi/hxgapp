@@ -1,0 +1,383 @@
+<template>
+	<view class="box">
+		<!-- 提示框 -->
+		<view>
+			<!-- 提示窗示例 -->
+			<uni-popup ref="alertDialog" type="dialog">
+				<uni-popup-dialog type="warn" title="提示" content="还有没有回答的题目!" @confirm="dialogConfirm"></uni-popup-dialog>
+			</uni-popup>
+
+			<!-- 提示信息弹窗 -->
+			<uni-popup ref="message" type="message"><uni-popup-message type="error" message="提交失败!" :duration="2000"></uni-popup-message></uni-popup>
+		</view>
+		<!-- 选择 -->
+		<uni-popup ref="popup" type="top">
+			<scroll-view scroll-y="true" style="height: 620rpx;">
+				<view class="selects">
+					<view :class="['circle-nums', { checkselect: item.selectItem != '' }]" v-for="(item, index) in askstudies" :key="index" @click="selected(index)">
+						{{ index + 1 }}
+					</view>
+					<view class="circle-nums-em" v-for="(item, index) in 7 - (askstudies.length % 7)" :key="index"></view>
+				</view>
+			</scroll-view>
+		</uni-popup>
+		<!-- 选择结束 -->
+		<view class="questions-box">
+			<swiper :indicator-dots="false" :autoplay="false" :duration="50" :current="indexNums" @change="intervalChange">
+				<swiper-item v-for="(item1, index1) in questionList" :key="index1">
+					<view class="type">
+						<text v-show="item1.asType == 1">填空题</text>
+						<text v-show="item1.asType == 2">单选题</text>
+						<text v-show="item1.asType == 3">多选题</text>
+						<text>{{ ' ' + (index1 + 1) + '/' + questionList.length }}</text>
+						<text class="all-question iconfont" @click="openSelect">查看全部</text>
+					</view>
+
+					<view class="list">
+						<view class="title" v-html="item1.asContent"></view>
+						<!-- 如果是选择题 -->
+						<view class="options" v-if="item1.asType === 2 || 3">
+							<scroll-view scroll-y="true" class="scroll-list">
+								<view
+									:class="['option', { checked: item2.astvName == askstudies[index1].selectItem }]"
+									v-for="(item2, index2) in item1.askstudytovalues"
+									@click="handleOption(index1, index2, item1, item2)"
+									:key="index2"
+								>
+									<text>{{ item2.astvName }}</text>
+								</view>
+							</scroll-view>
+						</view>
+						<!-- 如果是填空题1 -->
+						<view class="gap__filling" v-if="item1.asType === 1"><textarea v-model="askstudies[index1].selectItem" placeholder="请输入答案..." /></view>
+						<!-- 如果是时间选择4 -->
+						<div class="item" v-if="item1.asType === 4">
+							<dyDatePicker
+								timeType="month"
+								@getData="getData"
+								placeholder="请选择日期"
+								minSelect="1921/01/01"
+								maxSelect="2025/12/31"
+								:childValue="askstudies[index1].selectItem"
+							></dyDatePicker>
+						</div>
+					</view>
+				</swiper-item>
+			</swiper>
+		</view>
+		<view class="control">
+			<view class="last" @click="last">上一题</view>
+			<view class="next" @click="next" v-show="!(indexNums == questionList.length - 1)">下一题</view>
+			<view class="submit" @click="submit" v-show="indexNums == questionList.length - 1">{{ submiting ? '提交中' : '提交' }}</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList, getAskStudyRecord } from '../../../api/api.js';
+import dyDatePicker from '../../../components/dy-Date/dy-Date.vue';
+export default {
+	components: {
+		dyDatePicker
+	},
+	data() {
+		return {
+			questionList: [],
+			// 当前题目索引
+			currentIndex: 0,
+			// 原list
+			list: [],
+			indexNums: 0,
+			style: 'checked',
+			hightItem: [],
+			askstudies: [],
+			submiting: false
+			//加载中组件数据
+		};
+	},
+	onLoad() {
+		uni.showLoading({
+			title: '加载中'
+		});
+		this.getAnswerArr();
+	},
+	methods: {
+		getData(time) {
+			console.log('getData', time);
+			this.askstudies[this.indexNums].selectItem = time;
+		},
+		async getAnswerArr() {
+			// 获取答案记录
+			let useropenid = {
+				userOpenid: uni.getStorageSync('openid')
+			};
+			let answers = await getAskStudyRecord(useropenid);
+			let answerArr = answers.data.data.ascbuContentArray;
+			// 获取题目
+			let res = await getAskStudy();
+			this.questionList = res.data.data;
+			// 隐藏加载中...
+			uni.hideLoading();
+			this.hightItem = new Array(res.data.data.length);
+			console.log('questionList', this.questionList);
+			if (answerArr) {
+				// 如果有答题记录
+				this.askstudies = answerArr;
+				this.indexNums = answerArr.length - 1;
+			} else {
+				// 新建答案容器数组
+				for (let i = 0; i < res.data.data.length; i++) {
+					this.askstudies.push({
+						id: res.data.data[i].id,
+						asTocatalogid: res.data.data[i].asTocatalogid,
+						itemScore: 0,
+						selectItem: ''
+					});
+				}
+			}
+			console.log('this.askstudies', this.askstudies);
+		},
+		// 选中答案触发事件
+		handleOption(index1, index2, item1, item2) {
+			// 计入高亮答案项
+			if (this.askstudies[index1].selectItem === item2.astvName) {
+				// 如果已经选择一个答案，则取消选中
+				this.askstudies.splice(index1, 1, {
+					id: item1.id,
+					asTocatalogid: item1.asTocatalogid,
+					itemScore: 0,
+					selectItem: ''
+				});
+				console.log('this.askstudies取消', this.askstudies);
+				return;
+			} else {
+				// 第一次选择或者重新选择
+				let itemScore = item1.asScore * item2.astvPercent;
+				console.log('itemScore', itemScore);
+				this.$set(this.askstudies, index1, {
+					id: item1.id,
+					asTocatalogid: item1.asTocatalogid,
+					itemScore: itemScore + '',
+					selectItem: item2.astvName
+				});
+				if (this.indexNums < this.questionList.length - 1) {
+					this.indexNums++;
+				}
+			}
+			console.log('this.askstudies', this.askstudies);
+		},
+		// 上一题
+		last() {
+			if (this.indexNums <= 0) {
+				uni.showToast({
+					title: '已经到第一题了',
+					icon: 'none',
+					duration: 1500
+				});
+				return false;
+			}
+			this.indexNums--;
+		},
+		// 下一题
+		next() {
+			this.indexNums++;
+		},
+		// 节流
+		throttle(fn, delay) {
+			let valid = true;
+			return function() {
+				if (!valid) {
+					//休息时间 暂不接客
+					return false;
+				}
+				// 工作时间，执行函数并且在间隔期内把状态位设为无效
+				valid = false;
+				setTimeout(() => {
+					fn();
+					valid = true;
+				}, delay);
+			};
+		},
+		// 提交
+		dialogConfirm() {
+			this.$refs.popup.open('top');
+		},
+		submit() {
+			if (this.submiting) {
+				console.log('111111');
+				return;
+			}
+			// 判断是否有哪一题没回答
+			let emy = false;
+			this.askstudies.forEach(item => {
+				if (item.selectItem === '') {
+					this.$refs.alertDialog.open();
+					emy = true;
+				}
+			});
+			if (emy) {
+				return;
+			}
+			let data = {
+				userOpenid: uni.getStorageSync('openid'),
+				askstudies: this.askstudies
+			};
+			this.submiting = true;
+			getWenxuexiResuleList(data).then(res => {
+				console.log(111, res);
+				if (res.data.code == 200) {
+					// 跳转页面，并发射数据
+					uni.navigateTo({
+						url: '../wenxuexiBaogao/wenxuexiBaogao'
+					});
+					uni.$on('need', () => {
+						uni.$emit('baogao', {
+							haomai: res.data.haomai,
+							overAllScore: res.data.overAllScore,
+							xuexiao: res.data.xuexiao,
+							chartsData: res.data.chartsData,
+							suitAbleMajor: res.data.suitAbleMajor,
+							postData: data
+						});
+					});
+					console.log('发射成功');
+					setTimeout(() => {
+						this.submiting = false;
+					}, 500);
+				} else {
+					this.submiting = false;
+					this.$refs.message.open();
+				}
+			});
+		},
+		openSelect() {
+			this.$refs.popup.open('top');
+		},
+		selected(index) {
+			(this.indexNums = index), this.$refs.popup.close();
+		},
+		// 滑动触发
+		intervalChange(e) {
+			this.indexNums = e.detail.current;
+			console.log(this.indexNums);
+		}
+	}
+};
+</script>
+
+<style lang="scss" scoped>
+.box {
+	width: 100%;
+	height: 100vh;
+	padding: 2.5vh;
+}
+.all-question {
+	float: right;
+	font-size: 30rpx;
+	font-weight: 400;
+	color: #57b5ed;
+}
+.type {
+	height: 100rpx;
+	font-size: 35rpx;
+	font-weight: 400;
+	color: #a9afb8;
+	line-height: 100rpx;
+}
+.scroll-list {
+	max-height: 70vh;
+}
+.questions-box {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	swiper {
+		height: 80vh;
+	}
+}
+.title {
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 18px;
+	color: #242448;
+	margin-bottom: 30rpx;
+}
+.option {
+	min-width: 200rpx;
+	height: 60rpx;
+	margin-bottom: 30rpx;
+	padding-left: 30rpx;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 60rpx;
+	color: #273253;
+	border-radius: 60rpx;
+	background-color: #ffffff;
+}
+.gap__filling {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 35rpx;
+	textarea {
+		width: 643rpx;
+		height: 365rpx;
+		background: #ffffff;
+		border: 2rpx solid #fbbe4b;
+		border-radius: 15rpx;
+		padding: 22rpx 34rpx;
+	}
+}
+.checked {
+	background-color: #fbbe4b;
+}
+.control {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 5vh;
+}
+.last,
+.next,
+.submit {
+	width: 172rpx;
+	height: 56rpx;
+	text-align: center;
+	line-height: 56rpx;
+	background: #fbbe4b;
+	border-radius: 56rpx;
+	color: #ffffff;
+}
+// 选择
+
+.selects {
+	width: 100vw;
+	min-height: 620rpx;
+	background-color: #ffffff;
+	padding: 20rpx;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	.circle-nums {
+		width: 80rpx;
+		height: 80rpx;
+		margin-right: 20rpx;
+		margin-bottom: 20rpx;
+		border-radius: 50%;
+		border: 1px solid #fbbe4b;
+		text-align: center;
+		line-height: 80rpx;
+	}
+	.circle-nums-em {
+		width: 80rpx;
+		height: 80rpx;
+		margin-right: 20rpx;
+		margin-bottom: 20rpx;
+	}
+	.checkselect {
+		background-color: #fbbe4b;
+		color: #ffffff;
+	}
+}
+</style>
