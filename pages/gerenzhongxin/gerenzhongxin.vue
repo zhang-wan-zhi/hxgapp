@@ -13,7 +13,7 @@
 					<view class="user-vip">
 						<image src="../../static/img/tab/putong.png" v-show="status == 1"></image>
 						<image src="../../static/img/tab/zhuanye.png" v-show="status == 2"></image>
-						<text>{{ userData.province }}-{{ userData.city }}</text>
+						<text v-show="userData.province">{{ userData.province }}-{{ userData.city }}</text>
 					</view>
 				</view>
 			</view>

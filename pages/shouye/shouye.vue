@@ -2,7 +2,7 @@
   <view class="all_content">
     <!-- 搜索区域 -->
     <view class="Search_content" @click="getFocus">
-      <text class="icon icon-sousuo sousuo"></text>
+      <text class="iconfont icon-sousuo sousuo"></text>
       <input :disabled="true" :placeholder="placeholders" placeholder-style=" margin-left:300rpx; font-size: 32rpx; color:#A9AFB8;" />
     </view>
 
@@ -477,8 +477,6 @@ export default {
     margin: 24rpx auto;
 
     .sousuo {
-		width: 20px;
-		height: 20px;
       position: absolute;
       left: 28rpx;
       top: 14rpx;

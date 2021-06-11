@@ -17,7 +17,6 @@ export default {
 @import "./colorui/icon.css";
 @import "./style/webfont.css";
 @import "./style/iconfont.css";
-
 page {
   height: 100%;
   padding-top: 20rpx;
