@@ -30,11 +30,7 @@
 				<!-- 折线图 -->
 				<view class="study-suggest">
 					<view class="default-title">成绩趋势</view>
-					<qiun-data-charts
-					    type="line"
-					    :chartData="studyCurveChartsData"
-					    background="none"
-					  />
+					<qiun-data-charts type="line" :chartData="studyCurveChartsData" background="none" />
 				</view>
 				<!-- 心理测试结果 -->
 				<view class="study-suggest">
@@ -68,7 +64,7 @@
 							<view class="school-item" v-for="item in baogaoinfo.xuexiao.cong" :key="item.id">
 								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
-									<view class="item-main-top">{{ item.acName }}</view>
+									<view class="item-main-top" @click="hint(item.acName)">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
 								</view>
 							</view>
@@ -81,7 +77,7 @@
 							<view class="school-item" v-for="item in baogaoinfo.xuexiao.weng" :key="item.id">
 								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
-									<view class="item-main-top">{{ item.acName }}</view>
+									<view class="item-main-top" @click="hint(item.acName)">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
 								</view>
 							</view>
@@ -94,7 +90,7 @@
 							<view class="school-item" v-for="item in baogaoinfo.xuexiao.bao" :key="item.id">
 								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
-									<view class="item-main-top">{{ item.acName }}</view>
+									<view class="item-main-top" @click="hint(item.acName)">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
 								</view>
 							</view>
@@ -148,7 +144,7 @@
 </template>
 
 <script>
-	import {getReportByAskStudyCurve} from '../../../api/api.js'
+import { getReportByAskStudyCurve } from '../../../api/api.js';
 export default {
 	data() {
 		return {
@@ -165,7 +161,7 @@ export default {
 			turenum: '4',
 			falsenum: '6',
 			score: '0',
-			permissions: '',
+			permissions: uni.getStorageSync('huiyuan').type,
 			reportData: [],
 			chartsData: {},
 			baogaoinfo: '',
@@ -185,10 +181,8 @@ export default {
 		};
 	},
 	onLoad() {
-		
+		console.log('permissions', this.permissions);
 		// 查看用户身份0普通，1会员，2专业会员
-		this.permissions = uni.getStorageSync('huiyuan').type + ''
-		/* this.permissions = '2'; */
 		// 获取上一个页面的信息
 		uni.$on('baogao', res => {
 			this.baogaoinfo = res;
@@ -196,18 +190,18 @@ export default {
 			this.studySuggests = res.haomai[0].childAskstudydiagnosiscatalogs[0].askstudydiatoselects;
 			this.chartsData = res.chartsData;
 			this.suitAbleMajor = res.suitAbleMajor;
-			this.psychologicalTest = res.haomai[5].childAskstudydiagnosiscatalogs[0].askstudydiatoselects
+			this.psychologicalTest = res.haomai[5].childAskstudydiagnosiscatalogs[0].askstudydiatoselects;
 			this.postData = res.postData;
 			console.log('接受成功', res);
-			console.log('this.postData',this.postData)
+			console.log('this.postData', this.postData);
 		});
 		uni.$emit('need');
 		// 折线图数据
-		console.log('发送请求了')
+		console.log('发送请求了');
 		getReportByAskStudyCurve(this.postData).then(res => {
-			console.log('zzslj',res)
-			this.studyCurveChartsData = res.data.studyCurveChartsData
-		})
+			console.log('zzslj', res);
+			this.studyCurveChartsData = res.data.studyCurveChartsData;
+		});
 		// 数据显示
 		for (let i = 0; i < this.chartsData.categories.length; i++) {
 			let dataNums = this.chartsData.series[0].data[i] / 100;
@@ -218,7 +212,7 @@ export default {
 		}
 		// 获取用户信息
 		let userinfo = uni.getStorageSync('userinfo');
-		console.log('userinfo',userinfo)
+		console.log('userinfo', userinfo);
 		this.bgurl = userinfo.avatarUrl;
 		this.nickName = userinfo.nickName;
 
@@ -243,15 +237,21 @@ export default {
 				}
 			});
 		},
+		hint(e) {
+			console.log('item.acName', e);
+			uni.showToast({
+				title: e,
+				icon: 'none',
+				duration: 2000
+			});
+		},
 		upgrade() {
 			uni.redirectTo({
-				url: '../../../pages/huiyuanzhongxin/huiyuanzhongxin'
-			})
+				url: '../../../pages/huiyuanzhongxin/huiyuanzhongxin?backto=baogao'
+			});
 		},
 		backTo() {
 			uni.reLaunch({
-				// url: 'test?id=1&name=uniapp'  c传递参数
-
 				url: '../shouye/shouye'
 			});
 		},
@@ -414,12 +414,17 @@ export default {
 					}
 				}
 				.item-main {
+					flex-grow: 1;
 					margin-left: 30rpx;
 					.item-main-top {
 						height: 35px;
+						width: 315rpx;
 						line-height: 35px;
 						font-size: 35rpx;
 						color: #273253;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
 					}
 					.item-main-btm {
 						font-size: 27rpx;

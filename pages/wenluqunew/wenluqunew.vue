@@ -47,6 +47,9 @@ export default {
 			uni.redirectTo({
 			    url: '../../myPackageA/pages/wenbaokaonew/wenbaokaonew'
 			});
+			/* uni.navigateTo({
+			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
+			}); */
 		},
 	}
 };
