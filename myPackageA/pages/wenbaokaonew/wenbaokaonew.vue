@@ -17,7 +17,7 @@
 							<view class="school-item" v-for="item in baogaoinfo.xuexiao.cong" :key="item.id">
 								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
 								<view class="item-main">
-									<view class="item-main-top">{{ item.acName }}</view>
+									<view class="item-main-top" @click="hint(item.acName)">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
 								</view>
 								<view class="item-percent">{{ item.gailv + '%' }}</view>
@@ -93,21 +93,21 @@ export default {
 					cong: [
 						{
 							id: 1,
-							acName: '中国美术学院',
+							acName: '中国美术学院中国美术学院',
 							acMajor: '垃圾zzs',
 							gailv: '85'
 						},
 						{
-							id: 1,
-							acName: '中国美术学院',
+							id: 2,
+							acName: '垃圾zzs',
 							acMajor: '垃圾zzs',
-							gailv: '85'
+							gailv: '45'
 						},
 						{
-							id: 1,
+							id: 3,
 							acName: '中国美术学院',
 							acMajor: '垃圾zzs',
-							gailv: '85'
+							gailv: '75'
 						}
 					]
 				}
@@ -124,10 +124,16 @@ export default {
 		uni.$off('baogao');
 	}, */
 	methods: {
+		hint(e) {
+			console.log('item.acName',e)
+			uni.showToast({
+			title: e,
+			icon:'none',
+			duration: 1000
+			});
+		},
 		backTo() {
 			uni.reLaunch({
-				// url: 'test?id=1&name=uniapp'  c传递参数
-
 				url: '../shouye/shouye'
 			});
 		},
@@ -308,14 +314,20 @@ export default {
 					}
 				}
 				.item-main {
-					flex: 1;
+					/* flex: 1; */
+					flex-grow: 1;
 					margin-left: 30rpx;
 					.item-main-top {
+						width: 315rpx;
 						height: 77rpx;
 						line-height: 77rpx;
 						font-size: 35rpx;
 						color: #273253;
 						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+						
+						
 					}
 					.item-main-btm {
 						font-size: 27rpx;

@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import { getMemberInfo} from '../../api/api.js';
-import { charge,renewal,getProviderInfo,getCharges} from '../../api/member.js';
+import { getMemberInfo } from '../../api/api.js';
+import { charge, renewal, getProviderInfo, getCharges } from '../../api/member.js';
 export default {
 	data() {
 		return {
@@ -106,11 +106,15 @@ export default {
 			// 普通会员id
 			putongId: '',
 			// 普通钱数
-			putongMoney: ''
+			putongMoney: '',
+			// 从哪个页面来
+			backto: ''
 		};
 	},
 	onLoad(res) {
 		this.currentIndex = res.key;
+		this.backto = res.backto;
+		console.log('this.backto', this.backto);
 		this.duration = 500;
 		// 获取用户信息
 		this.userInfo = uni.getStorageSync('userinfo');
@@ -119,8 +123,8 @@ export default {
 			// console.log(res);
 			const type = res.data.prep2;
 			const deadline = res.data.toTime.slice(0, 10);
-			this.memberInfo.type=type;
-			this.memberInfo.deadline=deadline;
+			this.memberInfo.type = type;
+			this.memberInfo.deadline = deadline;
 			uni.setStorage({
 				key: 'huiyuan',
 				data: {
@@ -130,14 +134,12 @@ export default {
 			});
 		});
 		// 查询会员信息
-		getCharges()
-		.then(res => {
+		getCharges().then(res => {
 			this.zhuanyeId = res.data[1].id;
 			this.zhuanyeMoney = res.data[1].cMoney;
 			this.putongId = res.data[0].id;
 			this.putongMoney = res.data[0].cMoney;
 		});
-
 	},
 	methods: {
 		// 轮播图转动时
@@ -145,6 +147,36 @@ export default {
 			this.touch = true;
 			this.currentIndex = obj.detail.current;
 			// console.log(this.currentIndex);
+		},
+		// 放回上一个页面
+		backToPre() {
+			console.log('走了backToPre......')
+			// 储存会员信息
+			getMemberInfo().then(res => {
+				console.log('走了getMemberInfo......')
+				// console.log(res);
+				const type = res.data.prep2;
+				const deadline = res.data.toTime.slice(0, 10);
+				this.memberInfo.type = type;
+				this.memberInfo.deadline = deadline;
+				uni.setStorage({
+					key: 'huiyuan',
+					data: {
+						type,
+						deadline
+					}
+				});
+				if (this.backto == 'baogao') {
+					console.log('backto',this.backto)
+					uni.redirectTo({
+						url: '../../myPackageA/pages/wenxuexiBaogao/wenxuexiBaogao'
+					});
+				} else {
+					uni.redirectTo({
+						url: '../huiyuanzhongxin/huiyuanzhongxin?key=1'
+					});
+				}
+			});
 		},
 		//专业会员支付功能
 		async toCostOne() {
@@ -158,8 +190,8 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await charge(2,0.02);
-			console.log(res)
+			let res = await charge(2, 0.02);
+			console.log(res);
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
 			let nonceStr = res.nonceStr;
@@ -167,8 +199,9 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
+			let self = this;
 			uni.requestPayment({
 				provider,
 				timeStamp,
@@ -178,9 +211,8 @@ export default {
 				orderInfo,
 				package: packages,
 				success(res) {
-					uni.redirectTo({
-						url: '../huiyuanzhongxin/huiyuanzhongxin?key=0'
-					});
+					console.log('成功支付了',res);
+					self.backToPre();
 				},
 				fail(res) {
 					console.log(res);
@@ -199,7 +231,7 @@ export default {
 				return false;
 			}
 			// 获取充值信息
-			let res=await charge(1,0.01);
+			let res = await charge(1, 0.01);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -208,8 +240,9 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
+			let self = this;
 			uni.requestPayment({
 				provider,
 				timeStamp,
@@ -219,20 +252,18 @@ export default {
 				orderInfo,
 				package: packages,
 				success(res) {
-					uni.redirectTo({
-						url: '../huiyuanzhongxin/huiyuanzhongxin?key=1'
-					});
+					console.log('成功支付了',res);
+					self.backToPre();
 				},
 				fail(res) {
 					console.log(res);
 				}
 			});
-			
 		},
 		// 专业会员续费
 		async delayOne() {
 			// 获取充值信息
-			let res=await renewal(2,0.02);
+			let res = await renewal(2, 0.02);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -241,7 +272,7 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
 			uni.requestPayment({
 				provider,
@@ -262,9 +293,9 @@ export default {
 			});
 		},
 		// 普通会员续费
-		async delayTwo(){
+		async delayTwo() {
 			// 获取充值信息
-		    let res=await renewal(1,0.01);
+			let res = await renewal(1, 0.01);
 			// console.log(res)
 			let timeStamp = res.timeStamp;
 			let orderInfo = res.product_id;
@@ -273,7 +304,7 @@ export default {
 			let signType = res.signType;
 			let paySign = res.paySign;
 			//获取provider
-			let provider= await getProviderInfo();
+			let provider = await getProviderInfo();
 			// 调用支付接口
 			uni.requestPayment({
 				provider,

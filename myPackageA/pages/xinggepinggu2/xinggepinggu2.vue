@@ -95,7 +95,8 @@ export default {
 			//加载中组件数据
 		};
 	},
-	onLoad() {
+	onLoad(option) {
+		console.log('option',option.page)
 		uni.showLoading({
 			title: '加载中'
 		});
