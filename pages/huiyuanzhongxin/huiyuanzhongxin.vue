@@ -177,7 +177,7 @@ export default {
 		async charge() {
 			// 判断是否是会员
 			let type = this.memberInfo.type;
-			if (type == 1 || type == 2) {
+			if (type == 1 || type == 2||type==3) {
 				uni.showToast({
 					title: '你已是会员，请勿重复充值',
 					icon: 'none',

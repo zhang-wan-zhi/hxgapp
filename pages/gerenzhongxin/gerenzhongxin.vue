@@ -82,7 +82,6 @@ export default {
 		};
 	},
 	onLoad() {
-		console.log(2);
 		let openid = uni.getStorageSync('openid');
 
 		//对退出登录校验
