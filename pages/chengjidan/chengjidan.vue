@@ -90,12 +90,12 @@
 
 			 console.log(objs);
 			// console.log(this.Objs.acCode);
-			let userData=uni.getStorageSync('userData');
+			let userData=uni.getStorageSync('userinfo');
 			this.score = objs.score;
 			this.turenum = objs.right;
 			this.falsenum = objs.error;
-			this.bgurl = userData.userInfo.avatarUrl;
-			this.nickName = userData.userInfo.nickName;
+			this.bgurl = userData.avatarUrl;
+			this.nickName = userData.nickName;
 
 			this.getWindowHeight();
 			

@@ -12,7 +12,7 @@
 					<view class="user-name">{{ userData.nickName }}</view>
 					<view class="user-vip">
 						<image src="../../static/img/tab/putong.png" v-show="status == 1"></image>
-						<image src="../../static/img/tab/zhuanye.png" v-show="status == 2"></image>
+						<image src="../../static/img/tab/zhuanye.png" v-show="status == 2||status == 3"></image>
 						<text v-show="userData.province">{{ userData.province }}-{{ userData.city }}</text>
 					</view>
 				</view>
@@ -68,12 +68,12 @@
 </template>
 
 <script>
-import { hasOpenid, getMemberInfo } from '../../api/api.js';
+import { hasOpenid } from '../../api/api.js';
+import {getMemberInfo } from '../../api/member.js';
 export default {
 	data() {
 		return {
-			//适配手机高度
-			phoneHeight: 0,
+			//用户信息
 			userData: {},
 			//是否显示退出
 			isExitShow: false,
@@ -84,7 +84,7 @@ export default {
 	onLoad() {
 		console.log(2);
 		let openid = uni.getStorageSync('openid');
-		
+
 		//对退出登录校验
 		if (openid == '') {
 			this.isExitShow = false;
@@ -97,20 +97,7 @@ export default {
 	onShow() {
 		let openid = uni.getStorageSync('openid');
 		if (openid) {
-			// 储存会员信息
-			getMemberInfo().then(res => {
-				const type = res.data.prep2;
-				const deadline = res.data.toTime.slice(0, 10);
-				this.status = type;
-				uni.setStorage({
-					key: 'huiyuan',
-					data: {
-						type,
-						deadline
-					}
-				});
-				
-			});
+			this.getMemberInfo()
 		}
 		//对退出登录校验
 		if (openid == '') {
@@ -120,20 +107,26 @@ export default {
 		}
 	},
 	methods: {
-		test() {
-			uni.navigateTo({
-				url: '../test/test'
+		// 储存会员信息
+		getMemberInfo() {
+			// 储存会员信息
+			getMemberInfo().then(res => {
+				console.log(res);
+				const type = res.data.prep2;
+				this.status=type;
+				const deadline1 = res.data.toTime.slice(0, 10);
+				const deadline2 = res.data.majortoTime.slice(0, 10);
+				uni.setStorage({
+					key: 'huiyuan',
+					data: {
+						type,
+						deadline1,
+						deadline2
+					}
+				});
 			});
 		},
 
-		//获取窗口高度，适配手机
-		getWindowHeight() {
-			uni.getSystemInfo({
-				success: res => {
-					this.phoneHeight = res.windowHeight;
-				}
-			});
-		},
 		//退出登录
 		exitLogin() {
 			uni.showModal({
