@@ -6,10 +6,13 @@
 // let urls="http://192.168.3.247:8091"
 
 //线上地址
-let urls = "https://www.qzys.art/ruoyi-admin";
+/* let urls = "https://www.qzys.art/ruoyi-admin"; */
 
 // 垃圾张泽森的接口
-/* let urls="http://192.168.3.215:8091"; */
+let urls="http://192.168.3.215:8091";
+
+// zs
+/* let urls = "http://192.168.3.49:8091"; */
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
@@ -17,7 +20,6 @@ export function getWxcode(wxcode) {
 		uni.request({
 			url: urls + '/hxg/grant',
 			method: 'GET',
-			contentType: 'application/json;charset=UTF-8',
 			data: {
 				"WxCode": wxcode,
 			},
@@ -116,22 +118,22 @@ export function getyikaoDongtaiList() {
 }
 
 //艺考动态列表搜索
-export function getmoreList1(aedTitle,sousuoTyoe,currentPage,pageSize){
-	return new Promise((resolve,reject)=>{
+export function getmoreList1(aedTitle, sousuoTyoe, currentPage, pageSize) {
+	return new Promise((resolve, reject) => {
 		uni.request({
-			url:urls+'/hxg/getArtexamdynamicList',
+			url: urls + '/hxg/getArtexamdynamicList',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:{
+			data: {
 				"ssTile": aedTitle,
-				"sousuoTyoe":sousuoTyoe,
+				"sousuoTyoe": sousuoTyoe,
 				"currentPage": currentPage,
 				"pageSize": pageSize
 			},
-			success: res=>{
+			success: res => {
 				resolve(res)
 			},
-			fail: err=>{
+			fail: err => {
 				reject(err)
 			},
 		})
@@ -397,7 +399,7 @@ export function getCountComment(data) {
 			url: urls + '/ht/comment/parent',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:data,
+			data: data,
 			success: res => {
 				resolve(res)
 			},
@@ -415,7 +417,7 @@ export function getCommentChildren(data) {
 			url: urls + '/ht/comment/children',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
-			data:data,
+			data: data,
 			success: res => {
 				resolve(res)
 			},
@@ -551,7 +553,7 @@ export function addCourseComment(data) {
 }
 
 //意见反馈接口
-export function Yijianfankui(opOpenid, opContent,opType,opImg1,opImg2,opImg3) {
+export function Yijianfankui(opOpenid, opContent, opType, opImg1, opImg2, opImg3) {
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/opinionFeedbackAndtupian',
@@ -576,30 +578,30 @@ export function Yijianfankui(opOpenid, opContent,opType,opImg1,opImg2,opImg3) {
 }
 
 //获取用户openid方法封装
-export function hasOpenid(){
-	const openid= uni.getStorageSync('openid');
-	if(openid===''){
+export function hasOpenid() {
+	const openid = uni.getStorageSync('openid');
+	if (openid === '') {
 		return false
-	}else{
+	} else {
 		return openid
 	}
 }
 //查询用户信息
 
-export function getMemberInfo(){
-	const openid= uni.getStorageSync('openid');
-	return new Promise((resolve,reject)=>{
+export function getMemberInfo() {
+	const openid = uni.getStorageSync('openid');
+	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/selectUser',
-			method:'POST',
-			data:{
+			method: 'POST',
+			data: {
 				openid
 			},
 			success(res) {
 				resolve(res.data)
 			},
 			fail(res) {
-				 console.log(res);
+				console.log(res);
 			}
 		})
 	})
@@ -642,17 +644,17 @@ export function getAskStudyRecord(data) {
 
 //上传图片接口
 
-export function uploadPicture(filePath){
-	return new Promise((resolve,reject)=>{
+export function uploadPicture(filePath) {
+	return new Promise((resolve, reject) => {
 		uni.uploadFile({
-		    url: urls +  '/hxg/upFile',
-		    filePath,
-		    name: 'file',
-		    success: (res) => {
-		        resolve(res)
-		    },
+			url: urls + '/hxg/upFile',
+			filePath,
+			name: 'file',
+			success: (res) => {
+				resolve(res)
+			},
 			fail(res) {
-			 reject(res)
+				reject(res)
 			}
 		})
 	})
@@ -666,6 +668,41 @@ export function getReportByAskStudyCurve(data) {
 			method: 'POST',
 			data: data,
 			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 问校考答题
+export function getEnrollList() {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/system/se/qu/wx/list',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+//问校考答题记录
+export function getEnrollAnswers(openid) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/system/useraskexamdata/wx/userInfo',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			data: openid,
 			success: res => {
 				resolve(res)
 			},

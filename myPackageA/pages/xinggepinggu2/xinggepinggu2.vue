@@ -26,25 +26,25 @@
 			<swiper :indicator-dots="false" :autoplay="false" :duration="50" :current="indexNums" @change="intervalChange">
 				<swiper-item v-for="(item1, index1) in questionList" :key="index1">
 					<view class="type">
-						<text v-show="item1.asType == 1">填空题</text>
-						<text v-show="item1.asType == 2">单选题</text>
-						<text v-show="item1.asType == 3">多选题</text>
-						<text>{{ ' ' + (index1 + 1) + '/' + questionList.length }}</text>
+						<text v-show="item1.asType == 1 || item1.type == 1">填空题</text>
+						<text v-show="item1.asType == 2 || item1.type == 2">单选题</text>
+						<text v-show="item1.asType == 3 || item1.type == 3">多选题</text>
+						<!-- <text>{{ ' ' + (index1 + 1) + '/' + questionList.length }}</text> -->
 						<text class="all-question iconfont" @click="openSelect">查看全部</text>
 					</view>
 
 					<view class="list">
-						<view class="title" v-html="item1.asContent"></view>
+						<view class="title" v-html="item1.asContent || item1.seContent"></view>
 						<!-- 如果是选择题 -->
-						<view class="options" v-if="item1.asType === 2 || 3">
+						<view class="options" v-if="(item1.asType === 2 || 3) || (tem1.type ==2 || 3)">
 							<scroll-view scroll-y="true" class="scroll-list">
 								<view
 									:class="['option', { checked: item2.astvName == askstudies[index1].selectItem }]"
-									v-for="(item2, index2) in item1.askstudytovalues"
+									v-for="(item2, index2) in item1.askstudytovalues || item1.optionList"
 									@click="handleOption(index1, index2, item1, item2)"
 									:key="index2"
 								>
-									<text>{{ item2.astvName }}</text>
+									<text>{{ item2.astvName || item2.content}}</text>
 								</view>
 							</scroll-view>
 						</view>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList, getAskStudyRecord } from '../../../api/api.js';
+import { getyikaoTikuList_one_all, getAskStudy, getWenxuexiResuleList, getAskStudyRecord, getEnrollList, getEnrollAnswers } from '../../../api/api.js';
 import dyDatePicker from '../../../components/dy-Date/dy-Date.vue';
 export default {
 	components: {
@@ -89,18 +89,24 @@ export default {
 			list: [],
 			indexNums: 0,
 			style: 'checked',
-			hightItem: [],
 			askstudies: [],
-			submiting: false
+			submiting: false,
+			optionPage: ''
 			//加载中组件数据
 		};
 	},
 	onLoad(option) {
-		console.log('option',option.page)
+		console.log('option', option.page);
+		this.optionPage = option.page;
 		uni.showLoading({
 			title: '加载中'
 		});
 		this.getAnswerArr();
+		/* if(option.page === '2') {
+			getEnrollList().then(res => {
+				console.log('getEnrollList',res)
+			})
+		} */
 	},
 	methods: {
 		getData(time) {
@@ -108,35 +114,86 @@ export default {
 			this.askstudies[this.indexNums].selectItem = time;
 		},
 		async getAnswerArr() {
-			// 获取答案记录
-			let useropenid = {
-				userOpenid: uni.getStorageSync('openid')
-			};
-			let answers = await getAskStudyRecord(useropenid);
-			let answerArr = answers.data.data.ascbuContentArray;
-			// 获取题目
-			let res = await getAskStudy();
-			this.questionList = res.data.data;
-			// 隐藏加载中...
-			uni.hideLoading();
-			this.hightItem = new Array(res.data.data.length);
-			console.log('questionList', this.questionList);
-			if (answerArr) {
-				// 如果有答题记录
-				this.askstudies = answerArr;
-				this.indexNums = answerArr.length - 1;
-			} else {
-				// 新建答案容器数组
-				for (let i = 0; i < res.data.data.length; i++) {
-					this.askstudies.push({
-						id: res.data.data[i].id,
-						asTocatalogid: res.data.data[i].asTocatalogid,
-						itemScore: 0,
-						selectItem: ''
-					});
+			if (this.optionPage === '2') {
+				// 获取答案记录
+				let useropenid = {
+					userOpenid: uni.getStorageSync('openid')
+				};
+				let answers = await getEnrollAnswers(useropenid);
+				console.log('answers',answers)
+				let answerArr = answers.data.data;
+				// 获取题目
+				let res = await getEnrollList();
+				console.log('获取问校考问题', res);
+				this.questionList = res.data.rows;
+				// 对数组属性进行处理
+				// 隐藏加载中...
+				uni.hideLoading();
+				if (answerArr) {
+					// 如果有答题记录
+					this.askstudies = answerArr;
+					this.indexNums = answerArr.length - 1;
+				} else {
+					// 新建答案容器数组
+					for (let i = 0; i < res.data.data.length; i++) {
+						this.askstudies.push({
+							id: res.data.data[i].id,
+							asTocatalogid: res.data.data[i].asTocatalogid,
+							itemScore: 0,
+							selectItem: ''
+						});
+					}
 				}
+			} else {
+				// 问学习开始
+				// 获取答案记录
+				let useropenid = {
+					userOpenid: uni.getStorageSync('openid')
+				};
+				let answers = await getAskStudyRecord(useropenid);
+				let answerArr = answers.data.data.ascbuContentArray;
+				// 获取题目
+				let res = await getAskStudy();
+				this.questionList = res.data.data;
+				// 隐藏加载中...
+				uni.hideLoading();
+				console.log('questionList', this.questionList);
+				if (answerArr) {
+					// 如果有答题记录
+					this.askstudies = answerArr;
+					this.indexNums = answerArr.length - 1;
+				} else {
+					// 新建答案容器数组
+					for (let i = 0; i < res.data.data.length; i++) {
+						this.askstudies.push({
+							id: res.data.data[i].id,
+							asTocatalogid: res.data.data[i].asTocatalogid,
+							itemScore: 0,
+							selectItem: ''
+						});
+					}
+				}
+				console.log('this.askstudies', this.askstudies);
+				// 问学习结束
 			}
-			console.log('this.askstudies', this.askstudies);
+		},
+		handleQueName(ques) {
+			ques.map(item => {
+			    item.asType = item.type;
+				item.asContent = item.seContent;
+				item.askstudytovalues = 
+			    delete item.type;
+				delete item.seContent;
+			    return item;
+			})
+			let strQues = JSON.stringify(ques);
+			strQues.replace(/type/g, 'asType');
+			strQues.replace(/seContent/g, 'asContent');
+			strQues.replace(/optionList/g, 'askstudytovalues');
+			strQues.replace(/content/g, 'astvName');
+			
+			console.log('console.log(strQues)', JSON.parse(strQues));
+			return strQues;
 		},
 		// 选中答案触发事件
 		handleOption(index1, index2, item1, item2) {
@@ -223,6 +280,7 @@ export default {
 				userOpenid: uni.getStorageSync('openid'),
 				askstudies: this.askstudies
 			};
+			console.log('111111', this.askstudies);
 			this.submiting = true;
 			getWenxuexiResuleList(data).then(res => {
 				console.log(111, res);

@@ -7,9 +7,10 @@
 				<view class="rightsemicircle"></view>
 				<view class="university"><text>报考推荐</text></view>
 			</view>
+
 			<view class="content-plus">
-				<!-- 学校推荐 -->
-				<view class="school-recommend">
+				<!-- 报考推荐 -->
+				<view class="school-recommend" v-if="isShow">
 					<!-- 冲刺学校 -->
 					<view :class="['school-list', { 'school-list-check': showChong }]" @click="this.showChong = !this.showChong">冲刺学校</view>
 					<view v-if="showChong">
@@ -65,11 +66,125 @@
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
 					</view>
 				</view>
+				<!-- 日程安排 -->
+				<view class="schedule school-recommend" v-else>
+					<!-- 冲刺学校 -->
+					<view :class="['school-list', { 'school-list-check': showChong }]" @click="this.showChong = !this.showChong">冲刺学校</view>
+					<view v-if="showChong">
+						<view v-if="baogaoinfo.xuexiao.cong.length > 0">
+							<view class="schedule-item" v-for="item in baogaoinfo.xuexiao.cong" :key="item.id">
+								<view class="schedule-top">
+									<view class="schedule-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+									<view class="schedule-main-top" @click="hint(item.acName)">
+										<view class="schedule-text">{{ item.acName }}</view>
+									</view>
+									<view class="schedule-main-btm" @click="hint(item.acMajor)">{{ item.acMajor }}</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">2021-5-8</view>
+									<view class="schedule-btm-check"><checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"/></view>
+								</view>
+							</view>
+							<!-- 点击查看跟多 -->
+							<view class="schedule-item item-filter">
+								<view class="schedule-top">
+									<view class="schedule-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+									<view class="schedule-main-top">
+										<view class="schedule-text">中央美术学院</view>
+									</view>
+									<view class="schedule-main-btm">造型艺术专业</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">2021-5-8</view>
+									<view class="schedule-btm-check"><checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"/></view>
+								</view>
+							</view>
+							<view class="more-school">升级专业版查看更多学校...</view>
+						</view>
+						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
+					</view>
+					<!-- 稳定学校 -->
+					<view :class="['school-list', { 'school-list-check': showWeng }]" @click="this.showWeng = !this.showWeng1">重点学校</view>
+					<view v-if="showWeng">
+						<view v-if="baogaoinfo.xuexiao.weng.length > 0">
+							<view class="schedule-item" v-for="item in baogaoinfo.xuexiao.cong" :key="item.id">
+								<view class="schedule-top">
+									<view class="schedule-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+									<view class="schedule-main-top" @click="hint(item.acName)">
+										<view class="schedule-text">{{ item.acName }}</view>
+									</view>
+									<view class="schedule-main-btm" @click="hint(item.acMajor)">{{ item.acMajor }}</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">2021-5-8</view>
+									<view class="schedule-btm-check"><checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"/></view>
+								</view>
+							</view>
+							<!-- 点击查看跟多 -->
+							<view class="schedule-item item-filter">
+								<view class="schedule-top">
+									<view class="schedule-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+									<view class="schedule-main-top">
+										<view class="schedule-text">中央美术学院</view>
+									</view>
+									<view class="schedule-main-btm">造型艺术专业</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">2021-5-8</view>
+									<view class="schedule-btm-check"><checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"/></view>
+								</view>
+							</view>
+							<view class="more-school">升级专业版查看更多学校...</view>
+						</view>
+						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
+					</view>
+					<!-- 保底学校 -->
+					<view :class="['school-list', { 'school-list-check': showBao }]" @click="this.showBao = !this.showBao">保底学校</view>
+					<view v-if="showBao">
+						<view v-if="baogaoinfo.xuexiao.bao.length > 0">
+							<view class="schedule-item" v-for="item in baogaoinfo.xuexiao.cong" :key="item.id">
+								<view class="schedule-top">
+									<view class="schedule-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+									<view class="schedule-main-top" @click="hint(item.acName)">
+										<view class="schedule-text">{{ item.acName }}</view>
+									</view>
+									<view class="schedule-main-btm" @click="hint(item.acMajor)">{{ item.acMajor }}</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">2021-5-8</view>
+									<view class="schedule-btm-check"><checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"/></view>
+								</view>
+							</view>
+							<!-- 点击查看跟多 -->
+							<view class="schedule-item item-filter">
+								<view class="schedule-top">
+									<view class="schedule-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+									<view class="schedule-main-top">
+										<view class="schedule-text">中央美术学院</view>
+									</view>
+									<view class="schedule-main-btm">造型艺术专业</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">2021-5-8</view>
+									<view class="schedule-btm-check"><checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"/></view>
+								</view>
+							</view>
+							<view class="more-school">升级专业版查看更多学校...</view>
+						</view>
+						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
+					</view>
+				</view>
 				<!-- 分享 -->
-				<view class="share-report">
+				<view class="share-report" @click="isShow = !isShow">
 					<view class="leftsemicircle"></view>
 					<view class="rightsemicircle"></view>
-					<button type="default">查看考试日程</button>
+					<button type="default">{{isShow ? '查看考试日程' : '返回'}}</button>
 				</view>
 			</view>
 		</view>
@@ -87,6 +202,10 @@ export default {
 			showChong: false,
 			showWeng: false,
 			showBao: false,
+			showChong1: false,
+			showWeng1: false,
+			showBao1: false,
+			isShow: true,
 			// 学校列表
 			baogaoinfo: {
 				xuexiao: {
@@ -94,7 +213,7 @@ export default {
 						{
 							id: 1,
 							acName: '中国美术学院中国美术学院',
-							acMajor: '垃圾zzs',
+							acMajor: '造型艺术专业页',
 							gailv: '85'
 						},
 						{
@@ -125,11 +244,11 @@ export default {
 	}, */
 	methods: {
 		hint(e) {
-			console.log('item.acName',e)
+			console.log('item.acName', e);
 			uni.showToast({
-			title: e,
-			icon:'none',
-			duration: 1000
+				title: e,
+				icon: 'none',
+				duration: 1000
 			});
 		},
 		backTo() {
@@ -241,31 +360,6 @@ export default {
 				letter-spacing: 3rpx;
 			}
 		}
-		// 条件分享
-		.suggest {
-			align-self: flex-start;
-			width: 100%;
-			padding: 40rpx 0;
-			border-bottom: 2px dotted #dadbdd;
-			.suggest-item {
-				padding: 0 60rpx;
-				margin: 20rpx 0 0 0;
-				.suggest-item-title {
-					font-size: 31rpx;
-					color: #57b5ed;
-					font-weight: 400;
-				}
-				.suggest-item-check {
-					color: #b0b5bd;
-				}
-				.suggest-item-text {
-					padding: 20rpx 0;
-					font-size: 27rpx;
-					font-weight: 400;
-					letter-spacing: 3rpx;
-				}
-			}
-		}
 		// 学校推荐
 		.school-recommend {
 			width: 566rpx;
@@ -326,8 +420,6 @@ export default {
 						overflow: hidden;
 						white-space: nowrap;
 						text-overflow: ellipsis;
-						
-						
 					}
 					.item-main-btm {
 						font-size: 27rpx;
@@ -443,6 +535,82 @@ export default {
 		color: #ffffff;
 		background-color: #57b5ed;
 		border-radius: 46rpx;
+	}
+}
+// 日程安排
+.schedule {
+	.schedule-item {
+		height: 179rpx;
+		padding: 38rpx 10rpx;
+		border-bottom: 1px solid #dadbdd;
+		.schedule-top {
+			display: flex;
+			width: 100%;
+			height: 77rpx;
+			.schedule-img {
+				width: 77rpx;
+				height: 77rpx;
+				overflow: hidden;
+				image {
+					width: 77rpx;
+					height: 77rpx;
+				}
+			}
+			.schedule-main-top {
+				margin-left: 35rpx;
+				flex: 1;
+				.schedule-text {
+					width: 285rpx;
+					height: 48rpx;
+					line-height: 48rpx;
+					font-size: 35rpx;
+					font-weight: 400;
+					color: #273253;
+					letter-spacing: 2rpx;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+			.schedule-main-btm {
+				width: 173rpx;
+				height: 48rpx;
+				line-height: 48rpx;
+				font-size: 27rpx;
+				font-weight: 400;
+				color: #92969d;
+				letter-spacing: 2rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+		.schedule-btm {
+			display: flex;
+			width: 100%;
+			height: 38rpx;
+			padding-left: 112rpx;
+			padding-right: 10rpx;
+			margin-top: 6rpx;
+			.schedule-time-title {
+				width: 123rpx;
+				height: 38rpx;
+				font-size: 27rpx;
+				font-weight: 400;
+				line-height: 38rpx;
+				color: #92969d;
+				letter-spacing: 2rpx;
+			}
+			.schedule-time {
+				flex: 1;
+				width: 144rpx;
+				margin-left: 8rpx;
+			}
+			.schedule-btm-check {
+				width: 38rpx;
+				height: 38rpx;
+			}
+		}
 	}
 }
 </style>
