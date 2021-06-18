@@ -30,6 +30,7 @@ function debounce(fn, gapTime) {
 }
 
 
+
 module.exports = {
 	throttle:throttle,
 	debounce:debounce

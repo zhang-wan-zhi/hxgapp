@@ -675,3 +675,6 @@ export function getReportByAskStudyCurve(data) {
 		})
 	})
 }
+
+
+

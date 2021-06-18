@@ -101,6 +101,7 @@ export default {
 								let userName = userinfo.nickName;
 								//将用户信息存入数据库后，将openid存入缓存中
 								getUser_openid_Info(openid, province, sex, userImg, userName).then(res => {
+									console.log(res);
 									uni.hideLoading();
 									uni.reLaunch({
 										url: '../gerenzhongxin/gerenzhongxin'

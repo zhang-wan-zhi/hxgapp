@@ -16,3 +16,28 @@ export function getTest(){
 		})
 	})
 }
+
+
+let baseUrl = "https://www.qzys.art/ruoyi-admin";
+// 封装接口
+export function myRequest(option){
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url: baseUrl+option.url,
+			method:option.method||'get',
+			data:option.data||{},
+			success(res) {
+				resolve(res.data)
+			},
+			fail(res) {
+				console.log(res)
+				uni.showToast({
+					title: '请求出错，请稍后再试',
+					duration: 2000,
+					icon:'none'
+				})
+			}
+		})
+		
+	})
+}
