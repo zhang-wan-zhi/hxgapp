@@ -712,3 +712,20 @@ export function getEnrollAnswers(openid) {
 		})
 	})
 }
+// 问校考提交答案
+export function postEnrollAnswes(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/system/useraskexamdata/wx/userInfo',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
