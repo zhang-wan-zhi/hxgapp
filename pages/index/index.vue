@@ -106,6 +106,7 @@ export default {
 									uni.reLaunch({
 										url: '../gerenzhongxin/gerenzhongxin'
 									});
+									
 								});
 							});
 						},

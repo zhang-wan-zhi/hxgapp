@@ -1,28 +1,30 @@
 <template>
 	<view>
 		<view class="again" @click="resetAnswer"><text>重新答题</text></view>
-		<view class="reportplus" v-if="permissions === '2'">
+		<view class="reportplus">
 			<view class="content_top">
 				<view class="leftsemicircle"></view>
 				<view class="rightsemicircle"></view>
-				<view class="university"><text>报考推荐</text></view>
+				<view class="university"><text>{{isShow ? '报考推荐' : '日程安排'}}</text></view>
 			</view>
+
 			<view class="content-plus">
-				<!-- 学校推荐 -->
-				<view class="school-recommend">
+				<!-- 报考推荐 -->
+				<view class="school-recommend" v-if="isShow">
 					<!-- 冲刺学校 -->
 					<view :class="['school-list', { 'school-list-check': showChong }]" @click="this.showChong = !this.showChong">冲刺学校</view>
 					<view v-if="showChong">
-						<view v-if="baogaoinfo.xuexiao.cong.length > 0">
-							<view class="school-item" v-for="item in baogaoinfo.xuexiao.cong" :key="item.id">
-								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+						<view v-if="xuexiao.cong.length > 0">
+							<view class="school-item" v-for="item in xuexiao.cong" :key="item.id">
+								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
 									<view class="item-main-top" @click="hint(item.acName)">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
 								</view>
-								<view class="item-percent">{{ item.gailv + '%' }}</view>
+								<view class="item-percent">{{ item.gailv || 80 + '%' }}</view>
 							</view>
-							<view class="school-item item-filter">
+							<!-- 模糊效果 -->
+							<view class="school-item item-filter" v-if="permissions !== '2'" @click="upgrade">
 								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
 								<view class="item-main">
 									<view class="item-main-top">中国美术学院</view>
@@ -30,49 +32,111 @@
 								</view>
 								<view class="item-percent">85%</view>
 							</view>
-							<view class="more-school">升级专业版查看更多学校...</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
+							<!-- 模糊效果 -->
 						</view>
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
 					</view>
 					<!-- 稳定学校 -->
 					<view :class="['school-list', { 'school-list-check': showWeng }]" @click="this.showWeng = !this.showWeng">重点学校</view>
 					<view v-if="showWeng">
-						<view v-if="baogaoinfo.xuexiao.weng.length > 0">
-							<view class="school-item" v-for="item in baogaoinfo.xuexiao.weng" :key="item.id">
-								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+						<view v-if="xuexiao.weng.length > 0">
+							<view class="school-item" v-for="item in xuexiao.weng" :key="item.id">
+								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
 									<view class="item-main-top">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
 								</view>
-								<view class="item-percent">{{ item.gailv + '%' }}</view>
+								<view class="item-percent">{{ item.gailv || 80 + '%' }}</view>
 							</view>
+							<!-- 模糊效果 -->
+							<view class="school-item item-filter" v-if="permissions !== '2'" @click="upgrade">
+								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+								<view class="item-main">
+									<view class="item-main-top">中国美术学院</view>
+									<view class="item-main-btm">垃圾zzs</view>
+								</view>
+								<view class="item-percent">85%</view>
+							</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
+							<!-- 模糊效果 -->
 						</view>
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
 					</view>
 					<!-- 保底学校 -->
 					<view :class="['school-list', { 'school-list-check': showBao }]" @click="this.showBao = !this.showBao">保底学校</view>
 					<view v-if="showBao">
-						<view v-if="baogaoinfo.xuexiao.bao.length > 0">
-							<view class="school-item" v-for="item in baogaoinfo.xuexiao.bao" :key="item.id">
-								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+						<view v-if="xuexiao.bao.length > 0">
+							<view class="school-item" v-for="item in xuexiao.bao" :key="item.id">
+								<view class="item-img"><image :src="item.acPrep4"></image></view>
 								<view class="item-main">
 									<view class="item-main-top">{{ item.acName }}</view>
 									<view class="item-main-btm">{{ item.acMajor }}</view>
 								</view>
-								<view class="item-percent">{{ item.gailv + '%' }}</view>
+								<view class="item-percent">{{ item.gailv || 80 + '%' }}</view>
 							</view>
+							<!-- 模糊效果 -->
+							<view class="school-item item-filter" v-if="permissions !== '2'" @click="upgrade">
+								<view class="item-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+								<view class="item-main">
+									<view class="item-main-top">中国美术学院</view>
+									<view class="item-main-btm">垃圾zzs</view>
+								</view>
+								<view class="item-percent">85%</view>
+							</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
+							<!-- 模糊效果 -->
+						</view>
+						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
+					</view>
+				</view>
+				<!-- 日程安排 -->
+				<view class="schedule school-recommend" v-else>
+					<view>
+						<view v-if="xuexiao.cong.length > 0">
+							<view class="schedule-item" v-for="item in xuexiao.cong" :key="item.id">
+								<view class="schedule-top">
+									<view class="schedule-img"><image :src="item.acPrep4"></image></view>
+									<view class="schedule-main-top" @click="hint(item.acName)">
+										<view class="schedule-text">{{ item.acName }}</view>
+									</view>
+									<view class="schedule-main-btm" @click="hint(item.acMajor)">{{ item.acMajor }}</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">{{ item.acFirsttrytime }}</view>
+									<view class="schedule-btm-check">
+										<checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)" @click="handleChecked(item.id, item.acFirsttrytime)" />
+									</view>
+								</view>
+							</view>
+							<!-- 点击查看跟多 -->
+							<view class="schedule-item item-filter" v-if="permissions !== '2'" @click="upgrade">
+								<view class="schedule-top">
+									<view class="schedule-img"><image src="../../static/img/hubeimeishu.jpg"></image></view>
+									<view class="schedule-main-top"><view class="schedule-text">中央美术学院</view></view>
+									<view class="schedule-main-btm">造型艺术专业</view>
+								</view>
+								<view class="schedule-btm">
+									<view class="schedule-time-title">考试时间</view>
+									<view class="schedule-time-title schedule-time">2021-5-8</view>
+									<view class="schedule-btm-check"><checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)" /></view>
+								</view>
+							</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
 						</view>
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
 					</view>
 				</view>
 				<!-- 分享 -->
-				<view class="share-report">
+				<view class="share-report" @click="isShow = !isShow">
 					<view class="leftsemicircle"></view>
 					<view class="rightsemicircle"></view>
-					<button type="default">查看考试日程</button>
+					<button type="default">{{ isShow ? '查看考试日程' : '返回' }}</button>
 				</view>
 			</view>
 		</view>
+		<button type="default" class="attention-school" v-show="!isShow">确定关注</button>
 	</view>
 </template>
 
@@ -87,49 +151,50 @@ export default {
 			showChong: false,
 			showWeng: false,
 			showBao: false,
+			showChong1: false,
+			showWeng1: false,
+			showBao1: false,
+			isShow: true,
 			// 学校列表
-			baogaoinfo: {
-				xuexiao: {
-					cong: [
-						{
-							id: 1,
-							acName: '中国美术学院中国美术学院',
-							acMajor: '垃圾zzs',
-							gailv: '85'
-						},
-						{
-							id: 2,
-							acName: '垃圾zzs',
-							acMajor: '垃圾zzs',
-							gailv: '45'
-						},
-						{
-							id: 3,
-							acName: '中国美术学院',
-							acMajor: '垃圾zzs',
-							gailv: '75'
-						}
-					]
-				}
-			}
+			xuexiao: {},
+			// 选中的时间列表
+			checkedTimeList: {}
 		};
 	},
 	onLoad() {
 		// 查看用户身份0普通，1会员，2专业会员
 		/* this.permissions = uni.getStorageSync('huiyuan').type + '' */
-		this.permissions = '2';
+		this.permissions = '1';
+		// 获取上一个页面的信息
+		uni.$on('baogao', res => {
+			if (this.permissions === '0') {
+				res.xuexiao.cong = res.xuexiao.cong.slice(0, 1);
+				res.xuexiao.weng = res.xuexiao.weng.slice(0, 1);
+				res.xuexiao.bao = res.xuexiao.bao.slice(0, 1);
+				this.xuexiao = res.xuexiao;
+			} else if (this.permissions === '1') {
+				res.xuexiao.cong = res.xuexiao.cong.slice(0, 3);
+				res.xuexiao.weng = res.xuexiao.weng.slice(0, 3);
+				res.xuexiao.bao = res.xuexiao.bao.slice(0, 3);
+				this.xuexiao = res.xuexiao;
+			} else {
+				this.xuexiao = res.xuexiao;
+			}
+			console.log('接受', res, this.xuexiao);
+		});
+		uni.$emit('need');
 	},
-	/* onUnload() {
+	onUnload() {
 		// 移除监听事件
 		uni.$off('baogao');
-	}, */
+	},
 	methods: {
 		hint(e) {
-			console.log('item.acName',e)
+			console.log('item.acName', e);
 			uni.showToast({
-			title: e,
-			icon:'none',
-			duration: 1000
+				title: e,
+				icon: 'none',
+				duration: 1000
 			});
 		},
 		backTo() {
@@ -148,6 +213,28 @@ export default {
 				let index = this.showTextList.indexOf(id);
 				this.showTextList.splice(index, 1);
 			}
+		},
+		// 升级
+		upgrade() {
+			uni.redirectTo({
+				url: '../../../pages/huiyuanzhongxin/huiyuanzhongxin?backto=xiaokao'
+			});
+		},
+		// 选中勾选框触发
+		handleChecked(id, checktime) {
+			console.log('111111',checktime);
+			// 添加
+			if(this.checkedTimeList[checktime] == null) {
+				this.checkedTimeList[checktime] = 0
+			} else if(this.checkedTimeList[checktime] < 3) {
+				this.checkedTimeList[checktime]++
+			} else {
+				uni.showToast({
+					title: '同一天只能选择3个学校',
+					icon: 'none'
+				});
+			}
+			console.log(this.checkedTimeList);
 		}
 	}
 };
@@ -241,31 +328,6 @@ export default {
 				letter-spacing: 3rpx;
 			}
 		}
-		// 条件分享
-		.suggest {
-			align-self: flex-start;
-			width: 100%;
-			padding: 40rpx 0;
-			border-bottom: 2px dotted #dadbdd;
-			.suggest-item {
-				padding: 0 60rpx;
-				margin: 20rpx 0 0 0;
-				.suggest-item-title {
-					font-size: 31rpx;
-					color: #57b5ed;
-					font-weight: 400;
-				}
-				.suggest-item-check {
-					color: #b0b5bd;
-				}
-				.suggest-item-text {
-					padding: 20rpx 0;
-					font-size: 27rpx;
-					font-weight: 400;
-					letter-spacing: 3rpx;
-				}
-			}
-		}
 		// 学校推荐
 		.school-recommend {
 			width: 566rpx;
@@ -326,8 +388,6 @@ export default {
 						overflow: hidden;
 						white-space: nowrap;
 						text-overflow: ellipsis;
-						
-						
 					}
 					.item-main-btm {
 						font-size: 27rpx;
@@ -444,5 +504,91 @@ export default {
 		background-color: #57b5ed;
 		border-radius: 46rpx;
 	}
+}
+// 日程安排
+.schedule {
+	.schedule-item {
+		height: 179rpx;
+		padding: 38rpx 10rpx;
+		border-bottom: 1px solid #dadbdd;
+		.schedule-top {
+			display: flex;
+			width: 100%;
+			height: 77rpx;
+			.schedule-img {
+				width: 77rpx;
+				height: 77rpx;
+				overflow: hidden;
+				image {
+					width: 77rpx;
+					height: 77rpx;
+				}
+			}
+			.schedule-main-top {
+				margin-left: 35rpx;
+				flex: 1;
+				.schedule-text {
+					width: 285rpx;
+					height: 48rpx;
+					line-height: 48rpx;
+					font-size: 35rpx;
+					font-weight: 400;
+					color: #273253;
+					letter-spacing: 2rpx;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+			.schedule-main-btm {
+				width: 173rpx;
+				height: 48rpx;
+				line-height: 48rpx;
+				font-size: 27rpx;
+				font-weight: 400;
+				color: #92969d;
+				letter-spacing: 2rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+		.schedule-btm {
+			display: flex;
+			width: 100%;
+			height: 38rpx;
+			padding-left: 112rpx;
+			padding-right: 10rpx;
+			.schedule-time-title {
+				width: 123rpx;
+				height: 38rpx;
+				font-size: 27rpx;
+				font-weight: 400;
+				line-height: 38rpx;
+				color: #92969d;
+				letter-spacing: 2rpx;
+			}
+			.schedule-time {
+				flex: 1;
+				width: 144rpx;
+				margin-left: 8rpx;
+			}
+			.schedule-btm-check {
+				width: 38rpx;
+				height: 38rpx;
+			}
+		}
+	}
+}
+.attention-school {
+	width: 628rpx;
+	height: 84rpx;
+	background: #FBBE4B;
+	color: #fff;
+	font-size: 35rpx;
+	border-radius: 23rpx;
+	margin: 29rpx auto;
+    letter-spacing: 4rpx;
+
 }
 </style>

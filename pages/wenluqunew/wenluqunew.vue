@@ -9,7 +9,7 @@
 					<view class="title-center">问校考</view>
 					<view class="title-btm">专业分析</view>
 				</view>
-				<view class="center-btn"><view class="iconfont icon-iconfontjiantou2"></view></view>
+				<view class="center-btn" @click="handExamination"><view class="iconfont icon-iconfontjiantou2"></view></view>
 			</view>
 		</view>
 		<!-- 问录取 -->
@@ -44,13 +44,19 @@ export default {
 	methods: {
 		handEnroll() {
 			console.log('11111')
-			uni.redirectTo({
+			uni.navigateTo({
 			    url: '../../myPackageA/pages/wenbaokaonew/wenbaokaonew'
 			});
 			/* uni.navigateTo({
 			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
 			}); */
 		},
+		handExamination() {
+			console.log('11111')
+			uni.navigateTo({
+			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
+			});
+		}
 	}
 };
 </script>

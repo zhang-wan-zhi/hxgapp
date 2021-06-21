@@ -332,7 +332,7 @@ export default {
     xinggepinggu() {
       let openid = uni.getStorageSync("openid");
       if (!openid) {
-        uni.redirectTo({
+        uni.navigateTo({
           url: "../index/index",
         });
       } else {
