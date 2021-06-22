@@ -682,7 +682,7 @@ export function getReportByAskStudyCurve(data) {
 export function getEnrollList() {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/system/se/qu/wx/list',
+			url: urls + '/se/wx/list',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			success: res => {
@@ -699,7 +699,7 @@ export function getEnrollList() {
 export function getEnrollAnswers(openid) {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/system/useraskexamdata/wx/userInfo',
+			url: urls + '/se/wx/userInfo',
 			method: 'GET',
 			contentType: 'application/json;charset=UTF-8',
 			data: openid,
@@ -716,7 +716,61 @@ export function getEnrollAnswers(openid) {
 export function postEnrollAnswes(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: urls + '/system/useraskexamdata/wx/userInfo',
+			url: urls + '/se/wx/userInfo',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 问录取，问概率输入学校名模糊查询学校
+export function getSchoolName(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askLuqu/getAcademyByNameForAcademyLike',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 问录取，问概率输入学校名精确查询学校，获取专业
+export function getMajorName(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askLuqu/getAcademyByNameForSure',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 问录取，问概率
+export function getAskLuquProb(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askLuqu/getAskLuquProb',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data: data,

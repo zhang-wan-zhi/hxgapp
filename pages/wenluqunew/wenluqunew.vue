@@ -24,7 +24,7 @@
 				<view class="center-btn"><view :class="['iconfont', { 'icon-jiantou9': isShowBtn }, { 'icon-iconfontjiantou2': !isShowBtn }]" @click="isShowBtn = !isShowBtn"></view></view>
 			</view>
 			<view class="enroll-btn" v-if="isShowBtn">
-				<view class="btn1">问概率</view>
+				<view class="btn1" @click="handProbability">问概率</view>
 				<view class="btn1 btn2" @click="handEnroll">问报考</view>
 			</view>
 			<view class="enroll-btn-emy" v-else>
@@ -51,10 +51,17 @@ export default {
 			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
 			}); */
 		},
+		// 问报告
 		handExamination() {
 			console.log('11111')
 			uni.navigateTo({
 			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
+			});
+		},
+		// 问概率
+		handProbability() {
+			uni.navigateTo({
+			    url: '../../myPackageA/pages/wengailv/wengailv'
 			});
 		}
 	}

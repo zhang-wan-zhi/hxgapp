@@ -46,6 +46,11 @@
 				<image src="../../static/img/my/save.png"></image>
 				<text class="title">我的收藏</text>
 			</view>
+			<view class="item" @click="attentionSchool">
+				<view class="iconfont icon-jiaguanzhu">
+				</view>
+				<text class="title">关注院校</text>
+			</view>
 			<view class="item">
 				<button open-type="share" class="share-btn" @click="share">
 					<image src="../../static/img/my/share.png"></image>
@@ -189,6 +194,20 @@ export default {
 			}
 			uni.navigateTo({
 				url: '../wodeshoucang/wodeshoucang'
+			});
+		},
+		// 关注院校
+		attentionSchool() {
+			if (!hasOpenid()) {
+				uni.showToast({
+					title: '请登录账号',
+					duration: 2000,
+					icon: 'none'
+				});
+				return false;
+			}
+			uni.navigateTo({
+				url: '../../myPackageA/pages/guanzhuyuanxiao/guanzhuyuanxiao'
 			});
 		},
 		// 分享
@@ -381,7 +400,12 @@ export default {
 		margin: 0rpx 20rpx;
 	}
 }
-
+.iconfont {
+	width: 34rpx;
+	height: 34rpx;
+	margin: 0rpx 20rpx;
+	color: #F0796D;
+}
 .share-btn {
 	margin: 0px;
 	padding: 0px;

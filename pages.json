@@ -89,15 +89,6 @@
 
 		},
 		{
-			"path": "pages/wenxiaokao/wenxiaokao",
-			"style": {
-				"navigationBarTitleText": "问校考",
-				"enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ED5C4D"
-			}
-
-		}, {
 			"path": "pages/wenluqunew/wenluqunew",
 			"style": {
 				"navigationBarTitleText": "问录取",
@@ -283,7 +274,40 @@
 				}
 
 			}
-		]
+		    ,{
+                    "path" : "pages/guanzhuyuanxiao/guanzhuyuanxiao",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "关注院校",
+                    "enablePullDownRefresh": false,
+                    "navigationBarTextStyle": "white",
+                    "navigationBarBackgroundColor": "#ED5C4D"
+                }
+                
+                }
+                ,{
+                    "path" : "pages/wengailv/wengailv",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "问概率",
+                    "enablePullDownRefresh": false,
+                    "navigationBarTextStyle": "white",
+                    "navigationBarBackgroundColor": "#ED5C4D"
+                }
+                
+                }
+                ,{
+                    "path" : "pages/wengailvbaogao/wengailvbaogao",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "问录取报告",
+                    "enablePullDownRefresh": false,
+                    "navigationBarTextStyle": "white",
+                    "navigationBarBackgroundColor": "#ED5C4D"
+                }
+                
+                }
+            ]
 	}],
 	"tabBar": {
 		"color": "#7A7E83",
