@@ -121,8 +121,8 @@ export default {
 				};
 				let answers = await getEnrollAnswers(useropenid);
 				console.log('answers', answers);
-				/* let answerArr = answers.data.data.askstudies; */
-				let answerArr = []
+				let answerArr = answers.data.data.askstudies;
+				/* let answerArr = [] */
 				// 获取题目
 				let res = await getEnrollList();
 				console.log('获取问校考问题', res);
@@ -144,10 +144,12 @@ export default {
 							itemScore: 0,
 							// 选项id
 							optionIds: '',
-							quId: res.data.rows.id,
-							selectItem: ''
+							quId: res.data.rows[i].id,
+							selectItem: '',
+							type: res.data.rows[i].asType
 						});
 					}
+					console.log('没有答题记录',this.askstudies);
 				}
 			} else {
 				// 问学习开始
@@ -226,9 +228,8 @@ export default {
 						console.log('this.askstudies取消', this.askstudies);
 						return;
 					}
-				} else {
-					// 问报考
-					// 第一次选择或者重新选择
+				} else { 
+					// 问报考,第一次选择或者重新选择
 					if (item1.asType == 3) {
 						// 如果是多选题
 						console.log('这是多选');
@@ -238,7 +239,8 @@ export default {
 							quId: item1.id,
 							itemScore: (this.askstudies[index1].itemScore = this.askstudies[index1].itemScore + item2.score),
 							optionIds: optids ? optids + ',' + item2.id : item2.id + '',
-							selectItem: seleitem ? seleitem + item2.astvName : item2.astvName
+							selectItem: seleitem ? seleitem + item2.astvName : item2.astvName,
+							type: item1.asType
 						});
 					} else {
 						// 如果是单选
@@ -246,8 +248,10 @@ export default {
 							quId: item1.id,
 							itemScore: item2.score,
 							optionIds: item2.id + '',
-							selectItem: item2.astvName
+							selectItem: item2.astvName,
+							type: item1.asType
 						});
+						console.log('选中了',this.askstudies)
 						if (this.indexNums < this.questionList.length - 1) {
 							this.indexNums++;
 						}
@@ -319,6 +323,7 @@ export default {
 			this.$refs.popup.open('top');
 		},
 		submit() {
+			console.log('this.askstudies',this.askstudies)
 			if (this.submiting) {
 				console.log('111111');
 				return;
@@ -337,11 +342,14 @@ export default {
 			// 发送提交请求
 			if (this.optionPage === '2') {
 				// 问校考提交
+				this.askstudies.map(item =>  {
+					if(item.type == 1) {
+						item.content = item.selectItem
+					}
+				})
 				let data = {
 					userOpenid: uni.getStorageSync('openid'),
 					askstudies: this.askstudies,
-					totalPoints: 0,
-					wenLi: '文科'
 				};
 				console.log('提交的答案', this.askstudies);
 				this.submiting = true;

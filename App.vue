@@ -20,6 +20,7 @@ export default {
 page {
   height: 100%;
   padding-top: 0rpx;
+  /* padding-top: 20rpx; */
   font-family: "webfont" !important;
   font-style: normal;
 }

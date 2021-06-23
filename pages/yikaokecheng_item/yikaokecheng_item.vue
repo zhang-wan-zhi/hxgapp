@@ -347,7 +347,7 @@ export default {
 				return;
 			}
 			let myDate = new Date();
-			let { avatarUrl, nickName } = uni.getStorageSync('userData').userInfo;
+			let { avatarUrl, nickName } = uni.getStorageSync('userInfo');
 			if (tier == 'second') {
 				let data = {
 					avatar: avatarUrl,
