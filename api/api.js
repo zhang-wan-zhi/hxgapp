@@ -9,10 +9,10 @@
 /* let urls = "https://www.qzys.art/ruoyi-admin"; */
 
 // 垃圾张泽森的接口
-let urls="http://192.168.3.215:8091";
+/* let urls="http://192.168.3.215:8091"; */
 
-// zs
-/* let urls = "http://192.168.3.49:8091"; */
+// xs
+let urls = "http://192.168.3.49:8091";
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
@@ -427,6 +427,7 @@ export function getCommentChildren(data) {
 		})
 	})
 }
+
 //问报考 推荐学校名称
 export function getWenbaokaoList(datas) {
 	return new Promise((resolve, reject) => {
@@ -444,6 +445,26 @@ export function getWenbaokaoList(datas) {
 		})
 	})
 }
+
+
+// 问报考，获取关注学校
+export function getSaveSchool(userOpenid) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/se/wx/saveSchool?userOpenid=' + userOpenid,
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			// data:datas,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
 //问录取，输入出概率结果
 export function getWenluquList(datas) {
 	return new Promise((resolve, reject) => {
@@ -730,6 +751,25 @@ export function postEnrollAnswes(data) {
 	})
 }
 
+// 问校考保存学校
+export function saveSchool(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/se/wx/saveSchool',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+
 // 问录取，问概率输入学校名模糊查询学校
 export function getSchoolName(data) {
 	return new Promise((resolve, reject) => {
@@ -771,6 +811,24 @@ export function getAskLuquProb(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/askLuqu/getAskLuquProb',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 问录取，问报考
+export function getAskLuquBaokao(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askLuqu/getAskLuquBaokao',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data: data,

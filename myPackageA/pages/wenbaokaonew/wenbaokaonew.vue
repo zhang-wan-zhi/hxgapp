@@ -127,7 +127,8 @@
 									<view class="schedule-time-title schedule-time">{{ item.acFirsttrytime }}</view>
 									<view class="schedule-btm-check">
 										<checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"
-											@click="handleChecked(item.id, item.acFirsttrytime,item.gailv)" />
+											@click="handleChecked(item.id, item.acFirsttrytime,item.gailv)"
+											:checked="idArr.indexOf(item.id) != -1" />
 									</view>
 								</view>
 							</view>
@@ -163,13 +164,14 @@
 				</view>
 			</view>
 		</view>
-		<button type="default" class="attention-school" v-show="!isShow">确定关注</button>
+		<button type="default" class="attention-school" v-show="!isShow" @click="attention">确定关注</button>
 	</view>
 </template>
 
 <script>
 	import {
-		getReportByAskStudyCurve
+		getReportByAskStudyCurve,
+		saveSchool
 	} from '../../../api/api.js';
 	export default {
 		data() {
@@ -198,8 +200,8 @@
 		},
 		onLoad() {
 			// 查看用户身份0普通，1会员，2专业会员
-			/* this.permissions = uni.getStorageSync('huiyuan').type + '' */
-			this.permissions = '1';
+			this.permissions = uni.getStorageSync('huiyuan').type + ''
+			/* this.permissions = '1'; */
 			console.log('this.schoolTimeList', this.schoolTimeList);
 			// 获取上一个页面的信息
 			uni.$on('baogao', res => {
@@ -230,7 +232,7 @@
 					this.xuexiao = res.xuexiao;
 
 				}
-				
+
 			});
 			uni.$emit('need');
 			this.schoolTimeList = this.schoolTimeList.concat(this.xuexiao.chong, this.xuexiao.zhong, this.xuexiao.bao);
@@ -276,11 +278,8 @@
 			handleChecked(id, checktime, gailv) {
 				if (this.idArr.indexOf(id) == '-1') {
 					this.idArr.push(id);
-					this.savePostData.push({
-						id: id,
-						gailv: gailv
-					})
-					console.log('idArr', this.idArr, this.savePostData);
+
+					console.log('idArr', this.idArr, );
 					// 添加
 					if (this.checkedTimeList[checktime] == null) {
 						this.checkedTimeList[checktime] = 0;
@@ -297,9 +296,30 @@
 					// 取消
 					let index = this.idArr.indexOf(id);
 					this.idArr.splice(index, 1);
-					this.savePostData.splice(index, 1);
-					console.log('idArr', this.idArr, this.savePostData);
+
+					console.log('idArr', this.idArr);
 				}
+			},
+			// 确定关注
+			attention() {
+				let schoolIds = this.idArr.join(',');
+				let userOpenId = uni.getStorageSync('openid');
+				let data = {
+					schoolIds: schoolIds,
+					userOpenId: userOpenId
+				}
+				saveSchool(data).then(res => {
+					console.log('关注学校', res)
+					if (res.data.code == 200) {
+						this.idArr = [];
+						uni.showToast({
+							title: '关注成功！',
+							duration: 1000,
+							icon: 'none'
+						})
+					}
+
+				})
 			},
 			handleSchoolTime() {
 				uni.showLoading({
@@ -307,11 +327,15 @@
 				})
 				console.log(this.schoolTimeList)
 				// 去除null
-				for (let i = 0; i < this.schoolTimeList.length; i++) {
-					if (this.schoolTimeList[i].acFirsttrytime == null) {
-						this.schoolTimeList.splice(i, 1)
+
+				let newArr = [];
+				this.schoolTimeList.map(function(item) {
+					if (item.acFirsttrytime != null) {
+						newArr.push(item)
 					}
-				}
+
+				})
+				this.schoolTimeList = newArr;
 				console.log('去除null', this.schoolTimeList)
 				// 从小到大排序
 				this.schoolTimeList.sort(function(a, b) {

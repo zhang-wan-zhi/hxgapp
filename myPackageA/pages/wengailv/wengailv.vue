@@ -29,7 +29,7 @@
 			</view>
 			<!-- 综合 -->
 			<view class="zonghe" v-if="luquType === '3'">
-				<view class="back" @click="luquType = 'bg'">
+				<view class="back" @click="backTo">
 					返回
 				</view>
 				<view v-for="(item,index) in zongheTitle" :key="item.id">
@@ -55,17 +55,17 @@
 			</view>
 			<!-- 专过文录 -->
 			<view class="zgwl" v-if="luquType === '2'">
-				<view class="back" @click="luquType = 'bg'">
+				<view class="back" @click="backTo">
 					返回
 				</view>
-				<view class="question" v-for="(item,index) in zongheTitle" :key="item.id">
+				<view class="question">
 					<view class="question__title">
 						<image src="../../static/img/biaoji.png"></image>
-						<text>{{ !item.inputShow ? (item.title + '是否通过') : (item.title + '成绩') }}</text>
+						<text>{{ !wenhuapass ? '专业考试（联考/统考/校考）是否通过' : '文化分得分' }}</text>
 					</view>
-					<input type="text" v-model="item.value" v-if="item.inputShow" />
-					<view class="btns" v-if="!item.inputShow">
-						<view class="btns1" @click="showInput(item,index)">
+					<input type="text" v-model="wenhuafen" v-if="wenhuapass" />
+					<view class="btns" v-if="!wenhuapass">
+						<view class="btns1" @click="wenhuapass = !wenhuapass">
 							是
 						</view>
 						<view class="btns1" @click="showTips">
@@ -74,6 +74,39 @@
 					</view>
 				</view>
 				<view class="probability__center__confirm confirm-btn3" @click="confirmFirst('2')">
+					确定
+				</view>
+			</view>
+			<!-- 文过专入 -->
+			<view class="whzr" v-if="luquType === '1'">
+				<view class="back" @click="backTo">
+					返回
+				</view>
+				<view class="question">
+					<view class="question__title">
+						<image src="../../static/img/biaoji.png"></image>
+						<text>文化分得分</text>
+					</view>
+					<input type="text" v-model="wenhuafen"/>
+				</view>
+				<view v-for="(item,index) in wgzrTitle" :key="item.rextype">
+					<view class="question" v-if="reExamType == item.rextype">
+						<view class="question__title">
+							<image src="../../static/img/biaoji.png"></image>
+							<text>{{ !item.inputShow ? (item.title + '是否通过') : (item.title + '排名') }}</text>
+						</view>
+						<input type="text" v-model="item.rank" v-if="item.inputShow" />
+						<view class="btns" v-if="!item.inputShow">
+							<view class="btns1" @click="showInput(item,index)">
+								是
+							</view>
+							<view class="btns1" @click="showTips">
+								否
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="probability__center__confirm confirm-btn3" @click="confirmFirst('1')">
 					确定
 				</view>
 			</view>
@@ -143,7 +176,43 @@
 				schoolPrimaryId: '',
 				// 记录是否通过
 				isPass: true,
-				provinces: []
+				provinces: [],
+				// 文过专入
+				wgzrTitle: [{
+						title: '校考',
+						rank: '',
+						rextype: '1',
+						inputShow: false,
+						attribute: 'schoolExamRanking'
+					},
+					{
+						title: '统考',
+						rank: '',
+						rextype: '2',
+						inputShow: false,
+						attribute: 'unifyRanking'
+					},
+					{
+						title: '校考',
+						rank: '',
+						rextype: '3',
+						inputShow: false,
+						attribute: 'schoolExamRanking'
+					},
+					{
+						title: '联考',
+						rank: '',
+						rextype: '4',
+						inputShow: false,
+						attribute: 'allyExamRanking'
+					}
+				],
+				// 文过专录，专业考试类型
+				reExamType: '',
+				// 文化分
+				wenhuafen: '',
+				// 文化分是否通过
+				wenhuapass: false
 			}
 		},
 		onLoad() {
@@ -157,7 +226,7 @@
 		},
 		watch: {
 			school: function(newSchool, oldSchool) {
-
+				this.major = '';
 				if (this.timer !== null) {
 					clearTimeout(this.timer);
 				}
@@ -166,7 +235,7 @@
 			}
 		},
 		methods: {
-			// 防抖
+			// 模糊请求学校
 			debounce(newSchool) {
 				let data = {
 					school: this.school
@@ -176,8 +245,10 @@
 					getMajorName(data).then(res => {
 						console.log('res', res)
 						if (res.data.code == 200) {
-							this.candidateMajor = res.data.academyNames
-							this.academies = res.data.hxgAcademies
+							this.candidateMajor = res.data.academyNames;
+							// 专业列表
+							this.academies = res.data.hxgAcademies;
+
 						}
 					})
 				})
@@ -209,7 +280,16 @@
 					})
 					return
 				}
+				if (this.candidateMajor.indexOf(this.major) == '-1') {
+					uni.showToast({
+						title: '请输入正确的专业名称！',
+						duration: 2000,
+						icon: 'none'
+					})
+					return
+				}
 				// 校验结束
+				// 选择学校专业的的索引
 				let index = this.candidateMajor.indexOf(this.major);
 				// 判断专业类型
 				this.luquType = this.academies[index].reLuquType;
@@ -232,8 +312,14 @@
 
 					}
 				}
+				if (this.luquType == '1') {
+					// 如果是文过专入
+					// 文过专入类型
+					this.reExamType = this.academies[index].reExamType
+				}
 
 			},
+			// 公共提交
 			confirmFirst(type) {
 				// 是否有未通过
 				if (!this.isPass) {
@@ -261,27 +347,73 @@
 						return
 					}
 				}
+				if(this.wenhuafen > 750) {
+					uni.showToast({
+						title: '分数超过正常范围！',
+						duration: 2000,
+						icon: 'none'
+					})
+					return
+				}
 				// 校验结束
+				uni.showLoading({
+				    title: '加载中'
+				});
 				let data = '';
-				if(type === '3') {
+				if (type === '3') {
 					data = this.confirm3()
-				} else if(type === '2') {
+				} else if (type === '2') {
 					data = this.confirm2()
+				} else {
+					data = this.confirm1()
 				}
 				// 发送请求
 				getAskLuquProb(data).then(res => {
+					uni.hideLoading();
 					console.log('res', res)
-					// 跳转页面，并发射数据
-					uni.navigateTo({
-						url: '../wengailvbaogao/wengailvbaogao'
-					});
-					uni.$on('gailv', () => {
-						uni.$emit('gailvbaogao', {
-							info: res.data.data,
+					if(res.data.code == 200) {
+						// 跳转页面，并发射数据
+						uni.navigateTo({
+							url: '../wengailvbaogao/wengailvbaogao'
 						});
-					});
-					console.log('发射成功');
+						uni.$on('gailv', () => {
+							uni.$emit('gailvbaogao', {
+								info: res.data.data,
+							});
+						});
+						console.log('发射成功');
+					} else {
+						uni.showToast({
+							title: res.data.msg + '',
+							duration: 2000,
+							icon: 'none'
+						})
+					}
+					
+					
 				})
+			},
+			// 文过专入
+			confirm1() {
+				// 获取是哪个考试
+				let index = Number(this.reExamType) - 1;
+				let attribute = this.wgzrTitle[index].attribute;
+				let openid = uni.getStorageSync('openid');
+				let provinceIndex = this.candidateProvince.indexOf(this.province);
+				let provinceId = this.provinces[provinceIndex].id;
+				let data = {
+					// 文化分
+					culScore: this.wenhuafen,
+					userOPenid: openid,
+					schoolPrimaryId: this.schoolPrimaryId,
+					allyExamFlag: 1,
+					schoolExamFlag: 1,
+					unifyExamFlag: 1,
+					fengKe: this.fenke,
+					provinceId: provinceId
+				}
+				data[attribute] = this.wgzrTitle[index].rank
+				return data
 			},
 			// 专过文录
 			confirm2() {
@@ -291,7 +423,8 @@
 				let data = {
 					userOPenid: openid,
 					schoolPrimaryId: this.schoolPrimaryId,
-					culScore: this.zongheTitle[3].value,
+					// 文化分
+					culScore: this.wenhuafen,
 					allyExamFlag: 1,
 					schoolExamFlag: 1,
 					unifyExamFlag: 1,
@@ -342,7 +475,76 @@
 						}
 					}
 				});
-			}
+			},
+			// 返回
+			backTo() {
+				this.luquType = 'bg';
+				this.isPass = true;
+				this.zongheTitle = [{
+						title: '校考',
+						id: 0,
+						value: '',
+						isshow: 1,
+						ratio: '',
+						inputShow: false
+					},
+					{
+						title: '统考',
+						id: 1,
+						value: '',
+						isshow: 1,
+						ratio: '',
+						inputShow: false
+					},
+					{
+						title: '联考',
+						id: 2,
+						value: '',
+						isshow: 1,
+						ratio: '',
+						inputShow: false
+					},
+					{
+						title: '文化',
+						id: 3,
+						value: '',
+						isshow: 1,
+						ratio: '',
+						inputShow: false
+					},
+				];
+				this.wgzrTitle = [{
+						title: '校考',
+						rank: '',
+						rextype: '1',
+						inputShow: false,
+						attribute: 'schoolExamRanking'
+					},
+					{
+						title: '统考',
+						rank: '',
+						rextype: '2',
+						inputShow: false,
+						attribute: 'unifyRanking'
+					},
+					{
+						title: '校考',
+						rank: '',
+						rextype: '3',
+						inputShow: false,
+						attribute: 'schoolExamRanking'
+					},
+					{
+						title: '联考',
+						rank: '',
+						rextype: '4',
+						inputShow: false,
+						attribute: 'allyExamRanking'
+					}
+				];
+				this.wenhuafen = '';
+				this.wenhuapass = false;
+			},
 		}
 	}
 </script>
@@ -414,7 +616,7 @@
 			}
 
 			.confirm-btn3 {
-				margin-top: 30rpx;
+				margin-top: 50rpx;
 			}
 		}
 	}
@@ -456,26 +658,27 @@
 			justify-content: space-around;
 
 			.btns1 {
-				width: 170rpx;
-				height: 77rpx;
+				width: 140rpx;
+				height: 70rpx;
 				text-align: center;
-				line-height: 77rpx;
+				line-height: 70rpx;
 				font-size: 35rpx;
 				color: #fff;
 				letter-spacing: 4rpx;
 				margin: 0 auto;
 				background: #FBBE4B;
-				border-radius: 46rpx;
+				border-radius: 27rpx;
 			}
 
 		}
 	}
+
 	.back {
-		width: 170rpx;
-		height: 77rpx;
+		width: 110rpx;
+		height: 60rpx;
 		text-align: center;
-		line-height: 77rpx;
-		font-size: 35rpx;
+		line-height: 60rpx;
+		font-size: 27rpx;
 		color: #fff;
 		letter-spacing: 4rpx;
 		margin: 0 auto;

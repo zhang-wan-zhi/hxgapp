@@ -267,7 +267,7 @@
 			}, {
 				"path": "pages/wenbaokaonew/wenbaokaonew",
 				"style": {
-					"navigationBarTitleText": "问报考",
+					"navigationBarTitleText": "问校考报告",
 					"enablePullDownRefresh": false,
 					"navigationBarTextStyle": "white",
 					"navigationBarBackgroundColor": "#ED5C4D"
@@ -301,6 +301,28 @@
                     "style" :                                                                                    
                 {
                     "navigationBarTitleText": "问录取报告",
+                    "enablePullDownRefresh": false,
+                    "navigationBarTextStyle": "white",
+                    "navigationBarBackgroundColor": "#ED5C4D"
+                }
+                
+                }
+                ,{
+                    "path" : "pages/wenluqu_baokao/wenluqu_baokao",
+                    "style" :                                                                                    
+                {
+                   "navigationBarTitleText": "问报考",
+                   "enablePullDownRefresh": false,
+                   "navigationBarTextStyle": "white",
+                   "navigationBarBackgroundColor": "#ED5C4D"
+                }
+                
+                }
+                ,{
+                    "path" : "pages/wenbaokao_baogao/wenbaokao_baogao",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "问报考报告",
                     "enablePullDownRefresh": false,
                     "navigationBarTextStyle": "white",
                     "navigationBarBackgroundColor": "#ED5C4D"

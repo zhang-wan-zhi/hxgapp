@@ -42,18 +42,32 @@ export default {
 		};
 	},
 	methods: {
+		// 问报考
 		handEnroll() {
-			console.log('11111')
-			uni.navigateTo({
-			    url: '../../myPackageA/pages/wenbaokaonew/wenbaokaonew'
+			uni.showModal({
+			    title: '提示',
+			    content: '统考是否过线？',
+			    success: function (res) {
+			        if (res.confirm) {
+			            uni.navigateTo({
+			                url: '../../myPackageA/pages/wenluqu_baokao/wenluqu_baokao'
+			            });
+			        } else if (res.cancel) {
+			            uni.showToast({
+			                title: '需要统考过线，才可以报考。',
+			                duration: 2000,
+							icon: 'none'
+			            });
+			        }
+			    }
 			});
+			
 			/* uni.navigateTo({
 			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
 			}); */
 		},
-		// 问报告
+		// 问校考
 		handExamination() {
-			console.log('11111')
 			uni.navigateTo({
 			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
 			});
