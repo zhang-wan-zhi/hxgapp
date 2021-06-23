@@ -45,18 +45,21 @@ export default {
 		cancelSave(id) {
 			uni.showModal({
 				title: '确定取消收藏',
-				success:()=> {
-					let openid = uni.getStorageSync('openid');
-					this.$myRequest({
-						url: '/hxg/collArtExam',
-						method: 'POST',
-						data: {
-							collOpenid: openid,
-							collArtexamid: id
-						}
-					}).then(res => {
-						this.getSaveList();
-					});
+				success:(res)=> {
+					if (res.confirm){
+						let openid = uni.getStorageSync('openid');
+						this.$myRequest({
+							url: '/hxg/collArtExam',
+							method: 'POST',
+							data: {
+								collOpenid: openid,
+								collArtexamid: id
+							}
+						}).then(res => {
+							this.getSaveList();
+						});
+					}
+					
 				}
 			});
 		},

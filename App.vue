@@ -19,7 +19,6 @@ export default {
 @import "./style/iconfont.css";
 page {
   height: 100%;
-  padding-top: 0rpx;
   /* padding-top: 20rpx; */
   font-family: "webfont" !important;
   font-style: normal;
