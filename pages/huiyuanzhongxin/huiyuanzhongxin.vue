@@ -117,7 +117,10 @@ export default {
       // 会员信息
       memberInfo: {},
       // 用户信息
-      userInfo: {},
+      userInfo: {
+		  avatarUrl:'',
+		  nickName:''
+	  },
       //禁止轮播图滚动时用户触摸
       touch: false,
       // 专业版ID
@@ -386,7 +389,7 @@ export default {
 .members {
   background: url(../../static/img/my/huiyuan2.png) no-repeat 0px 0px;
 }
-
+  
 .user-info {
   display: flex;
   width: 100%;

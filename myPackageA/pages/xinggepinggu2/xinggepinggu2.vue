@@ -131,7 +131,7 @@ export default {
 				console.log('questionList', this.questionList);
 				// 隐藏加载中...
 				uni.hideLoading();
-				if (answerArr.length > 0) {
+				if (answerArr) {
 					// 如果有答题记录
 					console.log('有答题记录');
 					this.askstudies = answerArr;
