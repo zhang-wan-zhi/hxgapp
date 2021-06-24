@@ -30,19 +30,6 @@
 			console.log('发送请求了');
 		},
 		methods: {
-			cunfollow() {
-				uni.showModal({
-					title: '提示',
-					content: '取消关注该院校？',
-					success: function(res) {
-						if (res.confirm) {
-							console.log('用户点击确定');
-						} else if (res.cancel) {
-							console.log('用户点击取消');
-						}
-					}
-				});
-			},
 			hint(e) {
 				console.log('item.acName', e);
 				uni.showToast({
@@ -63,7 +50,6 @@
 	.school-item {
 		display: flex;
 		width: 640rpx;
-		height: 179rpx;
 		padding: 21rpx;
 		background-color: #fff;
 		border-radius: 20rpx;
@@ -107,10 +93,11 @@
 		.item-percent {
 			width: 144rpx;
 			height: 77rpx;
-			font-size: 42rpx;
+			font-size: 37rpx;
 			font-weight: 400;
 			line-height: 98rpx;
 			color: #fbbe4b;
+			margin-left: 10rpx;
 		}
 	}
 </style>

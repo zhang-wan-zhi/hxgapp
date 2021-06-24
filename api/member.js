@@ -1,6 +1,110 @@
 let urls = "https://www.qzys.art/ruoyi-admin";
 
 
+
+
+//普通用户充值
+export function userCharge(oProductid,money) {
+	const oOpenid= uni.getStorageSync('openid');
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/pay/memeberPayToGenral',
+			method: 'POST',
+			data: {
+				oOpenid,
+				oProductid,
+				money
+			},
+			success: res => {
+				resolve(res.data.wixinPay)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 普通会员支付
+export function putongCharge(oProductid,money) {
+	const oOpenid= uni.getStorageSync('openid');
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/pay/memeberPayToGenralMember',
+			method: 'POST',
+			data: {
+				oOpenid,
+				oProductid,
+				money
+			},
+			success: res => {
+				resolve(res.data.wixinPay)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+//专业会员支付
+export function zhuanyeCharge(oProductid,money) {
+	const oOpenid= uni.getStorageSync('openid');
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/pay/memeberPayToMajorMember',
+			method: 'POST',
+			data: {
+				oOpenid,
+				oProductid,
+				money
+			},
+			success: res => {
+				resolve(res.data.wixinPay)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 双会员续费接口
+export function doubleCharge(oProductid,money) {
+	const oOpenid= uni.getStorageSync('openid');
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/pay/memeberPayToTwoMember',
+			method: 'POST',
+			data: {
+				oOpenid,
+				oProductid,
+				money
+			},
+			success: res => {
+				resolve(res.data.wixinPay)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <------------------------------------------------------------------>
+
 // 充值会员
 export function charge(oProductid,money) {
 	const oOpenid= uni.getStorageSync('openid');
@@ -64,10 +168,14 @@ export function getProviderInfo() {
 // 查询会员钱数id信息
 
 export function getCharges() {
+	const openid= uni.getStorageSync('openid');
 	return new Promise((resolve, reject) => {
 			uni.request({
-				url:  urls +  '/hxg/getCharges',
-				method: 'GET',
+				url:  urls +  '/hxg/pay/getCharge',
+				method: 'POST',
+				data:{
+					openid
+				},
 				success(res) {
 					resolve(res.data);
 				},
@@ -77,4 +185,24 @@ export function getCharges() {
 			});
 		})
 	
+}
+//查询用户信息
+
+export function getMemberInfo(){
+	const openid= uni.getStorageSync('openid');
+	return new Promise((resolve,reject)=>{
+		uni.request({
+			url: urls + '/hxg/pay/selectUserFormember',
+			method:'POST',
+			data:{
+				openid
+			},
+			success(res) {
+				resolve(res.data)
+			},
+			fail(res) {
+				 console.log(res);
+			}
+		})
+	})
 }

@@ -54,14 +54,14 @@
           <image src="../../static/img/firstIcon/dongtai.png"></image>
           <text>动态</text>
         </view>
-        <view class="dct-title divider-line" @click="yikaoKecheng" :class="isactive1 ? 'isActive' : ''">
+        <!-- <view class="dct-title divider-line" @click="yikaoKecheng" :class="isactive1 ? 'isActive' : ''">
           <image src="../../static/img/firstIcon/class.png" mode=""></image>
           <text>视频</text>
-        </view>
-        <view class="dct-title" @click="yikaiTiku" :class="isactive2 ? 'isActive' : ''">
+        </view> -->
+        <!-- <view class="dct-title" @click="yikaiTiku" :class="isactive2 ? 'isActive' : ''">
           <image src="../../static/img/firstIcon/question.png"></image>
           <text>测试</text>
-        </view>
+        </view> -->
       </view>
       <!-- 艺考动态列表 -->
       <view class="dynamic-contents" v-show="yikaoDongtaiStatus">

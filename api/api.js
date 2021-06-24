@@ -699,6 +699,8 @@ export function getReportByAskStudyCurve(data) {
 	})
 }
 
+
+
 // 问校考答题
 export function getEnrollList() {
 	return new Promise((resolve, reject) => {

@@ -25,65 +25,49 @@ export default {
 		};
 	},
 	onLoad() {
-		let openid=uni.getStorageSync('openid');
-		//获取收藏的课程
-		new Promise((res,rej)=>{
-			uni.request({
-				url:'https://www.qzys.art/ruoyi-admin/hxg/getColls',
-				method:'POST',
-				data:{
-					openid
-				},
-				success(result) {
-					res(result)
-				},
-				fail(result) {
-					console.log(result)
-				}
-			})
-		}).then((res)=>{
-			this.saveList=res.data.data
-			console.log('this', this.saveList)
-		})
+		this.getSaveList();
 	},
 	methods: {
-	cancelSave(id){
-		let openid=uni.getStorageSync('openid');
-		new Promise((resolve,rej)=>{
-			uni.showModal({
-			    title: '确定取消收藏',
-			    success: function (res) {
-			        if (res.confirm) {
-			           resolve()
-			        } 
-			    }
-			})
-		}).then(()=>{
-			uni.request({
-				url:'https://www.qzys.art/ruoyi-admin/hxg/collArtExam',
-				method:'POST',
-				data:{
-					collOpenid:openid,
-					collArtexamid:id
-				},
-				success(result) {
-					console.log(result)
-					uni.redirectTo({
-						url:'../wodeshoucang/wodeshoucang'
-					})
-				},
-				fail(result) {
-					console.log(result)
+		getSaveList() {
+			let openid = uni.getStorageSync('openid');
+			//获取收藏的课程
+			this.$myRequest({
+				url: '/hxg/getColls',
+				method: 'POST',
+				data: {
+					openid
 				}
-			})
-		})
-	},
-	toPage(id){
-		uni.navigateTo({
-			url: '../yikaokecheng_item/yikaokecheng_item?ids=' + id
-		});
-	}
-	
+			}).then(res => {
+				console.log(res);
+				this.saveList = res.data;
+			});
+		},
+		cancelSave(id) {
+			uni.showModal({
+				title: '确定取消收藏',
+				success:(res)=> {
+					if (res.confirm){
+						let openid = uni.getStorageSync('openid');
+						this.$myRequest({
+							url: '/hxg/collArtExam',
+							method: 'POST',
+							data: {
+								collOpenid: openid,
+								collArtexamid: id
+							}
+						}).then(res => {
+							this.getSaveList();
+						});
+					}
+					
+				}
+			});
+		},
+		toPage(id) {
+			uni.navigateTo({
+				url: '../yikaokecheng_item/yikaokecheng_item?ids=' + id
+			});
+		}
 	}
 };
 </script>
