@@ -3,7 +3,7 @@
     <!-- 搜索区域 -->
     <view class="Search_content" @click="getFocus">
       <text class="iconfont icon-sousuo sousuo"></text>
-      <input :disabled="true" :placeholder="placeholders" placeholder-style=" margin-left:300rpx; font-size: 32rpx; color:#A9AFB8;" />
+      <input :disabled="true" :placeholder="placeholders" placeholder-style=" font-size: 32rpx; color:#A9AFB8;" />
     </view>
 
     <!-- 轮播图区域 -->
@@ -489,6 +489,7 @@ export default {
       border: 2rpx solid #ed5c4d;
       border-radius: 40rpx;
       background-color: #ffffff;
+	  padding-left: 80rpx;
     }
   }
 
