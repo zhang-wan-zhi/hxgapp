@@ -13,7 +13,7 @@
 			<view class="schedule-btm">
 				<view class="schedule-time-title">考试时间</view>
 				<view class="schedule-time-title schedule-time">{{ item.acFirsttrytime }}</view>
-				<view class="qxgz" @click="cunfollow">
+				<view class="qxgz" @click="cunfollow(item.id)">
 					<image src="../../static/img/qxgz.png"></image>
 				</view>
 			</view>
@@ -23,7 +23,8 @@
 
 <script>
 	import {
-		getSaveSchool
+		getSaveSchool,
+		deleteSchool
 	} from '../../../api/api.js'
 	export default {
 		data() {
@@ -35,17 +36,58 @@
 			let userOpenid = uni.getStorageSync('openid');
 			getSaveSchool(userOpenid).then(res => {
 				console.log('关注学校res',res)
-				this.xuexiao = res.data.data;
+				if(res.data.code == 200) {
+					this.xuexiao = res.data.data;
+					if(res.data.msg == null || res.data.data.length == 0  ) {
+						uni.showModal({
+						    title: '提示',
+						    content: '还没有关注院校，去关注吧~',
+							confirmText: '去关注',
+						    success: function (res) {
+						        if (res.confirm) {
+						            uni.redirectTo({
+						            	url: '../xinggepinggu2/xinggepinggu2?page=2'
+						            })
+						        } else if (res.cancel) {
+						            uni.navigateBack()
+						        }
+						    }
+						});
+					}
+				} else {
+					uni.showModal({
+					    title: '提示',
+					    content: '服务器开小差啦~',
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.navigateBack()
+					        } else if (res.cancel) {
+					            uni.navigateBack()
+					        }
+					    }
+					});
+				}
+				
+				
 			})
 		},
 		methods: {
-			cunfollow() {
+			cunfollow(id) {
 				uni.showModal({
 					title: '提示',
 					content: '取消关注该院校？',
 					success: function(res) {
 						if (res.confirm) {
-							console.log('用户点击确定');
+							deleteSchool(id).then(res => {
+							console.log(res)
+							if(res.data.code == 200) {
+							
+								uni.redirectTo({
+								    url: '../guanzhuyuanxiao/guanzhuyuanxiao'
+								});
+							}
+								
+							})
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}

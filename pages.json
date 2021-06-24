@@ -329,6 +329,17 @@
                 }
                 
                 }
+                ,{
+                    "path" : "pages/wenlvqu_history/wenlvqu_history",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "历史记录",
+                    "enablePullDownRefresh": false,
+                    "navigationBarTextStyle": "white",
+                    "navigationBarBackgroundColor": "#ED5C4D"
+                }
+                
+                }
             ]
 	}],
 	"tabBar": {

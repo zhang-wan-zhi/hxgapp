@@ -44,6 +44,13 @@ export default {
 	methods: {
 		// 问报考
 		handEnroll() {
+			let openid = uni.getStorageSync("openid");
+			if (!openid) {
+			  uni.navigateTo({
+			    url: "../index/index",
+			  });
+			  return
+			}
 			uni.showModal({
 			    title: '提示',
 			    content: '统考是否过线？',
@@ -68,12 +75,26 @@ export default {
 		},
 		// 问校考
 		handExamination() {
+			let openid = uni.getStorageSync("openid");
+			if (!openid) {
+			  uni.navigateTo({
+			    url: "../index/index",
+			  });
+			  return
+			}
 			uni.navigateTo({
 			    url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
 			});
 		},
 		// 问概率
 		handProbability() {
+			let openid = uni.getStorageSync("openid");
+			if (!openid) {
+			  uni.navigateTo({
+			    url: "../index/index",
+			  });
+			  return
+			}
 			uni.navigateTo({
 			    url: '../../myPackageA/pages/wengailv/wengailv'
 			});

@@ -6,7 +6,7 @@
 		<view class="uni-combox__input-box">
 			<input class="uni-combox__input" type="text" :placeholder="placeholder" v-model="inputVal" @input="onInput"
 			 @focus="onFocus" @blur="onBlur" />
-			<uni-icons class="uni-combox__input-arrow" type="arrowdown" size="14" @click="toggleSelector"></uni-icons>
+			<!-- <uni-icons class="uni-combox__input-arrow" type="arrowdown" size="14" @click="toggleSelector"></uni-icons> -->
 			<view class="uni-combox__selector" v-if="showSelector">
 				<scroll-view scroll-y="true" class="uni-combox__selector-scroll">
 					<view class="uni-combox__selector-empty" v-if="filterCandidatesLength === 0">
@@ -103,9 +103,9 @@
 				this.showSelector = true
 			},
 			onBlur() {
-				setTimeout(() => {
+				/* setTimeout(() => {
 					this.showSelector = false
-				}, 153)
+				}, 153) */
 			},
 			onSelectorClick(index) {
 				this.inputVal = this.filterCandidates[index]

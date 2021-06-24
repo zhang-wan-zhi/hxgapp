@@ -1,19 +1,23 @@
 <template>
 	<view class="gzyx">
-		<view class="school-item" v-for="item in xuexiao" :key="item.id">
+		<view class="school-item" v-for="item in xuexiao" :key="item.id"
+			@click="handleClick(item.academy,item.uapProb)">
 			<view class="item-img">
-				<image :src="item.acPrep4" v-if="item.acPrep4"></image>
+				<image :src="item.academy.acPrep4" v-if="item.academy.acPrep4"></image>
 			</view>
 			<view class="item-main">
-				<view class="item-main-top" @click="hint(item.acName)">{{ item.acName }}</view>
-				<view class="item-main-btm">{{ item.acMajor }}</view>
+				<view class="item-main-top" @click="hint(item.academy.acName)">{{ item.academy.acName }}</view>
+				<view class="item-main-btm">{{ item.academy.acMajor }}</view>
 			</view>
-			<view class="item-percent">{{ (item.askLuquProp*100).toFixed(2) + '%' }}</view>
+			<view class="item-percent">{{ (item.uapProb*100).toFixed(2) + '%' }}</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		getHistoryForUser
+	} from '../../../api/api.js'
 	export default {
 		data() {
 			return {
@@ -21,13 +25,14 @@
 			};
 		},
 		onLoad() {
-			// 获取上一个页面的信息
-			uni.$on('bkbaogao', res => {
+			let userOPenid = uni.getStorageSync('openid');
+			let data = {
+				userOPenid: userOPenid
+			}
+			getHistoryForUser(data).then(res => {
+				this.xuexiao = res.data.data.userandprobs
 				console.log('res', res)
-				this.xuexiao = res.info
-			});
-			uni.$emit('baokao');
-			console.log('发送请求了');
+			})
 		},
 		methods: {
 			cunfollow() {
@@ -51,6 +56,25 @@
 					duration: 2000
 				});
 			},
+			handleClick(schoolInfo, prob) {
+				let data = {
+					academy: schoolInfo,
+					prob: prob
+				}
+				uni.navigateTo({
+					url: '../wengailvbaogao/wengailvbaogao'
+				});
+				uni.$on('gailv', () => {
+					uni.$emit('gailvbaogao', {
+						info: data
+					});
+				});
+				console.log('发射成功');
+				setTimeout(() => {
+					uni.$off('gailv')
+				}, 1000)
+
+			},
 		}
 	};
 </script>
@@ -69,6 +93,7 @@
 		border-radius: 20rpx;
 		margin: 0 auto;
 		margin-bottom: 30rpx;
+
 		.item-img {
 			width: 77rpx;
 			height: 77rpx;

@@ -490,10 +490,8 @@
 				.school-item {
 					display: flex;
 					width: 566rpx;
-					height: 179rpx;
 					padding: 21rpx 10rpx 31rpx 10rpx;
 					border-bottom: 1px solid #dadbdd;
-
 					.item-img {
 						width: 77rpx;
 						height: 77rpx;
@@ -509,9 +507,9 @@
 
 					.item-main {
 						/* flex: 1; */
-						flex-grow: 1;
+						/* flex-grow: 1; */
+						width: 350rpx;
 						margin-left: 30rpx;
-
 						.item-main-top {
 							width: 315rpx;
 							height: 77rpx;

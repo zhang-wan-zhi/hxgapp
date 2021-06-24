@@ -6,13 +6,13 @@
 // let urls="http://192.168.3.247:8091"
 
 //线上地址
-/* let urls = "https://www.qzys.art/ruoyi-admin"; */
+let urls = "https://www.qzys.art/ruoyi-admin";
 
 // 垃圾张泽森的接口
 /* let urls="http://192.168.3.215:8091"; */
 
 // xs
-let urls = "http://192.168.3.49:8091";
+/* let urls = "http://192.168.3.49:8091"; */
 
 //授权，通过wxcode获取appid
 export function getWxcode(wxcode) {
@@ -769,6 +769,23 @@ export function saveSchool(data) {
 	})
 }
 
+// 问校考删除保存学校
+export function deleteSchool(id) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/se/' + uni.getStorageSync('openid') + '/' + id ,
+			method: 'DELETE',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
 
 // 问录取，问概率输入学校名模糊查询学校
 export function getSchoolName(data) {
@@ -829,6 +846,24 @@ export function getAskLuquBaokao(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/askLuqu/getAskLuquBaokao',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 问录取，问概率记录
+export function getHistoryForUser(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/hxg/askLuqu/getHistoryForUser',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data: data,

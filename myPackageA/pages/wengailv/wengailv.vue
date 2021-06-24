@@ -6,21 +6,32 @@
 			</view>
 			<!-- 学校专业选择 -->
 			<view v-if="luquType === 'bg'">
+				<view class="back historical" @click="historical">
+					历史记录
+				</view>
 				<view class="example-body">
 					<uni-combox label="学校" labelWidth="150px" :candidates="candidateSchool" placeholder="请选择学校"
-						v-model="school"></uni-combox>
+						v-model="school" emptyTips="无匹配院校,请输入其他院校"></uni-combox>
 				</view>
 				<view class="example-body">
 					<uni-combox label="专业" labelWidth="150px" :candidates="candidateMajor" placeholder="请选择专业"
-						v-model="major" emptyTips="请输入正确的学校名称"></uni-combox>
+						v-model="major" emptyTips="请输入正确的院校名称"></uni-combox>
 				</view>
 				<view class="example-body">
-					<uni-combox label="分科" labelWidth="150px" :candidates="candidateFk" placeholder="请选择分科"
-						v-model="fenke"></uni-combox>
+					<view class="uni-combox__label">
+						<text>分科</text>
+					</view>
+					<picker @change="bindPickerChange2" :value="fenkeIndex" :range="fenkeArr" range-key="name">
+						<input type="text" v-model="fenkeArr[fenkeIndex].name" placeholder="请选择分科" disabled="true" />
+					</picker>
 				</view>
 				<view class="example-body">
-					<uni-combox label="省份" labelWidth="150px" :candidates="candidateProvince" placeholder="请选择省份"
-						v-model="province"></uni-combox>
+					<view class="uni-combox__label">
+						<text>省份</text>
+					</view>
+						<picker @change="bindPickerChange" :value="index" :range="provinceArr" range-key="pName">
+							<input type="text" v-model="provinceArr[index].pName" placeholder="请选择省份" disabled="true" />
+						</picker>
 				</view>
 
 				<view class="probability__center__confirm" @click="confirm">
@@ -38,7 +49,7 @@
 							<image src="../../static/img/biaoji.png"></image>
 							<text>{{ !item.inputShow ? (item.title + '是否通过') : (item.title + '成绩') }}</text>
 						</view>
-						<input type="text" v-model="item.value" v-if="item.inputShow" />
+						<input type="number" v-model="item.value" v-if="item.inputShow" />
 						<view class="btns" v-if="!item.inputShow">
 							<view class="btns1" @click="showInput(item,index)">
 								是
@@ -63,7 +74,7 @@
 						<image src="../../static/img/biaoji.png"></image>
 						<text>{{ !wenhuapass ? '专业考试（联考/统考/校考）是否通过' : '文化分得分' }}</text>
 					</view>
-					<input type="text" v-model="wenhuafen" v-if="wenhuapass" />
+					<input type="number" v-model="wenhuafen" v-if="wenhuapass" />
 					<view class="btns" v-if="!wenhuapass">
 						<view class="btns1" @click="wenhuapass = !wenhuapass">
 							是
@@ -87,7 +98,7 @@
 						<image src="../../static/img/biaoji.png"></image>
 						<text>文化分得分</text>
 					</view>
-					<input type="text" v-model="wenhuafen"/>
+					<input type="number" v-model="wenhuafen" />
 				</view>
 				<view v-for="(item,index) in wgzrTitle" :key="item.rextype">
 					<view class="question" v-if="reExamType == item.rextype">
@@ -95,7 +106,7 @@
 							<image src="../../static/img/biaoji.png"></image>
 							<text>{{ !item.inputShow ? (item.title + '是否通过') : (item.title + '排名') }}</text>
 						</view>
-						<input type="text" v-model="item.rank" v-if="item.inputShow" />
+						<input type="number" v-model="item.rank" v-if="item.inputShow" />
 						<view class="btns" v-if="!item.inputShow">
 							<view class="btns1" @click="showInput(item,index)">
 								是
@@ -129,10 +140,6 @@
 				school: '',
 				candidateMajor: [],
 				major: '',
-				candidateFk: ['文科', '理科', '新高考'],
-				fenke: '',
-				candidateProvince: [],
-				province: '',
 				timer: null,
 				academies: [],
 				luquType: 'bg',
@@ -176,7 +183,6 @@
 				schoolPrimaryId: '',
 				// 记录是否通过
 				isPass: true,
-				provinces: [],
 				// 文过专入
 				wgzrTitle: [{
 						title: '校考',
@@ -212,16 +218,31 @@
 				// 文化分
 				wenhuafen: '',
 				// 文化分是否通过
-				wenhuapass: false
+				wenhuapass: false,
+				// 省份索引
+				index: '',
+				// 省份数组
+				provinceArr: [],
+				// 分科索引
+				fenkeIndex: '',
+				// 分科数组
+				fenkeArr: [{
+						name: '理科'
+					},
+					{
+						name: '文科'
+					},
+					{
+						name: '新高考'
+					}
+				]
+				
 			}
 		},
 		onLoad() {
 			getWenluquShengfeng().then(res => {
 				console.log('省份', res);
-				this.provinces = res.data.provinces;
-				res.data.provinces.map(item => {
-					this.candidateProvince.push(item.pName)
-				})
+				this.provinceArr = res.data.provinces;
 			})
 		},
 		watch: {
@@ -253,28 +274,21 @@
 					})
 				})
 			},
+			// 省份改变
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为：', e.detail)
+				this.index = e.detail.value
+			},
+			// 分科
+			bindPickerChange2(e) {
+				this.fenkeIndex = e.detail.value
+			},
 			// 填写更多信息
 			confirm() {
 				// 校验
 				if (this.fenke == '' || this.school == '' || this.major == '' || this.province == '') {
 					uni.showToast({
 						title: '有未填写的选项！',
-						duration: 2000,
-						icon: 'none'
-					})
-					return
-				}
-				if (this.candidateFk.indexOf(this.fenke) == '-1') {
-					uni.showToast({
-						title: '请输入正确的分科选项！',
-						duration: 2000,
-						icon: 'none'
-					})
-					return
-				}
-				if (this.candidateProvince.indexOf(this.province) == '-1') {
-					uni.showToast({
-						title: '请输入正确的省份名称！',
 						duration: 2000,
 						icon: 'none'
 					})
@@ -347,7 +361,7 @@
 						return
 					}
 				}
-				if(this.wenhuafen > 750) {
+				if (this.wenhuafen > 750) {
 					uni.showToast({
 						title: '分数超过正常范围！',
 						duration: 2000,
@@ -357,7 +371,7 @@
 				}
 				// 校验结束
 				uni.showLoading({
-				    title: '加载中'
+					title: '加载中'
 				});
 				let data = '';
 				if (type === '3') {
@@ -371,7 +385,7 @@
 				getAskLuquProb(data).then(res => {
 					uni.hideLoading();
 					console.log('res', res)
-					if(res.data.code == 200) {
+					if (res.data.code == 200) {
 						// 跳转页面，并发射数据
 						uni.navigateTo({
 							url: '../wengailvbaogao/wengailvbaogao'
@@ -389,8 +403,8 @@
 							icon: 'none'
 						})
 					}
-					
-					
+
+
 				})
 			},
 			// 文过专入
@@ -399,8 +413,8 @@
 				let index = Number(this.reExamType) - 1;
 				let attribute = this.wgzrTitle[index].attribute;
 				let openid = uni.getStorageSync('openid');
-				let provinceIndex = this.candidateProvince.indexOf(this.province);
-				let provinceId = this.provinces[provinceIndex].id;
+				// 省份id
+				let provinceId = this.provinceArr[this.index].id;
 				let data = {
 					// 文化分
 					culScore: this.wenhuafen,
@@ -409,7 +423,7 @@
 					allyExamFlag: 1,
 					schoolExamFlag: 1,
 					unifyExamFlag: 1,
-					fengKe: this.fenke,
+					fengKe: this.fenkeArr[this.fenkeIndex].name,
 					provinceId: provinceId
 				}
 				data[attribute] = this.wgzrTitle[index].rank
@@ -418,8 +432,8 @@
 			// 专过文录
 			confirm2() {
 				let openid = uni.getStorageSync('openid');
-				let provinceIndex = this.candidateProvince.indexOf(this.province);
-				let provinceId = this.provinces[provinceIndex].id;
+				// 省份id
+				let provinceId = this.provinceArr[this.index].id;
 				let data = {
 					userOPenid: openid,
 					schoolPrimaryId: this.schoolPrimaryId,
@@ -428,7 +442,7 @@
 					allyExamFlag: 1,
 					schoolExamFlag: 1,
 					unifyExamFlag: 1,
-					fengKe: this.fenke,
+					fengKe: this.fenkeArr[this.fenkeIndex].name,
 					provinceId: provinceId
 				}
 				return data
@@ -437,11 +451,12 @@
 			confirm3() {
 				let openid = uni.getStorageSync('openid');
 				let zhf = 0;
+				console.log('this.zongheTitle',this.zongheTitle)
 				for (let i = 0; i < this.zongheTitle.length; i++) {
 					zhf = zhf + (this.zongheTitle[i].ratio * this.zongheTitle[i].value) / 100
 				}
-				let provinceIndex = this.candidateProvince.indexOf(this.province);
-				let provinceId = this.provinces[provinceIndex].id;
+				// 省份id
+				let provinceId = this.provinceArr[this.index].id;
 				console.log('zhf', zhf)
 				let data = {
 					userOPenid: openid,
@@ -451,7 +466,7 @@
 					allyExamFlag: 1,
 					schoolExamFlag: 1,
 					unifyExamFlag: 1,
-					fengKe: this.fenke,
+					fengKe: this.fenkeArr[this.fenkeIndex].name,
 					provinceId: provinceId
 				}
 				return data
@@ -545,6 +560,12 @@
 				this.wenhuafen = '';
 				this.wenhuapass = false;
 			},
+			// 历史记录
+			historical() {
+				uni.navigateTo({
+					url:'../wenlvqu_history/wenlvqu_history'
+				})
+			}
 		}
 	}
 </script>
@@ -559,6 +580,7 @@
 			height: 90vh;
 			background-color: #fff;
 			border-radius: 38rpx;
+			position: relative;
 
 			&__title {
 				width: 100%;
@@ -574,8 +596,8 @@
 
 			.example-body {
 				display: flex;
-				justify-content: center;
 				align-items: center;
+				padding: 20rpx;
 				margin: 0 auto;
 				margin-bottom: 84rpx;
 				width: 543rpx;
@@ -610,9 +632,12 @@
 				font-size: 35rpx;
 				color: #fff;
 				letter-spacing: 4rpx;
-				margin: 0 auto;
 				background: #FBBE4B;
 				border-radius: 46rpx;
+				position: absolute;
+				bottom: 120rpx;
+				left: 50%;
+				transform: translateX(-50%);
 			}
 
 			.confirm-btn3 {
@@ -625,7 +650,7 @@
 	.question {
 		width: 543rpx;
 		margin: 0 auto;
-		margin-bottom: 27rpx;
+		margin-bottom: 68rpx;
 
 		&__title {
 			margin-bottom: 27rpx;
@@ -644,11 +669,13 @@
 
 		input {
 			width: 543rpx;
-			height: 77rpx;
+			height: 30rpx;
 			background: #FFFFFF;
 			border: 2px solid #FBBE4B;
 			border-radius: 15rpx;
-			padding: 15rpx;
+			padding: 10rpx 15rpx;
+			box-sizing: content-box;
+			font-size: 30rpx;
 		}
 
 		.btns {
@@ -674,6 +701,9 @@
 	}
 
 	.back {
+		position: absolute;
+		top: 40rpx;
+		right: 40rpx;
 		width: 110rpx;
 		height: 60rpx;
 		text-align: center;
@@ -684,5 +714,18 @@
 		margin: 0 auto;
 		background: #FBBE4B;
 		border-radius: 46rpx;
+	}
+
+	.historical {
+		width: 160rpx;
+		height: 54rpx;
+		line-height: 54rpx;
+	}
+	
+	.uni-combox__label {
+		font-size: 16px;
+		line-height: 22px;
+		padding-right: 10px;
+		color: #999999;
 	}
 </style>

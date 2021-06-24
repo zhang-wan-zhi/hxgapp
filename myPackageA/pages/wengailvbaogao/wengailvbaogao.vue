@@ -27,7 +27,7 @@
 				<text>录取概率</text>
 			</view>
 			<view class="proba__center__numb">
-				<text>{{prob*100 + '%'}}</text>
+				<text>{{(prob*100).toFixed(2) + '%'}}</text>
 			</view>
 		</view>
 		<!-- 下面 -->
@@ -60,6 +60,7 @@
 		onUnload() {
 			// 移除监听事件，防止重复监听
 			uni.$off('gailvbaogao');
+			console.log('移除事件');
 		},
 		methods: {
 			backPre() {
