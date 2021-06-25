@@ -33,9 +33,13 @@
 			};
 		},
 		onLoad() {
+			uni.showLoading({
+				title: '加载中...'
+			})
 			let userOpenid = uni.getStorageSync('openid');
 			getSaveSchool(userOpenid).then(res => {
 				console.log('关注学校res',res)
+				uni.hideLoading()
 				if(res.data.code == 200) {
 					this.xuexiao = res.data.data;
 					if(res.data.msg == null || res.data.data.length == 0  ) {
@@ -49,7 +53,9 @@
 						            	url: '../xinggepinggu2/xinggepinggu2?page=2'
 						            })
 						        } else if (res.cancel) {
-						            uni.navigateBack()
+						            uni.redirectTo({
+										url: '../../../pages/gerenzhongxin/gerenzhongxin'
+									})
 						        }
 						    }
 						});
@@ -82,7 +88,7 @@
 							console.log(res)
 							if(res.data.code == 200) {
 							
-								uni.redirectTo({
+								uni.reLaunch({
 								    url: '../guanzhuyuanxiao/guanzhuyuanxiao'
 								});
 							}

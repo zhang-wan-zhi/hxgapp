@@ -42,10 +42,10 @@
 
 		<view class="uer-handle">
 			<!-- 我的收藏 -->
-			<view class="item" @click="toSave">
+			<!-- <view class="item" @click="toSave">
 				<image src="../../static/img/my/save.png"></image>
 				<text class="title">我的收藏</text>
-			</view>
+			</view> -->
 			<view class="item" @click="attentionSchool">
 				<view class="iconfont icon-jiaguanzhu">
 				</view>

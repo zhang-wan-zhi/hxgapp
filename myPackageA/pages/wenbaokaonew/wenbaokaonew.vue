@@ -125,10 +125,18 @@
 								<view class="schedule-btm">
 									<view class="schedule-time-title">考试时间</view>
 									<view class="schedule-time-title schedule-time">{{ item.acFirsttrytime }}</view>
-									<view class="schedule-btm-check">
-										<checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"
+									<view class="schedule-btm-check"
+										@click="handleChecked(item.id, item.acFirsttrytime,item.gailv)">
+										<!-- <checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)"
 											@click="handleChecked(item.id, item.acFirsttrytime,item.gailv)"
-											:checked="idArr.indexOf(item.id) != -1" />
+											:checked="idArr.indexOf(item.id) != -1" /> -->
+										<view class="iconfont icon-xuanzhongkuang" v-if="idArr.indexOf(item.id) != -1">
+
+										</view>
+										<view class="iconfont icon-xuanzhongkuang color-gray" v-else>
+
+										</view>
+
 									</view>
 								</view>
 							</view>
@@ -148,6 +156,10 @@
 									<view class="schedule-time-title schedule-time">2021-5-8</view>
 									<view class="schedule-btm-check">
 										<checkbox value="cb" color="#57B5ED" style="transform:scale(0.6)" />
+										<view class="iconfont icon-xuanzhongkuang">
+
+										</view>
+
 									</view>
 								</view>
 							</view>
@@ -290,13 +302,17 @@
 							title: '同一天只能选择3个学校',
 							icon: 'none'
 						});
+						// 取消
+						let index = this.idArr.indexOf(id);
+						this.idArr.splice(index, 1);
 					}
 					console.log('选中', this.checkedTimeList);
 				} else {
 					// 取消
 					let index = this.idArr.indexOf(id);
 					this.idArr.splice(index, 1);
-
+					// 相同时间判断
+					this.checkedTimeList[checktime]--;
 					console.log('idArr', this.idArr);
 				}
 			},
@@ -308,18 +324,24 @@
 					schoolIds: schoolIds,
 					userOpenId: userOpenId
 				}
-				saveSchool(data).then(res => {
-					console.log('关注学校', res)
-					if (res.data.code == 200) {
-						this.idArr = [];
-						uni.showToast({
-							title: '关注成功！',
-							duration: 1000,
-							icon: 'none'
-						})
+				uni.showModal({
+					title: '提示',
+					content: '是否关注选中院校？',
+					success: function(res) {
+						if (res.confirm) {
+							saveSchool(data).then(res => {
+								console.log('关注学校', res)
+								if (res.data.code == 200) {
+								
+									uni.reLaunch({
+										url: '../../../pages/wenluqunew/wenluqunew'
+									});
+								}
+							})
+						} else if (res.cancel) {}
 					}
+				});
 
-				})
 			},
 			handleSchoolTime() {
 				uni.showLoading({
@@ -492,6 +514,7 @@
 					width: 566rpx;
 					padding: 21rpx 10rpx 31rpx 10rpx;
 					border-bottom: 1px solid #dadbdd;
+
 					.item-img {
 						width: 77rpx;
 						height: 77rpx;
@@ -510,6 +533,7 @@
 						/* flex-grow: 1; */
 						width: 350rpx;
 						margin-left: 30rpx;
+
 						.item-main-top {
 							width: 315rpx;
 							height: 77rpx;
@@ -730,6 +754,16 @@
 				.schedule-btm-check {
 					width: 38rpx;
 					height: 38rpx;
+
+					.iconfont {
+						width: 38rpx;
+						height: 38rpx;
+						color: #1890FF;
+					}
+
+					.color-gray {
+						color: #BFBFBF;
+					}
 				}
 			}
 		}

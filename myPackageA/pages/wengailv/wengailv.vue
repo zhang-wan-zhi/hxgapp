@@ -10,12 +10,12 @@
 					历史记录
 				</view>
 				<view class="example-body">
-					<uni-combox label="学校" labelWidth="150px" :candidates="candidateSchool" placeholder="请选择学校"
-						v-model="school" emptyTips="无匹配院校,请输入其他院校"></uni-combox>
+					<uni-combox label="院校" labelWidth="150px" :candidates="candidateSchool" placeholder="请选择学校"
+						v-model="school" :emptyTips="schoolTips"></uni-combox>
 				</view>
 				<view class="example-body">
 					<uni-combox label="专业" labelWidth="150px" :candidates="candidateMajor" placeholder="请选择专业"
-						v-model="major" emptyTips="请输入正确的院校名称"></uni-combox>
+						v-model="major" :emptyTips="majoyTips"></uni-combox>
 				</view>
 				<view class="example-body">
 					<view class="uni-combox__label">
@@ -235,7 +235,10 @@
 					{
 						name: '新高考'
 					}
-				]
+				],
+				// 学校提示
+				schoolTips: '无匹配院校,请输入其他院校。',
+				majoyTips: '请输入正确的院校名称。'
 				
 			}
 		},
@@ -261,15 +264,22 @@
 				let data = {
 					school: this.school
 				}
+				this.schoolTips = '正在搜索院校中......'
 				getSchoolName(data).then(res => {
-					this.candidateSchool = res.data.academyNames
+					if(res.data.msg == '没有数据') {
+						this.schoolTips = '无匹配院校,请输入其他院校。'
+					}
+					// 学校列表
+					this.candidateSchool = res.data.academyNames;
+					// 查询专业
+					this.majoyTips = '正在搜索专业中......';
 					getMajorName(data).then(res => {
 						console.log('res', res)
 						if (res.data.code == 200) {
 							this.candidateMajor = res.data.academyNames;
 							// 专业列表
 							this.academies = res.data.hxgAcademies;
-
+							this.majoyTips = '请输入正确的院校名称。'
 						}
 					})
 				})
