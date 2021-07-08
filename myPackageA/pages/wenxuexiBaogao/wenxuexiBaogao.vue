@@ -1,7 +1,8 @@
 <template>
 	<view>
-		<view class="again" @click="resetAnswer"><text>重新答题</text></view>
-
+		<view class="again" @click="resetAnswer"><text>重新答题</text>
+		<zwz-hint></zwz-hint>
+		</view>
 		<view class="reportplus" v-if="permissions === '2' || '3'">
 			<view class="content_top">
 				<view class="leftsemicircle"></view>
@@ -149,9 +150,11 @@
 <script>
 import { getReportByAskStudyCurve } from '../../../api/api.js';
 import xWxmlToCanvas from '../../components/x-wxml-to-canvas/x-wxml-to-canvas';
+import zwzHint from '../../components/zwz-hint/zwz-hint.vue'
 export default {
 	components: {
-		xWxmlToCanvas
+		xWxmlToCanvas,
+		zwzHint
 	},
 	data() {
 		return {
@@ -525,7 +528,7 @@ export default {
 						console.log('src', this.src);
 						// 保存图片
 						this.loadImage(this.src);
-						this.downCanvsImg2();
+						/* this.downCanvsImg2(); */
 					})
 					.catch(res => {
 						uni.hideLoading();
@@ -618,7 +621,7 @@ export default {
 // 重新答题
 .again {
 	width: 643rpx;
-	height: 60rpx;
+	height: 77rpx;
 	margin: 0 auto;
 	padding: 5rpx;
 	text {

@@ -185,6 +185,7 @@
 		getReportByAskStudyCurve,
 		saveSchool
 	} from '../../../api/api.js';
+	import store from '@/store/index.js'
 	export default {
 		data() {
 			return {
@@ -318,6 +319,7 @@
 			},
 			// 确定关注
 			attention() {
+				
 				let schoolIds = this.idArr.join(',');
 				let userOpenId = uni.getStorageSync('openid');
 				let data = {
@@ -332,9 +334,14 @@
 							saveSchool(data).then(res => {
 								console.log('关注学校', res)
 								if (res.data.code == 200) {
-								
-									uni.reLaunch({
-										url: '../../../pages/wenluqunew/wenluqunew'
+									store.commit('changeSchoolTime')
+									/* uni.reLaunch({
+										url: '../../../pages/shouye/shouye'
+									}); */
+									uni.showToast({
+										title: '关注成功',
+										duration: 2000,
+										icon: 'none'
 									});
 								}
 							})

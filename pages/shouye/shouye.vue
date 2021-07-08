@@ -27,17 +27,37 @@
 
 		<!-- 在线测评和精准测评 -->
 		<view class="test-box">
+			<!-- <text>{{'mmmmmmmmmzz'+username}}</text>
+			<button type="default" @click="vuex">vuex</button> -->
 			<view class="online" @click="xinggepinggu">
 				<view class="test-logo-one">
-					<image src="../../static/img/firstIcon/online-test.png" mode=""></image>
+					<image src="../../static/img/firstIcon/online-test.png" mode="aspectFit"></image>
 				</view>
 				<view class="test-title">
-					<view class="test-title-top">问学习</view>
+					<view class="test-title-top" style="color: #FBBE4D;">问学习</view>
 					<view class="test-title-bottom">答题评测</view>
 				</view>
 			</view>
+			<view class="online" @click="handExamination">
+				<view class="test-logo-one">
+					<image src="../../static/img/firstIcon/Group1.png" mode="aspectFit"></image>
+				</view>
+				<view class="test-title">
+					<view class="test-title-top">问校考</view>
+					<view class="test-title-bottom">专业分析</view>
+				</view>
+			</view>
+			<view class="online" @click="handEnroll">
+				<view class="test-logo-one">
+					<image src="../../static/img/firstIcon/Group14.png" mode="aspectFit"></image>
+				</view>
+				<view class="test-title">
+					<view class="test-title-top" style="color: #8585FF;">问录取</view>
+					<view class="test-title-bottom">专业分析</view>
+				</view>
+			</view>
 
-			<button class="to-service" open-type="contact">
+			<!-- <button class="to-service" open-type="contact">
 				<view class="accurate">
 					<view class="test-logo-two ">
 						<image src="../../static/img/firstIcon/accurate.png" mode=""></image>
@@ -47,7 +67,7 @@
 						<view class="test-title-bottom">一对一评测</view>
 					</view>
 				</view>
-			</button>
+			</button> -->
 		</view>
 
 		<!-- 艺考动态，课程区域 -->
@@ -109,7 +129,7 @@
 				<uni-load-more :status="more"></uni-load-more>
 			</view>
 			<!-- 艺考课程列表 -->
-			<view v-show="yikaoKechengStatus">
+			<!-- <view v-show="yikaoKechengStatus">
 				<view class="class-contents" v-for="(item, index) in yikaoKechengList" :key="index">
 					<view class="class-content" @click="yikaokecheng_click(item.aeId)">
 						<view class="class-img">
@@ -124,7 +144,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<!-- 艺考题库列表 -->
 			<view v-show="yikaoTikuStatus">
 				<view class="question-content" v-for="(item, index) in yikaoTikuList" :key="index">
@@ -163,6 +183,7 @@
 		getyikaoTikuList_one,
 		getSaveSchool
 	} from "../../api/api.js";
+	import store from '@/store/index.js'; //需要引入store
 	export default {
 		components: {
 			yikaoDongtai,
@@ -195,8 +216,8 @@
 				yikaoTikuStatus: false,
 				//艺考动态列表数据
 				yikaoDongtaiList: [],
-				//艺考课程列表数据
-				yikaoKechengList: [],
+				/* //艺考课程列表数据
+				yikaoKechengList: [], */
 				//艺考题库列表数据
 				yikaoTikuList: [],
 				//艺考动态目前的页码
@@ -210,16 +231,41 @@
 				isLogin: false,
 				// 关注院校
 				schoolTimeList: [],
-				more: 'more'
+				more: 'more',
 			};
 		},
-		onShow() {
+		computed: {
+			schoolTimeState() {
+				console.log('schoolTimeState')
+				let openid = uni.getStorageSync('openid');
+				getSaveSchool(openid).then(res => {
+					console.log('关注院校', res)
+					if (res.data.code == 200) {
+						if (res.data.data.length >= 4) {
+							this.schoolTimeList = res.data.data.slice(0, 4)
+							this.isLogin = true
+						} else {
+							this.schoolTimeList = res.data.data;
+							let schoolListLength = res.data.data;
+							let nums = 4 - schoolListLength;
+							for (let i = 0; i < nums; i++) {
+								this.schoolTimeList.push(res.data.data[0])
+							}
+							this.isLogin = true
+						}
+					}
+				
+				})
+				return this.$store.state.schoolTimeState
+			}
+		},
+		/* onShow() {
 			// 刷新艺考课程
 			getyikaoKechengList().then((res) => {
 				console.log(res.data.artexams);
 				this.yikaoKechengList = res.data.artexams;
 			});
-		},
+		}, */
 		onLoad() {
 			//获取轮播图数据
 			this.getLunboLists();
@@ -253,7 +299,7 @@
 		},
 		//下拉触底的时候触发
 		onReachBottom() {
-			if(this.more === 'noMore') {
+			if (this.more === 'noMore') {
 				return
 			}
 			//1为艺考动态，2为艺考课程，3为艺考题库
@@ -274,7 +320,7 @@
 						this.dongtaiCurrentPage++;
 						this.more = 'more';
 					} else {
-						if(res.data.msg == '页码超出了哦!') {
+						if (res.data.msg == '页码超出了哦!') {
 							this.more = 'noMore';
 						}
 					}
@@ -307,11 +353,42 @@
 				this.currentDotIndex = e.detail.current;
 				this.currentIndex = e.detail.current;
 			},
+			vuex() {
+				console.log('1111', store.getters.doneTodos)
+				store.commit('add')
+				console.log('22222', store.getters.doneTodos)
+			},
 			// 页面跳转
 			goToSchool() {
 				uni.navigateTo({
 					url: '../../myPackageA/pages/guanzhuyuanxiao/guanzhuyuanxiao'
 				})
+			},
+			// 问校考
+			handExamination() {
+				let openid = uni.getStorageSync("openid");
+				if (!openid) {
+					uni.navigateTo({
+						url: "../index/index",
+					});
+					return
+				}
+				uni.navigateTo({
+					url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
+				});
+			},
+			// 问录取
+			handEnroll() {
+				let openid = uni.getStorageSync("openid");
+				if (!openid) {
+					uni.navigateTo({
+						url: "../index/index",
+					});
+					return
+				}
+				uni.navigateTo({
+					url: '../wenluqunew/wenluqunew'
+				});
 			},
 			// 轮播图跳转
 			handleSwiperClick(type, id) {
@@ -340,13 +417,7 @@
 					this.swipers = res.data.banners;
 				});
 			},
-			//艺考课程
-			yikaokecheng_click(id) {
-				// console.log(id);
-				uni.navigateTo({
-					url: "../yikaokecheng_item/yikaokecheng_item?ids=" + id,
-				});
-			},
+
 			//点击向右箭头触发，打开题库,打开为id的试卷
 			zhenti_next(id) {
 				console.log(id);
@@ -370,7 +441,7 @@
 				this.sousuoType = 3;
 			},
 			//点击艺考课程触发
-			yikaoKecheng() {
+			/* yikaoKecheng() {
 				this.isactive = false;
 				this.isactive1 = true;
 				this.isactive2 = false;
@@ -383,7 +454,7 @@
 					this.yikaoKechengList = res.data.artexams;
 				});
 				this.sousuoType = 2;
-			},
+			}, */
 			//点击艺考动态触发
 			yikaoDongtai2() {
 				this.isactive = true;
@@ -485,16 +556,16 @@
 	.test-box {
 		display: flex;
 		width: 100%;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
-		margin: 28rpx 0rpx;
+		margin: 20rpx 0rpx;
+		letter-spacing: 2rpx;
 	}
 
 	.to-service {
 		width: 320rpx;
 		height: 140rpx;
 		margin: 0rpx;
-		padding: 0rpx;
 		border-width: 0px;
 		background-color: #ffffff;
 	}
@@ -503,20 +574,22 @@
 		border-width: 0rpx;
 	}
 
-	.test-box .online,
-	.accurate {
-		width: 320rpx;
-		height: 140rpx;
+	.test-box .online {
+		padding: 10rpx;
+		margin: 0 10rpx;
+		width: 210rpx;
+		height: 110rpx;
 		background-color: #ffffff;
 		border-radius: 16rpx;
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 	}
 
 	.test-box .test-logo-one {
-		width: 80rpx;
-		height: 90rpx;
-		margin: 0rpx 30rpx;
+		width: 90rpx;
+		height: 66rpx;
+		margin-right: 10rpx;
 	}
 
 	.test-box .test-logo-two {
@@ -536,17 +609,13 @@
 	}
 
 	.test-box .test-title-top {
-		font-size: 16px;
+		font-size: 35rpx;
 		font-weight: 400;
-		line-height: 50rpx;
 		color: #ed5c4d;
 	}
 
 	.test-box .test-title-bottom {
-		margin-top: 8rpx;
-		font-size: 12px;
-		font-weight: 400;
-		line-height: 17px;
+		font-size: 16rpx;
 		color: #6e7580;
 	}
 
@@ -765,10 +834,12 @@
 		margin-bottom: 28rpx;
 		border-radius: 10rpx;
 		overflow: hidden;
+		background-image: url(https://hxg.fastrhino.com.cn/165853x.png);
+
 		.tiem-icon {
 			width: 60rpx;
 			height: 60rpx;
-			background-color: #fff;
+
 			color: #ED5C4D;
 			display: flex;
 			justify-content: center;
@@ -778,7 +849,7 @@
 
 	.time-list {
 		height: 60rpx;
-		background: #FFFFFF;
+		/* background: #FFFFFF; */
 		overflow: hidden;
 
 		.time-item {
@@ -791,7 +862,7 @@
 				width: 550rpx;
 				height: 30rpx;
 				font-size: 23rpx;
-				color: #A9AFB8;
+				color: #fff;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
@@ -800,7 +871,7 @@
 			.ac-major {
 				height: 30rpx;
 				font-size: 23rpx;
-				color: #A9AFB8;
+				color: #fff;
 			}
 		}
 	}

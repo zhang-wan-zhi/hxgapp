@@ -4,15 +4,15 @@
 			<text>{{label}}</text>
 		</view>
 		<view class="uni-combox__input-box">
-			<input class="uni-combox__input" type="text" :placeholder="placeholder" v-model="inputVal" @input="onInput"
-			 @focus="onFocus" @blur="onBlur" />
+			<input class="uni-combox__input" type="text" :placeholder="placeholder" v-model="inputVal" @input="onInput" @blur="onBlur" />
 			<!-- <uni-icons class="uni-combox__input-arrow" type="arrowdown" size="14" @click="toggleSelector"></uni-icons> -->
 			<view class="uni-combox__selector" v-if="showSelector">
 				<scroll-view scroll-y="true" class="uni-combox__selector-scroll">
 					<view class="uni-combox__selector-empty" v-if="filterCandidatesLength === 0">
 						<text>{{emptyTips}}</text>
 					</view>
-					<view class="uni-combox__selector-item" v-for="(item,index) in filterCandidates" :key="index" @click="onSelectorClick(index)">
+					<view class="uni-combox__selector-item" v-for="(item,index) in filterCandidates" :key="index"
+						@click="onSelectorClick(index)">
 						<text>{{item}}</text>
 					</view>
 				</scroll-view>
@@ -90,6 +90,9 @@
 		watch: {
 			value: {
 				handler(newVal) {
+					if(!newVal) {
+						this.showSelector = false
+					}
 					this.inputVal = newVal
 				},
 				immediate: true
@@ -99,13 +102,14 @@
 			toggleSelector() {
 				this.showSelector = !this.showSelector
 			},
-			onFocus() {
+			/* onFocus() {
 				this.showSelector = true
-			},
+			}, */
 			onBlur() {
 				/* setTimeout(() => {
 					this.showSelector = false
 				}, 153) */
+				this.$emit('blur')
 			},
 			onSelectorClick(index) {
 				this.inputVal = this.filterCandidates[index]
@@ -113,6 +117,7 @@
 				this.$emit('input', this.inputVal)
 			},
 			onInput() {
+				this.showSelector = true
 				setTimeout(() => {
 					this.$emit('input', this.inputVal)
 				})

@@ -3,13 +3,13 @@
     <!-- 问校考 -->
     <view class="examination">
       <view class="enroll__card">
-        <image src="../../static/img/wenluqu.png"></image>
+        <image src="../../static/img/wenxiaokao.png"></image>
         <view class="center-text">
           <view class="title-en">xiaokao</view>
-          <view class="title-center">问校考</view>
+          <view class="title-center">问概率</view>
           <view class="title-btm">专业分析</view>
         </view>
-        <view class="center-btn" @click="handExamination">
+        <view class="center-btn" @click="handProbability">
           <view class="iconfont icon-iconfontjiantou2"></view>
         </view>
       </view>
@@ -20,20 +20,17 @@
         <image src="../../static/img/wenluqu.png"></image>
         <view class="center-text">
           <view class="title-en">luquba</view>
-          <view class="title-center">问录取</view>
+          <view class="title-center">问报考</view>
           <view class="title-btm">专业分析</view>
         </view>
-        <view class="center-btn">
-          <view :class="['iconfont', { 'icon-jiantou9': isShowBtn }, { 'icon-iconfontjiantou2': !isShowBtn }]" @click="isShowBtn = !isShowBtn"></view>
+        <view class="center-btn" @click="handEnroll">
+           <view class="iconfont icon-iconfontjiantou2"></view>
         </view>
       </view>
-      <view class="enroll-btn" v-if="isShowBtn">
+      <!-- <view class="enroll-btn" v-if="isShowBtn">
         <view class="btn1" @click="handProbability">问概率</view>
         <view class="btn1 btn2" @click="handEnroll">问报考</view>
-      </view>
-      <view class="enroll-btn-emy" v-else>
-
-      </view>
+      </view> -->
     </view>
   </view>
 </template>
@@ -112,6 +109,7 @@ export default {
 .enroll {
   width: 100vw;
   height: 100vh;
+  padding: 80rpx 40rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -119,13 +117,9 @@ export default {
   background: #f4f4f4;
 }
 // 问校考
-.examination {
-  margin-top: 120rpx;
-}
+
 // 问录取
-.ques-enroll {
-  margin-top: 120rpx;
-}
+
 // 卡片公共样式
 .enroll__card {
   position: relative;
@@ -135,9 +129,9 @@ export default {
   border-radius: 58rpx;
   image {
     position: absolute;
-    bottom: 120rpx;
-    right: 50rpx;
-    width: 320rpx;
+    bottom: 150rpx;
+    right: 0rpx;
+    width: 418rpx;
     height: 320rpx;
   }
   .center-text {

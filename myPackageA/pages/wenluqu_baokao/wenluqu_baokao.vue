@@ -36,7 +36,7 @@
 					<image src="../../static/img/biaoji.png"></image>
 					<text>统考分</text>
 				</view>
-				<input v-model="unifiedEx" placeholder="满分100分" type="number" verifyNumber="true" />
+				<input v-model="unifiedEx" placeholder="满分300分" type="number" verifyNumber="true" />
 			</view>
 			<!-- 分科 -->
 			<view class="question">
@@ -127,9 +127,9 @@
 					})
 					return
 				}
-				if (this.unifiedEx > 100) {
+				if (this.unifiedEx > 300) {
 					uni.showToast({
-						title: '统考满分100分',
+						title: '统考满分300分',
 						duration: 1000,
 						icon: 'none'
 					})
@@ -237,9 +237,9 @@
 			margin-bottom: 27rpx;
 
 			image {
-				width: 35rpx;
-				height: 35rpx;
-				margin-right: 4rpx;
+				width: 30rpx;
+				height: 30rpx;
+				margin-right: 10rpx;
 			}
 
 			text {

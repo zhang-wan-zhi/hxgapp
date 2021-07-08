@@ -10,11 +10,19 @@
 			</view>
 			<view class="item-percent">{{ (item.askLuquProp*100).toFixed(2) + '%' }}</view>
 		</view>
+		<view class="school-item">
+			<zwz-hint></zwz-hint>
+		</view>
+		
 	</view>
 </template>
 
 <script>
+	import zwzHint from '../../components/zwz-hint/zwz-hint.vue'
 	export default {
+		components:{
+			zwzHint
+		},
 		data() {
 			return {
 				xuexiao: []

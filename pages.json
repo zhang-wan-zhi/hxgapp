@@ -47,16 +47,7 @@
 				// "navigationStyle":"custom"
 			}
 		},
-		{
-			"path": "pages/yikaokecheng_item/yikaokecheng_item",
-			"style": {
-				"navigationBarTitleText": "艺考课程",
-				"enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ED5C4D"
-				// "navigationStyle":"custom"
-			}
-		},
+		
 
 		{
 			"path": "pages/wenxuexi/wenxuexi",
@@ -88,16 +79,7 @@
 			}
 
 		},
-		{
-			"path": "pages/wenluqunew/wenluqunew",
-			"style": {
-				"navigationBarTitleText": "问录取",
-				"enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ED5C4D"
-			}
-
-		}, {
+		 {
 			"path": "pages/wenluqu_yucebaogao/wenluqu_yucebaogao",
 			"style": {
 				"navigationBarTitleText": "预测报告",
@@ -193,19 +175,7 @@
 				}
 			}
 
-		}, {
-			"path": "pages/wodeshoucang/wodeshoucang",
-			"style": {
-				"navigationBarTitleText": "收藏",
-				"enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ED5C4D",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-
-		}, {
+		},  {
 			"path": "pages/huiyuanzhongxin/huiyuanzhongxin",
 			"style": {
 				"navigationBarTitleText": "会员中心",
@@ -241,7 +211,29 @@
 
 		}
 
-	],
+	    ,{
+            "path" : "pages/wenluqunew/wenluqunew",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "问录取",
+                "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ED5C4D"
+            }
+            
+        },
+		{
+		    "path" : "pages/ceping/ceping",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "测评",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ED5C4D"
+		    }
+		    
+		}
+    ],
 	"subPackages": [{
 		"root": "myPackageA",
 		"pages": [{
@@ -354,11 +346,13 @@
 				"text": "首页"
 			},
 
+			
 			{
-				"pagePath": "pages/wenluqunew/wenluqunew",
-				"selectedIconPath": "./static/img/tab/wenluqu.png",
-				"iconPath": "./static/img/tab/wenluqu2.png",
-				"text": "问录取"
+			    "pagePath": "pages/ceping/ceping",
+			    "selectedIconPath": "./static/img/tab/ceping1.png",
+			    "iconPath": "./static/img/tab/ceping2.png",
+			    "text": "测评"
+			    
 			},
 			{
 				"pagePath": "pages/gerenzhongxin/gerenzhongxin",

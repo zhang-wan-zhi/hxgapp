@@ -1,6 +1,6 @@
 <template>
 	<view class="gzyx">
-		<view class="schedule-item" v-for="item in xuexiao" :key="item.id">
+		<view class="schedule-item" v-for="(item,index) in xuexiao" :key="item.id">
 			<view class="schedule-top">
 				<view class="schedule-img">
 					<image :src="item.acPrep4"></image>
@@ -13,7 +13,7 @@
 			<view class="schedule-btm">
 				<view class="schedule-time-title">考试时间</view>
 				<view class="schedule-time-title schedule-time">{{ item.acFirsttrytime }}</view>
-				<view class="qxgz" @click="cunfollow(item.id)">
+				<view class="qxgz" @click="cunfollow(item.id,index)">
 					<image src="../../static/img/qxgz.png"></image>
 				</view>
 			</view>
@@ -45,7 +45,7 @@
 					if(res.data.msg == null || res.data.data.length == 0  ) {
 						uni.showModal({
 						    title: '提示',
-						    content: '还没有关注院校，去关注吧~',
+						    content: '还没有关注院校，去答题关注吧~',
 							confirmText: '去关注',
 						    success: function (res) {
 						        if (res.confirm) {
@@ -78,19 +78,18 @@
 			})
 		},
 		methods: {
-			cunfollow(id) {
+			cunfollow(id,index) {
+				let that = this;
 				uni.showModal({
 					title: '提示',
 					content: '取消关注该院校？',
 					success: function(res) {
 						if (res.confirm) {
+							
 							deleteSchool(id).then(res => {
 							console.log(res)
 							if(res.data.code == 200) {
-							
-								uni.reLaunch({
-								    url: '../guanzhuyuanxiao/guanzhuyuanxiao'
-								});
+								that.xuexiao.splice(index,1);
 							}
 								
 							})

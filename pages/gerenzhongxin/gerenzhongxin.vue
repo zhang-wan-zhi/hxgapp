@@ -239,7 +239,9 @@ export default {
 
 <style lang="scss" scoped>
 .box {
-	padding: 0rpx 50rpx;
+	padding: 30rpx 50rpx;
+	width: 100%;
+	height: 100vh;
 }
 .user-box {
 	display: flex;
@@ -247,7 +249,7 @@ export default {
 	align-items: center;
 	width: 100%;
 	height: 104rpx;
-	margin: 30rpx 0rpx 40rpx;
+	margin: 0 0rpx 40rpx;
 }
 .login {
 	width: 200rpx;

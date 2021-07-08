@@ -17,17 +17,24 @@
 				<text class="pici1">录取批次:</text>
 				<text class="pici2">{{schoolInfo.acAdmitbatch}}</text>
 			</view>
-			<view class="proba__center__postil">
+			<!-- <view class="proba__center__postil">
 				<text>注：分析结果基于历年录取情况分析，结果仅供参考。</text>
-			</view>
+			</view> -->
+			<zwz-hint></zwz-hint>
 			<view class="proba__center__border">
 
 			</view>
 			<view class="proba__center__title">
 				<text>录取概率</text>
 			</view>
+			
 			<view class="proba__center__numb">
 				<text>{{(prob*100).toFixed(2) + '%'}}</text>
+			</view>
+			<view class="beizhu" v-if="schoolInfo.acPrep2">
+				<text>{{'备注：' + schoolInfo.acPrep2}}</text>
+			</view>
+			<view class="beizhu" v-else>
 			</view>
 		</view>
 		<!-- 下面 -->
@@ -40,7 +47,11 @@
 </template>
 
 <script>
+	import zwzHint from '../../components/zwz-hint/zwz-hint.vue';
 	export default {
+		components: {
+			zwzHint
+		},
 		data() {
 			return {
 				schoolInfo: {},
@@ -189,13 +200,18 @@
 
 			&__numb {
 				width: 507rpx;
-				height: 600rpx;
-				line-height: 600rpx;
+				height: 400rpx;
+				line-height: 400rpx;
 				margin: 0 auto;
 				font-size: 100rpx;
 				font-weight: 400;
 				color: #FBBE4B;
 				text-align: center;
+			}
+			.beizhu {
+				width: 100%;
+				height: 200rpx;
+				color: red;
 			}
 		}
 
