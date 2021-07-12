@@ -20,7 +20,10 @@
 		</view>
 
 		<!-- 充值会员 -->
-		<view class="vip-box">
+		<view class="vip-box" v-if="platform == 'ios'">
+			根据相关规定，ios不支持会员充值功能！
+		</view>
+		<view class="vip-box" v-else>
 			<view class="professional" @click="consume(0)">
 				<view class="vip-logo-one"><image src="../../static/img/my/special.png"></image></view>
 				<view class="vip-title">
@@ -83,7 +86,8 @@ export default {
 			//是否显示退出
 			isExitShow: false,
 			// 会员状态
-			status: 0
+			status: 0,
+			platform: ''
 		};
 	},
 	onLoad() {
@@ -99,6 +103,10 @@ export default {
 		this.userData = uni.getStorageSync('userinfo');
 	},
 	onShow() {
+		if(uni.getSystemInfoSync().platform == 'ios') {
+			this.platform = 'ios'
+		}
+		console.log(uni.getSystemInfoSync().platform)
 		let openid = uni.getStorageSync('openid');
 		if (openid) {
 			this.getMemberInfo()

@@ -240,13 +240,19 @@
 				let openid = uni.getStorageSync('openid');
 				getSaveSchool(openid).then(res => {
 					console.log('关注院校', res)
+					if(res.data.msg == null) {
+						this.schoolTimeList = []
+						this.isLogin = false
+						return
+					}
+					console.log('???')
 					if (res.data.code == 200) {
 						if (res.data.data.length >= 4) {
 							this.schoolTimeList = res.data.data.slice(0, 4)
 							this.isLogin = true
 						} else {
 							this.schoolTimeList = res.data.data;
-							let schoolListLength = res.data.data;
+							let schoolListLength = res.data.data.length;
 							let nums = 4 - schoolListLength;
 							for (let i = 0; i < nums; i++) {
 								this.schoolTimeList.push(res.data.data[0])
@@ -277,18 +283,27 @@
 			if (openid) {
 				getSaveSchool(openid).then(res => {
 					console.log('关注院校', res)
+					if(res.data.msg == null) {
+						this.schoolTimeList = []
+						this.isLogin = false
+						return
+					}
+					console.log('???')
 					if (res.data.code == 200) {
 						if (res.data.data.length >= 4) {
 							this.schoolTimeList = res.data.data.slice(0, 4)
 							this.isLogin = true
 						} else {
 							this.schoolTimeList = res.data.data;
-							let schoolListLength = res.data.data;
+							let schoolListLength = res.data.data.length;
 							let nums = 4 - schoolListLength;
+							console.log('nums',nums)
 							for (let i = 0; i < nums; i++) {
 								this.schoolTimeList.push(res.data.data[0])
+								console.log('小于4循环'+i,this.schoolTimeList)
 							}
 							this.isLogin = true
+							console.log('小于4',this.schoolTimeList)
 						}
 					}
 

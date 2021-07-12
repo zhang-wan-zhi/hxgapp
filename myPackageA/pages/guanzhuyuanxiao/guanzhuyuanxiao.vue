@@ -26,6 +26,7 @@
 		getSaveSchool,
 		deleteSchool
 	} from '../../../api/api.js'
+	import store from '@/store/index.js'
 	export default {
 		data() {
 			return {
@@ -90,6 +91,7 @@
 							console.log(res)
 							if(res.data.code == 200) {
 								that.xuexiao.splice(index,1);
+								store.commit('changeSchoolTime')
 							}
 								
 							})

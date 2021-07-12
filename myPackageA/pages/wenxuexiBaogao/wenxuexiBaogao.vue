@@ -3,7 +3,8 @@
 		<view class="again" @click="resetAnswer"><text>重新答题</text>
 		<zwz-hint></zwz-hint>
 		</view>
-		<view class="reportplus" v-if="permissions === '2' || '3'">
+		<!-- 专业版 -->
+		<view class="reportplus" v-if="permissions === '2'">
 			<view class="content_top">
 				<view class="leftsemicircle"></view>
 				<view class="rightsemicircle"></view>
@@ -138,7 +139,7 @@
 			</view>
 			<!-- more -->
 			<view class="reportpro__more">
-				<button type="default" @click="upgrade">{{ permissions == '1' ? '升级专业版查看更多' : '升级查看更多' }}</button>
+				<button type="default" @click="upgrade" v-if="platform !== 'ios'">{{ permissions === '1' ? '升级专业版查看更多' : '升级查看更多' }}</button>
 			</view>
 		</view>
 		<!-- <button type="default" @click="downCanvsImg2">渲染页面</button> -->
@@ -175,7 +176,7 @@ export default {
 			turenum: '4',
 			falsenum: '6',
 			score: '0',
-			permissions: uni.getStorageSync('huiyuan').type,
+			permissions: '0',
 			reportData: [],
 			chartsData: {},
 			baogaoinfo: '',
@@ -201,12 +202,18 @@ export default {
 			wengHtml: '',
 			baoHtml: '',
 			// 生成图片高度
-			mainheight: 120
+			mainheight: 120,
+			platform: ''
 		};
 	},
 	onLoad() {
-		console.log('permissions', this.permissions);
+		// 判断ios
+		if(uni.getSystemInfoSync().platform == 'ios') {
+			this.platform = 'ios'
+		}
 		// 查看用户身份0普通，1会员，2专业会员
+		this.permissions = uni.getStorageSync('huiyuan').type;
+		console.log('permissions', this.permissions);
 		// 获取上一个页面的信息
 		uni.$on('baogao', res => {
 			this.baogaoinfo = res;

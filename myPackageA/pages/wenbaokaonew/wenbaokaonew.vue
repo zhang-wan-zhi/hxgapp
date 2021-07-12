@@ -39,7 +39,7 @@
 								</view>
 								<view class="item-percent">85%</view>
 							</view>
-							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">{{platform == 'ios' ? '根据相关规定ios不支持会员功能购买！' : '升级专业版查看更多学校...'}}</view>
 							<!-- 模糊效果 -->
 						</view>
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
@@ -70,7 +70,7 @@
 								</view>
 								<view class="item-percent">85%</view>
 							</view>
-							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">{{platform == 'ios' ? '根据相关规定ios不支持会员功能购买！' : '升级专业版查看更多学校...'}}</view>
 							<!-- 模糊效果 -->
 						</view>
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
@@ -101,7 +101,7 @@
 								</view>
 								<view class="item-percent">85%</view>
 							</view>
-							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">{{platform == 'ios' ? '根据相关规定ios不支持会员功能购买！' : '升级专业版查看更多学校...'}}</view>
 							<!-- 模糊效果 -->
 						</view>
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
@@ -163,7 +163,7 @@
 									</view>
 								</view>
 							</view>
-							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">升级专业版查看更多学校...</view>
+							<view class="more-school" v-if="permissions !== '2'" @click="upgrade">{{platform == 'ios' ? '根据相关规定ios不支持会员功能购买！' : '升级专业版查看更多学校...'}}</view>
 						</view>
 						<view class="school-item2" v-else>没有可以匹配的学校哦~</view>
 					</view>
@@ -207,11 +207,16 @@
 				idArr: [],
 				schoolTimeList: [],
 				// 保存选中学校信息
-				savePostData: []
+				savePostData: [],
+				platform: ''
 
 			};
 		},
 		onLoad() {
+			
+			if(uni.getSystemInfoSync().platform == 'iso') {
+				this.platform = 'ios'
+			}
 			// 查看用户身份0普通，1会员，2专业会员
 			this.permissions = uni.getStorageSync('huiyuan').type + ''
 			/* this.permissions = '1'; */
@@ -283,6 +288,9 @@
 			},
 			// 升级
 			upgrade() {
+				if(this.platform == 'ios') {
+					return
+				}
 				uni.redirectTo({
 					url: '../../../pages/huiyuanzhongxin/huiyuanzhongxin?backto=xiaokao'
 				});
