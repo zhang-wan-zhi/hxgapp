@@ -6,7 +6,10 @@
 // let urls="http://192.168.3.247:8091"
 
 //线上地址
-let urls = "https://www.qzys.art/ruoyi-admin";
+let urls = "https://www.qzys.art/prod-api";
+
+// 小手冰凉
+// let urls = "http://192.168.3.82:8091"
 
 // 垃圾张泽森的接口
 /* let urls="http://192.168.3.215:8091"; */
@@ -866,6 +869,75 @@ export function getHistoryForUser(data) {
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: urls + '/hxg/askLuqu/getHistoryForUser',
+			method: 'POST',
+			contentType: 'application/json;charset=UTF-8',
+			data: data,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 查简章
+export function getJianZhang() {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/system/rules/list',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 看质询
+export function getzhixun() {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/system/consult/list',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// 获取题目
+export function getquestion() {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/system/topic/wx/list',
+			method: 'GET',
+			contentType: 'application/json;charset=UTF-8',
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			},
+		})
+	})
+}
+
+// /system/topic/log
+export function postQuestion(data) {
+	return new Promise((resolve, reject) => {
+		uni.request({
+			url: urls + '/system/topic/log',
 			method: 'POST',
 			contentType: 'application/json;charset=UTF-8',
 			data: data,

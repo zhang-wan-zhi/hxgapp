@@ -122,8 +122,9 @@ export default {
 		// 储存会员信息
 		getMemberInfo() {
 			// 储存会员信息
+			console.log('会员嘻嘻嘻嘻嘻嘻嘻嘻');
 			getMemberInfo().then(res => {
-				console.log(res);
+				console.log('会员嘻嘻嘻嘻嘻嘻嘻嘻',res);
 				const type = res.data.prep2;
 				this.status=type;
 				const deadline1 = res.data.toTime.slice(0, 10);

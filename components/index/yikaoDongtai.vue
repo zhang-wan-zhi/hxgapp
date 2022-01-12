@@ -12,7 +12,7 @@
 								</view>
 							</view>
 							<view class="content_content1_right">
-								<image src="../../static/img/yikaodongtai_img1.png"></image>
+								<!-- <image src="../../static/img/yikaodongtai_img1.png"></image> -->
 							</view>
 						</view>
 					</view>
@@ -28,7 +28,7 @@
 								</view>
 							</view>
 							<view class="content_content1_right">
-								<image src="../../static/img/yikaodongtai_img2.png"></image>
+								<!-- <image src="../../static/img/yikaodongtai_img2.png"></image> -->
 							</view>
 						</view>
 					</view>
@@ -44,7 +44,7 @@
 								</view>
 							</view>
 							<view class="content_content1_right">
-								<image src="../../static/img/yikaodongtai_img3.png"></image>
+								<!-- <image src="../../static/img/yikaodongtai_img3.png"></image> -->
 							</view>
 						</view>
 					</view>
@@ -60,7 +60,7 @@
 								</view>
 							</view>
 							<view class="content_content1_right">
-								<image src="../../static/img/yikaodongtai_img4.png"></image>
+								<!-- <image src="../../static/img/yikaodongtai_img4.png"></image> -->
 							</view>
 						</view>
 					</view>

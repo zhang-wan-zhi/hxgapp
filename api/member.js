@@ -1,4 +1,4 @@
-let urls = "https://www.qzys.art/ruoyi-admin";
+let urls = "https://www.qzys.art/prod-api";
 
 
 

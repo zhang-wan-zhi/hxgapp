@@ -18,7 +18,7 @@ export function getTest(){
 }
 
 
-let baseUrl = "https://www.qzys.art/ruoyi-admin";
+let baseUrl = "https://www.qzys.art/prod-api";
 // 封装接口
 export function myRequest(option){
 	return new Promise((resolve,reject)=>{

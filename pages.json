@@ -47,7 +47,7 @@
 				// "navigationStyle":"custom"
 			}
 		},
-		
+
 
 		{
 			"path": "pages/wenxuexi/wenxuexi",
@@ -79,7 +79,7 @@
 			}
 
 		},
-		 {
+		{
 			"path": "pages/wenluqu_yucebaogao/wenluqu_yucebaogao",
 			"style": {
 				"navigationBarTitleText": "预测报告",
@@ -175,7 +175,7 @@
 				}
 			}
 
-		},  {
+		}, {
 			"path": "pages/huiyuanzhongxin/huiyuanzhongxin",
 			"style": {
 				"navigationBarTitleText": "会员中心",
@@ -211,28 +211,51 @@
 
 		}
 
+		, {
+			"path": "pages/wenluqunew/wenluqunew",
+			"style": {
+				"navigationBarTitleText": "问录取",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ED5C4D"
+			}
+
+		},
+		{
+			"path": "pages/ceping/ceping",
+			"style": {
+				"navigationBarTitleText": "测评",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ED5C4D"
+			}
+
+		}, {
+			"path": "pages/wenjianzhang/wenjianzhang",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
 	    ,{
-            "path" : "pages/wenluqunew/wenluqunew",
+            "path" : "pages/chazhixun/chazhixun",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "问录取",
-                "enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ED5C4D"
+                "navigationBarTitleText": "查质询",
+                "enablePullDownRefresh": false
             }
             
-        },
-		{
-		    "path" : "pages/ceping/ceping",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "测评",
-		        "enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ED5C4D"
-		    }
-		    
-		}
+        }
+        ,{
+            "path" : "pages/news_list/news_list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "myPackageA",
@@ -265,74 +288,62 @@
 					"navigationBarBackgroundColor": "#ED5C4D"
 				}
 
+			}, {
+				"path": "pages/guanzhuyuanxiao/guanzhuyuanxiao",
+				"style": {
+					"navigationBarTitleText": "关注院校",
+					"enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ED5C4D"
+				}
+
+			}, {
+				"path": "pages/wengailv/wengailv",
+				"style": {
+					"navigationBarTitleText": "问概率",
+					"enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ED5C4D"
+				}
+
+			}, {
+				"path": "pages/wengailvbaogao/wengailvbaogao",
+				"style": {
+					"navigationBarTitleText": "问录取报告",
+					"enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ED5C4D"
+				}
+
+			}, {
+				"path": "pages/wenluqu_baokao/wenluqu_baokao",
+				"style": {
+					"navigationBarTitleText": "问报考",
+					"enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ED5C4D"
+				}
+
+			}, {
+				"path": "pages/wenbaokao_baogao/wenbaokao_baogao",
+				"style": {
+					"navigationBarTitleText": "问报考报告",
+					"enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ED5C4D"
+				}
+
+			}, {
+				"path": "pages/wenlvqu_history/wenlvqu_history",
+				"style": {
+					"navigationBarTitleText": "历史记录",
+					"enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ED5C4D"
+				}
+
 			}
-		    ,{
-                    "path" : "pages/guanzhuyuanxiao/guanzhuyuanxiao",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "关注院校",
-                    "enablePullDownRefresh": false,
-                    "navigationBarTextStyle": "white",
-                    "navigationBarBackgroundColor": "#ED5C4D"
-                }
-                
-                }
-                ,{
-                    "path" : "pages/wengailv/wengailv",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "问概率",
-                    "enablePullDownRefresh": false,
-                    "navigationBarTextStyle": "white",
-                    "navigationBarBackgroundColor": "#ED5C4D"
-                }
-                
-                }
-                ,{
-                    "path" : "pages/wengailvbaogao/wengailvbaogao",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "问录取报告",
-                    "enablePullDownRefresh": false,
-                    "navigationBarTextStyle": "white",
-                    "navigationBarBackgroundColor": "#ED5C4D"
-                }
-                
-                }
-                ,{
-                    "path" : "pages/wenluqu_baokao/wenluqu_baokao",
-                    "style" :                                                                                    
-                {
-                   "navigationBarTitleText": "问报考",
-                   "enablePullDownRefresh": false,
-                   "navigationBarTextStyle": "white",
-                   "navigationBarBackgroundColor": "#ED5C4D"
-                }
-                
-                }
-                ,{
-                    "path" : "pages/wenbaokao_baogao/wenbaokao_baogao",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "问报考报告",
-                    "enablePullDownRefresh": false,
-                    "navigationBarTextStyle": "white",
-                    "navigationBarBackgroundColor": "#ED5C4D"
-                }
-                
-                }
-                ,{
-                    "path" : "pages/wenlvqu_history/wenlvqu_history",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "历史记录",
-                    "enablePullDownRefresh": false,
-                    "navigationBarTextStyle": "white",
-                    "navigationBarBackgroundColor": "#ED5C4D"
-                }
-                
-                }
-            ]
+		]
 	}],
 	"tabBar": {
 		"color": "#7A7E83",
@@ -345,14 +356,26 @@
 				"iconPath": "./static/img/tab/shouye2.png",
 				"text": "首页"
 			},
-
-			
 			{
-			    "pagePath": "pages/ceping/ceping",
-			    "selectedIconPath": "./static/img/tab/ceping1.png",
-			    "iconPath": "./static/img/tab/ceping2.png",
-			    "text": "测评"
-			    
+				"pagePath": "pages/chazhixun/chazhixun",
+				"selectedIconPath": "./static/img/tab/zx2.png",
+				"iconPath": "./static/img/tab/zx1.png",
+				"text": "资讯"
+			},
+			{
+				"pagePath": "pages/wenjianzhang/wenjianzhang",
+				"selectedIconPath": "./static/img/tab/jz2.png",
+				"iconPath": "./static/img/tab/jz1.png",
+				"text": "简章"
+			},
+
+
+			{
+				"pagePath": "pages/ceping/ceping",
+				"selectedIconPath": "./static/img/tab/ceping1.png",
+				"iconPath": "./static/img/tab/ceping2.png",
+				"text": "测评"
+
 			},
 			{
 				"pagePath": "pages/gerenzhongxin/gerenzhongxin",

@@ -29,32 +29,66 @@
 		<view class="test-box">
 			<!-- <text>{{'mmmmmmmmmzz'+username}}</text>
 			<button type="default" @click="vuex">vuex</button> -->
-			<view class="online" @click="xinggepinggu">
-				<view class="test-logo-one">
-					<image src="../../static/img/firstIcon/online-test.png" mode="aspectFit"></image>
+
+			<view class="lang1">
+				<view class="online" @click="chazixun">
+					<view class="test-logo-one">
+						<image src="../../static/img/firstIcon/icon1.png" mode="aspectFit"></image>
+					</view>
+					<view class="test-title">
+						<view class="test-title-top" style="color: #FBBE4D;">看资讯</view>
+						<view class="test-title-bottom">答题评测</view>
+					</view>
 				</view>
-				<view class="test-title">
-					<view class="test-title-top" style="color: #FBBE4D;">问学习</view>
-					<view class="test-title-bottom">答题评测</view>
+				<view class="online" @click="handJianZhang">
+					<view class="test-logo-one">
+						<image src="../../static/img/firstIcon/icon3.png" mode="aspectFit"></image>
+					</view>
+					<view class="test-title">
+						<view class="test-title-top">查简章</view>
+						<view class="test-title-bottom">专业分析</view>
+					</view>
 				</view>
+				<view class="online" @click="handQuestion">
+					<view class="test-logo-one">
+						<image src="../../static/img/firstIcon/icon2.png" mode="aspectFit"></image>
+					</view>
+					<view class="test-title">
+						<view class="test-title-top" style="color: #8585FF;">练真题</view>
+						<view class="test-title-bottom">专业分析</view>
+					</view>
+				</view>
+
 			</view>
-			<view class="online" @click="handExamination">
-				<view class="test-logo-one">
-					<image src="../../static/img/firstIcon/Group1.png" mode="aspectFit"></image>
+			<view class="lang1">
+				<view class="online" @click="xinggepinggu">
+					<view class="test-logo-one">
+						<image src="../../static/img/firstIcon/online-test.png" mode="aspectFit"></image>
+					</view>
+					<view class="test-title">
+						<view class="test-title-top" style="color: #FBBE4D;">测适合</view>
+						<view class="test-title-bottom">答题评测</view>
+					</view>
 				</view>
-				<view class="test-title">
-					<view class="test-title-top">问校考</view>
-					<view class="test-title-bottom">专业分析</view>
+				<view class="online" @click="handExamination">
+					<view class="test-logo-one">
+						<image src="../../static/img/firstIcon/Group1.png" mode="aspectFit"></image>
+					</view>
+					<view class="test-title">
+						<view class="test-title-top">问校考</view>
+						<view class="test-title-bottom">专业分析</view>
+					</view>
 				</view>
-			</view>
-			<view class="online" @click="handEnroll">
-				<view class="test-logo-one">
-					<image src="../../static/img/firstIcon/Group14.png" mode="aspectFit"></image>
+				<view class="online" @click="handEnroll">
+					<view class="test-logo-one">
+						<image src="../../static/img/firstIcon/Group14.png" mode="aspectFit"></image>
+					</view>
+					<view class="test-title">
+						<view class="test-title-top" style="color: #8585FF;">问录取</view>
+						<view class="test-title-bottom">专业分析</view>
+					</view>
 				</view>
-				<view class="test-title">
-					<view class="test-title-top" style="color: #8585FF;">问录取</view>
-					<view class="test-title-bottom">专业分析</view>
-				</view>
+
 			</view>
 
 			<!-- <button class="to-service" open-type="contact">
@@ -97,19 +131,19 @@
 
 			</view>
 			<!-- <view class="content_title" v-if="isSearch">
-        <view class="dct-title" @click="yikaoDongtai2" :class="isactive ? 'isActive' : ''">
-          <image src="../../static/img/firstIcon/dongtai.png"></image>
-          <text>动态</text>
-        </view> -->
-			<!-- <view class="dct-title divider-line" @click="yikaoKecheng" :class="isactive1 ? 'isActive' : ''">
-          <image src="../../static/img/firstIcon/class.png" mode=""></image>
-          <text>视频</text>
-        </view> -->
-			<!-- <view class="dct-title" @click="yikaiTiku" :class="isactive2 ? 'isActive' : ''">
-          <image src="../../static/img/firstIcon/question.png"></image>
-          <text>测试</text>
-        </view> -->
-			<!-- </view> -->
+				<view class="dct-title" @click="yikaoDongtai2" :class="isactive ? 'isActive' : ''">
+					<image src="../../static/img/firstIcon/dongtai.png"></image>
+					<text>动态</text>
+				</view>
+				<view class="dct-title divider-line" @click="yikaoKecheng" :class="isactive1 ? 'isActive' : ''">
+					<image src="../../static/img/firstIcon/class.png" mode=""></image>
+					<text>视频</text>
+				</view>
+				<view class="dct-title" @click="yikaiTiku" :class="isactive2 ? 'isActive' : ''">
+					<image src="../../static/img/firstIcon/question.png"></image>
+					<text>测试</text>
+				</view>
+			</view> -->
 			<!-- 艺考动态列表 -->
 			<view class="dynamic-contents" v-show="yikaoDongtaiStatus">
 				<view v-for="(item, index) in yikaoDongtaiList" :key="index">
@@ -232,6 +266,7 @@
 				// 关注院校
 				schoolTimeList: [],
 				more: 'more',
+				huiyuanInfo: null
 			};
 		},
 		computed: {
@@ -240,7 +275,7 @@
 				let openid = uni.getStorageSync('openid');
 				getSaveSchool(openid).then(res => {
 					console.log('关注院校', res)
-					if(res.data.msg == null) {
+					if (res.data.msg == null) {
 						this.schoolTimeList = []
 						this.isLogin = false
 						return
@@ -260,7 +295,7 @@
 							this.isLogin = true
 						}
 					}
-				
+
 				})
 				return this.$store.state.schoolTimeState
 			}
@@ -280,10 +315,12 @@
 			this.dongtaiCurrentPage = 1;
 			// 获取关注学校
 			let openid = uni.getStorageSync('openid');
+			this.huiyuanInfo = uni.getStorageSync("huiyuan")
+			console.log('huiyuanssss',uni.getStorageSync("huiyuan"))
 			if (openid) {
 				getSaveSchool(openid).then(res => {
 					console.log('关注院校', res)
-					if(res.data.msg == null) {
+					if (res.data.msg == null) {
 						this.schoolTimeList = []
 						this.isLogin = false
 						return
@@ -297,13 +334,13 @@
 							this.schoolTimeList = res.data.data;
 							let schoolListLength = res.data.data.length;
 							let nums = 4 - schoolListLength;
-							console.log('nums',nums)
+							console.log('nums', nums)
 							for (let i = 0; i < nums; i++) {
 								this.schoolTimeList.push(res.data.data[0])
-								console.log('小于4循环'+i,this.schoolTimeList)
+								console.log('小于4循环' + i, this.schoolTimeList)
 							}
 							this.isLogin = true
-							console.log('小于4',this.schoolTimeList)
+							console.log('小于4', this.schoolTimeList)
 						}
 					}
 
@@ -388,12 +425,67 @@
 					});
 					return
 				}
-				uni.navigateTo({
-					url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
-				});
+				if(this.huiyuanInfo.type == '0') {
+					uni.showToast({
+					    title: '升级会员查看！',
+					    duration: 2000
+					});
+				} else {
+					uni.navigateTo({
+						url: '../../myPackageA/pages/xinggepinggu2/xinggepinggu2?page=2'
+					});
+				}
+				
 			},
 			// 问录取
 			handEnroll() {
+				console.log('111',this.huiyuanInfo.type)
+				let openid = uni.getStorageSync("openid");
+				if (!openid) {
+					uni.navigateTo({
+						url: "../index/index",
+					});
+					return
+				}
+				if(this.huiyuanInfo.type == '0') {
+					uni.showToast({
+					    title: '升级会员查看！',
+					    duration: 2000
+					});
+				} else {
+					uni.navigateTo({
+						url: '../wenluqunew/wenluqunew'
+					});
+				}
+				
+			},
+			handQuestion() {
+				let openid = uni.getStorageSync("openid");
+				if (!openid) {
+					uni.navigateTo({
+						url: "../index/index",
+					});
+					return
+				}
+				if(this.huiyuanInfo.type == '0') {
+					uni.showToast({
+					    title: '升级会员查看！',
+					    duration: 2000
+					});
+				} else {
+					uni.navigateTo({
+						url: '../question/question'
+					});
+				}
+				
+			},
+			chazixun() {
+				console.log('11111123')
+				uni.navigateTo({
+					url: '../news_list/news_list?comeby=1'
+				});
+			},
+			handJianZhang() {
 				let openid = uni.getStorageSync("openid");
 				if (!openid) {
 					uni.navigateTo({
@@ -402,7 +494,7 @@
 					return
 				}
 				uni.navigateTo({
-					url: '../wenluqunew/wenluqunew'
+					url: '../news_list/news_list?comeby=2 '
 				});
 			},
 			// 轮播图跳转
@@ -503,10 +595,18 @@
 						url: "../index/index",
 					});
 				} else {
-					uni.navigateTo({
-						url: "../../myPackageA/pages/xinggepinggu2/xinggepinggu2",
-						/* url: '../wenxuexiBaogao/wenxuexiBaogao' */
-					});
+					if(this.huiyuanInfo.type == '0') {
+						uni.showToast({
+						    title: '升级会员查看！',
+						    duration: 2000
+						});
+					} else {
+						uni.navigateTo({
+							url: "../../myPackageA/pages/xinggepinggu2/xinggepinggu2",
+							/* url: '../wenxuexiBaogao/wenxuexiBaogao' */
+						});
+					}
+					
 				}
 			},
 		},
@@ -569,12 +669,17 @@
 
 	// 测评模块
 	.test-box {
-		display: flex;
-		width: 100%;
-		justify-content: center;
-		align-items: center;
+
 		margin: 20rpx 0rpx;
 		letter-spacing: 2rpx;
+
+		.lang1 {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20rpx;
+		}
 	}
 
 	.to-service {
@@ -849,7 +954,7 @@
 		margin-bottom: 28rpx;
 		border-radius: 10rpx;
 		overflow: hidden;
-		background-image: url(https://hxg.fastrhino.com.cn/165853x.png);
+		background-image: url(http://sugee.oss-cn-beijing.aliyuncs.com/suge/2022/01/12/16:02:35/20220112160211.png);
 
 		.tiem-icon {
 			width: 60rpx;

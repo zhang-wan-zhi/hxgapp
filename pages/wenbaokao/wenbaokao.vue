@@ -3,7 +3,7 @@
 	<view class="wenluqu_submited" :style="{height:phoneHeight+'px;'}">
 		
 		<view class="content_top">
-			<view class="user-img"><image src="../../static/img/sisuan.jpg"></image></view>
+			<!-- <view class="user-img"><image src="../../static/img/sisuan.jpg"></image></view> -->
 			<view class="university">
 				<text>报考推荐</text>
 			</view>
@@ -26,7 +26,7 @@
 						{{major1}}
 					</view>
 					<view class="portrait">
-						<image src="../../static/img/zhongguomeishu.jpg" mode=""></image>
+						<!-- <image src="../../static/img/zhongguomeishu.jpg" mode=""></image> -->
 					</view>
 					<view class="university">
 						{{university2}}
@@ -35,7 +35,7 @@
 						{{major2}}
 					</view>
 					<view class="portrait">
-						<image src="../../static/img/zhongyangmeishu.jpg" mode=""></image>
+						<!-- <image src="../../static/img/zhongyangmeishu.jpg" mode=""></image> -->
 					</view>
 					<view class="university">
 						{{university3}}
